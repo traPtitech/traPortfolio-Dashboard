@@ -39,6 +39,6 @@ export default defineComponent({
   display: grid;
   grid-template-columns: 260px 1fr;
   grid-template-rows: min-content 1fr;
-  height: 100vh;
+  height: 100%;
 }
 </style>
