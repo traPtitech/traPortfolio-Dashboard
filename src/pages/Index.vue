@@ -1,13 +1,18 @@
 <template>
-  <div>Index</div>
+  <page-container>
+    <div>Index</div>
+  </page-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import PageContainer from '../components/Layout/PageContainer.vue'
 
 export default defineComponent({
   name: 'Index',
-  components: {},
+  components: {
+    PageContainer
+  },
   setup() {
     return {}
   }
