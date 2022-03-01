@@ -1,6 +1,6 @@
 <template>
-  <page-header />
   <div :class="$style.container">
+    <page-header :class="$style.header" />
     <page-sidebar />
     <Suspense>
       <template #default>
@@ -30,13 +30,19 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
+.header {
+  grid-row: 1;
+  grid-column: 1 / 3;
+}
 .main {
   flex: 1;
   padding-bottom: 1rem;
 }
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 5rem 1fr;
   align-items: stretch;
-  height: calc(100vh - 5rem);
+  height: 100vh;
 }
 </style>
