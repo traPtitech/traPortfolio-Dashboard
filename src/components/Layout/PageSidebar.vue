@@ -17,7 +17,7 @@ export default defineComponent({
 
 <style lang="scss" module>
 .container {
-  background-color: $color-secondary;
+  background-color: $color-primary-text;
   width: 260px;
 }
 </style>
