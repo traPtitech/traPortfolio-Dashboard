@@ -1,12 +1,12 @@
 <template>
-  <div>Events</div>
+  <div>ContestCreate</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Events',
+  name: 'ContestCreate',
   components: {},
   setup() {
     return {}

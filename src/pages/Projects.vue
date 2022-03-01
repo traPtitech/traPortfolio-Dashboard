@@ -1,41 +1,15 @@
 <template>
-  <page-container>
-    <page-title :class="$style.title">Project一覧</page-title>
-    <project-list v-if="fetcherState === 'loaded'" :projects="projects" />
-    <p v-else>{{ fetcherState }}</p>
-  </page-container>
+  <div>Projects</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from '/@/store'
-import useFetcher from '/@/use/fetcher'
-import PageContainer from '/@/components/Layout/PageContainer.vue'
-import PageTitle from '/@/components/Layout/PageTitle.vue'
-import ProjectList from '/@/components/Projects/ProjectList.vue'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'Projects',
-  components: {
-    PageContainer,
-    PageTitle,
-    ProjectList
-  },
+  components: {},
   setup() {
-    const store = useStore()
-
-    const projects = computed(() => store.state.projects)
-    const { fetcherState } = useFetcher(projects, () =>
-      store.dispatch.fetchProjects()
-    )
-
-    return { projects, fetcherState }
+    return {}
   }
 })
 </script>
-
-<style lang="scss" module>
-.title {
-  margin: 4rem 0;
-}
-</style>
