@@ -4,7 +4,7 @@
     <page-sidebar />
     <Suspense>
       <template #default>
-        <router-view :class="$style.main" />
+        <router-view />
       </template>
       <template #fallback>
         <loading />
@@ -34,15 +34,11 @@ export default defineComponent({
   grid-row: 1;
   grid-column: 1 / 3;
 }
-.main {
-  flex: 1;
-  padding-bottom: 1rem;
-}
+
 .container {
   display: grid;
   grid-template-columns: 260px 1fr;
-  grid-template-rows: 5rem 1fr;
-  align-items: stretch;
+  grid-template-rows: min-content 1fr;
   height: 100vh;
 }
 </style>
