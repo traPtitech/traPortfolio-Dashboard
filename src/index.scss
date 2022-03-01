@@ -1,0 +1,16 @@
+@import '../node_modules/ress/ress.css';
+
+body {
+  color: $color-text;
+  background: $color-background;
+}
+
+body,
+#app {
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
