@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <page-header :class="$style.header" />
-    <page-sidebar />
+    <navigation-bar />
     <Suspense>
       <template #default>
         <router-view />
@@ -15,8 +15,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import NavigationBar from './components/NavigationBar/NavigationBar.vue'
 import PageHeader from '/@/components/Layout/PageHeader.vue'
-import PageSidebar from '/@/components/Layout/PageSidebar.vue'
 import Loading from '/@/pages/Loading.vue'
 
 export default defineComponent({
@@ -24,7 +24,7 @@ export default defineComponent({
   components: {
     PageHeader,
     Loading,
-    PageSidebar
+    NavigationBar
   }
 })
 </script>
