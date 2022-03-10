@@ -16,6 +16,6 @@ export default defineComponent({
 
 <style lang="scss" module>
 .container {
-  background-color: #eff0f0;
+  background-color: $color-background-dim;
 }
 </style>

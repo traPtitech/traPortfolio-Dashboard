@@ -1,7 +1,7 @@
 <template>
   <router-link :to="route" :class="$style.link">
-    <li :class="$style.container" :selected="isActive">
-      <div :class="$style.pin" :selected="isActive"></div>
+    <li :class="$style.container" :data-is-selected="isActive">
+      <div :class="$style.pin" :data-selected="isActive"></div>
       <icon :class="$style.icon" :name="icon" :size="30" />
       <div>{{ name }}</div>
     </li>
@@ -49,7 +49,7 @@ export default defineComponent({
   cursor: pointer;
   color: $color-secondary;
 
-  &[selected='true'] {
+  &[data-is-selected='true'] {
     color: $color-primary;
     font-weight: bold;
   }
@@ -60,7 +60,7 @@ export default defineComponent({
   height: 30px;
   background-color: transparent;
 
-  &[selected='true'] {
+  &[data-is-selected='true'] {
     color: $color-primary;
     font-weight: bold;
     background-color: $color-primary;
