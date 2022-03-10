@@ -1,7 +1,7 @@
 <template>
   <router-link :to="route" :class="$style.link">
     <li :class="$style.container" :data-is-selected="isActive">
-      <div :class="$style.pin" :data-selected="isActive"></div>
+      <div :class="$style.pin" :data-is-selected="isActive"></div>
       <icon :class="$style.icon" :name="icon" :size="30" />
       <div>{{ name }}</div>
     </li>
