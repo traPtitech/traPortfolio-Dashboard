@@ -4,7 +4,7 @@
       <icon :class="$style.icon" :name="'mdi:apps'" :size="36" />
       <h1 :class="$style.title">Top</h1>
     </div>
-    <p :class="$style.detail">ポートフォリの設定を変更します</p>
+    <p :class="$style.detail">ポートフォリオの設定を変更します</p>
   </div>
 </template>
 
