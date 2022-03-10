@@ -50,7 +50,7 @@ const pages: Page[] = [
 ]
 
 export default defineComponent({
-  name: 'PageGrid',
+  name: 'PageInfoPanels',
   components: { PageInfoPanel },
   setup() {
     return { pages }

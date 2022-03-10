@@ -41,6 +41,15 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
+.outer {
+  width: 100%;
+  @media (min-width: 52rem) {
+    width: 50%;
+    padding-right: 1rem;
+  }
+  margin-bottom: 1rem;
+}
+
 .link {
   display: block;
   text-decoration: none;
@@ -50,28 +59,31 @@ export default defineComponent({
   display: flex;
   align-items: center;
   border: 1px solid $color-primary-text;
+  border-radius: 6px;
   color: $color-secondary-text;
+
+  transition: 0.2s all ease-in-out;
+  &:hover {
+    border-color: $color-primary;
+    .icon {
+      color: $color-primary;
+    }
+  }
 }
 
 .icon {
   display: flex;
   color: $color-secondary;
+  margin: 0.75rem;
+  transition: 0.2s all ease-in-out;
 }
 
 .name {
   font-size: 1.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .detail {
   font-size: 0.875rem;
-}
-
-.outer {
-  width: 21rem;
-  padding-right: 1rem;
-  @media (min-width: 41rem) {
-    width: 50%;
-  }
-  margin-bottom: 1rem;
 }
 </style>
