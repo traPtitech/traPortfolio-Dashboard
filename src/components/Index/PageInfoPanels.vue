@@ -34,6 +34,6 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
-  max-width: 55rem;
+  gap: 1rem;
 }
 </style>

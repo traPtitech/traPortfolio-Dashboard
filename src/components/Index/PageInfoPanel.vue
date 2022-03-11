@@ -44,8 +44,6 @@ export default defineComponent({
 <style lang="scss" module>
 .outer {
   flex: 1 0 20rem;
-  padding-right: 1rem;
-  margin-bottom: 1rem;
 }
 
 .link {
