@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <div :class="$style.titleContainer">
-      <icon :class="$style.icon" :name="'mdi:apps'" :size="36" />
+      <icon :class="$style.icon" name="mdi:apps" :size="36" />
       <h1 :class="$style.title">Top</h1>
     </div>
     <p :class="$style.detail">ポートフォリオの設定を変更します</p>

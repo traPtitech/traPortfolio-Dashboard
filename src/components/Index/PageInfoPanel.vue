@@ -2,7 +2,7 @@
   <li :class="$style.outer">
     <router-link :to="path" :class="$style.link">
       <div :class="$style.container">
-        <icon :name="icon" :class="$style.icon" size="72" />
+        <icon :name="icon" :class="$style.icon" :size="72" />
         <div>
           <h2 :class="$style.name">{{ name }}</h2>
           <p :class="$style.detail">{{ detail }}</p>
@@ -42,11 +42,8 @@ export default defineComponent({
 
 <style lang="scss" module>
 .outer {
-  width: 100%;
-  @media (min-width: 52rem) {
-    width: 50%;
-    padding-right: 1rem;
-  }
+  flex: 1 0 20rem;
+  padding-right: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -56,18 +53,14 @@ export default defineComponent({
 }
 
 .container {
-  display: flex;
   align-items: center;
   border: 1px solid $color-primary-text;
   border-radius: 6px;
   color: $color-secondary-text;
-
+  display: flex;
   transition: 0.2s all ease-in-out;
   &:hover {
     border-color: $color-primary;
-    .icon {
-      color: $color-primary;
-    }
   }
 }
 
@@ -76,6 +69,9 @@ export default defineComponent({
   color: $color-secondary;
   margin: 0.75rem;
   transition: 0.2s all ease-in-out;
+  .container:hover & {
+    color: $color-primary;
+  }
 }
 
 .name {

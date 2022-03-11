@@ -1,5 +1,5 @@
 <template>
-  <ol :class="$style.list">
+  <ul :class="$style.list">
     <page-info-panel
       v-for="page in pages"
       :key="page.name"
@@ -8,7 +8,7 @@
       :icon="page.icon"
       :path="page.path"
     />
-  </ol>
+  </ul>
 </template>
 
 <script lang="ts">
@@ -63,5 +63,6 @@ export default defineComponent({
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
+  max-width: 55rem;
 }
 </style>
