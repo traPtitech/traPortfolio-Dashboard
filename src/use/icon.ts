@@ -1,7 +1,7 @@
 import { computed, ComputedRef } from 'vue'
 
-const useIcon = (name: string): ComputedRef<string | undefined> => {
-  const icon: ComputedRef<string | undefined> = computed(() => {
+const useIcon = (name: string): ComputedRef<string> => {
+  const icon: ComputedRef<string> = computed(() => {
     switch (name) {
       case 'Top':
         return 'mdi:apps'
@@ -13,6 +13,8 @@ const useIcon = (name: string): ComputedRef<string | undefined> => {
         return 'mdi:trophy-outline'
       case 'Projects':
         return 'mdi:clipboard-file-outline'
+      default:
+        return ''
     }
   })
   return icon

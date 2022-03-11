@@ -1,19 +1,22 @@
 <template>
   <li :class="$style.outer">
-    <router-link :to="path" :class="$style.link">
+    <router-link :to="route" :class="$style.link">
       <div :class="$style.container">
         <icon :name="icon" :class="$style.icon" :size="72" />
         <div>
           <h2 :class="$style.name">{{ name }}</h2>
-          <p :class="$style.detail">{{ detail }}</p>
+          <p :class="$style.detail">{{ description }}</p>
         </div>
       </div>
     </router-link>
   </li>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, toRef } from 'vue'
+import { useLink } from 'vue-router'
 import Icon from '../UI/Icon.vue'
+import useDescription from '/@/use/description'
+import useIcon from '/@/use/icon'
 export default defineComponent({
   name: 'PageInfoPanel',
   components: {
@@ -24,18 +27,16 @@ export default defineComponent({
       type: String,
       required: true
     },
-    detail: {
-      type: String,
-      required: true
-    },
-    icon: {
-      type: String,
-      required: true
-    },
     path: {
       type: String,
       required: true
     }
+  },
+  setup(props) {
+    const icon = useIcon(props.name)
+    const description = useDescription(props.name)
+    const { route } = useLink({ to: toRef(props, 'path') })
+    return { icon, description, route }
   }
 })
 </script>

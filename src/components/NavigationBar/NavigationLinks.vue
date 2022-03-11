@@ -4,7 +4,6 @@
       v-for="route in routes"
       :key="route.name"
       :name="route.name"
-      :icon="route.icon"
       :path="route.path"
       :class="$style.item"
     />
@@ -15,26 +14,16 @@
 import { defineComponent } from 'vue'
 import NavigationLinksItem from './NavigationLinksItem.vue'
 
-interface Route {
-  name: string
-  icon: string
-  path: string
-}
-
 export default defineComponent({
   name: 'NavigationLinks',
   components: { NavigationLinksItem },
   setup() {
-    const routes: Route[] = [
-      { name: 'Top', icon: 'mdi:apps', path: '/' },
-      { name: 'Profile', icon: 'mdi:account-circle-outline', path: '/user' },
-      { name: 'Events', icon: 'mdi:calendar', path: '/events' },
-      { name: 'Contests', icon: 'mdi:trophy-outline', path: '/contests' },
-      {
-        name: 'Projects',
-        icon: 'mdi:clipboard-file-outline',
-        path: '/projects'
-      }
+    const routes = [
+      { name: 'Top', path: '/' },
+      { name: 'Profile', path: '/user' },
+      { name: 'Events', path: '/events' },
+      { name: 'Contests', path: '/contests' },
+      { name: 'Projects', path: '/projects' }
     ]
     return { routes }
   }

@@ -12,6 +12,7 @@
 import { defineComponent, toRef } from 'vue'
 import { useLink } from 'vue-router'
 import Icon from '../UI/Icon.vue'
+import useIcon from '/@/use/icon'
 
 export default defineComponent({
   name: 'NavigationLinksItem',
@@ -21,18 +22,15 @@ export default defineComponent({
       type: String,
       required: true
     },
-    icon: {
-      type: String,
-      required: true
-    },
     path: {
       type: String,
       required: true
     }
   },
   setup(props) {
+    const icon = useIcon(props.name)
     const { isActive, route } = useLink({ to: toRef(props, 'path') })
-    return { isActive, route }
+    return { icon, isActive, route }
   }
 })
 </script>
