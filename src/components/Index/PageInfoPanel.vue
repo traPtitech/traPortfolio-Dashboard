@@ -1,6 +1,6 @@
 <template>
   <li :class="$style.outer">
-    <router-link :to="route" :class="$style.link">
+    <router-link :to="path" :class="$style.link">
       <div :class="$style.container">
         <icon :name="icon" :class="$style.icon" :size="72" />
         <div>
@@ -12,8 +12,7 @@
   </li>
 </template>
 <script lang="ts">
-import { defineComponent, toRef } from 'vue'
-import { useLink } from 'vue-router'
+import { defineComponent } from 'vue'
 import Icon from '../UI/Icon.vue'
 import useDescription from '/@/use/description'
 import useIcon from '/@/use/icon'
@@ -35,8 +34,7 @@ export default defineComponent({
   setup(props) {
     const icon = useIcon(props.name)
     const description = useDescription(props.name)
-    const { route } = useLink({ to: toRef(props, 'path') })
-    return { icon, description, route }
+    return { icon, description }
   }
 })
 </script>
