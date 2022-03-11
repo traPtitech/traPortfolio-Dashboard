@@ -14,7 +14,7 @@ const useIcon = (name: string): ComputedRef<string> => {
       case 'Projects':
         return 'mdi:clipboard-file-outline'
       default:
-        return ''
+        return 'eos-icons:bubble-loading'
     }
   })
   return icon

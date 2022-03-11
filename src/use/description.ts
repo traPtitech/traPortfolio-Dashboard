@@ -14,7 +14,7 @@ const useDescription = (name: string): ComputedRef<string> => {
       case 'Projects':
         return 'プロジェクトの期間や説明文を編集します'
       default:
-        return ''
+        return 'Loading'
     }
   })
   return description
