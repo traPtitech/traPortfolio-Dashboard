@@ -12,18 +12,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PageInfoPanel from './PageInfoPanel.vue'
-
-const pages = [
-  { name: 'Profile', path: '/user' },
-  { name: 'Events', path: '/events' },
-  { name: 'Contests', path: '/contests' },
-  { name: 'Projects', path: '/projects' }
-]
+import { routes } from '/@/use/routeInfo'
 
 export default defineComponent({
   name: 'PageInfoPanels',
   components: { PageInfoPanel },
   setup() {
+    const pages = routes.filter(route => route.name != 'Top')
     return { pages }
   }
 })

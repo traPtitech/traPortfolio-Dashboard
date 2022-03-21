@@ -2,7 +2,7 @@
   <router-link :to="route" :class="$style.link">
     <li :class="$style.container" :data-is-selected="isActive">
       <div :class="$style.pin" :data-is-selected="isActive"></div>
-      <icon :class="$style.icon" :name="icon" :size="30" />
+      <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
       <div>{{ name }}</div>
     </li>
   </router-link>
@@ -12,7 +12,7 @@
 import { defineComponent, toRef } from 'vue'
 import { useLink } from 'vue-router'
 import Icon from '../UI/Icon.vue'
-import useIcon from '/@/use/icon'
+import useRouteInfo from '/@/use/routeInfo'
 
 export default defineComponent({
   name: 'NavigationLinksItem',
@@ -28,9 +28,9 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const icon = useIcon(props.name)
+    const routeInfo = useRouteInfo(toRef(props, 'name').value)
     const { isActive, route } = useLink({ to: toRef(props, 'path') })
-    return { icon, isActive, route }
+    return { routeInfo, isActive, route }
   }
 })
 </script>

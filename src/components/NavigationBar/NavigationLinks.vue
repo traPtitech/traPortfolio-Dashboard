@@ -13,18 +13,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import NavigationLinksItem from './NavigationLinksItem.vue'
+import { routes } from '/@/use/routeInfo'
 
 export default defineComponent({
   name: 'NavigationLinks',
   components: { NavigationLinksItem },
   setup() {
-    const routes = [
-      { name: 'Top', path: '/' },
-      { name: 'Profile', path: '/user' },
-      { name: 'Events', path: '/events' },
-      { name: 'Contests', path: '/contests' },
-      { name: 'Projects', path: '/projects' }
-    ]
     return { routes }
   }
 })
