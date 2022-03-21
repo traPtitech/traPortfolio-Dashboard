@@ -2,20 +2,19 @@
   <li :class="$style.outer">
     <router-link :to="path" :class="$style.link">
       <div :class="$style.container">
-        <icon :name="icon" :class="$style.icon" :size="72" />
+        <icon :name="routeInfo.icon" :class="$style.icon" :size="72" />
         <div>
           <h2 :class="$style.name">{{ name }}</h2>
-          <p :class="$style.detail">{{ description }}</p>
+          <p :class="$style.detail">{{ routeInfo.description }}</p>
         </div>
       </div>
     </router-link>
   </li>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, toRef } from 'vue'
 import Icon from '../UI/Icon.vue'
-import useDescription from '/@/use/description'
-import useIcon from '/@/use/icon'
+import useRouteInfo from '/@/use/routeInfo'
 export default defineComponent({
   name: 'PageInfoPanel',
   components: {
@@ -32,9 +31,8 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const icon = useIcon(props.name)
-    const description = useDescription(props.name)
-    return { icon, description }
+    const routeInfo = useRouteInfo(toRef(props, 'name').value)
+    return { routeInfo }
   }
 })
 </script>

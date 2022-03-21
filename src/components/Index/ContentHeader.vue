@@ -18,7 +18,6 @@ export default defineComponent({
     Icon
   }
 })
-Icon
 </script>
 
 <style lang="scss" module>
