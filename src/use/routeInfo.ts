@@ -40,11 +40,6 @@ export const routes: routeinfo[] = [
   }
 ]
 
-const useRouteInfo = (name: string): ComputedRef<routeinfo> => {
-  const message = computed(() => getMessage(name))
-  return message
-}
-
 const getMessage = (name: string): routeinfo => {
   for (const route of routes) {
     if (route.name === name) return route
@@ -56,6 +51,11 @@ const getMessage = (name: string): routeinfo => {
     icon: 'eos-icons:bubble-loading',
     description: 'Loading'
   }
+}
+
+const useRouteInfo = (name: string): ComputedRef<routeinfo> => {
+  const message = computed(() => getMessage(name))
+  return message
 }
 
 export default useRouteInfo
