@@ -28,7 +28,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const routeInfo = useRouteInfo(toRef(props, 'name').value)
+    const routeInfo = useRouteInfo(toRef(props, 'name'))
     const { isActive, route } = useLink({ to: toRef(props, 'path') })
     return { routeInfo, isActive, route }
   }

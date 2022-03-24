@@ -1,4 +1,4 @@
-import { computed, ComputedRef } from 'vue'
+import { computed, ComputedRef, Ref } from 'vue'
 
 interface routeinfo {
   name: string
@@ -53,8 +53,8 @@ const getMessage = (name: string): routeinfo => {
   }
 }
 
-const useRouteInfo = (name: string): ComputedRef<routeinfo> => {
-  const message = computed(() => getMessage(name))
+const useRouteInfo = (name: Ref<string>): ComputedRef<routeinfo> => {
+  const message = computed(() => getMessage(name.value))
   return message
 }
 

@@ -31,7 +31,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const routeInfo = useRouteInfo(toRef(props, 'name').value)
+    const routeInfo = useRouteInfo(toRef(props, 'name'))
     return { routeInfo }
   }
 })
