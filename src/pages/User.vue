@@ -6,6 +6,7 @@
     />
     <user-name :user-detail="userDetail" />
     <allow-real-name :user-detail="userDetail" />
+    <edit-self-introduction :user-detail="userDetail" />
   </page-container>
 </template>
 
@@ -17,10 +18,17 @@ import useRouteInfo from '../use/routeInfo'
 import UserName from '../components/User/UserName.vue'
 import apis, { UserDetail } from '../lib/apis'
 import AllowRealName from '../components/User/AllowRealName.vue'
+import EditSelfIntroduction from '../components/User/EditSelfIntroduction.vue'
 
 export default defineComponent({
   name: 'User',
-  components: { PageContainer, ContentHeader, UserName, AllowRealName },
+  components: {
+    PageContainer,
+    ContentHeader,
+    UserName,
+    AllowRealName,
+    EditSelfIntroduction
+  },
   setup() {
     const routeInfo = useRouteInfo(ref('Profile'))
     const userDetail = ref<UserDetail>()

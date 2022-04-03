@@ -1,8 +1,10 @@
 <template>
-  <h2 :class="$style.title">本名を許可する</h2>
-  <div :class="$style.container">
-    <p :class="$style.realName">{{ $props.userDetail?.realName }}</p>
-    <toggle v-model="state" />
+  <div :class="$style.margin">
+    <h2 :class="$style.title">本名を許可する</h2>
+    <div :class="$style.container">
+      <p :class="$style.realName">{{ $props.userDetail?.realName }}</p>
+      <toggle v-model="state" />
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -34,10 +36,15 @@ export default defineComponent({
 .realName {
   font-size: 1.25rem;
   margin-right: 2rem;
+  text-align: center;
 }
 
 .container {
   display: flex;
   align-items: center;
+}
+
+.margin {
+  margin-bottom: 2rem;
 }
 </style>
