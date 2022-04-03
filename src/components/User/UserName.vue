@@ -9,10 +9,16 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watchEffect } from 'vue'
-import apis, { UserDetail } from '/@/lib/apis'
+import { computed, defineComponent, PropType } from 'vue'
+import { UserDetail } from '/@/lib/apis'
 
 export default defineComponent({
+  props: {
+    userDetail: {
+      type: Object as PropType<UserDetail>,
+      default: undefined
+    }
+  },
   setup() {
     const iconSrc = computed(
       () =>
@@ -20,14 +26,7 @@ export default defineComponent({
           /*userDetail.value.name*/ 'sappi_red'
         }`
     )
-    const userDetail = ref<UserDetail>()
-    watchEffect(async () => {
-      // /users/me的なやつができると信じてる
-      userDetail.value = (
-        await apis.getUser('dc7c2fc7-e477-5b73-c9b0-5cb701488a86')
-      ).data
-    })
-    return { iconSrc, userDetail }
+    return { iconSrc }
   }
 })
 </script>
@@ -50,5 +49,6 @@ export default defineComponent({
 .container {
   display: flex;
   align-items: center;
+  margin-bottom: 2rem;
 }
 </style>
