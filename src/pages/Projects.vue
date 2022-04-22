@@ -1,15 +1,24 @@
 <template>
-  <div>Projects</div>
+  <page-container>
+    <content-header
+      :title="routeInfo.name"
+      :description="routeInfo.description"
+    />
+  </page-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import ContentHeader from '/@/components/UI/ContentHeader.vue'
+import PageContainer from '/@/components/Layout/PageContainer.vue'
+import useRouteInfo from '/@/use/routeInfo'
 
 export default defineComponent({
   name: 'Projects',
-  components: {},
+  components: { PageContainer, ContentHeader },
   setup() {
-    return {}
+    const routeInfo = useRouteInfo(ref('Projects'))
+    return { routeInfo }
   }
 })
 </script>
