@@ -24,5 +24,8 @@
         "src/*"
       ]
     }
+  },
+  "vueCompilerOptions": {
+    "experimentalDisableTemplateSupport": true
   }
 }
