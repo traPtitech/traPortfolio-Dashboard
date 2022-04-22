@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <div :class="$style.titleContainer">
-      <icon :class="$style.icon" name="mdi:apps" :size="36" />
+      <icon :class="$style.icon" :name="$props.icon" :size="36" />
       <h1 :class="$style.title">{{ $props.title }}</h1>
     </div>
     <p :class="$style.detail">{{ $props.description }}</p>
@@ -19,6 +19,10 @@ export default defineComponent({
   },
   props: {
     title: {
+      type: String,
+      required: true
+    },
+    icon: {
       type: String,
       required: true
     },
