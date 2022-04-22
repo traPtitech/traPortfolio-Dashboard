@@ -2,6 +2,7 @@
   <page-container>
     <content-header
       :title="routeInfo.name"
+      :icon="routeInfo.icon"
       :description="routeInfo.description"
     />
   </page-container>
