@@ -1,12 +1,13 @@
 <template>
   <div :class="$style.container">
     <icon :class="$style.icon" :name="$props.icon" :size="28" />
-    <input v-model="valueComputed" type="text" :placeholder="placeholder" />
+    <input v-model="inputValue" type="text" :placeholder="placeholder" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent } from 'vue'
+import { useModelValueSyncer } from '/@/use/vModel'
 import Icon from './Icon.vue'
 
 export default defineComponent({
@@ -26,15 +27,13 @@ export default defineComponent({
       default: ''
     }
   },
-  emits: ['update:modelValue'],
+  emits: {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    'update:modelValue': (_v: string) => true
+  },
   setup(props, { emit }) {
-    const valueComputed = computed({
-      get: () => props.modelValue,
-      set: (value: string) => {
-        emit('update:modelValue', value)
-      }
-    })
-    return { valueComputed }
+    const inputValue = useModelValueSyncer(props, emit)
+    return { inputValue }
   }
 })
 </script>
