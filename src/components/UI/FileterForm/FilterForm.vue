@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { useModelObjectSyncer } from '/@/use/vModel'
+import { useModelObjectSyncer } from '/@/use/modelSyncer'
 
 import { FilterData } from './filterData'
 import InputWithIcon from '../InputWithIcon.vue'

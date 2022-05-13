@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useModelValueSyncer } from '/@/use/vModel'
+import { useModelValueSyncer } from '/@/use/modelSyncer'
 import Icon from './Icon.vue'
 
 export default defineComponent({

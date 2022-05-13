@@ -1,3 +1,4 @@
+// ref: https://github.com/traPtitech/traQ_S-UI/blob/master/src/composables/useModelSyncer.ts
 import { computed, WritableComputedRef } from 'vue'
 
 export const useModelSyncer = <
