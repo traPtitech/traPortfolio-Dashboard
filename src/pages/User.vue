@@ -7,6 +7,7 @@
     <user-name :user-detail="userDetail" />
     <allow-real-name :user-detail="userDetail" />
     <edit-self-introduction :user-detail="userDetail" />
+    <account-setting :account="userDetail?.accounts[0]" />
   </page-container>
 </template>
 
@@ -19,6 +20,7 @@ import UserName from '../components/User/UserName.vue'
 import apis, { UserDetail } from '../lib/apis'
 import AllowRealName from '../components/User/AllowRealName.vue'
 import EditSelfIntroduction from '../components/User/EditSelfIntroduction.vue'
+import AccountSetting from '../components/User/AccountSetting.vue'
 
 export default defineComponent({
   name: 'User',
@@ -27,7 +29,8 @@ export default defineComponent({
     ContentHeader,
     UserName,
     AllowRealName,
-    EditSelfIntroduction
+    EditSelfIntroduction,
+    AccountSetting
   },
   setup() {
     const routeInfo = useRouteInfo(ref('Profile'))

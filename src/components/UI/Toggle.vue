@@ -13,13 +13,11 @@ export default defineComponent({
       type: Boolean
     }
   },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  emits: { 'update:modelValue': (_val: boolean) => true },
+  emits: { 'update:modelValue': (_val: boolean) => _val },
   setup(props, { emit }) {
     const toggle = () => {
       emit('update:modelValue', !props.modelValue)
     }
-
     return { toggle }
   }
 })
