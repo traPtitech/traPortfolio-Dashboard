@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.header" :data-is-open="isOpen" @click="open">
-    <icon :class="$style.icon" name="simple-icons:qiita" :size="30" />
-    <div :class="$style.name">Qiita</div>
+    <service-icon :class="$style.icon" :account-type="accountType" :size="30" />
+    <div :class="$style.name">{{ name }}</div>
   </div>
   <div v-if="isOpen">
     <account-setting
@@ -12,13 +12,13 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue'
+import { defineComponent, PropType, ref, computed } from 'vue'
 import { Account, AccountType } from '/@/lib/apis'
 import AccountSetting from './AccountSetting.vue'
-import Icon from '../UI/Icon.vue'
+import ServiceIcon from '../UI/ServiceIcon.vue'
 
 export default defineComponent({
-  components: { AccountSetting, Icon },
+  components: { AccountSetting, ServiceIcon },
   props: {
     accountType: {
       type: Number as PropType<AccountType>,
@@ -29,12 +29,34 @@ export default defineComponent({
       default: undefined
     }
   },
-  setup() {
+  setup(props) {
     const isOpen = ref<boolean>()
     const open = () => {
       isOpen.value = !isOpen.value
     }
-    return { isOpen, open }
+    const name = computed(() => {
+      switch (props.accountType) {
+        case AccountType.homepage:
+          return 'Home Page'
+        case AccountType.blog:
+          return 'Blog'
+        case AccountType.twitter:
+          return 'Twitter'
+        case AccountType.facebook:
+          return 'Facebook'
+        case AccountType.pixiv:
+          return 'pixiv'
+        case AccountType.github:
+          return 'Github'
+        case AccountType.qiita:
+          return 'Qiita'
+        case AccountType.atcoder:
+          return 'AtCoder'
+        case AccountType.soundcloud:
+          return 'SoundCloud'
+      }
+    })
+    return { isOpen, open, name }
   }
 })
 </script>
