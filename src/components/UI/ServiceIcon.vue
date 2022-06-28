@@ -1,6 +1,6 @@
 <template>
   <icon v-if="icon.type === 'icon'" :name="icon.name" :size="size" />
-  <img v-else-if="icon.type === 'img'" :src="icon.path" :class="styles" />
+  <img v-else-if="icon.type === 'img'" :src="icon.path" :style="styles" />
 </template>
 
 <script lang="ts">
