@@ -1,5 +1,5 @@
 <template>
-  <label :class="$style.label" @click="toggle">
+  <div :class="$style.label" @click="toggle">
     <icon
       v-show="modelValue"
       :class="$style.icon"
@@ -11,7 +11,7 @@
       name="mdi:checkbox-blank-outline"
     />
     <span>{{ label }}</span>
-  </label>
+  </div>
 </template>
 
 <script lang="ts">
@@ -51,6 +51,7 @@ export default defineComponent({
 }
 .label {
   display: flex;
+  cursor: pointer;
 }
 
 .icon {

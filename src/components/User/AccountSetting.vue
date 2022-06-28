@@ -1,19 +1,8 @@
 <template>
-  <div>
+  <div :class="$style.container">
     <external-link :class="$style.accountId">
       <p>@{{ account.id }}</p>
     </external-link>
-
-    <!-- <label for="prPermitted">
-      <input
-        id="prPermitted"
-        type="checkbox"
-        name="prPermitted"
-        :checked="account.prPermitted"
-      />
-      <span :class="$style.prPermitted">言及を許可する</span>
-    </label> -->
-
     <check-box v-model="state" label="言及を許可する" />
   </div>
 </template>
@@ -46,5 +35,9 @@ export default defineComponent({
 .prPermitted {
   margin-left: 3px;
   margin-bottom: 0.25rem;
+}
+.container {
+  border-bottom: 1px solid $color-background-dim;
+  padding-left: 2.5rem;
 }
 </style>
