@@ -8,6 +8,7 @@
     <allow-real-name :user-detail="userDetail" />
     <edit-self-introduction :user-detail="userDetail" />
     <accounts :accounts="userDetail?.accounts" />
+    <p>アカウントの追加</p>
   </page-container>
 </template>
 

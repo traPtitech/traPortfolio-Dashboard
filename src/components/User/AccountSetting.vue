@@ -3,7 +3,10 @@
     <external-link :class="$style.accountId">
       <p>@{{ account.id }}</p>
     </external-link>
-    <check-box v-model="state" label="言及を許可する" />
+    <div :class="$style.box">
+      <check-box v-model="state" label="言及を許可する" />
+      <p :class="$style.button">削除</p>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -39,5 +42,13 @@ export default defineComponent({
 .container {
   border-bottom: 1px solid $color-background-dim;
   padding-left: 2.5rem;
+}
+
+.box {
+  display: flex;
+}
+
+.button {
+  margin-left: auto;
 }
 </style>
