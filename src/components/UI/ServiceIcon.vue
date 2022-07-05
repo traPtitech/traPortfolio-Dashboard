@@ -14,7 +14,7 @@ export default defineComponent({
   components: { Icon },
   props: {
     accountType: {
-      type: Object as PropType<AccountType>,
+      type: Number as PropType<AccountType>,
       required: true
     },
     size: {

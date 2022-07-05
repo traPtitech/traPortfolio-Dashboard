@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="$style.margin">
     <h2 :class="$style.title">自己紹介</h2>
     <text-area
       v-model="text"
@@ -43,5 +43,8 @@ export default defineComponent({
   border-radius: 4px;
   padding: 8px 16px;
   resize: none;
+}
+.margin {
+  margin-bottom: 2rem;
 }
 </style>

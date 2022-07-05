@@ -2,23 +2,30 @@
   <div :class="$style.header" :data-is-open="isOpen" @click="open">
     <service-icon :class="$style.icon" :account-type="accountType" :size="30" />
     <div :class="$style.name">{{ name }}</div>
+    <div :class="$style.button">
+      <icon v-show="!isOpen" name="mdi:plus" />
+      <icon v-show="isOpen" name="mdi:minus" />
+    </div>
   </div>
-  <div v-if="isOpen">
-    <account-setting
-      v-for="account in accounts"
-      :key="account.id"
-      :account="account"
-    />
-  </div>
+  <transition name="slide-down" appear>
+    <div v-if="isOpen" :class="$style.demo">
+      <account-setting
+        v-for="account in accounts"
+        :key="account.id"
+        :account="account"
+      />
+    </div>
+  </transition>
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
 import { Account, AccountType } from '/@/lib/apis'
 import AccountSetting from './AccountSetting.vue'
 import ServiceIcon from '../UI/ServiceIcon.vue'
+import Icon from '../UI/Icon.vue'
 
 export default defineComponent({
-  components: { AccountSetting, ServiceIcon },
+  components: { AccountSetting, ServiceIcon, Icon },
   props: {
     accountType: {
       type: Number as PropType<AccountType>,
@@ -72,6 +79,7 @@ export default defineComponent({
   &[data-is-open='true'] {
     background-color: $color-background-dim;
   }
+  border-bottom: 1px solid $color-background-dim;
 }
 
 .name {
@@ -82,5 +90,17 @@ export default defineComponent({
   display: flex;
   margin-right: 0.5rem;
   margin-left: 0.25rem;
+}
+.button {
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+.demo {
+  &:global(.slide-down-enter-active),
+  &:global(.slide-down-leave-active) {
+    transition: all 0.1s ease-in-out;
+    height: 0;
+    opacity: 0;
+  }
 }
 </style>
