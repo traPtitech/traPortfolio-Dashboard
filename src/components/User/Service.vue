@@ -7,15 +7,15 @@
       <icon v-show="isOpen" name="mdi:minus" />
     </div>
   </div>
-  <transition name="slide-down" appear>
-    <div v-if="isOpen" :class="$style.demo">
-      <account-setting
-        v-for="account in accounts"
-        :key="account.id"
-        :account="account"
-      />
-    </div>
-  </transition>
+  <!-- <transition name="slide-down" appear> -->
+  <div v-if="isOpen" :class="$style.demo">
+    <account-setting
+      v-for="account in accounts"
+      :key="account.id"
+      :account="account"
+    />
+  </div>
+  <!-- </transition> -->
 </template>
 <script lang="ts">
 import { defineComponent, PropType, ref, computed } from 'vue'
@@ -95,12 +95,12 @@ export default defineComponent({
   margin-left: auto;
   margin-right: 0.5rem;
 }
-.demo {
-  &:global(.slide-down-enter-active),
-  &:global(.slide-down-leave-active) {
-    transition: all 0.1s ease-in-out;
-    height: 0;
-    opacity: 0;
-  }
-}
+// .demo {
+//   &:global(.slide-down-enter-active),
+//   &:global(.slide-down-leave-active) {
+//     transition: all 0.1s ease-in-out;
+//     height: 0;
+//     opacity: 0;
+//   }
+// }
 </style>
