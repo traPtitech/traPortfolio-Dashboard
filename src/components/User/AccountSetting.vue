@@ -5,7 +5,7 @@
     </external-link>
     <div :class="$style.box">
       <check-box v-model="state" label="言及を許可する" />
-      <p :class="$style.button">削除</p>
+      <normal-buttom color="caution" label="削除" :class="$style.button" />
     </div>
   </div>
 </template>
@@ -14,9 +14,10 @@ import { ref, defineComponent, PropType } from 'vue'
 import { Account } from '/@/lib/apis'
 import ExternalLink from '../UI/ExternalLink.vue'
 import CheckBox from '../UI/CheckBox.vue'
+import NormalButtom from '../UI/NormalButtom.vue'
 
 export default defineComponent({
-  components: { ExternalLink, CheckBox },
+  components: { ExternalLink, CheckBox, NormalButtom },
   props: {
     account: {
       type: Object as PropType<Account>,
@@ -42,6 +43,7 @@ export default defineComponent({
 .container {
   border-bottom: 1px solid $color-background-dim;
   padding-left: 2.5rem;
+  padding: 0.5rem 0;
 }
 
 .box {

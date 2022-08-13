@@ -76,10 +76,14 @@ export default defineComponent({
   text-decoration: none;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  transition: all 0.2s;
   &[data-is-open='true'] {
     background-color: $color-background-dim;
   }
   border-bottom: 1px solid $color-background-dim;
+  &:hover {
+    background-color: $color-background-dim;
+  }
 }
 
 .name {
