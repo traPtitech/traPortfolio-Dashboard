@@ -8,9 +8,6 @@
     <allow-real-name :user-detail="userDetail" />
     <edit-self-introduction :user-detail="userDetail" />
     <accounts :accounts="userDetail?.accounts" />
-    <NormalButtom color="primary" label="アカウント" :class="$style.button">
-      <Icon name="mdi:plus" :class="$style.icon" />
-    </NormalButtom>
   </page-container>
 </template>
 
@@ -24,8 +21,6 @@ import apis, { UserDetail } from '../lib/apis'
 import AllowRealName from '../components/User/AllowRealName.vue'
 import EditSelfIntroduction from '../components/User/EditSelfIntroduction.vue'
 import Accounts from '../components/User/Accounts.vue'
-import NormalButtom from '../components/UI/NormalButtom.vue'
-import Icon from '../components/UI/Icon.vue'
 
 export default defineComponent({
   name: 'User',
@@ -35,9 +30,7 @@ export default defineComponent({
     UserName,
     AllowRealName,
     EditSelfIntroduction,
-    Accounts,
-    NormalButtom,
-    Icon
+    Accounts
   },
   setup() {
     const routeInfo = useRouteInfo(ref('Profile'))
@@ -58,8 +51,5 @@ export default defineComponent({
 .icon {
   display: flex;
   align-items: center;
-}
-.button {
-  margin: 0 auto;
 }
 </style>

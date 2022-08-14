@@ -99,12 +99,13 @@ export default defineComponent({
   margin-left: auto;
   margin-right: 0.5rem;
 }
-// .demo {
-//   &:global(.slide-down-enter-active),
-//   &:global(.slide-down-leave-active) {
-//     transition: all 0.1s ease-in-out;
-//     height: 0;
-//     opacity: 0;
-//   }
-// }
+.demo {
+  // &:global(.slide-down-enter-active),
+  // &:global(.slide-down-leave-active) {
+  //   transition: all 0.1s ease-in-out;
+  //   height: 0;
+  //   opacity: 0;
+  // }
+  margin-left: 2rem;
+}
 </style>

@@ -1,7 +1,16 @@
 <template>
   <div :class="$style.margin">
-    <h2 :class="$style.title">アカウント</h2>
-    <p :class="$style.detail">traPでの広報にて言及してもよいかを変更します</p>
+    <div :class="$style.header">
+      <div>
+        <h2 :class="$style.title">アカウント</h2>
+        <p :class="$style.detail">
+          traPでの広報にて言及してもよいかを変更します
+        </p>
+      </div>
+      <NormalButtom color="primary" label="アカウント" :class="$style.button">
+        <Icon name="mdi:plus" :class="$style.icon" />
+      </NormalButtom>
+    </div>
     <service
       v-for="service in accountsCollectedByService"
       :key="service.type"
@@ -14,9 +23,11 @@
 import { defineComponent, PropType, computed } from 'vue'
 import Service from './Service.vue'
 import { Account, AccountType } from '/@/lib/apis'
+import NormalButtom from '../UI/NormalButtom.vue'
+import Icon from '../UI/Icon.vue'
 
 export default defineComponent({
-  components: { Service },
+  components: { Service, NormalButtom, Icon },
   props: {
     accounts: {
       type: Object as PropType<Account[]>,
@@ -64,9 +75,16 @@ export default defineComponent({
 .detail {
   color: $color-secondary;
   font-size: 0.875rem;
-  border-bottom: 1px solid $color-background-dim;
 }
 .margin {
   margin-bottom: 2rem;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid $color-background-dim;
+}
+.button {
+  margin: auto 0;
 }
 </style>

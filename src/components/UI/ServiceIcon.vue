@@ -1,5 +1,11 @@
 <template>
-  <icon v-if="icon.type === 'icon'" :name="icon.name" :size="size" />
+  <icon
+    v-if="icon.type === 'icon'"
+    :name="icon.name"
+    :size="size"
+    :data-icon-name="icon.name"
+    :class="$style.icon"
+  />
   <img v-else-if="icon.type === 'img'" :src="icon.path" :style="styles" />
 </template>
 
@@ -56,3 +62,26 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" module>
+.icon {
+  &[data-icon-name='mdi:twitter'] {
+    color: #1da1f2;
+  }
+  &[data-icon-name='mdi:facebook'] {
+    color: #4267b2;
+  }
+  &[data-icon-name='simple-icons:pixiv'] {
+    color: #0096fa;
+  }
+  &[data-icon-name='mdi:github'] {
+    color: #171515;
+  }
+  &[data-icon-name='simple-icons:qiita'] {
+    color: #55c500;
+  }
+  &[data-icon-name='mdi:soundcloud'] {
+    color: #f26f23;
+  }
+}
+</style>
