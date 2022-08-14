@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.margin">
+  <div>
     <h2 :class="$style.title">本名を許可する</h2>
     <div :class="$style.container">
       <p :class="$style.realName">{{ $props.userDetail?.realName }}</p>
@@ -42,9 +42,5 @@ export default defineComponent({
 .container {
   display: flex;
   align-items: center;
-}
-
-.margin {
-  margin-bottom: 2rem;
 }
 </style>

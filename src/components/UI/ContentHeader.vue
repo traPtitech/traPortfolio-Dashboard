@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.container">
+  <div>
     <div :class="$style.titleContainer">
       <icon :class="$style.icon" name="mdi:apps" :size="36" />
       <h1 :class="$style.title">{{ $props.title }}</h1>
@@ -31,9 +31,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
-.container {
-  margin: 2rem 0;
-}
 .titleContainer {
   display: flex;
   align-items: center;

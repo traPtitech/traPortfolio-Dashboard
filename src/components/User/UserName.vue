@@ -56,7 +56,6 @@ export default defineComponent({
 .container {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
 }
 .button {
   margin-left: auto;

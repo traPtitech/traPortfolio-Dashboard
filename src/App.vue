@@ -34,7 +34,10 @@ export default defineComponent({
   grid-row: 1;
   grid-column: 1 / 3;
 }
-
+.footer {
+  grid-row: 3;
+  grid-column: 1 / 3;
+}
 .container {
   display: grid;
   grid-template-columns: 260px 1fr;

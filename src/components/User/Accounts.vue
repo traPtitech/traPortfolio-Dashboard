@@ -1,5 +1,5 @@
 <template>
-  <div :class="$style.margin">
+  <div>
     <div :class="$style.header">
       <div>
         <h2 :class="$style.title">アカウント</h2>
@@ -76,9 +76,7 @@ export default defineComponent({
   color: $color-secondary;
   font-size: 0.875rem;
 }
-.margin {
-  margin-bottom: 2rem;
-}
+
 .header {
   display: flex;
   justify-content: space-between;

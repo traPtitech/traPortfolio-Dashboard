@@ -34,6 +34,7 @@ export default defineComponent({
   transition: all 0.2s;
   border-radius: 5px;
   color: white;
+  min-width: 6rem;
 
   &:disabled {
     opacity: 0.5;
