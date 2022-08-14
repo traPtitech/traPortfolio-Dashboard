@@ -12,7 +12,7 @@
 メモ : いい感じにemit してUser.vueに対してイベントを送信する
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 import TextArea from '../UI/TextArea.vue'
 import { UserDetail } from '/@/lib/apis'
 
@@ -25,7 +25,8 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const text = computed(() => props.userDetail?.bio ?? '')
+    const bio = computed(() => props.userDetail?.bio)
+    const text = ref(bio.value)
     return { text }
   }
 })

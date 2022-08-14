@@ -13,7 +13,7 @@ export default defineComponent({
       type: Boolean
     }
   },
-  emits: { 'update:modelValue': (_val: boolean) => _val },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const toggle = () => {
       emit('update:modelValue', !props.modelValue)

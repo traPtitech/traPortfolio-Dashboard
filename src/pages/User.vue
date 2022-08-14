@@ -6,14 +6,14 @@
     />
     <user-name :user-detail="userDetail" />
     <allow-real-name :user-detail="userDetail" />
-    <edit-self-introduction :user-detail="userDetail" />
+    <edit-self-introduction :bio="userDetail" />
     <accounts :accounts="userDetail?.accounts" />
     <normal-buttom color="primary" label="更新" :class="$style.button" />
   </page-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue'
+import { defineComponent, ref } from 'vue'
 import ContentHeader from '../components/UI/ContentHeader.vue'
 import PageContainer from '../components/Layout/PageContainer.vue'
 import useRouteInfo from '../use/routeInfo'
@@ -39,12 +39,24 @@ export default defineComponent({
     const routeInfo = useRouteInfo(ref('Profile'))
     const userDetail = ref<UserDetail>()
 
-    watchEffect(async () => {
-      // /users/me的なやつができると信じてる
-      userDetail.value = (
-        await apis.getUser('dc7c2fc7-e477-5b73-c9b0-5cb701488a86')
-      ).data
-    })
+    // watchEffect(async () => {
+    //   // /users/me的なやつができると信じてる
+    //   userDetail.value = (
+    //     await apis.getUser('dc7c2fc7-e477-5b73-c9b0-5cb701488a86')
+    //   ).data
+    // })
+
+    ;(async () => {
+      try {
+        userDetail.value = (
+          await apis.getUser('dc7c2fc7-e477-5b73-c9b0-5cb701488a86')
+        ).data
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e)
+      }
+    })()
+
     return { routeInfo, userDetail }
   }
 })

@@ -12,7 +12,7 @@ export default defineComponent({
     }
   },
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  emits: { 'update:modelValue': (_val: string) => true },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const value = computed(() => props.modelValue)
     const onInput = (e: Event) => {
