@@ -15,9 +15,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended',
-    'prettier/vue',
-    'prettier/@typescript-eslint'
+    'plugin:prettier/recommended'
   ],
   rules: {
     'no-console': 'warn',
@@ -29,6 +27,8 @@ module.exports = {
         message: 'Please use /@/lib/apis instead.'
       }
     ],
-    'vue/custom-event-name-casing': ['error', 'camelCase']
+    'vue/custom-event-name-casing': ['error', 'camelCase'],
+    'vue/multi-word-component-names': 'off',
+    'vue/no-reserved-component-names': 'off'
   }
 }
