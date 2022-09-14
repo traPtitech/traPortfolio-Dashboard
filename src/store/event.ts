@@ -11,7 +11,9 @@ export const useEventStore = defineStore('event', () => {
       return events.value
     }
 
-    events.value = (await apis.getEvents()).data
+    const res = await apis.getEvents()
+    events.value = res.data
+    return res.data
   }
 
   return {

@@ -11,7 +11,9 @@ export const useContestStore = defineStore('contest', () => {
       return contests.value
     }
 
-    contests.value = (await apis.getContests()).data
+    const res = await apis.getContests()
+    contests.value = res.data
+    return res.data
   }
 
   return {

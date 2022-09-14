@@ -11,7 +11,9 @@ export const useGroupStore = defineStore('group', () => {
       return groups.value
     }
 
-    groups.value = (await apis.getGroups()).data
+    const res = await apis.getGroups()
+    groups.value = res.data
+    return res.data
   }
 
   return {

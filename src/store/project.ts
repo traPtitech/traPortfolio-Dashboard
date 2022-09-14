@@ -11,7 +11,9 @@ export const useProjectStore = defineStore('project', () => {
       return projects.value
     }
 
-    projects.value = (await apis.getProjects()).data
+    const res = await apis.getProjects()
+    projects.value = res.data
+    return res.data
   }
 
   return {
