@@ -13,20 +13,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import NavigationBar from './components/NavigationBar/NavigationBar.vue'
 import PageHeader from '/@/components/Layout/PageHeader.vue'
 import Loading from '/@/pages/Loading.vue'
-
-export default defineComponent({
-  name: 'App',
-  components: {
-    PageHeader,
-    Loading,
-    NavigationBar
-  }
-})
 </script>
 
 <style lang="scss" module>
