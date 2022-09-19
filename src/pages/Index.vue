@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageInfoPanels from '/@/components/Index/PageInfoPanels.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'

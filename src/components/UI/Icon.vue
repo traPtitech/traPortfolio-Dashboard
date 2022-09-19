@@ -1,15 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed } from 'vue'
-const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  size: {
-    type: Number,
-    default: 24
-  }
-})
+
+interface Props {
+  name: string
+  size?: number
+}
+const props = withDefaults(defineProps<Props>(), { size: 24 })
+
 const styles = computed(() => ({
   height: `${props.size}px`,
   width: `${props.size}px`

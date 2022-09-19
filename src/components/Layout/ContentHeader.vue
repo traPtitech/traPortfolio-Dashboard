@@ -1,10 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import Icon from '/@/components/UI/Icon.vue'
-const props = defineProps<{
+
+interface Props {
   iconName: string
   title: Array<string>
   detail: string
-}>()
+}
+const props = defineProps<Props>()
 
 const titleList = props.title.map((text, index) => ({ id: index, text: text }))
 </script>
