@@ -14,9 +14,7 @@ const styles = computed(() => ({
 </script>
 
 <template>
-  <div :class="$style.container">
-    <span class="iconify" :data-icon="name" :style="styles" />
-  </div>
+  <span class="iconify" :data-icon="name" :style="styles" />
 </template>
 
 <style lang="scss" module>

@@ -3,7 +3,7 @@ import Icon from '/@/components/UI/Icon.vue'
 
 type HeaderText = {
   title: string
-  url?: string
+  url: string
 }
 
 interface Props {
@@ -16,7 +16,7 @@ const props = defineProps<Props>()
 
 <template>
   <div :class="$style.container">
-    <div :class="$style.titleContainer">
+    <h1 :class="$style.titleContainer">
       <icon :class="$style.icon" :name="props.iconName" :size="48" />
       <template v-for="(headerText, index) in props.headerTexts" :key="index">
         <icon
@@ -25,18 +25,23 @@ const props = defineProps<Props>()
           name="akar-icons:chevron-right"
           :size="30"
         />
-        <router-link :to="headerText.url ?? ''" :class="$style.link">
-          <h1 :class="$style.title">{{ headerText.title }}</h1>
+        <router-link
+          v-if="index !== props.headerTexts.length - 1"
+          :to="headerText.url"
+          :class="$style.link"
+        >
+          {{ headerText.title }}
         </router-link>
+        <span v-else>{{ headerText.title }}</span>
       </template>
-    </div>
+    </h1>
     <p :class="$style.detail">{{ props.detail }}</p>
   </div>
 </template>
 
 <style lang="scss" module>
 .container {
-  margin: 2rem 0;
+  margin: 4rem 0 2rem;
 }
 
 .titleContainer {
@@ -44,18 +49,12 @@ const props = defineProps<Props>()
   align-items: center;
   color: $color-primary;
   margin-bottom: 0.5rem;
-}
-
-.title {
   font-size: 1.5rem;
 }
 
 .link {
   text-decoration: none;
-
-  &:visited {
-    color: $color-primary;
-  }
+  color: $color-primary;
 
   &:hover {
     text-decoration: underline;
@@ -64,7 +63,7 @@ const props = defineProps<Props>()
 
 .icon {
   display: flex;
-  gap: 0.25rem;
+  margin-right: 0.25rem;
 }
 
 .chevron {
