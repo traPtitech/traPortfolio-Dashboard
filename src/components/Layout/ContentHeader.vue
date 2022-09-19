@@ -18,9 +18,9 @@ const props = defineProps<Props>()
 <template>
   <div :class="$style.container">
     <div :class="$style.titleContainer">
-      <Icon :class="$style.icon" :name="props.iconName" :size="48" />
+      <icon :class="$style.icon" :name="props.iconName" :size="48" />
       <template v-for="(headerText, index) in props.headerTexts" :key="index">
-        <Icon v-if="index !== 0" :class="$style.chevron" name="akar-icons:chevron-right" :size="30" />
+        <icon v-if="index !== 0" :class="$style.chevron" name="akar-icons:chevron-right" :size="30" />
         <router-link :to="headerText.url ?? ''" :class="$style.link">
           <h1 :class="$style.title">{{ headerText.title }}</h1>
         </router-link>
