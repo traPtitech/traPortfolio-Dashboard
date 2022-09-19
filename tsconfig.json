@@ -11,22 +11,14 @@
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable"
-    ],
+    "lib": ["esnext", "dom", "dom.iterable"],
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
     "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
-    "typeRoots": [
-      "node_modules/@types",
-    ],
+    "typeRoots": ["node_modules/@types", "src/types"],
     "paths": {
-      "/@/*": [
-        "src/*"
-      ]
+      "/@/*": ["src/*"]
     }
   }
 }
