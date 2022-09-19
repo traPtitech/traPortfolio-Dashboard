@@ -6,13 +6,12 @@ type ButtonType = 'primary' | 'secondary' | 'danger'
 interface Props {
   type?: ButtonType
   icon?: string
-  text: string
   isDisabled?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'primary',
-  icon: '',
+  icon: undefined,
   isDisabled: false
 })
 </script>
@@ -20,11 +19,11 @@ const props = withDefaults(defineProps<Props>(), {
 <template>
   <button
     :class="$style.button"
-    :button-type="props.type"
+    :data-button-type="props.type"
     :disabled="props.isDisabled"
   >
     <Icon v-if="props.icon" :name="props.icon" :class="$style.icon" />
-    {{ props.text }}
+    <slot />
   </button>
 </template>
 
@@ -35,20 +34,20 @@ const props = withDefaults(defineProps<Props>(), {
   justify-content: center;
   gap: 4px;
   padding: 4px 24px;
-  border-radius: 5px;
+  border-radius: 6px; // todo:%で指定に変えるかも
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
   transition: 0.2s ease-in-out;
 
-  &[button-type='primary'] {
+  &[data-button-type='primary'] {
     color: $color-primary-text;
     background-color: $color-primary;
   }
-  &[button-type='secondary'] {
+  &[data-button-type='secondary'] {
     color: $color-primary;
     background-color: $color-background;
     border: 1px solid $color-primary;
   }
-  &[button-type='danger'] {
+  &[data-button-type='danger'] {
     color: $color-primary-text;
     background-color: $color-danger;
   }
