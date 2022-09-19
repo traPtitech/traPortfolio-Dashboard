@@ -11,6 +11,7 @@
       </template>
     </Suspense>
   </div>
+  <div id="dialog" />
 </template>
 
 <script lang="ts">
@@ -43,5 +44,9 @@ export default defineComponent({
   grid-template-columns: 260px 1fr;
   grid-template-rows: min-content 1fr;
   height: 100%;
+  overflow: {
+    x: hidden;
+    y: scroll;
+  }
 }
 </style>

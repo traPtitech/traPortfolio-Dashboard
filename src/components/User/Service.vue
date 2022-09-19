@@ -18,11 +18,12 @@
   <!-- </transition> -->
 </template>
 <script lang="ts">
-import { defineComponent, PropType, ref, computed } from 'vue'
+import { defineComponent, PropType, ref, computed, toRef } from 'vue'
 import { Account, AccountType } from '/@/lib/apis'
 import AccountSetting from './AccountSetting.vue'
 import ServiceIcon from '../UI/ServiceIcon.vue'
 import Icon from '../UI/Icon.vue'
+import useServiceInfo from '/@/use/serviceInfo'
 
 export default defineComponent({
   components: { AccountSetting, ServiceIcon, Icon },
@@ -41,28 +42,7 @@ export default defineComponent({
     const open = () => {
       isOpen.value = !isOpen.value
     }
-    const name = computed(() => {
-      switch (props.accountType) {
-        case AccountType.homepage:
-          return 'Home Page'
-        case AccountType.blog:
-          return 'Blog'
-        case AccountType.twitter:
-          return 'Twitter'
-        case AccountType.facebook:
-          return 'Facebook'
-        case AccountType.pixiv:
-          return 'pixiv'
-        case AccountType.github:
-          return 'Github'
-        case AccountType.qiita:
-          return 'Qiita'
-        case AccountType.atcoder:
-          return 'AtCoder'
-        case AccountType.soundcloud:
-          return 'SoundCloud'
-      }
-    })
+    const name = useServiceInfo(toRef(props, 'accountType'))
     return { isOpen, open, name }
   }
 })

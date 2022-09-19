@@ -1,5 +1,5 @@
 <template>
-  <page-container>
+  <page-container :class="$style.container">
     <content-header
       :title="routeInfo.name"
       :description="routeInfo.description"
@@ -28,3 +28,12 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" module>
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+</style>

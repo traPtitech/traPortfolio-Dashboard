@@ -1,19 +1,24 @@
 <template>
   <page-container :class="$style.container">
-    <content-header
-      :title="routeInfo.name"
-      :description="routeInfo.description"
-    />
-    <user-name :user-detail="userDetail" />
-    <allow-real-name :user-detail="userDetail" />
-    <edit-self-introduction :bio="userDetail" />
-    <accounts :accounts="userDetail?.accounts" />
-    <normal-buttom color="primary" label="更新" :class="$style.button" />
+    <div v-if="fetcherState == 'loading'">loading</div>
+    <div v-else-if="fetcherState == 'error'">fetcherror</div>
+    <template v-else>
+      <content-header
+        :title="routeInfo.name"
+        :description="routeInfo.description"
+      />
+      <user-name :user-detail="userDetail" />
+      <allow-real-name :user-detail="userDetail" />
+      <edit-self-introduction :user-detail="userDetail" />
+      <accounts :accounts="userDetail?.accounts" />
+      <normal-buttom color="primary" label="更新" :class="$style.button" />
+      <account-form />
+    </template>
   </page-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, Ref, ref } from 'vue'
 import ContentHeader from '../components/UI/ContentHeader.vue'
 import PageContainer from '../components/Layout/PageContainer.vue'
 import useRouteInfo from '../use/routeInfo'
@@ -23,6 +28,8 @@ import AllowRealName from '../components/User/AllowRealName.vue'
 import EditSelfIntroduction from '../components/User/EditSelfIntroduction.vue'
 import Accounts from '../components/User/Accounts.vue'
 import NormalButtom from '../components/UI/NormalButtom.vue'
+import { FetcherState } from '../use/fetcher'
+import AccountForm from '../components/User/AccountForm/AccountForm.vue'
 
 export default defineComponent({
   name: 'User',
@@ -33,11 +40,13 @@ export default defineComponent({
     AllowRealName,
     EditSelfIntroduction,
     Accounts,
-    NormalButtom
+    NormalButtom,
+    AccountForm
   },
   setup() {
     const routeInfo = useRouteInfo(ref('Profile'))
     const userDetail = ref<UserDetail>()
+    const fetcherState: Ref<FetcherState> = ref('loading')
 
     // watchEffect(async () => {
     //   // /users/me的なやつができると信じてる
@@ -51,13 +60,15 @@ export default defineComponent({
         userDetail.value = (
           await apis.getUser('dc7c2fc7-e477-5b73-c9b0-5cb701488a86')
         ).data
+        fetcherState.value = 'loaded'
       } catch (e) {
         // eslint-disable-next-line no-console
         console.error(e)
+        fetcherState.value = 'error'
       }
     })()
 
-    return { routeInfo, userDetail }
+    return { routeInfo, userDetail, fetcherState }
   }
 })
 </script>
