@@ -2,8 +2,8 @@
 import Icon from '/@/components/UI/Icon.vue'
 
 type HeaderText = {
-  title: string,
-  url?: string,
+  title: string
+  url?: string
 }
 
 interface Props {
@@ -12,7 +12,6 @@ interface Props {
   detail: string
 }
 const props = defineProps<Props>()
-
 </script>
 
 <template>
@@ -20,7 +19,12 @@ const props = defineProps<Props>()
     <div :class="$style.titleContainer">
       <icon :class="$style.icon" :name="props.iconName" :size="48" />
       <template v-for="(headerText, index) in props.headerTexts" :key="index">
-        <icon v-if="index !== 0" :class="$style.chevron" name="akar-icons:chevron-right" :size="30" />
+        <icon
+          v-if="index !== 0"
+          :class="$style.chevron"
+          name="akar-icons:chevron-right"
+          :size="30"
+        />
         <router-link :to="headerText.url ?? ''" :class="$style.link">
           <h1 :class="$style.title">{{ headerText.title }}</h1>
         </router-link>

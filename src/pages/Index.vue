@@ -6,7 +6,11 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 
 <template>
   <page-container>
-    <content-header icon-name="mdi:apps" :headerTexts="[{title: 'Top', url: '/' }]" detail="ポートフォリオの設定を変更します" />
+    <content-header
+      icon-name="mdi:apps"
+      :header-texts="[{ title: 'Top', url: '/' }]"
+      detail="ポートフォリオの設定を変更します"
+    />
     <page-info-panels />
   </page-container>
 </template>
