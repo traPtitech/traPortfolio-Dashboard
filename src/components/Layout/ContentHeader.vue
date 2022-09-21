@@ -15,7 +15,7 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <div :class="$style.container">
+  <div>
     <h1 :class="$style.titleContainer">
       <icon :class="$style.icon" :name="props.iconName" :size="48" />
       <template v-for="(headerText, index) in props.headerTexts" :key="index">
@@ -40,9 +40,6 @@ const props = defineProps<Props>()
 </template>
 
 <style lang="scss" module>
-.container {
-  padding-top: 4rem;
-}
 .titleContainer {
   display: flex;
   align-items: center;

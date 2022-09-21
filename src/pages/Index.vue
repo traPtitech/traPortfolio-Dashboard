@@ -18,6 +18,6 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 
 <style lang="scss" module>
 .header {
-  margin-bottom: 2rem;
+  margin: 4rem 0 2rem;
 }
 </style>
