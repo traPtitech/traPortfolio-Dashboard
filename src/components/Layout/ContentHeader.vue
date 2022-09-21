@@ -41,9 +41,8 @@ const props = defineProps<Props>()
 
 <style lang="scss" module>
 .container {
-  margin: 4rem 0 2rem;
+  padding-top: 4rem;
 }
-
 .titleContainer {
   display: flex;
   align-items: center;

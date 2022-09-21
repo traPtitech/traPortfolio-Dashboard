@@ -10,7 +10,14 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
       icon-name="mdi:apps"
       :header-texts="[{ title: 'Top', url: '/' }]"
       detail="ポートフォリオの設定を変更します"
+      :class="$style.header"
     />
     <page-info-panels />
   </page-container>
 </template>
+
+<style lang="scss" module>
+.header {
+  margin-bottom: 2rem;
+}
+</style>
