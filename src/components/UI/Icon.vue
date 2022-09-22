@@ -1,33 +1,21 @@
-<template>
-  <div :class="$style.container">
-    <span class="iconify" :data-icon="name" :style="styles" />
-  </div>
-</template>
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+interface Props {
+  name: string
+  size?: number
+}
+const props = withDefaults(defineProps<Props>(), { size: 24 })
 
-export default defineComponent({
-  name: 'Icon',
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    size: {
-      type: Number,
-      default: 24
-    }
-  },
-  setup(props) {
-    const styles = computed(() => ({
-      height: `${props.size}px`,
-      width: `${props.size}px`
-    }))
-    return { styles }
-  }
-})
+const styles = computed(() => ({
+  height: `${props.size}px`,
+  width: `${props.size}px`
+}))
 </script>
+
+<template>
+  <span class="iconify" :data-icon="name" :style="styles" />
+</template>
 
 <style lang="scss" module>
 .icon {
