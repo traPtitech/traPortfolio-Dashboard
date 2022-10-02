@@ -70,6 +70,7 @@ const handleInput = (event: Event) => {
 .inputContainer {
   display: flex;
   align-items: center;
+  padding: 0 0 0 8px;
   border: 1px solid $color-secondary;
   border-radius: 6px;
   &:focus-within {
@@ -77,12 +78,12 @@ const handleInput = (event: Event) => {
   }
 }
 .input {
-  margin: 8px 4px;
+  margin: 8px 0;
   flex-grow: 1;
 }
 
 .atmark {
-  margin-left: 8px;
+  margin-right: 4px;
   color: $color-secondary;
   &[data-focused='true'] {
     color: $color-primary;
