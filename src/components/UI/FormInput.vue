@@ -6,15 +6,15 @@ interface Props {
   modelValue: string
   placeholder?: string
   limit?: number
-  withAtmark?: boolean
-  withLink?: boolean
+  hasAtmark?: boolean
+  hasAnchor?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
   limit: undefined,
-  withAtmark: false,
-  withLink: false
+  hasAtmark: false,
+  hasAnchor: false
 })
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: string): void
@@ -24,7 +24,7 @@ const isExceeded = computed(
   () => props.limit && props.modelValue.length > props.limit
 )
 const isInvalidLink = computed(
-  () => props.withLink && !props.modelValue.startsWith('http')
+  () => props.hasAnchor && !props.modelValue.startsWith('http')
 )
 
 const handleInput = (event: Event) => {
@@ -33,8 +33,8 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-  <div :class="$style.inputContainer">
-    <span v-if="props.withAtmark" :class="$style.atmark"> @ </span>
+  <div :class="$style.container" :data-has-anchor="props.hasAnchor">
+    <span v-if="props.hasAtmark" :class="$style.atmark"> @ </span>
     <input
       :class="$style.input"
       :placeholder="props.placeholder"
@@ -44,7 +44,7 @@ const handleInput = (event: Event) => {
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
       {{ props.modelValue.length }}/{{ props.limit }}
     </div>
-    <div v-if="props.withLink" :class="$style.externalLink">
+    <div v-if="props.hasAnchor" :class="$style.externalLink">
       <a :href="props.modelValue" :data-invalid-link="isInvalidLink">
         <Icon name="mdi:open-in-new" :class="$style.icon" />
       </a>
@@ -53,34 +53,39 @@ const handleInput = (event: Event) => {
 </template>
 
 <style module lang="scss">
-.inputContainer {
+.container {
   display: flex;
   align-items: center;
-  padding: 0 0 0 8px;
+  padding: 8px 8px;
   border: 1px solid $color-secondary;
   border-radius: 6px;
   &:focus-within {
     border-color: $color-primary;
   }
+  &[data-has-anchor='true'] {
+    padding: 0 0 0 8px;
+  }
 }
 .input {
-  margin: 8px 0;
   flex-grow: 1;
 }
 
 .atmark {
   margin-right: 4px;
   color: $color-secondary;
-  .inputContainer:focus-within & {
+  .container:focus-within & {
     color: $color-primary;
   }
 }
 
 .count {
-  margin-right: 8px;
+  margin-left: 4px;
   font-size: 12px;
   &[data-exceeded='true'] {
     color: $color-danger;
+  }
+  .container[data-has-anchor='true'] & {
+    margin-right: 8px;
   }
 }
 
