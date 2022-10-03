@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 
 interface Props {
@@ -26,13 +26,7 @@ const isExceeded = computed(
 const isInvalidLink = computed(
   () => props.withLink && !props.modelValue.startsWith('http')
 )
-const isFocused = ref(false)
-const onFocus = () => {
-  isFocused.value = true
-}
-const onBlur = () => {
-  isFocused.value = false
-}
+
 const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
@@ -40,20 +34,12 @@ const handleInput = (event: Event) => {
 
 <template>
   <div :class="$style.inputContainer">
-    <span
-      v-if="props.withAtmark"
-      :class="$style.atmark"
-      :data-focused="isFocused"
-    >
-      @
-    </span>
+    <span v-if="props.withAtmark" :class="$style.atmark"> @ </span>
     <input
       :class="$style.input"
       :placeholder="props.placeholder"
       :value="props.modelValue"
       @input="handleInput"
-      @focus="onFocus"
-      @blur="onBlur"
     />
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
       {{ props.modelValue.length }}/{{ props.limit }}
@@ -85,7 +71,7 @@ const handleInput = (event: Event) => {
 .atmark {
   margin-right: 4px;
   color: $color-secondary;
-  &[data-focused='true'] {
+  .inputContainer:focus-within & {
     color: $color-primary;
   }
 }
