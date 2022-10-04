@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 const props = withDefaults(
   defineProps<{
-    modelValue?: boolean
+    modelValue: boolean
     disabled?: boolean
   }>(),
   {
@@ -14,19 +15,19 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
 }>()
 
-const toggle = (event: Event) => {
-  emit('update:modelValue', (event.target as HTMLInputElement).checked)
-}
+const value = computed({
+  get: () => props.modelValue,
+  set: v => emit('update:modelValue', v)
+})
 </script>
 
 <template>
   <label :class="$style.container">
     <input
+      v-model="value"
       type="checkbox"
-      :checked="props.modelValue"
-      :disabled="props.disabled"
+      :disabled="disabled"
       :class="$style.input"
-      @change="toggle"
     />
     <div :class="$style.switch" />
   </label>
@@ -42,11 +43,6 @@ const toggle = (event: Event) => {
   display: block;
   width: 50px;
   height: 30px;
-  cursor: pointer;
-  .input:disabled + & {
-    pointer-events: none;
-    cursor: not-allowed;
-  }
 }
 
 .switch {
@@ -58,6 +54,7 @@ const toggle = (event: Event) => {
   background-color: transparent;
   border: 5px solid $color-secondary;
   border-radius: 15px;
+  cursor: pointer;
   transition: all 0.2s ease;
   &::after {
     content: '';
@@ -80,6 +77,7 @@ const toggle = (event: Event) => {
   }
   .input:disabled + & {
     opacity: 0.5;
+    cursor: not-allowed;
   }
   .container:hover & {
     filter: brightness(0.95);
