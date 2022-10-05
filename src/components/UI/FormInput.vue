@@ -62,7 +62,7 @@ const handleInput = (event: Event) => {
 .container {
   display: flex;
   align-items: center;
-  padding: 8px 8px;
+  padding: 8px;
   border: 1px solid $color-secondary;
   border-radius: 6px;
   &:focus-within {
@@ -86,7 +86,7 @@ const handleInput = (event: Event) => {
 
 .count {
   margin-left: 4px;
-  font-size: 12px;
+  font-size: 0.75rem;
   &[data-exceeded='true'] {
     color: $color-danger;
   }
