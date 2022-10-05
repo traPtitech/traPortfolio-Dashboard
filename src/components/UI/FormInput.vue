@@ -50,7 +50,11 @@ const handleInput = (event: Event) => {
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
       {{ [...props.modelValue].length }}/{{ props.limit }}
     </div>
-    <div v-if="props.hasAnchor" :class="$style.externalLink">
+    <div
+      v-if="props.hasAnchor"
+      :class="$style.externalLink"
+      :data-valid-link="isValidLink"
+    >
       <a :href="props.modelValue" :data-valid-link="isValidLink">
         <Icon name="mdi:open-in-new" :class="$style.icon" />
       </a>
@@ -85,6 +89,7 @@ const handleInput = (event: Event) => {
 }
 
 .count {
+  color: $color-secondary;
   margin-left: 4px;
   font-size: 0.75rem;
   &[data-exceeded='true'] {
@@ -101,12 +106,18 @@ const handleInput = (event: Event) => {
   background-color: $color-background-dim;
   border-left: 1px solid $color-secondary;
   border-radius: 0 6px 6px 0;
+  .container:focus-within & {
+    border-left: 1px solid $color-primary;
+  }
+  &[data-valid-link='false'] {
+    cursor: not-allowed;
+  }
   a {
     padding: 8px 16px;
     color: $color-text;
     &[data-valid-link='false'] {
       pointer-events: none;
-      color: $color-danger;
+      color: $color-secondary;
     }
   }
 }
