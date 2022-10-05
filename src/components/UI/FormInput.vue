@@ -23,9 +23,15 @@ const emit = defineEmits<{
 const isExceeded = computed(
   () => props.limit && props.modelValue.length > props.limit
 )
-const isInvalidLink = computed(
-  () => props.hasAnchor && !props.modelValue.startsWith('http')
-)
+const isValidLink = computed(() => {
+  let url
+  try {
+    url = new URL(props.modelValue)
+  } catch (_) {
+    return false
+  }
+  return url.protocol === 'http:' || url.protocol === 'https:'
+})
 
 const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
@@ -45,7 +51,7 @@ const handleInput = (event: Event) => {
       {{ props.modelValue.length }}/{{ props.limit }}
     </div>
     <div v-if="props.hasAnchor" :class="$style.externalLink">
-      <a :href="props.modelValue" :data-invalid-link="isInvalidLink">
+      <a :href="props.modelValue" :data-valid-link="isValidLink">
         <Icon name="mdi:open-in-new" :class="$style.icon" />
       </a>
     </div>
@@ -98,7 +104,7 @@ const handleInput = (event: Event) => {
   a {
     padding: 8px 16px;
     color: $color-text;
-    &[data-invalid-link='true'] {
+    &[data-valid-link='false'] {
       pointer-events: none;
       color: $color-danger;
     }
