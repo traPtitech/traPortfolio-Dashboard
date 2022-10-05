@@ -21,7 +21,7 @@ const emit = defineEmits<{
 }>()
 
 const isExceeded = computed(
-  () => props.limit && props.modelValue.length > props.limit
+  () => props.limit && [...props.modelValue].length > props.limit
 )
 const isValidLink = computed(() => {
   let url
@@ -48,7 +48,7 @@ const handleInput = (event: Event) => {
       @input="handleInput"
     />
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
-      {{ props.modelValue.length }}/{{ props.limit }}
+      {{ [...props.modelValue].length }}/{{ props.limit }}
     </div>
     <div v-if="props.hasAnchor" :class="$style.externalLink">
       <a :href="props.modelValue" :data-valid-link="isValidLink">
