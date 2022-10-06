@@ -1,21 +1,27 @@
 <script lang="ts" setup>
+import { computed } from 'vue'
 interface Props {
   name: string
+  size?: number
 }
-defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), { size: 24 })
+
+const styles = computed(() => ({
+  height: `${props.size}px`,
+  width: `${props.size}px`
+}))
 </script>
 
 <template>
   <img
-    alt="icon"
     :class="$style.icon"
     :src="'https://q.trap.jp/api/v3/public/icon/toshi00'"
+    :style="styles"
   />
 </template>
 
 <style lang="scss" module>
 .icon {
   border-radius: 50%;
-  height: 100%;
 }
 </style>
