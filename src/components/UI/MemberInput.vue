@@ -45,7 +45,7 @@ const infiniteScroll = async (entries: IntersectionObserverEntry[]) => {
   if (entry !== undefined && entry.isIntersecting) {
     const ul = (entry.target as HTMLUListElement).offsetParent
     const scrollTop = ul?.scrollTop ?? 0
-    limit.value += 5
+    limit.value += 10
 
     await nextTick()
     if (ul !== null) {
@@ -73,6 +73,7 @@ const onClose = () => {
   <v-select
     v-model="value"
     :options="options"
+    placeholder="メンバー"
     label="name"
     multiple
     @open="onOpen"
@@ -80,7 +81,7 @@ const onClose = () => {
     @search="onSearch"
   >
     <template #option="{ name }">
-      <li :class="$style.items">
+      <li :class="$style.item">
         <user-icon :name="name" />
         <p>{{ name }}</p>
       </li>
@@ -88,14 +89,17 @@ const onClose = () => {
     <template #list-footer>
       <li v-if="hasNextPage" ref="footerRef">Loading...</li>
     </template>
+    <template #no-options>
+      <p>ユーザーが見つかりません</p>
+    </template>
   </v-select>
 </template>
 
 <style lang="scss" module>
-.items {
+.item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  height: 2rem;
+  line-height: 2rem;
 }
 </style>
