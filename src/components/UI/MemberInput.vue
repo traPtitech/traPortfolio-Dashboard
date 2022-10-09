@@ -76,16 +76,22 @@ const onClose = () => {
     placeholder="メンバー"
     label="name"
     :class="$style.select"
+    class="select"
     multiple
+    :close-on-select="false"
+    :deselect-from-dropdown="true"
     @open="onOpen"
     @close="onClose"
     @search="onSearch"
   >
-    <template #option="{ name }">
-      <li :class="$style.item">
-        <user-icon :name="name" />
-        <p>{{ name }}</p>
-      </li>
+    <template #selected-option-container="{ option }">
+      <p class="vs__selected">{{ option.name }},</p>
+    </template>
+    <template #option="user">
+      <div :class="$style.item">
+        <user-icon :name="user.name" />
+        <p>{{ user.name }}</p>
+      </div>
     </template>
     <template #list-footer>
       <li v-if="hasNextPage" ref="footerRef">Loading...</li>
@@ -97,10 +103,54 @@ const onClose = () => {
 </template>
 
 <style lang="scss" module>
+.select {
+  --vs-dropdown-option-padding: 4px 8px;
+  --vs-search-input-placeholder-color: #{$color-secondary};
+  --vs-border-color: #{$color-secondary};
+  --vs-dropdown-option--active-bg: #{$color-background-dim};
+  --vs-dropdown-option--active-color: #{$color-text};
+  --vs-dropdown-option--deselect-bg: #{$color-background-dim};
+  --vs-dropdown-option--deselect-color: #{$color-text};
+  --vs-selected-border-style: none;
+  --vs-selected-bg: transparent;
+  --vs-selected-color: #{$color-text};
+  &:focus-within {
+    --vs-border-color: #{$color-primary};
+  }
+}
+
 .item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   line-height: 2rem;
+  &[aria-selected='true'] {
+    background-color: $color-background-dim;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+.select:deep(.vs__selected-options) {
+  &::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-color: $color-secondary;
+    mask: url('/icons/account.svg') no-repeat center center;
+    align-items: center;
+    margin-top: 4px;
+    margin-left: 4px;
+  }
+  &:focus-within::before {
+    background-color: $color-primary;
+  }
+}
+.select:deep(.vs__dropdown-option--selected) {
+  background-color: $color-background-dim;
+  &:hover {
+    filter: brightness(0.95);
+  }
 }
 </style>
