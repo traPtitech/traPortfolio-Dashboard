@@ -1,10 +1,16 @@
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
-import { computed, nextTick, ref, watchEffect } from 'vue'
-import apis, { User } from '/@/lib/apis'
+import { computed, nextTick, ref } from 'vue'
+import { User } from '/@/lib/apis'
+import { useUserStore } from '/@/store/user'
 import UserIcon from './UserIcon.vue'
+
+const store = useUserStore()
+const { users } = storeToRefs(store)
+store.fetchUsers()
 
 interface Props {
   modelValue: User[]
@@ -23,15 +29,9 @@ const value = computed({
 
 const limit = ref(10)
 const search = ref('')
-const users = ref<User[]>([])
-watchEffect(async () => {
-  const res = await apis.getUsers()
-  if (res.status === 200) {
-    users.value = res.data
-  }
-})
-const filtered = computed(() =>
-  users.value.filter(user => user.name.includes(search.value))
+
+const filtered = computed(
+  () => users.value?.filter(user => user.name.includes(search.value)) ?? []
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)
@@ -75,6 +75,7 @@ const onClose = () => {
     :options="options"
     placeholder="メンバー"
     label="name"
+    :class="$style.select"
     multiple
     @open="onOpen"
     @close="onClose"
