@@ -87,17 +87,17 @@ const onClose = () => {
     <template #selected-option-container="{ option }">
       <p class="vs__selected">{{ option.name }},</p>
     </template>
-    <template #option="user">
+    <template #option="{ name }">
       <div :class="$style.item">
-        <user-icon :name="user.name" />
-        <p>{{ user.name }}</p>
+        <user-icon :name="name" />
+        <p>{{ name }}</p>
       </div>
     </template>
     <template #list-footer>
       <li v-if="hasNextPage" ref="footerRef">Loading...</li>
     </template>
     <template #no-options>
-      <p>ユーザーが見つかりません</p>
+      <p>ユーザーが見つかりませんでした</p>
     </template>
   </v-select>
 </template>
@@ -114,6 +114,7 @@ const onClose = () => {
   --vs-selected-border-style: none;
   --vs-selected-bg: transparent;
   --vs-selected-color: #{$color-text};
+  --vs-controls-color: #{$color-secondary};
   &:focus-within {
     --vs-border-color: #{$color-primary};
   }
@@ -139,7 +140,6 @@ const onClose = () => {
     height: 24px;
     background-color: $color-secondary;
     mask: url('/icons/account.svg') no-repeat center center;
-    align-items: center;
     margin-top: 4px;
     margin-left: 4px;
   }
