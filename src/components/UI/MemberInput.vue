@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { User } from '/@/lib/apis'
 import { useUserStore } from '/@/store/user'
 import UserIcon from './UserIcon.vue'
@@ -56,6 +56,10 @@ const infiniteScroll = async (entries: IntersectionObserverEntry[]) => {
 
 const footerRef = ref<HTMLUListElement>()
 const observer = new IntersectionObserver(infiniteScroll)
+onUnmounted(() => {
+  observer.disconnect()
+})
+
 const onOpen = async () => {
   if (!hasNextPage.value) return
 
