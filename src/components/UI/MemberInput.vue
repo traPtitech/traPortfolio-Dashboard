@@ -42,7 +42,7 @@ const onSearch = (v: string) => {
 
 const infiniteScroll = async (entries: IntersectionObserverEntry[]) => {
   const entry = entries[0]
-  if (entry !== undefined && entry.isIntersecting) {
+  if (entry?.isIntersecting) {
     const ul = (entry.target as HTMLUListElement).offsetParent
     const scrollTop = ul?.scrollTop ?? 0
     limit.value += 10
@@ -79,7 +79,7 @@ const onClose = () => {
     class="select"
     multiple
     :close-on-select="false"
-    :deselect-from-dropdown="true"
+    deselect-from-dropdown
     @open="onOpen"
     @close="onClose"
     @search="onSearch"
