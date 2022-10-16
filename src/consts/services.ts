@@ -38,10 +38,18 @@ export const serviceArray: Service[] = [
   },
   {
     name: 'AtCoder',
-    icon: 'atcoder'
+    icon: 'atcoder' //アイコンは保留
   },
   {
     name: 'SoundCloud',
     icon: 'mdi:soundcloud'
+  },
+  {
+    name: 'HackTheBox',
+    icon: 'simple-icons:hackthebox'
+  },
+  {
+    name: 'CTFtime',
+    icon: 'ctftime' //アイコンは保留
   }
 ]
