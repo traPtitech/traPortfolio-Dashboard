@@ -133,10 +133,8 @@ const onClose = () => {
     background-color: $color-background-dim;
   }
 }
-</style>
 
-<style lang="scss" scoped>
-.select:deep(.vs__selected-options) {
+.select :global(.vs__selected-options) {
   &::before {
     content: '';
     display: block;
@@ -151,7 +149,7 @@ const onClose = () => {
     background-color: $color-primary;
   }
 }
-.select:deep(.vs__dropdown-option--selected) {
+.select :global(.vs__dropdown-option--selected) {
   background-color: $color-background-dim;
   &:hover {
     filter: brightness(0.95);
