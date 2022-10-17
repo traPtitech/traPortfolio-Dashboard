@@ -6,11 +6,17 @@ interface Props {
   modelValue: string
   placeholder?: string
   limit?: number
+  rows?: number
+  maxHeight?: number
+  name?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
-  limit: undefined
+  limit: undefined,
+  rows: 1,
+  maxHeight: undefined,
+  name: undefined
 })
 
 const emit = defineEmits<{
@@ -31,9 +37,11 @@ const isExceeded = computed(
   <div :class="$style.container">
     <auto-resize-text-area
       v-model="value"
+      :placeholder="props.placeholder"
       :class="$style.textarea"
-      :row="1"
-      placeholder="自己紹介"
+      :row="props.rows"
+      :max-height="props.maxHeight"
+      :name="props.name"
     />
     <div v-if="props.limit" :class="$style.count" :data-exceeded="isExceeded">
       {{ [...props.modelValue].length }}/{{ props.limit }}

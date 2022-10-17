@@ -6,7 +6,8 @@ import {
   onMounted,
   ref,
   toRef,
-  withDefaults
+  withDefaults,
+  computed
 } from 'vue'
 
 interface Props {
@@ -14,12 +15,16 @@ interface Props {
   placeholder?: string
   rows?: number
   readonly?: boolean
+  maxHeight?: number
+  name?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
   rows: undefined,
-  readonly: false
+  readonly: false,
+  maxHeight: undefined,
+  name: undefined
 })
 
 const textareaEle = ref<HTMLTextAreaElement | null>(null)
@@ -38,6 +43,8 @@ const calculateInputHeight = () => {
   textareaEle.value.style.height = `${textareaEle.value.scrollHeight}px`
 }
 
+const style = computed(() => ({ maxHeight: `${props.maxHeight}px` }))
+
 onMounted(() => {
   calculateInputHeight()
 })
@@ -55,6 +62,8 @@ watch(toRef(props, 'modelValue'), async () => {
     :value="props.modelValue"
     :placeholder="props.placeholder"
     :rows="props.rows"
+    :name="props.name"
+    :style="style"
     @input="handleInput"
   />
 </template>
