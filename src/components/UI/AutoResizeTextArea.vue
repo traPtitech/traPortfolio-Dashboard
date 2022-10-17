@@ -51,9 +51,16 @@ watch(toRef(props, 'modelValue'), async () => {
 <template>
   <textarea
     ref="textareaEle"
+    :class="$style.textarea"
     :vale="props.modelValue"
     :placeholder="props.placeholder"
     :rows="props.rows"
     @input="handleInput"
   />
 </template>
+
+<style lang="scss" module>
+.textarea {
+  resize: none;
+}
+</style>
