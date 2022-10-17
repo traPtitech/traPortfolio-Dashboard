@@ -2,10 +2,6 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageInfoPanels from '/@/components/Index/PageInfoPanels.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import AutoResizeTextArea from '../components/UI/AutoResizeTextArea.vue'
-import { ref } from 'vue'
-
-const value = ref('')
 </script>
 
 <template>
@@ -17,7 +13,6 @@ const value = ref('')
       :class="$style.header"
     />
     <page-info-panels />
-    <auto-resize-text-area v-model="value" />
   </page-container>
 </template>
 

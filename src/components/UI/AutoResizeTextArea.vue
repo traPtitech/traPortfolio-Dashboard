@@ -34,7 +34,7 @@ const handleInput = (event: Event) => {
 
 const calculateInputHeight = () => {
   if (textareaEle.value === null) return
-
+  textareaEle.value.style.height = '0px'
   textareaEle.value.style.height = `${textareaEle.value.scrollHeight}px`
 }
 
@@ -52,7 +52,7 @@ watch(toRef(props, 'modelValue'), async () => {
   <textarea
     ref="textareaEle"
     :class="$style.textarea"
-    :vale="props.modelValue"
+    :value="props.modelValue"
     :placeholder="props.placeholder"
     :rows="props.rows"
     @input="handleInput"
