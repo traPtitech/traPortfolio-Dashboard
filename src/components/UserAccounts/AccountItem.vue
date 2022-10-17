@@ -22,7 +22,8 @@ const props = defineProps<Props>()
       </div>
       <p :class="$style.url"><icon name="mdi:link" />{{ props.account.url }}</p>
       <p :class="$style.prPermittion">
-        <icon name="mdi:advertisements" />
+        <icon v-if="props.account.prPermitted" name="mdi:advertisements" />
+        <icon v-else name="mdi:advertisements-off" />
         <span>
           traP広報にて言及を許可{{
             props.account.prPermitted ? 'する' : 'しない'
