@@ -68,11 +68,11 @@ const { data: accounts, fetcherState: fetcherState } = useUserDataFetcher(
 }
 .accountList {
   list-style: none;
-  padding: 8px 0;
+  padding: 0.5rem 0;
   li {
     border: 1px solid $color-primary-text;
     border-radius: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     &:last-child {
       margin-bottom: 0;
     }
@@ -82,6 +82,6 @@ const { data: accounts, fetcherState: fetcherState } = useUserDataFetcher(
   }
 }
 .backButton {
-  margin-top: 32px;
+  margin-top: 2rem;
 }
 </style>

@@ -40,27 +40,27 @@ const props = defineProps<Props>()
   text-decoration: none;
 }
 .container {
-  padding: 8px;
+  padding: 0.5rem;
 }
 .displayNameContainer {
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .displayName {
   color: $color-primary;
-  font-size: 18px;
+  font-size: 1.125rem;
 }
 .url {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 }
 .prPermittion {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
 }
 </style>
