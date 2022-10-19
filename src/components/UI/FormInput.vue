@@ -6,14 +6,14 @@ interface Props {
   modelValue: string
   placeholder?: string
   limit?: number
-  hasAtmark?: boolean
+  icon?: 'magnify' | 'at'
   hasAnchor?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
   limit: undefined,
-  hasAtmark: false,
+  icon: undefined,
   hasAnchor: false
 })
 const emit = defineEmits<{
@@ -40,7 +40,9 @@ const handleInput = (event: Event) => {
 
 <template>
   <div :class="$style.container" :data-has-anchor="props.hasAnchor">
-    <span v-if="props.hasAtmark" :class="$style.atmark"> @ </span>
+    <div v-if="props.icon !== undefined" :class="$style.iconContainer">
+      <icon :name="`mdi:${props.icon}`" :icon="$style.icon" />
+    </div>
     <input
       :class="$style.input"
       :placeholder="props.placeholder"
@@ -80,7 +82,8 @@ const handleInput = (event: Event) => {
   flex-grow: 1;
 }
 
-.atmark {
+.iconContainer {
+  display: flex;
   margin-right: 4px;
   color: $color-secondary;
   .container:focus-within & {

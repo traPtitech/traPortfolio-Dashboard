@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
+import FormInput from '/@/components/UI/FormInput.vue'
 
 interface Props {
   modelValue: string
@@ -19,47 +19,11 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-  <div :class="$style.container">
-    <div :class="$style.searchIcon">
-      <icon name="mdi:magnify" :class="$style.icon" />
-    </div>
-    <input
-      :class="$style.input"
-      :placeholder="props.placeholder"
-      :value="props.modelValue"
-      @input="handleInput"
-    />
-  </div>
+  <form-input
+    icon="magnify"
+    :model-value="props.modelValue"
+    @input="handleInput"
+  />
 </template>
 
-<style module lang="scss">
-.container {
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  border: 1px solid $color-secondary;
-  border-radius: 6px;
-  &:focus-within {
-    border-color: $color-primary;
-  }
-}
-
-.input {
-  flex-grow: 1;
-  &::placeholder {
-    color: $color-secondary;
-  }
-}
-
-.searchIcon {
-  margin-right: 4px;
-  color: $color-secondary;
-  .container:focus-within & {
-    color: $color-primary;
-  }
-}
-
-.icon {
-  display: flex;
-}
-</style>
+<style module lang="scss"></style>
