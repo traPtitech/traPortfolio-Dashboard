@@ -1,23 +1,19 @@
 <script lang="ts" setup>
 import Icon from '/@/components/UI/Icon.vue'
 import type { AccountType } from '/@/lib/apis'
-import { validateService } from '/@/use/validateService'
-import { serviceArray } from '/@/consts/services'
+import { services } from '/@/consts/services'
 
 interface Props {
   service: AccountType
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 </script>
 
 <template>
   <div :class="$style.logo">
-    <Icon
-      :name="validateService(serviceArray[props.service]).icon"
-      :class="$style.icon"
-    />
-    {{ validateService(serviceArray[props.service]).name }}
+    <Icon :name="services[service].icon" :class="$style.icon" />
+    {{ services[service].name }}
   </div>
 </template>
 
