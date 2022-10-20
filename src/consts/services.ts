@@ -1,4 +1,4 @@
-import type { AccountType } from '/@/lib/apis'
+import { AccountType } from '/@/lib/apis'
 
 export type Service = Record<
   AccountType,
@@ -9,51 +9,51 @@ export type Service = Record<
 >
 
 export const services: Service = {
-  0: {
+  [AccountType.homepage]: {
     name: 'HomePage',
     icon: 'mdi:home'
   },
-  1: {
+  [AccountType.blog]: {
     name: 'Blog',
     icon: 'mdi:post-outline'
   },
-  2: {
+  [AccountType.twitter]: {
     name: 'Twitter',
     icon: 'mdi:twitter'
   },
-  3: {
+  [AccountType.facebook]: {
     name: 'Facebook',
     icon: 'mdi:facebook'
   },
-  4: {
+  [AccountType.pixiv]: {
     name: 'pixiv',
     icon: 'simple-icons:pixiv'
   },
-  5: {
+  [AccountType.github]: {
     name: 'Github',
     icon: 'mdi:github'
   },
-  6: {
+  [AccountType.qiita]: {
     name: 'Qiita',
     icon: 'simple-icons:qiita'
   },
-  7: {
+  [AccountType.zenn]: {
     name: 'Zenn',
     icon: 'simple-icons:zenn'
   },
-  8: {
+  [AccountType.atcoder]: {
     name: 'AtCoder',
     icon: 'atcoder' //アイコンは保留
   },
-  9: {
+  [AccountType.soundcloud]: {
     name: 'SoundCloud',
     icon: 'mdi:soundcloud'
   },
-  10: {
+  [AccountType.hackthebox]: {
     name: 'HackTheBox',
     icon: 'simple-icons:hackthebox'
   },
-  11: {
+  [AccountType.ctftime]: {
     name: 'CTFtime',
     icon: 'ctftime' //アイコンは保留
   }
