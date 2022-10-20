@@ -11,9 +11,8 @@ import useUserDataFetcher from '/@/use/userDataFetcher'
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 
-const { data: accounts, fetcherState: fetcherState } = useUserDataFetcher(
-  userId,
-  userId => apis.getUserAccounts(userId)
+const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
+  apis.getUserAccounts(userId)
 )
 </script>
 
