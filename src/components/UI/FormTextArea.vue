@@ -74,7 +74,7 @@ const isExceeded = computed(
   justify-content: flex-end;
   font-size: 0.75rem;
   &[data-exceeded='true'] {
-    color: $color-danger;
+    color: $color-warning;
   }
 }
 </style>

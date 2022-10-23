@@ -93,7 +93,7 @@ const handleInput = (event: Event) => {
   margin-left: 4px;
   font-size: 0.75rem;
   &[data-exceeded='true'] {
-    color: $color-danger;
+    color: $color-warning;
   }
   .container[data-has-anchor='true'] & {
     margin-right: 8px;
