@@ -39,7 +39,7 @@ const isExceeded = computed(
       v-model="value"
       :placeholder="props.placeholder"
       :class="$style.textarea"
-      :row="props.rows"
+      :rows="props.rows"
       :max-height="props.maxHeight"
       :name="props.name"
     />

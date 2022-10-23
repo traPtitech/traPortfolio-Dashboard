@@ -29,6 +29,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 const textareaEle = ref<HTMLTextAreaElement | null>(null)
 
+const initialHeight = ref(0)
+
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: string): void
 }>()
@@ -39,13 +41,15 @@ const handleInput = (event: Event) => {
 
 const calculateInputHeight = () => {
   if (textareaEle.value === null) return
-  textareaEle.value.style.height = '0px'
+  textareaEle.value.style.height = `${initialHeight.value}px`
   textareaEle.value.style.height = `${textareaEle.value.scrollHeight}px`
 }
 
 const style = computed(() => ({ maxHeight: `${props.maxHeight}px` }))
 
 onMounted(() => {
+  if (textareaEle.value === null) return
+  initialHeight.value = textareaEle.value.scrollHeight
   calculateInputHeight()
 })
 
@@ -61,6 +65,7 @@ watch(toRef(props, 'modelValue'), async () => {
     :class="$style.textarea"
     :value="props.modelValue"
     :placeholder="props.placeholder"
+    :readonly="props.readonly"
     :rows="props.rows"
     :name="props.name"
     :style="style"
