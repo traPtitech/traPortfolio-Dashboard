@@ -4,6 +4,7 @@ import { computed } from 'vue'
 
 interface Props {
   modelValue: string
+  readonly?: boolean
   placeholder?: string
   limit?: number
   rows?: number
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
+  readonly: false,
   placeholder: '',
   limit: undefined,
   rows: 1,
@@ -37,14 +39,15 @@ const isExceeded = computed(
   <div :class="$style.container">
     <auto-resize-text-area
       v-model="value"
-      :placeholder="props.placeholder"
+      :readonly="readonly"
+      :placeholder="placeholder"
       :class="$style.textarea"
-      :rows="props.rows"
-      :max-height="props.maxHeight"
-      :name="props.name"
+      :rows="rows"
+      :max-height="maxHeight"
+      :name="name"
     />
-    <div v-if="props.limit" :class="$style.count" :data-exceeded="isExceeded">
-      {{ [...props.modelValue].length }}/{{ props.limit }}
+    <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
+      {{ [...modelValue].length }}/{{ limit }}
     </div>
   </div>
 </template>

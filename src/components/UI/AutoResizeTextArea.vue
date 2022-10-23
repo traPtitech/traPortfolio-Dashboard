@@ -63,11 +63,11 @@ watch(toRef(props, 'modelValue'), async () => {
   <textarea
     ref="textareaEle"
     :class="$style.textarea"
-    :value="props.modelValue"
-    :placeholder="props.placeholder"
-    :readonly="props.readonly"
-    :rows="props.rows"
-    :name="props.name"
+    :value="modelValue"
+    :placeholder="placeholder"
+    :readonly="readonly"
+    :rows="rows"
+    :name="name"
     :style="style"
     @input="handleInput"
   />
