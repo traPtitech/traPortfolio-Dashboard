@@ -1,3 +1,8 @@
+<script lang="ts" setup>
+import NavigationLinksItem from './NavigationLinksItem.vue'
+import { routes } from '/@/use/routeInfo'
+</script>
+
 <template>
   <ul>
     <navigation-links-item
@@ -9,20 +14,6 @@
     />
   </ul>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import NavigationLinksItem from './NavigationLinksItem.vue'
-import { routes } from '/@/use/routeInfo'
-
-export default defineComponent({
-  name: 'NavigationLinks',
-  components: { NavigationLinksItem },
-  setup() {
-    return { routes }
-  }
-})
-</script>
 
 <style lang="scss" module>
 .item {

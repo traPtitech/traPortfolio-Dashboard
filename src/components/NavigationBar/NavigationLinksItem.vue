@@ -1,3 +1,19 @@
+<script lang="ts" setup>
+import { toRef } from 'vue'
+import { useLink } from 'vue-router'
+import Icon from '../UI/Icon.vue'
+import useRouteInfo from '/@/use/routeInfo'
+
+interface Props {
+  name: string
+  path: string
+}
+
+const props = defineProps<Props>()
+
+const routeInfo = useRouteInfo(toRef(props, 'name'))
+const { isActive, route } = useLink({ to: toRef(props, 'path') })
+</script>
 <template>
   <router-link :to="route" :class="$style.link">
     <li :class="$style.container" :data-is-selected="isActive">
@@ -7,33 +23,6 @@
     </li>
   </router-link>
 </template>
-
-<script lang="ts">
-import { defineComponent, toRef } from 'vue'
-import { useLink } from 'vue-router'
-import Icon from '../UI/Icon.vue'
-import useRouteInfo from '/@/use/routeInfo'
-
-export default defineComponent({
-  name: 'NavigationLinksItem',
-  components: { Icon },
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    path: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props) {
-    const routeInfo = useRouteInfo(toRef(props, 'name'))
-    const { isActive, route } = useLink({ to: toRef(props, 'path') })
-    return { routeInfo, isActive, route }
-  }
-})
-</script>
 
 <style lang="scss" module>
 .link {
