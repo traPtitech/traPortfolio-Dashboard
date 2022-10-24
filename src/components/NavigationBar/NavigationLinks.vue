@@ -17,7 +17,7 @@ import { routes } from '/@/use/routeInfo'
 
 <style lang="scss" module>
 .item {
-  margin: 0.25rem 0;
+  margin: 0.5rem 0;
   &:first-child {
     margin-top: 0;
   }

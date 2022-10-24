@@ -19,7 +19,7 @@ const { isActive, route } = useLink({ to: toRef(props, 'path') })
     <li :class="$style.container" :data-is-selected="isActive">
       <div :class="$style.pin" :data-is-selected="isActive"></div>
       <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
-      <div>{{ name }}</div>
+      <h2 :class="$style.name">{{ name }}</h2>
     </li>
   </router-link>
 </template>
@@ -38,7 +38,6 @@ const { isActive, route } = useLink({ to: toRef(props, 'path') })
 
   &[data-is-selected='true'] {
     color: $color-primary;
-    font-weight: bold;
   }
 }
 
@@ -48,14 +47,15 @@ const { isActive, route } = useLink({ to: toRef(props, 'path') })
   background-color: transparent;
 
   &[data-is-selected='true'] {
-    color: $color-primary;
-    font-weight: bold;
     background-color: $color-primary;
   }
 }
 
 .icon {
-  display: flex;
   margin: auto 0.5rem;
+}
+
+.name {
+  font-size: 1.25rem;
 }
 </style>

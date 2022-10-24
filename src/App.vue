@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <page-header :class="$style.header" />
-    <navigation-bar />
+    <navigation-bar :class="$style.navigationBar" />
     <Suspense>
       <template #default>
         <router-view />
@@ -30,5 +30,10 @@ import Loading from '/@/pages/Loading.vue'
   grid-template-columns: 260px 1fr;
   grid-template-rows: min-content 1fr;
   height: 100%;
+}
+
+.navigationBar {
+  grid-row: 2;
+  grid-column: 1;
 }
 </style>
