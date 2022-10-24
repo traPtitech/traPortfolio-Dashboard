@@ -33,6 +33,8 @@ const value = computed({
 const isExceeded = computed(
   () => props.limit && [...props.modelValue].length > props.limit
 )
+
+const wordCount = computed(() => [...props.modelValue].length)
 </script>
 
 <template>
@@ -47,7 +49,7 @@ const isExceeded = computed(
       :name="name"
     />
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
-      {{ [...modelValue].length }}/{{ limit }}
+      {{ wordCount }}/{{ limit }}
     </div>
   </div>
 </template>
