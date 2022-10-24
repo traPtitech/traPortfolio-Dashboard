@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const Index = () => import('/@/pages/Index.vue')
 const User = () => import('/@/pages/User.vue')
+const UserAccounts = () => import('/@/pages/UserAccounts.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
 const Events = () => import('/@/pages/Events.vue')
@@ -55,6 +56,11 @@ const routes = [
     path: '/user',
     name: 'Profile',
     component: User
+  },
+  {
+    path: '/user/accounts',
+    name: 'UserAccounts',
+    component: UserAccounts
   }
 ]
 
