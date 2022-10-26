@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { toRef } from 'vue'
-import { useLink } from 'vue-router'
+import { computed, toRef } from 'vue'
+import { useRoute } from 'vue-router'
 import Icon from '../UI/Icon.vue'
 import useRouteInfo from '/@/use/routeInfo'
 
@@ -9,13 +9,19 @@ interface Props {
   path: string
 }
 
+var currentRoute = useRoute()
+
 const props = defineProps<Props>()
 
 const routeInfo = useRouteInfo(toRef(props, 'name'))
-const { isActive, route } = useLink({ to: toRef(props, 'path') })
+
+const isActive = computed(() => {
+  if (props.path === '/') return currentRoute.path === props.path
+  return currentRoute.path.startsWith(`${props.path}`)
+})
 </script>
 <template>
-  <router-link :to="route" :class="$style.link">
+  <router-link :to="path" :class="$style.link">
     <li :class="$style.container" :data-is-selected="isActive">
       <div :class="$style.pin" :data-is-selected="isActive"></div>
       <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />

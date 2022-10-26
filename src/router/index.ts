@@ -53,12 +53,12 @@ const routes = [
     component: ContestCreate
   },
   {
-    path: '/user',
+    path: '/users',
     name: 'Profile',
     component: User
   },
   {
-    path: '/user/accounts',
+    path: '/users/accounts',
     name: 'UserAccounts',
     component: UserAccounts
   }
