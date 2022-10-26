@@ -1,5 +1,4 @@
 @import '../node_modules/ress/ress.css';
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&display=swap');
 body {
   color: $color-text;
   background: $color-background;
@@ -8,5 +7,4 @@ body {
 body,
 #app {
   height: 100vh;
-  font-family: 'M PLUS 1p', sans-serif;
 }
