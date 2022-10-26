@@ -20,9 +20,11 @@ const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: string): void
 }>()
 
-const isExceeded = computed(
-  () => props.limit && [...props.modelValue].length > props.limit
-)
+//Unicode Codepoint数でカウント
+const textLength = computed(() => [...props.modelValue].length)
+
+const isExceeded = computed(() => props.limit && textLength.value > props.limit)
+
 const isValidLink = computed(() => {
   let url
   try {
@@ -40,7 +42,7 @@ const handleInput = (event: Event) => {
 
 <template>
   <div :class="$style.container" :data-has-anchor="props.hasAnchor">
-    <div v-if="props.icon !== undefined" :class="$style.iconContainer">
+    <div v-if="typeof props.icon !== 'undefined'" :class="$style.iconContainer">
       <icon :name="`mdi:${props.icon}`" :icon="$style.icon" />
     </div>
     <input
@@ -50,7 +52,7 @@ const handleInput = (event: Event) => {
       @input="handleInput"
     />
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
-      {{ [...props.modelValue].length }}/{{ props.limit }}
+      {{ textLength }}/{{ props.limit }}
     </div>
     <div
       v-if="props.hasAnchor"
@@ -80,6 +82,9 @@ const handleInput = (event: Event) => {
 }
 .input {
   flex-grow: 1;
+  &::placeholder {
+    color: $color-secondary;
+  }
 }
 
 .iconContainer {
