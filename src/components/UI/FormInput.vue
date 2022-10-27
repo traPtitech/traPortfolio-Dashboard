@@ -6,23 +6,25 @@ interface Props {
   modelValue: string
   placeholder?: string
   limit?: number
-  hasAtmark?: boolean
+  icon?: 'magnify' | 'at'
   hasAnchor?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
   limit: undefined,
-  hasAtmark: false,
+  icon: undefined,
   hasAnchor: false
 })
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: string): void
 }>()
 
-const isExceeded = computed(
-  () => props.limit && [...props.modelValue].length > props.limit
-)
+//Unicode Codepoint数でカウント
+const textLength = computed(() => [...props.modelValue].length)
+
+const isExceeded = computed(() => props.limit && textLength.value > props.limit)
+
 const isValidLink = computed(() => {
   let url
   try {
@@ -40,7 +42,9 @@ const handleInput = (event: Event) => {
 
 <template>
   <div :class="$style.container" :data-has-anchor="props.hasAnchor">
-    <span v-if="props.hasAtmark" :class="$style.atmark"> @ </span>
+    <div v-if="typeof props.icon !== 'undefined'" :class="$style.iconContainer">
+      <icon :name="`mdi:${props.icon}`" :icon="$style.icon" />
+    </div>
     <input
       :class="$style.input"
       :placeholder="props.placeholder"
@@ -48,7 +52,7 @@ const handleInput = (event: Event) => {
       @input="handleInput"
     />
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
-      {{ [...props.modelValue].length }}/{{ props.limit }}
+      {{ textLength }}/{{ props.limit }}
     </div>
     <div
       v-if="props.hasAnchor"
@@ -78,9 +82,13 @@ const handleInput = (event: Event) => {
 }
 .input {
   flex-grow: 1;
+  &::placeholder {
+    color: $color-secondary;
+  }
 }
 
-.atmark {
+.iconContainer {
+  display: flex;
   margin-right: 4px;
   color: $color-secondary;
   .container:focus-within & {
