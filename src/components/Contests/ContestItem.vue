@@ -13,6 +13,7 @@ defineProps<Props>()
   <router-link :to="`/contests/${contest.id}/edit`" :class="$style.link">
     <div :class="$style.container">
       <p :class="$style.displayName">{{ contest.name }}</p>
+      <!-- todo:swaggerが直ったらprops.contestからデータを取ってくる -->
       <p :class="$style.duration"><icon name="mdi:calendar" />2020/12/30</p>
       <p :class="$style.teams"><icon name="mdi:account-group" />23チーム</p>
     </div>

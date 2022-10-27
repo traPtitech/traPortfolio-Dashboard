@@ -29,13 +29,12 @@ const searchQuery = ref('')
     <div :class="$style.searchFormContainer">
       <FormInput
         v-model="searchQuery"
-        :limit="5"
         placeholder="コンテスト名"
         icon="magnify"
         :class="$style.searchForm"
       />
       <router-link to="/contests/new" :class="$style.link">
-        <BaseButton type="primary" icon="mdi:plus">New</BaseButton>
+        <BaseButton type="primary" icon="mdi:trophy">New</BaseButton>
       </router-link>
     </div>
     <ul v-if="fetcherState === 'loaded'" :class="$style.contestList">
