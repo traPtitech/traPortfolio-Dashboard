@@ -21,7 +21,7 @@ const searchQuery = ref('')
 <template>
   <page-container>
     <content-header
-      icon-name="mdi:trophy"
+      icon-name="mdi:trophy-outline"
       :header-texts="[{ title: 'Contests', url: '/contests' }]"
       detail="コンテスト情報を変更します。"
       :class="$style.header"
