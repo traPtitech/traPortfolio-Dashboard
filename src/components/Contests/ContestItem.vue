@@ -14,7 +14,6 @@ defineProps<Props>()
   <router-link :to="`/contests/${contest.id}/edit`" :class="$style.link">
     <div :class="$style.container">
       <p :class="$style.name">{{ contest.name }}</p>
-      <!-- todo:swaggerが直ったらprops.contestからデータを取ってくる -->
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(contest.duration.since)) }}
