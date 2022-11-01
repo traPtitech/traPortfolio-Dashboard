@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import type { ContestTeamWithContestName } from '/@/lib/apis'
+import type { UserContest } from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
+import { getFullDayString } from '/@/lib/date'
 
 interface Props {
-  contest: ContestTeamWithContestName
+  contest: UserContest
 }
 
 defineProps<Props>()
@@ -14,8 +15,14 @@ defineProps<Props>()
     <div :class="$style.container">
       <p :class="$style.name">{{ contest.name }}</p>
       <!-- todo:swaggerが直ったらprops.contestからデータを取ってくる -->
-      <p :class="$style.duration"><icon name="mdi:calendar" />2020/12/30</p>
-      <p :class="$style.teams"><icon name="mdi:account-group" />23チーム</p>
+      <p :class="$style.duration">
+        <icon name="mdi:calendar" />
+        {{ getFullDayString(new Date(contest.duration.since)) }}
+      </p>
+      <p :class="$style.teams">
+        <icon name="mdi:account-group" />
+        {{ contest.teamCount }} チーム
+      </p>
     </div>
   </router-link>
 </template>
