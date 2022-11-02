@@ -2,7 +2,7 @@
   <div :class="$style.container">
     <page-header :class="$style.header" />
     <navigation-bar :class="$style.navigationBar" />
-    <main :class="$style.content">
+    <div :class="$style.content">
       <Suspense>
         <template #default>
           <router-view />
@@ -11,7 +11,7 @@
           <loading />
         </template>
       </Suspense>
-    </main>
+    </div>
   </div>
 </template>
 
