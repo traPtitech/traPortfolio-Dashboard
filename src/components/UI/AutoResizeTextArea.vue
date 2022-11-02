@@ -7,8 +7,11 @@ import {
   ref,
   toRef,
   withDefaults,
-  computed
+  computed,
+  onBeforeUnmount
 } from 'vue'
+
+import autosize from 'autosize'
 
 interface Props {
   modelValue: string
@@ -29,8 +32,6 @@ const props = withDefaults(defineProps<Props>(), {
 
 const textareaEle = ref<HTMLTextAreaElement | null>(null)
 
-const minHeight = ref(0)
-
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: string): void
 }>()
@@ -39,23 +40,22 @@ const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
 }
 
-const calculateInputHeight = () => {
-  if (textareaEle.value === null) return
-  textareaEle.value.style.height = `${minHeight.value}px`
-  textareaEle.value.style.height = `${textareaEle.value.scrollHeight}px`
-}
-
 const style = computed(() => ({ maxHeight: `${props.maxHeight}px` }))
 
 onMounted(() => {
   if (textareaEle.value === null) return
-  minHeight.value = textareaEle.value.scrollHeight
-  calculateInputHeight()
+  autosize(textareaEle.value)
 })
 
 watch(toRef(props, 'modelValue'), async () => {
   await nextTick()
-  calculateInputHeight()
+  if (textareaEle.value === null) return
+  autosize.update(textareaEle.value)
+})
+
+onBeforeUnmount(() => {
+  if (textareaEle.value === null) return
+  autosize.destroy(textareaEle.value)
 })
 </script>
 
