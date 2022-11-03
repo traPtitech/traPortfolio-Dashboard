@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Icon from '/@/components/UI/Icon.vue'
 
-type ButtonType = 'primary' | 'secondary' | 'danger'
+type ButtonType = 'primary' | 'secondary' | 'warning'
 
 interface Props {
   type?: ButtonType
@@ -47,9 +47,9 @@ const props = withDefaults(defineProps<Props>(), {
     background-color: $color-background;
     border: 1px solid $color-primary;
   }
-  &[data-button-type='danger'] {
+  &[data-button-type='warning'] {
     color: $color-primary-text;
-    background-color: $color-danger;
+    background-color: $color-warning;
   }
 
   &:hover {
