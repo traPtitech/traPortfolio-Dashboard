@@ -5,17 +5,17 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import ContestItem from '/@/components/Contests/ContestItem.vue'
 
 import { ref } from 'vue'
-import apis from '/@/lib/apis'
-import useUserDataFetcher from '/@/use/userDataFetcher'
 import FormInput from '/@/components/UI/FormInput.vue'
+import { storeToRefs } from 'pinia'
+import { RouterLink } from 'vue-router'
+import { useContestStore } from '/@/store/contest'
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
+const contestStore = useContestStore()
+const { contests } = storeToRefs(contestStore)
 
-const { data: contests, fetcherState } = useUserDataFetcher(userId, userId =>
-  apis.getUserContests(userId)
-)
 const searchQuery = ref('')
+
+contestStore.fetchContests()
 </script>
 
 <template>
@@ -37,13 +37,11 @@ const searchQuery = ref('')
         <BaseButton type="primary" icon="mdi:trophy">New</BaseButton>
       </router-link>
     </div>
-    <ul v-if="fetcherState === 'loaded'" :class="$style.contestList">
+    <ul :class="$style.contestList">
       <li v-for="contest in contests" :key="contest.id">
         <contest-item :contest="contest" />
       </li>
     </ul>
-    <p v-else-if="fetcherState === 'loading'">ローディング中...</p>
-    <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
   </page-container>
 </template>
 

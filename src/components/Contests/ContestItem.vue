@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { UserContest } from '/@/lib/apis'
+import type { Contest } from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
 import { getFullDayString } from '/@/lib/date'
 
 interface Props {
-  contest: UserContest
+  contest: Contest
 }
 
 defineProps<Props>()
@@ -20,7 +20,7 @@ defineProps<Props>()
       </p>
       <p :class="$style.teams">
         <icon name="mdi:account-group" />
-        {{ contest.teamCount }} チーム
+        {{ contest.teams.length }} チーム
       </p>
     </div>
   </router-link>
