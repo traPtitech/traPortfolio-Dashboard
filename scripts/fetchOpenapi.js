@@ -6,7 +6,7 @@ const path = require('path')
 
 // 一時的にContestが正しくなっているもののURLに変更
 const URL =
-  'https://raw.githubusercontent.com/traPtitech/traPortfolio/fix/swagger_contests/docs/swagger/traPortfolio.v1.yaml'
+  'https://raw.githubusercontent.com/traPtitech/traPortfolio/fix/replace_user_contests_response/docs/swagger/traPortfolio.v1.yaml'
 const dist = './traPortfolio.v1.yaml'
 
 if (process.env.SKIP_GENAPI) {

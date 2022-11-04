@@ -18,10 +18,6 @@ defineProps<Props>()
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(contest.duration.since)) }}
       </p>
-      <p :class="$style.teams">
-        <icon name="mdi:account-group" />
-        {{ contest.teams.length }} チーム
-      </p>
     </div>
   </router-link>
 </template>
@@ -44,11 +40,5 @@ defineProps<Props>()
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.75rem;
-}
-.teams {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 </style>
