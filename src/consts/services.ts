@@ -1,14 +1,16 @@
 import { AccountType } from '/@/lib/apis'
 
-export type Service = Record<
-  AccountType,
-  {
-    name: string
-    icon: string
-  }
->
+interface Service {
+  name: string
+  icon: string
+}
+interface ServiceWithType extends Service {
+  type: AccountType
+}
 
-export const services: Service = {
+type ServiceRecord = Record<AccountType, Service>
+
+export const services: ServiceRecord = {
   [AccountType.homepage]: {
     name: 'HomePage',
     icon: 'mdi:home'
@@ -58,3 +60,9 @@ export const services: Service = {
     icon: 'ctftime' //アイコンは保留
   }
 }
+
+export const serviceArray: ServiceWithType[] = Object.values(services).map(
+  (service, i) => {
+    return { ...service, type: i }
+  }
+)
