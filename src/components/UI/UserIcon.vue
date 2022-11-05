@@ -1,10 +1,15 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 interface Props {
-  name: string
+  userId: string
   size?: number
 }
 const props = withDefaults(defineProps<Props>(), { size: 24 })
+const src = computed(
+  () =>
+    // TODO: userIdから画像を読み込む `https://q.trap.jp/api/v3/public/icon/${props.userId}`
+    `https://q.trap.jp/api/v3/public/icon/toshi00`
+)
 
 const styles = computed(() => ({
   height: `${props.size}px`,
@@ -13,11 +18,7 @@ const styles = computed(() => ({
 </script>
 
 <template>
-  <img
-    :class="$style.icon"
-    :src="'https://q.trap.jp/api/v3/public/icon/toshi00'"
-    :style="styles"
-  />
+  <img :class="$style.icon" :src="src" :style="styles" />
 </template>
 
 <style lang="scss" module>
