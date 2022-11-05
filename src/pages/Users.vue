@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref } from 'vue'
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import BaseButton from '/@/components/UI/BaseButton.vue'
-import UserIcon from '/@/components/UI/UserIcon.vue'
-import UserAccounts from '/@/components/Users/UserAccounts.vue'
+import UserProfile from '/@/components/Users/UserProfile.vue'
+import UserProfileEdit from '/@/components/Users/UserProfileEdit.vue'
 import apis from '/@/lib/apis'
 import useUserDataFetcher from '/@/use/userDataFetcher'
 
@@ -28,21 +26,16 @@ const { data: user, fetcherState } = useUserDataFetcher(userId, userId =>
       />
       <!-- todo:プレビューボタンの追加 -->
     </div>
-    <div v-if="user !== undefined" :class="$style.profileContainer">
-      <user-icon :user-id="user.id" :size="128" />
-      <div>
-        <div :class="$style.nameContainer">
-          <p :class="$style.name">{{ user.name }}</p>
-          <p :class="$style.realName">{{ user.realName }}</p>
-        </div>
-        <div :class="$style.accounts">
-          <user-accounts :accounts="user.accounts.slice(0, 5)" />
-          <router-link to="/user/accounts" :class="$style.link">
-            <base-button icon="mdi:account">Edit</base-button>
-          </router-link>
-        </div>
-      </div>
-    </div>
+    <UserProfile
+      v-if="user !== undefined"
+      :user="user"
+      :class="$style.userProfile"
+    />
+    <UserProfileEdit
+      v-if="user !== undefined"
+      :user="user"
+      :class="$style.userProfileEdit"
+    />
   </page-container>
 </template>
 
@@ -55,33 +48,7 @@ const { data: user, fetcherState } = useUserDataFetcher(userId, userId =>
 .header {
   margin: 4rem 0 2rem;
 }
-
-.profileContainer {
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-}
-.profiles {
-}
-.nameContainer {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-.name {
-  color: $color-primary;
-  font-size: 3rem;
-}
-.realName {
-  font-size: 1.5rem;
-}
-.accounts {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
+.userProfileEdit {
+  margin-top: 2rem;
 }
 </style>
