@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, toRef } from 'vue'
 import { useRoute } from 'vue-router'
-import Icon from '../UI/Icon.vue'
+import Icon from '/@/components/UI/Icon.vue'
 import useRouteInfo from '/@/use/routeInfo'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   path: string
 }
 
-var currentRoute = useRoute()
+const currentRoute = useRoute()
 
 const props = defineProps<Props>()
 
@@ -20,12 +20,13 @@ const isActive = computed(() => {
   return currentRoute.path.startsWith(`${props.path}`)
 })
 </script>
+
 <template>
   <router-link :to="path" :class="$style.link">
     <li :class="$style.container" :data-is-selected="isActive">
       <div :class="$style.pin" :data-is-selected="isActive"></div>
       <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
-      <h2 :class="$style.name">{{ name }}</h2>
+      <p :class="$style.name">{{ name }}</p>
     </li>
   </router-link>
 </template>
