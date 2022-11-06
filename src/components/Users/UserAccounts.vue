@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
-import { serviceArray } from '/@/consts/services'
-import { Account } from '/@/lib/apis'
+import { serviceArray, type ServiceWithType } from '/@/consts/services'
+import type { Account } from '/@/lib/apis'
 
-interface Service {
-  name: string
-  icon: string
+interface Service extends ServiceWithType {
   hasAccount: boolean
 }
 
@@ -28,7 +26,7 @@ const shownServices = computed((): Service[] => {
 
 <template>
   <div :class="$style.container">
-    <Icon
+    <icon
       v-for="service in shownServices"
       :key="service.name"
       :name="service.icon"

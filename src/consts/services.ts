@@ -4,7 +4,7 @@ interface Service {
   name: string
   icon: string
 }
-interface ServiceWithType extends Service {
+export interface ServiceWithType extends Service {
   type: AccountType
 }
 
