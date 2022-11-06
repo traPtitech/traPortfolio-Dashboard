@@ -26,16 +26,14 @@ const { data: user, fetcherState } = useUserDataFetcher(userId, userId =>
       />
       <!-- todo:プレビューボタンの追加 -->
     </div>
-    <UserProfile
-      v-if="user !== undefined"
-      :user="user"
-      :class="$style.userProfile"
-    />
+    <UserProfile v-if="user !== undefined" :user="user" />
     <UserProfileEdit
       v-if="user !== undefined"
       :user="user"
       :class="$style.userProfileEdit"
     />
+    <p v-else-if="fetcherState === 'loading'">ローディング中...</p>
+    <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
   </page-container>
 </template>
 

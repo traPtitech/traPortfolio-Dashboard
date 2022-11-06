@@ -11,14 +11,26 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const shouldShowRealname = ref(props.user?.realName === '' ?? false) // todo:UserDetailに追加されたら初期値をそこから取得する
-const bio = ref(props.user?.bio ?? '')
+const shouldShowRealname = ref(props.user.realName === '') // todo:checkがUserDetailに追加されたら初期値をそこから取得する
+const bio = ref(props.user.bio)
+
+const isSending = ref(false)
 
 const updateUserProfile = async () => {
-  await apis.editUser(props.user.id, {
-    bio: bio.value,
-    check: shouldShowRealname.value
-  })
+  isSending.value = true
+  try {
+    await apis.editUser(props.user.id, {
+      bio: bio.value,
+      check: shouldShowRealname.value
+    })
+    //eslint-disable-next-line no-console
+    console.log('更新しました') // todo:トーストとかに変えたい
+  } catch {
+    //eslint-disable-next-line no-console
+    console.log('更新に失敗しました')
+  } finally {
+    isSending.value = false
+  }
 }
 </script>
 
@@ -44,6 +56,7 @@ const updateUserProfile = async () => {
         <base-button
           icon="mdi:update"
           :class="$style.updateButton"
+          :disabled="isSending"
           @click="updateUserProfile"
         >
           Update
@@ -58,15 +71,13 @@ const updateUserProfile = async () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
+  margin: 0.5rem 0 0 0.5rem;
 }
 .shouldShowRealnameText {
   font-size: 1.25rem;
 }
 .textareaContainer {
-  margin-top: 0.5rem;
-  margin-left: 0.5rem;
+  margin: 0.5rem 0 0 0.5rem;
 }
 .bio {
   font-size: 1.25rem;
