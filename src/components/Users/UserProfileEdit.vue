@@ -11,7 +11,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const shouldShowRealname = ref(props.user.realName === '') // todo:checkがUserDetailに追加されたら初期値をそこから取得する
+const shouldShowRealname = ref(props.user.realName !== '') // todo:checkがUserDetailに追加されたら初期値をそこから取得する
 const bio = ref(props.user.bio)
 
 const isSending = ref(false)

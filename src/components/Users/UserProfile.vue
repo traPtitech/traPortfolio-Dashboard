@@ -38,8 +38,8 @@ defineProps<Props>()
 }
 .nameContainer {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0 2rem;
 }
 .name {
