@@ -14,11 +14,16 @@ const styles = computed(() => ({
 </script>
 
 <template>
-  <span class="iconify" :data-icon="name" :style="styles" />
+  <span
+    class="iconify"
+    :data-icon="name"
+    :style="styles"
+    :class="$style.icon"
+  />
 </template>
 
 <style lang="scss" module>
 .icon {
-  contain: strict;
+  display: flex;
 }
 </style>
