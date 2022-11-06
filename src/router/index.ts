@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const Index = () => import('/@/pages/Index.vue')
-const Users = () => import('../pages/Users.vue')
+const Users = () => import('/@/pages/Users.vue')
 const UserAccounts = () => import('/@/pages/UserAccounts.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
