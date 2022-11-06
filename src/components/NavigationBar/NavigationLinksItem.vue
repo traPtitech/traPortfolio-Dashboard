@@ -24,7 +24,6 @@ const isActive = computed(() => {
 <template>
   <router-link :to="path" :class="$style.link">
     <li :class="$style.container" :data-is-selected="isActive">
-      <div :class="$style.pin" :data-is-selected="isActive"></div>
       <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
       <p :class="$style.name">{{ name }}</p>
     </li>
@@ -46,15 +45,18 @@ const isActive = computed(() => {
   &[data-is-selected='true'] {
     color: $color-primary;
   }
-}
 
-.pin {
-  width: 5px;
-  height: 30px;
-  background-color: transparent;
+  &::before {
+    content: '';
+    width: 5px;
+    height: 30px;
+    background-color: transparent;
+  }
 
   &[data-is-selected='true'] {
-    background-color: $color-primary;
+    &::before {
+      background-color: $color-primary;
+    }
   }
 }
 
