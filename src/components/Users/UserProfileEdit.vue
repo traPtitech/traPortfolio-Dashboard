@@ -11,7 +11,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const shouldShowRealname = ref(false) // todo:UserDetailに追加されたら初期値をそこから取得する
+const shouldShowRealname = ref(props.user?.realName === '' ?? false) // todo:UserDetailに追加されたら初期値をそこから取得する
 const bio = ref(props.user?.bio ?? '')
 
 const updateUserProfile = async () => {
@@ -37,7 +37,8 @@ const updateUserProfile = async () => {
         <form-text-area
           v-model="bio"
           :class="$style.textarea"
-          :rows="4"
+          :rows="3"
+          :limit="256"
           placeholder="自己紹介を入力してください"
         />
         <base-button
@@ -57,12 +58,14 @@ const updateUserProfile = async () => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 0.5rem;
   margin-left: 0.5rem;
 }
 .shouldShowRealnameText {
   font-size: 1.25rem;
 }
 .textareaContainer {
+  margin-top: 0.5rem;
   margin-left: 0.5rem;
 }
 .bio {

@@ -38,8 +38,9 @@ defineProps<Props>()
 }
 .nameContainer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 2rem;
+  gap: 0 2rem;
 }
 .name {
   color: $color-primary;
@@ -52,6 +53,7 @@ defineProps<Props>()
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-top: 1rem;
 }
 .link {
   text-decoration: none;
