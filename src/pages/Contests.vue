@@ -27,15 +27,20 @@ contestStore.fetchContests()
       :class="$style.header"
     />
     <div :class="$style.searchFormContainer">
-      <FormInput
-        v-model="searchQuery"
-        placeholder="コンテスト名"
-        icon="magnify"
-        :class="$style.searchForm"
-      />
-      <router-link to="/contests/new" :class="$style.link">
-        <BaseButton type="primary" icon="mdi:trophy">New</BaseButton>
-      </router-link>
+      <div :class="$style.searchForm">
+        <p :class="$style.searchFormDescriptionText">検索</p>
+        <FormInput
+          v-model="searchQuery"
+          placeholder="コンテスト名"
+          icon="magnify"
+        />
+      </div>
+      <div :class="$style.newContestLink">
+        <p :class="$style.searchFormDescriptionText">コンテスト作成</p>
+        <router-link to="/contests/new" :class="$style.link">
+          <BaseButton type="primary" icon="mdi:trophy">New</BaseButton>
+        </router-link>
+      </div>
     </div>
     <ul :class="$style.contestList">
       <li v-for="contest in contests" :key="contest.id">
@@ -54,13 +59,19 @@ contestStore.fetchContests()
 .header {
   margin: 4rem 0 2rem;
 }
+.searchFormDescriptionText {
+  color: $color-secondary;
+  font-size: 0.875rem;
+}
 .searchForm {
   flex-grow: 1;
+}
+.newContestLink {
+  margin-left: 0.5rem;
 }
 .link {
   text-decoration: none;
   color: inherit;
-  margin-left: 0.5rem;
 }
 .contestList {
   list-style: none;
