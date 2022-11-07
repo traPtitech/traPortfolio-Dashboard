@@ -4,25 +4,28 @@ import { routes } from '/@/use/routeInfo'
 </script>
 
 <template>
-  <ul>
+  <ul :class="$style.list">
     <navigation-links-item
       v-for="route in routes"
       :key="route.name"
       :name="route.name"
       :path="route.path"
-      :class="$style.item"
     />
   </ul>
 </template>
 
 <style lang="scss" module>
-.item {
-  margin: 0.5rem 0;
-  &:first-child {
-    margin-top: 0;
-  }
-  &:last-child {
-    margin-bottom: 0;
+.list {
+  list-style: none;
+
+  li {
+    margin: 0.5rem 0;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 </style>
