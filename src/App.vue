@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.container">
     <page-header :class="$style.header" />
-    <navigation-bar :class="$style.navigationBar" />
+    <navigation-bar />
     <div :class="$style.content">
       <Suspense>
         <template #default>
@@ -35,7 +35,6 @@ import Loading from '/@/pages/Loading.vue'
 }
 
 .content {
-  flex-grow: 1;
   overflow: {
     x: hidden;
     y: scroll;

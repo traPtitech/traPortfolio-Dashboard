@@ -22,25 +22,25 @@ const isActive = computed(() => {
 </script>
 
 <template>
-  <router-link :to="path" :class="$style.link">
-    <li :class="$style.container" :data-is-selected="isActive">
+  <li>
+    <router-link
+      :to="path"
+      :class="$style.container"
+      :data-is-selected="isActive"
+    >
       <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
       <p :class="$style.name">{{ name }}</p>
-    </li>
-  </router-link>
+    </router-link>
+  </li>
 </template>
 
 <style lang="scss" module>
-.link {
-  display: block;
-  text-decoration: none;
-}
-
 .container {
   display: flex;
   align-items: center;
-  cursor: pointer;
   color: $color-secondary;
+
+  text-decoration: none;
 
   &::before {
     content: '';
