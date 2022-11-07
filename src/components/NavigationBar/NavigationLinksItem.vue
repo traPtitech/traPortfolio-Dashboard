@@ -17,7 +17,7 @@ const routeInfo = useRouteInfo(toRef(props, 'name'))
 
 const isActive = computed(() => {
   if (props.path === '/') return currentRoute.path === props.path
-  return currentRoute.path.startsWith(`${props.path}`)
+  return currentRoute.path.startsWith(props.path)
 })
 </script>
 
@@ -42,10 +42,6 @@ const isActive = computed(() => {
   cursor: pointer;
   color: $color-secondary;
 
-  &[data-is-selected='true'] {
-    color: $color-primary;
-  }
-
   &::before {
     content: '';
     width: 5px;
@@ -54,6 +50,7 @@ const isActive = computed(() => {
   }
 
   &[data-is-selected='true'] {
+    color: $color-primary;
     &::before {
       background-color: $color-primary;
     }
