@@ -1,11 +1,19 @@
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import ContentHeader from '../components/Layout/ContentHeader.vue'
 import PageContainer from '../components/Layout/PageContainer.vue'
+import ProjectItem from '../components/Projects/ProjectItem.vue'
 import BaseButton from '../components/UI/BaseButton.vue'
 import FormInput from '../components/UI/FormInput.vue'
+import { useProjectStore } from '../store/project'
+
+const projectStore = useProjectStore()
+const { projects } = storeToRefs(projectStore)
 
 const searchQuery = ref('')
+
+projectStore.fetchProjects()
 </script>
 
 <template>
@@ -27,10 +35,14 @@ const searchQuery = ref('')
       </div>
       <div>
         <p :class="$style.body2">プロジェクト作成</p>
-        <!-- TODO: Contestsの作成が終わったら、それをマージ。 -->
         <base-button type="primary" icon="mdi:clipboard-file"> New</base-button>
       </div>
     </div>
+    <ul :class="$style.list">
+      <li v-for="project in projects" :key="project.id">
+        <project-item :project="project" />
+      </li>
+    </ul>
   </page-container>
 </template>
 
@@ -51,5 +63,19 @@ const searchQuery = ref('')
 .body2 {
   font-size: 0.875rem;
   color: $color-secondary;
+}
+
+.list {
+  list-style: none;
+  margin-top: 1rem;
+  li {
+    margin-bottom: 0.5rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    &:hover {
+      background-color: $color-background-dim;
+    }
+  }
 }
 </style>
