@@ -45,6 +45,6 @@ defineProps<Props>()
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 </style>
