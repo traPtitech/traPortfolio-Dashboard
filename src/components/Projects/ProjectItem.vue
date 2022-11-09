@@ -15,9 +15,8 @@ defineProps<Props>()
     <div :class="$style.container">
       <p :class="$style.name">{{ project.name }}</p>
       <p :class="$style.duration">
-        <icon name="mdi:calendar" />{{
-          getGroupOrProjectDuration(project.duration)
-        }}
+        <icon name="mdi:calendar" />
+        {{ getGroupOrProjectDuration(project.duration) }}
       </p>
     </div>
   </router-link>
