@@ -75,7 +75,6 @@ contestStore.fetchContests()
 }
 .contestList {
   list-style: none;
-  padding: 0.5rem 0;
   li {
     border: 1px solid $color-primary-text;
     border-radius: 8px;
