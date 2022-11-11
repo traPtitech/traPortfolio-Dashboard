@@ -22,13 +22,13 @@ const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/user' },
-          { title: 'Accounts', url: '/user/accounts' }
+          { title: 'Profile', url: '/users' },
+          { title: 'Accounts', url: '/users/accounts' }
         ]"
         detail="アカウント情報を変更します。"
         :class="$style.header"
       />
-      <router-link to="/user/accounts/new" :class="$style.link">
+      <router-link to="/users/accounts/new" :class="$style.link">
         <BaseButton type="primary" icon="mdi:account">New</BaseButton>
       </router-link>
     </div>
@@ -40,7 +40,7 @@ const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
     <p v-else-if="fetcherState === 'loading'">ローディング中...</p>
     <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
 
-    <router-link to="/user" :class="$style.link">
+    <router-link to="/users" :class="$style.link">
       <BaseButton
         :class="$style.backButton"
         type="secondary"

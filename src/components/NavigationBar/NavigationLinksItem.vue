@@ -17,7 +17,10 @@ const routeInfo = useRouteInfo(toRef(props, 'name'))
 
 const isActive = computed(() => {
   if (props.path === '/') return currentRoute.path === props.path
-  return currentRoute.path.startsWith(props.path)
+  return (
+    currentRoute.path === props.path ||
+    currentRoute.path.startsWith(`${props.path}/`)
+  )
 })
 </script>
 
