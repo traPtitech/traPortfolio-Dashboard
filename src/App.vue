@@ -2,14 +2,16 @@
   <div :class="$style.container">
     <page-header :class="$style.header" />
     <navigation-bar />
-    <Suspense>
-      <template #default>
-        <router-view />
-      </template>
-      <template #fallback>
-        <loading />
-      </template>
-    </Suspense>
+    <div :class="$style.content">
+      <Suspense>
+        <template #default>
+          <router-view />
+        </template>
+        <template #fallback>
+          <loading />
+        </template>
+      </Suspense>
+    </div>
   </div>
 </template>
 
@@ -30,5 +32,12 @@ import Loading from '/@/pages/Loading.vue'
   grid-template-columns: 260px 1fr;
   grid-template-rows: min-content 1fr;
   height: 100%;
+}
+
+.content {
+  overflow: {
+    x: hidden;
+    y: scroll;
+  }
 }
 </style>

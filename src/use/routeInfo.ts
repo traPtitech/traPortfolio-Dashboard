@@ -16,7 +16,7 @@ export const routes: routeinfo[] = [
   },
   {
     name: 'Profile',
-    path: '/user',
+    path: '/users',
     icon: 'mdi:account-circle-outline',
     description: '掲載するアカウントや自己紹介を編集します'
   },

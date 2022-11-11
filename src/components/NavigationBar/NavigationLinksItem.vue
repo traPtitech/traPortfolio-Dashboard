@@ -1,72 +1,70 @@
-<template>
-  <router-link :to="route" :class="$style.link">
-    <li :class="$style.container" :data-is-selected="isActive">
-      <div :class="$style.pin" :data-is-selected="isActive"></div>
-      <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
-      <div>{{ name }}</div>
-    </li>
-  </router-link>
-</template>
-
-<script lang="ts">
-import { defineComponent, toRef } from 'vue'
-import { useLink } from 'vue-router'
-import Icon from '../UI/Icon.vue'
+<script lang="ts" setup>
+import { computed, toRef } from 'vue'
+import { useRoute } from 'vue-router'
+import Icon from '/@/components/UI/Icon.vue'
 import useRouteInfo from '/@/use/routeInfo'
 
-export default defineComponent({
-  name: 'NavigationLinksItem',
-  components: { Icon },
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    path: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props) {
-    const routeInfo = useRouteInfo(toRef(props, 'name'))
-    const { isActive, route } = useLink({ to: toRef(props, 'path') })
-    return { routeInfo, isActive, route }
-  }
+interface Props {
+  name: string
+  path: string
+}
+
+const currentRoute = useRoute()
+
+const props = defineProps<Props>()
+
+const routeInfo = useRouteInfo(toRef(props, 'name'))
+
+const isActive = computed(() => {
+  if (props.path === '/') return currentRoute.path === props.path
+  return (
+    currentRoute.path === props.path ||
+    currentRoute.path.startsWith(`${props.path}/`)
+  )
 })
 </script>
 
-<style lang="scss" module>
-.link {
-  display: block;
-  text-decoration: none;
-}
+<template>
+  <li>
+    <router-link
+      :to="path"
+      :class="$style.container"
+      :data-is-selected="isActive"
+    >
+      <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
+      <p :class="$style.name">{{ name }}</p>
+    </router-link>
+  </li>
+</template>
 
+<style lang="scss" module>
 .container {
   display: flex;
   align-items: center;
-  cursor: pointer;
   color: $color-secondary;
 
-  &[data-is-selected='true'] {
-    color: $color-primary;
-    font-weight: bold;
+  text-decoration: none;
+
+  &::before {
+    content: '';
+    width: 5px;
+    height: 30px;
+    background-color: transparent;
   }
-}
-
-.pin {
-  width: 5px;
-  height: 30px;
-  background-color: transparent;
 
   &[data-is-selected='true'] {
     color: $color-primary;
-    font-weight: bold;
-    background-color: $color-primary;
+    &::before {
+      background-color: $color-primary;
+    }
   }
 }
 
 .icon {
-  display: flex;
   margin: auto 0.5rem;
+}
+
+.name {
+  font-size: 1.25rem;
 }
 </style>

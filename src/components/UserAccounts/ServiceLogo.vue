@@ -12,7 +12,7 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.logo">
-    <Icon :name="services[service].icon" :class="$style.icon" />
+    <Icon :name="services[service].icon" />
     {{ services[service].name }}
   </div>
 </template>
@@ -22,8 +22,5 @@ defineProps<Props>()
   display: flex;
   align-items: center;
   gap: 8px;
-}
-.icon {
-  display: flex;
 }
 </style>
