@@ -48,7 +48,6 @@ const updateUserProfile = async () => {
       <div :class="$style.textareaContainer">
         <form-text-area
           v-model="bio"
-          :class="$style.textarea"
           :rows="3"
           :limit="256"
           placeholder="自己紹介を入力してください"

@@ -5,7 +5,7 @@ import { serviceArray, type ServiceWithType } from '/@/consts/services'
 import type { Account } from '/@/lib/apis'
 
 interface Service extends ServiceWithType {
-  hasAccount: boolean
+  url: string | undefined
 }
 
 interface Props {
@@ -18,7 +18,7 @@ const shownServices = computed((): Service[] => {
   return serviceArray.map(service => {
     return {
       ...service,
-      hasAccount: props.accounts.some(account => account.type === service.type)
+      url: props.accounts.find(account => account.type === service.type)?.url
     }
   })
 })
@@ -26,13 +26,15 @@ const shownServices = computed((): Service[] => {
 
 <template>
   <div :class="$style.container">
-    <icon
+    <a
       v-for="service in shownServices"
       :key="service.name"
-      :name="service.icon"
-      :class="$style.icon"
-      :data-has-account="service.hasAccount"
-    />
+      :href="service.url"
+      :class="$style.anchor"
+      :data-has-account="service.url !== undefined"
+    >
+      <icon :name="service.icon" :class="$style.icon" />
+    </a>
   </div>
 </template>
 
@@ -42,9 +44,13 @@ const shownServices = computed((): Service[] => {
   align-items: center;
   gap: 0.75rem;
 }
-.icon {
+.anchor {
+  text-decoration: none;
+  color: $color-secondary-text;
+
   &[data-has-account='false'] {
     opacity: 0.2;
+    pointer-events: none;
   }
 }
 </style>
