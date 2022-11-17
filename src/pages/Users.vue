@@ -26,8 +26,8 @@ const { data: user, fetcherState } = useUserDataFetcher(userId, userId =>
       />
       <!-- todo:プレビューボタンの追加 -->
     </div>
-    <UserProfile v-if="user !== undefined" :user="user" />
-    <UserProfileEdit
+    <user-profile v-if="user !== undefined" :user="user" />
+    <user-profile-edit
       v-if="user !== undefined"
       :user="user"
       :class="$style.userProfileEdit"

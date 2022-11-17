@@ -60,7 +60,7 @@ const handleInput = (event: Event) => {
       :data-valid-link="isValidLink"
     >
       <a :href="props.modelValue" :data-valid-link="isValidLink">
-        <Icon name="mdi:open-in-new" :class="$style.icon" />
+        <icon name="mdi:open-in-new" :class="$style.icon" />
       </a>
     </div>
   </div>

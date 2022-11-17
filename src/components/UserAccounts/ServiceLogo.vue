@@ -12,7 +12,7 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.logo">
-    <Icon :name="services[service].icon" :class="$style.icon" />
+    <icon :name="services[service].icon" :class="$style.icon" />
     {{ services[service].name }}
   </div>
 </template>
