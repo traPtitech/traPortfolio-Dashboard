@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
     :data-button-type="props.type"
     :disabled="props.isDisabled"
   >
-    <icon v-if="props.icon" :name="props.icon" :class="$style.icon" />
+    <icon v-if="props.icon" :name="props.icon" />
     <slot />
   </button>
 </template>
@@ -33,7 +33,7 @@ const props = withDefaults(defineProps<Props>(), {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 4px 24px;
+  padding: 8px 24px;
   border-radius: 6px; // todo:%で指定に変えるかも
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
   transition: 0.2s ease-in-out;
@@ -59,9 +59,5 @@ const props = withDefaults(defineProps<Props>(), {
     opacity: 0.5;
     cursor: not-allowed;
   }
-}
-
-.icon {
-  display: flex;
 }
 </style>

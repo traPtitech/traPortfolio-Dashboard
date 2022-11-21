@@ -60,7 +60,6 @@ export default defineComponent({
 }
 
 .icon {
-  display: flex;
   color: $color-secondary;
   margin: 0.75rem;
   transition: 0.2s all ease-in-out;

@@ -22,8 +22,8 @@ const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/user' },
-          { title: 'Accounts', url: '/user/accounts' }
+          { title: 'Profile', url: '/users' },
+          { title: 'Accounts', url: '/users/accounts' }
         ]"
         detail="アカウント情報を変更します。"
         :class="$style.header"

@@ -5,7 +5,7 @@ const fs = require('fs').promises
 const path = require('path')
 
 const URL =
-  'https://raw.githubusercontent.com/traPtitech/traPortfolio/master/docs/swagger/traPortfolio.v1.yaml'
+  'https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml'
 const dist = './traPortfolio.v1.yaml'
 
 if (process.env.SKIP_GENAPI) {
