@@ -29,7 +29,7 @@ contestStore.fetchContests()
     <div :class="$style.searchFormContainer">
       <div :class="$style.searchForm">
         <p :class="$style.searchFormDescriptionText">検索</p>
-        <FormInput
+        <form-input
           v-model="searchQuery"
           placeholder="コンテスト名"
           icon="magnify"
@@ -38,7 +38,7 @@ contestStore.fetchContests()
       <div :class="$style.newContestLink">
         <p :class="$style.searchFormDescriptionText">コンテスト作成</p>
         <router-link to="/contests/new" :class="$style.link">
-          <BaseButton type="primary" icon="mdi:trophy">New</BaseButton>
+          <base-button type="primary" icon="mdi:trophy">New</base-button>
         </router-link>
       </div>
     </div>
