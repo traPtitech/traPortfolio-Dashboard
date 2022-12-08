@@ -17,22 +17,15 @@ const props = defineProps<Props>()
 
 const shownServices = computed((): Service[] => {
   //各serviceに対するaccountの配列たちが入っている配列をflatする
-  return serviceArray.flatMap(service => {
-    //serviceに一致するaccountを抽出
-    const accounts = props.accounts
+  return serviceArray.flatMap(service =>
+    props.accounts
       .filter(account => account.type === service.type)
-      .map(account => {
-        return {
-          url: account.url,
-          displayName: account.displayName
-        }
-      })
-    return accounts.map(account => ({
-      ...service,
-      url: account.url,
-      displayName: account.displayName
-    }))
-  })
+      .map(account => ({
+        ...service,
+        url: account.url,
+        displayName: account.displayName
+      }))
+  )
 })
 </script>
 
