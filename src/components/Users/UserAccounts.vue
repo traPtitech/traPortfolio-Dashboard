@@ -44,7 +44,6 @@ const shownServices = computed((): Service[] => {
       :href="service.url"
       :title="service.displayName"
       :class="$style.anchor"
-      :data-has-account="service.url !== undefined"
     >
       <icon :name="service.icon" :class="$style.icon" />
     </a>
@@ -60,10 +59,5 @@ const shownServices = computed((): Service[] => {
 .anchor {
   text-decoration: none;
   color: $color-secondary-text;
-
-  &[data-has-account='false'] {
-    opacity: 0.2;
-    pointer-events: none;
-  }
 }
 </style>
