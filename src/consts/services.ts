@@ -61,8 +61,11 @@ export const services: ServiceRecord = {
   }
 }
 
-export const serviceArray: ServiceWithType[] = Object.values(services).map(
-  (service, i) => {
-    return { ...service, type: i }
+export const serviceArray: ServiceWithType[] = Object.entries(services).map(
+  ([type, service]) => {
+    if (isNaN(Number(type))) {
+      throw new Error('Service type is not number')
+    }
+    return { ...service, type: Number(type) }
   }
 )
