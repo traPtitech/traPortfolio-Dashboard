@@ -5,8 +5,8 @@ import { serviceArray, type ServiceWithType } from '/@/consts/services'
 import type { Account } from '/@/lib/apis'
 
 interface Service extends ServiceWithType {
-  url: string
-  displayName: string
+  url: string | undefined
+  displayName: string | undefined
 }
 
 interface Props {
@@ -16,16 +16,16 @@ interface Props {
 const props = defineProps<Props>()
 
 const shownServices = computed((): Service[] => {
-  //各serviceに対するaccountの配列たちが入っている配列をflatする
-  return serviceArray.flatMap(service =>
-    props.accounts
-      .filter(account => account.type === service.type)
-      .map(account => ({
-        ...service,
-        url: account.url,
-        displayName: account.displayName
-      }))
-  )
+  return serviceArray.map(service => {
+    const account = props.accounts.find(
+      account => account.type === service.type
+    )
+    return {
+      ...service,
+      url: account?.url,
+      displayName: account?.displayName
+    }
+  })
 })
 </script>
 
@@ -37,6 +37,7 @@ const shownServices = computed((): Service[] => {
       :href="service.url"
       :title="service.displayName"
       :class="$style.anchor"
+      :data-has-account="service.url !== undefined"
     >
       <icon :name="service.icon" :class="$style.icon" />
     </a>
@@ -52,5 +53,10 @@ const shownServices = computed((): Service[] => {
 .anchor {
   text-decoration: none;
   color: $color-secondary-text;
+
+  &[data-has-account='false'] {
+    opacity: 0.2;
+    pointer-events: none;
+  }
 }
 </style>
