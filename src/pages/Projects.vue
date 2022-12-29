@@ -38,7 +38,7 @@ projectStore.fetchProjects()
       </div>
       <div>
         <p :class="$style.body2">プロジェクト作成</p>
-        <router-link to="/contests/new" :class="$style.link">
+        <router-link to="/projects/new" :class="$style.link">
           <base-button type="primary" icon="mdi:clipboard-file">
             New</base-button
           >
