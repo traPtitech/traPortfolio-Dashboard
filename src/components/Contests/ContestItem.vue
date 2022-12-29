@@ -29,12 +29,16 @@ defineProps<Props>()
 }
 .container {
   padding: 0.5rem;
+
+  border: 1px solid $color-primary-text;
+  border-radius: 8px;
 }
 
 .name {
   color: $color-primary;
   font-size: 1.125rem;
 }
+
 .duration {
   display: flex;
   align-items: center;

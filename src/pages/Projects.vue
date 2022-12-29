@@ -1,12 +1,15 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+
+import { useProjectStore } from '../store/project'
+
 import ContentHeader from '../components/Layout/ContentHeader.vue'
 import PageContainer from '../components/Layout/PageContainer.vue'
 import ProjectItem from '../components/Projects/ProjectItem.vue'
 import BaseButton from '../components/UI/BaseButton.vue'
 import FormInput from '../components/UI/FormInput.vue'
-import { useProjectStore } from '../store/project'
 
 const projectStore = useProjectStore()
 const { projects } = storeToRefs(projectStore)
@@ -35,10 +38,14 @@ projectStore.fetchProjects()
       </div>
       <div>
         <p :class="$style.body2">プロジェクト作成</p>
-        <base-button type="primary" icon="mdi:clipboard-file"> New</base-button>
+        <router-link to="/contests/new" :class="$style.link">
+          <base-button type="primary" icon="mdi:clipboard-file">
+            New</base-button
+          >
+        </router-link>
       </div>
     </div>
-    <ul :class="$style.list">
+    <ul :class="$style.projectList">
       <li v-for="project in projects" :key="project.id">
         <project-item :project="project" />
       </li>
@@ -53,6 +60,8 @@ projectStore.fetchProjects()
 
 .searchFormContainer {
   display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
   gap: 0.5rem;
 }
 
@@ -65,14 +74,20 @@ projectStore.fetchProjects()
   color: $color-secondary;
 }
 
-.list {
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.projectList {
   list-style: none;
-  margin-top: 1rem;
   li {
     margin-bottom: 0.5rem;
+
     &:last-child {
       margin-bottom: 0;
     }
+
     &:hover {
       background-color: $color-background-dim;
     }

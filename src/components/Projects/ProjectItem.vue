@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Project } from '/@/lib/apis'
-import { getGroupOrProjectDuration } from '/@/lib/date'
 import Icon from '/@/components/UI/Icon.vue'
+import { getGroupOrProjectDuration } from '/@/lib/date'
 
 interface Props {
   project: Project
