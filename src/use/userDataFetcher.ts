@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { ref, Ref, watchEffect } from 'vue'
-import { FetcherState } from './fetcher'
+import { FetcherState } from '/@/use/fetcher'
 
 const useUserDataFetcher = <T>(
   userId: Ref<string>,

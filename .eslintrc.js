@@ -23,8 +23,13 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        name: '/@/lib/apis/generated',
-        message: 'Please use /@/lib/apis instead.'
+        paths: [
+          {
+            name: '/@/lib/apis/generated',
+            message: 'Please use /@/lib/apis instead.'
+          }
+        ],
+        patterns: ['./', '../']
       }
     ],
     'vue/custom-event-name-casing': ['error', 'camelCase'],

@@ -13,7 +13,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, toRef } from 'vue'
-import Icon from '../UI/Icon.vue'
+import Icon from '/@/components/UI/Icon.vue'
 import useRouteInfo from '/@/use/routeInfo'
 export default defineComponent({
   name: 'PageInfoPanel',

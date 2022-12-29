@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import NavigationLinks from './NavigationLinks.vue'
+import NavigationLinks from '/@/components/NavigationBar/NavigationLinks.vue'
 
 export default defineComponent({
   name: 'NavigationContent',

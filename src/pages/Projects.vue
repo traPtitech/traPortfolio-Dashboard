@@ -3,13 +3,13 @@ import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
-import { useProjectStore } from '../store/project'
+import { useProjectStore } from '/@/store/project'
 
-import ContentHeader from '../components/Layout/ContentHeader.vue'
-import PageContainer from '../components/Layout/PageContainer.vue'
-import ProjectItem from '../components/Projects/ProjectItem.vue'
-import BaseButton from '../components/UI/BaseButton.vue'
-import FormInput from '../components/UI/FormInput.vue'
+import ContentHeader from '/@/components/Layout/ContentHeader.vue'
+import PageContainer from '/@/components/Layout/PageContainer.vue'
+import ProjectItem from '/@/components/Projects/ProjectItem.vue'
+import BaseButton from '/@/components/UI/BaseButton.vue'
+import FormInput from '/@/components/UI/FormInput.vue'
 
 const projectStore = useProjectStore()
 const { projects } = storeToRefs(projectStore)
@@ -23,7 +23,7 @@ projectStore.fetchProjects()
   <page-container>
     <content-header
       icon-name="mdi:clipboard-file-outline"
-      :header-texts="[{ title: 'Projects', url: '/' }]"
+      :header-texts="[{ title: 'Projects', url: '/projects' }]"
       detail="プロジェクトを変更します"
       :class="$style.header"
     />

@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import NavigationLinksItem from './NavigationLinksItem.vue'
+import NavigationLinksItem from '/@/components/NavigationBar/NavigationLinksItem.vue'
 import { routes } from '/@/use/routeInfo'
 
 export default defineComponent({
