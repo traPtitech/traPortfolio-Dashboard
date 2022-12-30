@@ -8,7 +8,7 @@ import { RouterLink } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import useParam from '/@/use/param'
 import useFetcher from '/@/use/fetcher'
-import ContestTeams from '/@/components/Contest/ContestTeams.vue'
+import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
 const contestId = useParam('id')
 const { data: contest } = useFetcher<ContestDetail>(contestId, () =>
@@ -18,8 +18,13 @@ const { data: contestTeams } = useFetcher<ContestTeam[]>(contestId, () =>
   apis.getContestTeams(contestId.value)
 )
 
-const reFetch = (serachQuery: string) => {
-  console.log(serachQuery)
+const searchContestTeams = (serachQuery: string) => {
+  // todo: serverでやるかも
+  contestTeams.value =
+    contestTeams.value?.filter(contestTeam => {
+      const regexp = new RegExp(serachQuery, 'i')
+      return regexp.test(contestTeam.name)
+    }) ?? []
 }
 </script>
 
@@ -52,11 +57,11 @@ const reFetch = (serachQuery: string) => {
       <p :class="$style.p">{{ contest.description }}</p>
     </div>
     <h2>チーム</h2>
-    <ContestTeams
+    <ContestTeamsComponent
       v-if="contestTeams !== undefined"
       :contest-id="contestId"
       :contest-teams="contestTeams"
-      @input="reFetch($event)"
+      @input="searchContestTeams($event)"
     />
 
     <router-link to="/contests" :class="$style.link">
