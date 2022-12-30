@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import { ref, Ref } from 'vue'
 
 export type FetcherState = 'loading' | 'loaded' | 'error'
@@ -9,7 +10,7 @@ export type FetcherState = 'loading' | 'loaded' | 'error'
  */
 const useFetcher = <T>(
   value: Readonly<Ref<T | null>>,
-  fetchFunc: () => Promise<T>
+  fetchFunc: () => Promise<AxiosResponse<T>>
 ): { fetcherState: Ref<FetcherState> } => {
   const isLoadedBeforeInit = value.value !== null
   const state = ref<FetcherState>('loaded')
