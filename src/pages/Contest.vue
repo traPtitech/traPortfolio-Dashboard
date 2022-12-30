@@ -51,7 +51,7 @@ const searchContestTeams = (serachQuery: string) => {
       <p :class="$style.p">{{ getDisplayDuration(contest.duration) }}</p>
       <h2>リンク</h2>
       <p :class="$style.p">
-        <a>{{ contest.link }}</a>
+        <a :href="contest.link">{{ contest.link }}</a>
       </p>
       <h2>説明</h2>
       <p :class="$style.p">{{ contest.description }}</p>
