@@ -29,7 +29,7 @@ module.exports = {
             message: 'Please use /@/lib/apis instead.'
           }
         ],
-        patterns: ['./', '../']
+        patterns: ['../']
       }
     ],
     'vue/custom-event-name-casing': ['error', 'camelCase'],
