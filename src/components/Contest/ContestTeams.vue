@@ -33,7 +33,10 @@ const searchQuery = ref('')
     </div>
     <div :class="$style.newTeamLink">
       <p :class="$style.searchFormDescriptionText">チーム作成</p>
-      <router-link to="/contests/new" :class="$style.link">
+      <router-link
+        :to="`/contests/${contestId}/teams/new`"
+        :class="$style.link"
+      >
         <base-button type="primary" icon="mdi:plus">New</base-button>
       </router-link>
     </div>

@@ -16,7 +16,7 @@ defineProps<Props>()
       :class="$style.userIcon"
       :style="{ left: `${i * 16}px` }"
     />
-    <span>+{{ userIds.length }}</span>
+    <span v-if="userIds.length > 3">+{{ userIds.length - 3 }}</span>
   </div>
 </template>
 

@@ -12,7 +12,10 @@ const userIds = ['sapphi_red', 'toshi00', 'tesso', 'mehm8128']
 </script>
 
 <template>
-  <router-link :to="`/contests/${contestTeam.id}`" :class="$style.link">
+  <router-link
+    :to="`/contests/${contestId}/teams/${contestTeam.id}/edit`"
+    :class="$style.link"
+  >
     <div :class="$style.container">
       <div>
         <p :class="$style.name">{{ contestTeam.name }}</p>
