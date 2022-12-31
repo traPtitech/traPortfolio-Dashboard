@@ -21,38 +21,42 @@ const searchQuery = ref('')
 </script>
 
 <template>
-  <div :class="$style.searchFormContainer">
-    <div :class="$style.searchForm">
-      <p :class="$style.searchFormDescriptionText">検索</p>
-      <form-input
-        :model-value="searchQuery"
-        placeholder="チーム名"
-        icon="magnify"
-        @update:model-value="emit('input', $event)"
-      />
+  <div>
+    <div :class="$style.searchFormContainer">
+      <div :class="$style.searchForm">
+        <p :class="$style.searchFormDescriptionText">検索</p>
+        <form-input
+          :model-value="searchQuery"
+          placeholder="チーム名"
+          icon="magnify"
+          @update:model-value="emit('input', $event)"
+        />
+      </div>
+      <div :class="$style.newTeamLink">
+        <p :class="$style.searchFormDescriptionText">チーム作成</p>
+        <router-link
+          :to="`/contests/${contestId}/teams/new`"
+          :class="$style.link"
+        >
+          <base-button type="primary" icon="mdi:plus">New</base-button>
+        </router-link>
+      </div>
     </div>
-    <div :class="$style.newTeamLink">
-      <p :class="$style.searchFormDescriptionText">チーム作成</p>
-      <router-link
-        :to="`/contests/${contestId}/teams/new`"
-        :class="$style.link"
-      >
-        <base-button type="primary" icon="mdi:plus">New</base-button>
-      </router-link>
-    </div>
+    <ul :class="$style.teamList">
+      <li v-for="contestTeam in contestTeams" :key="contestTeam.id">
+        <contest-team-item
+          :contest-id="contestId"
+          :contest-team="contestTeam"
+        />
+      </li>
+    </ul>
   </div>
-  <ul :class="$style.teamList">
-    <li v-for="contestTeam in contestTeams" :key="contestTeam.id">
-      <contest-team-item :contest-id="contestId" :contest-team="contestTeam" />
-    </li>
-  </ul>
 </template>
 
 <style lang="scss" module>
 .searchFormContainer {
   display: flex;
   align-items: center;
-  margin-left: 0.5rem;
   margin-top: 0.5rem;
 }
 .header {
@@ -74,7 +78,6 @@ const searchQuery = ref('')
 }
 .teamList {
   list-style: none;
-  margin-left: 0.5rem;
   padding: 0.5rem 0;
   li {
     border: 1px solid $color-primary-text;

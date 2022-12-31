@@ -8,6 +8,7 @@ interface Props {
 }
 
 defineProps<Props>()
+/* todo:サーバーからmembersが返ってくるようになったらcontestTeam.members.map(member=>member.id)を使う */
 const userIds = ['sapphi_red', 'toshi00', 'tesso', 'mehm8128']
 </script>
 
@@ -21,7 +22,7 @@ const userIds = ['sapphi_red', 'toshi00', 'tesso', 'mehm8128']
         <p :class="$style.name">{{ contestTeam.name }}</p>
         <p :class="$style.result">{{ contestTeam.result }}</p>
       </div>
-      <UserIcons :user-ids="userIds" />
+      <user-icons :user-ids="userIds" />
     </div>
   </router-link>
 </template>

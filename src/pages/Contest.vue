@@ -45,25 +45,37 @@ const searchContestTeams = (serachQuery: string) => {
       </router-link>
     </div>
     <div v-if="contest !== undefined">
-      <h2>コンテスト名</h2>
-      <p :class="$style.p">{{ contest.name }}</p>
-      <h2>日時</h2>
-      <p :class="$style.p">{{ getDisplayDuration(contest.duration) }}</p>
-      <h2>リンク</h2>
-      <p :class="$style.p">
-        <a :href="contest.link">{{ contest.link }}</a>
-      </p>
-      <h2>説明</h2>
-      <p :class="$style.p">{{ contest.description }}</p>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">コンテスト名</h2>
+        <p :class="$style.content">{{ contest.name }}</p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">日時</h2>
+        <p :class="$style.content">
+          {{ getDisplayDuration(contest.duration) }}
+        </p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">リンク</h2>
+        <p :class="$style.content">
+          <a :href="contest.link">{{ contest.link }}</a>
+        </p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">説明</h2>
+        <p :class="$style.content">{{ contest.description }}</p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">チーム</h2>
+        <contest-teams-component
+          v-if="contestTeams !== undefined"
+          :class="$style.content"
+          :contest-id="contestId"
+          :contest-teams="contestTeams"
+          @input="searchContestTeams($event)"
+        />
+      </section>
     </div>
-    <h2>チーム</h2>
-    <ContestTeamsComponent
-      v-if="contestTeams !== undefined"
-      :contest-id="contestId"
-      :contest-teams="contestTeams"
-      @input="searchContestTeams($event)"
-    />
-
     <router-link to="/contests" :class="$style.link">
       <base-button
         :class="$style.backButton"
@@ -89,13 +101,16 @@ const searchContestTeams = (serachQuery: string) => {
   text-decoration: none;
   color: inherit;
 }
-h2 {
+.section {
+  margin-bottom: 2rem;
+}
+.h2 {
   font-weight: bold;
   font-size: 20px;
 }
-.p {
+.content {
+  margin-top: 0.5rem;
   padding-left: 0.5rem;
-  margin: 0.5rem 0 2rem;
 }
 .backButton {
   margin-top: 2rem;
