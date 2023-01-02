@@ -100,3 +100,10 @@ export const services: ServiceRecord = new Map([
 export const serviceArray: ServiceWithType[] = Array.from(
   services.entries()
 ).map(([type, service]) => ({ ...service, type }))
+
+export const serviceNameToType = (name: string): AccountType | undefined => {
+  const entry = Array.from(services).find(
+    ([, service]) => service.name === name
+  )
+  return entry?.[0]
+}
