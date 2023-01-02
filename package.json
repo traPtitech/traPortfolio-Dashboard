@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"npm run start-mock\"",
     "build": "vite build",
-    "lint": "eslint --ext .ts,.vue src",
+    "lint": "eslint --fix --ext .ts,.vue src",
+    "lint:nofix": "eslint --ext .ts,.vue src",
     "type-check": "tsc",
     "fetch-openapi": "node scripts/fetchOpenapi.js",
     "gen-api": "node scripts/generateApi.js",

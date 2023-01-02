@@ -12,8 +12,8 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.logo">
-    <Icon :name="services[service].icon" />
-    {{ services[service].name }}
+    <icon :name="services.get(service)?.icon ?? ''" />
+    {{ services.get(service)?.name }}
   </div>
 </template>
 
