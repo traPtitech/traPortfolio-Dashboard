@@ -48,6 +48,7 @@ const value = computed({
   display: grid;
   grid-template-columns: 24px 1fr;
   gap: 8px;
+  align-items: center;
   .icon {
     color: $color-primary;
   }
