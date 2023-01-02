@@ -7,12 +7,10 @@ import Icon from '/@/components/UI/Icon.vue'
 interface Props {
   modelValue: string
   options: string[]
-  placeholder?: string
+  searchable?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  placeholder: ''
-})
+const props = defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
@@ -30,6 +28,7 @@ const value = computed({
     :options="options"
     :clearable="false"
     :class="$style.select"
+    :searchable="searchable"
   >
     <template #option="{ label }">
       <div :class="$style.item">
@@ -38,42 +37,60 @@ const value = computed({
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />
-        <p>{{ label }}</p>
+        <p :class="$style.label">{{ label }}</p>
       </div>
     </template>
   </v-select>
 </template>
 
 <style lang="scss" module>
-.select {
-  --vs-controls-color: #{$color-secondary-text};
-}
-.select :global(.vs__dropdown-toggle) {
-  border-color: $color-secondary;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-}
-
-.select :global(.vs__actions) {
-  color: $color-secondary-text;
-}
-
-.select:global(.vs--open .vs__dropdown-toggle) {
-  border-color: $color-primary;
-}
-
-.icon {
-  color: $color-primary;
-}
-
-.select :global(.vs__dropdown-menu) {
-  margin-top: 4px;
-  border-radius: 4px;
-  border-color: $color-primary;
-}
-
 .item {
-  display: flex;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 8px;
+  .icon {
+    color: $color-primary;
+  }
+  .label {
+    grid-column: 2;
+  }
+}
+
+.select {
+  --vs-border-radius: 8px;
+  --vs-border-color: #{$color-primary};
+
+  // dropdown のスタイル
+  :global(.vs__dropdown-menu) {
+    margin-top: 8px;
+    border-top-style: solid;
+    border-radius: var(--vs-border-radius);
+    --vs-dropdown-option-padding: 4px 8px;
+
+    --vs-dropdown-option--active-bg: #{$color-background-dim};
+    --vs-dropdown-option--active-color: #{$color-text};
+  }
+
+  // combobox のスタイル
+  :global(.vs__dropdown-toggle) {
+    --vs-selected-color: #{$color-text};
+    border-color: $color-secondary;
+    border-radius: var(--vs-border-radius);
+
+    // combobox の右側のアイコン
+    --vs-actions-padding: 4px 8px 0 3px;
+    --vs-controls-color: #{$color-secondary-text};
+  }
+
+  // dropdown が開いているときの combobox のスタイル
+  &:global(.vs--open) {
+    :global(.vs__dropdown-toggle) {
+      border-color: var(--vs-border-color);
+    }
+
+    :global(.vs__selected) {
+      opacity: 1;
+    }
+  }
 }
 </style>
