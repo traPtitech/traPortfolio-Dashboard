@@ -92,5 +92,18 @@ const value = computed({
       opacity: 1;
     }
   }
+
+  // 入力可能時のカーソルのスタイルを調整
+  &:global(.vs--searchable) {
+    :global(.vs__selected-options) {
+      cursor: text;
+    }
+    :global(.vs__actions) {
+      cursor: pointer;
+    }
+    input[aria-controls] {
+      cursor: text;
+    }
+  }
 }
 </style>
