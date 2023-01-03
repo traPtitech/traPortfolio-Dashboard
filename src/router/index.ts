@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const Index = () => import('/@/pages/Index.vue')
-const User = () => import('/@/pages/User.vue')
+const Users = () => import('/@/pages/Users.vue')
 const UserAccounts = () => import('/@/pages/UserAccounts.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
@@ -55,7 +55,7 @@ const routes = [
   {
     path: '/users',
     name: 'Profile',
-    component: User
+    component: Users
   },
   {
     path: '/users/accounts',

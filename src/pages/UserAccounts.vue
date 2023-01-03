@@ -29,7 +29,7 @@ const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
         :class="$style.header"
       />
       <router-link to="/users/accounts/new" :class="$style.link">
-        <BaseButton type="primary" icon="mdi:account">New</BaseButton>
+        <base-button type="primary" icon="mdi:account">New</base-button>
       </router-link>
     </div>
     <ul v-if="fetcherState === 'loaded'" :class="$style.accountList">
@@ -41,13 +41,13 @@ const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
     <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
 
     <router-link to="/users" :class="$style.link">
-      <BaseButton
+      <base-button
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
       >
         Back
-      </BaseButton>
+      </base-button>
     </router-link>
   </page-container>
 </template>

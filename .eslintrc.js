@@ -32,6 +32,7 @@ module.exports = {
         patterns: ['../']
       }
     ],
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     'vue/custom-event-name-casing': ['error', 'camelCase'],
     'vue/multi-word-component-names': 'off',
     'vue/no-reserved-component-names': 'off'
