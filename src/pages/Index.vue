@@ -2,7 +2,6 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageInfoPanels from '/@/components/Index/PageInfoPanels.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import ConfirmModal from '/@/components/UI/ComfirmModal.vue'
 </script>
 
 <template>
