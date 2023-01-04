@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import NavigationBar from './components/NavigationBar/NavigationBar.vue'
+import NavigationBar from '/@/components/NavigationBar/NavigationBar.vue'
 import PageHeader from '/@/components/Layout/PageHeader.vue'
 import Loading from '/@/pages/Loading.vue'
 </script>

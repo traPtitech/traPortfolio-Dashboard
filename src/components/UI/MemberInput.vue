@@ -6,7 +6,7 @@ import 'vue-select/dist/vue-select.css'
 import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { User } from '/@/lib/apis'
 import { useUserStore } from '/@/store/user'
-import UserIcon from './UserIcon.vue'
+import UserIcon from '/@/components/UI/UserIcon.vue'
 
 const store = useUserStore()
 const { users } = storeToRefs(store)
