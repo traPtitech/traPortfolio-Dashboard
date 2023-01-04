@@ -5,8 +5,6 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 </script>
 
 <template>
-  <confirm-modal />
-
   <page-container>
     <content-header
       icon-name="mdi:apps"
