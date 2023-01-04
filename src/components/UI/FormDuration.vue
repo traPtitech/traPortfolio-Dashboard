@@ -1,11 +1,13 @@
 <script lang="ts" setup>
 import FormDate from '/@/components/UI/FormDate.vue'
 import { Duration } from '/@/lib/apis'
+import Required from '/@/components/UI/Required.vue'
 
 type DateType = 'since' | 'until'
 
 interface Props {
   modelValue: Duration
+  sinceRequired?: boolean
 }
 
 const props = defineProps<Props>()
@@ -25,7 +27,10 @@ const handleInput = (value: string, dateType: DateType) => {
 <template>
   <div :class="$style.container">
     <div :class="$style.formDate">
-      <p :class="$style.body2">～から</p>
+      <div :class="$style.sinceHead">
+        <p :class="$style.head">～から</p>
+        <required />
+      </div>
       <form-date
         :model-value="modelValue.since"
         @update:model-value="handleInput($event, 'since')"
@@ -33,7 +38,9 @@ const handleInput = (value: string, dateType: DateType) => {
     </div>
     <p :class="$style.wave">～</p>
     <div :class="$style.formDate">
-      <p :class="$style.body2">～まで</p>
+      <div :class="$style.untilHead">
+        <p :class="$style.head">～まで</p>
+      </div>
       <form-date
         :model-value="modelValue.until ?? ''"
         @update:model-value="handleInput($event, 'until')"
@@ -48,12 +55,23 @@ const handleInput = (value: string, dateType: DateType) => {
   align-items: flex-end;
   gap: 0.5rem;
 }
+.sinceHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+.untilHead {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
 .wave {
   height: 2.75rem;
   display: flex;
   align-items: center;
 }
-.body2 {
-  font-size: 0.875rem;
+.head {
+  font-size: 0.75rem;
 }
 </style>
