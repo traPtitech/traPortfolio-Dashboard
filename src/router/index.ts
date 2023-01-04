@@ -5,6 +5,7 @@ const Users = () => import('/@/pages/Users.vue')
 const UserAccounts = () => import('/@/pages/UserAccounts.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
+const ProjectMembers = () => import('/@/pages/ProjectMembers.vue')
 const Events = () => import('/@/pages/Events.vue')
 const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
@@ -26,6 +27,11 @@ const routes = [
     path: '/projects/:id',
     name: 'Project',
     component: Project
+  },
+  {
+    path: '/projects/:id/members',
+    name: 'ProjectMembers',
+    component: ProjectMembers
   },
   {
     path: '/events',
