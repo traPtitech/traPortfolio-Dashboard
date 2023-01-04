@@ -29,7 +29,7 @@ const handleInput = (value: string, dateType: DateType) => {
     <div :class="$style.formDate">
       <div :class="$style.sinceHead">
         <p :class="$style.head">～から</p>
-        <required />
+        <required v-if="sinceRequired" />
       </div>
       <form-date
         :model-value="modelValue.since"
