@@ -20,6 +20,7 @@ const handleInput = (event: Event) => {
     <icon name="mdi:calendar-clock" :class="$style.icon" />
     <input
       :class="$style.input"
+      :data-is-blank="props.modelValue === ''"
       type="datetime-local"
       :value="props.modelValue"
       @input="handleInput"
@@ -40,8 +41,12 @@ const handleInput = (event: Event) => {
 }
 .input {
   flex-grow: 1;
+  &[data-is-blank='true'] {
+    color: $color-secondary;
+  }
 }
 .icon {
+  margin-right: 0.25rem;
   color: $color-secondary;
   .container:focus-within & {
     color: $color-primary;
