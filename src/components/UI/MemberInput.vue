@@ -14,9 +14,12 @@ store.fetchUsers()
 
 interface Props {
   modelValue: User[]
+  isDisabled: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  isDisabled: false
+})
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: User[]): void
@@ -84,6 +87,7 @@ const onClose = () => {
     multiple
     :close-on-select="false"
     deselect-from-dropdown
+    :disabled="isDisabled"
     @open="onOpen"
     @close="onClose"
     @search="onSearch"
