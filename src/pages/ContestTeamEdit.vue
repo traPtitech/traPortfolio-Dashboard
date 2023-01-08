@@ -11,6 +11,8 @@ import MemberInput from '/@/components/UI/MemberInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { ref } from 'vue'
+import LabeledForm from '/@/components/Form/LabeledForm.vue'
+import DeleteForm from '/@/components/Form/DeleteForm.vue'
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
@@ -46,36 +48,41 @@ const members = ref<User[]>([])
       />
     </div>
     <form v-if="contestTeam !== undefined">
-      <div :class="$style.section">
-        <label :class="$style.label">チーム名</label>
+      <labeled-form required label="チーム名" :class="$style.labeledForm">
         <form-input v-model="name" :limit="32" />
-      </div>
-      <div :class="$style.section">
-        <label :class="$style.label">結果</label>
+      </labeled-form>
+      <labeled-form label="結果" :class="$style.labeledForm">
         <form-input v-model="result" :limit="32" />
-      </div>
-      <div :class="$style.section">
-        <label :class="$style.label">リンク</label>
+      </labeled-form>
+      <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input v-model="link" has-anchor />
-      </div>
-      <div :class="$style.section">
-        <label :class="$style.label">メンバー</label>
+      </labeled-form>
+      <labeled-form required label="メンバー" :class="$style.labeledForm">
         <member-input v-model="members" />
-      </div>
-      <div :class="$style.section">
-        <label :class="$style.label">説明</label>
+      </labeled-form>
+      <labeled-form required label="説明" :class="$style.labeledForm">
         <form-text-area v-model="description" :limit="256" :rows="3" />
-      </div>
+      </labeled-form>
     </form>
-    <router-link :to="`/contests/${contestId}`" :class="$style.link">
+    <delete-form target="コンテストチーム" />
+    <div :class="$style.buttonContainer">
+      <router-link :to="`/contests/${contestId}`" :class="$style.link">
+        <base-button
+          :class="$style.backButton"
+          type="secondary"
+          icon="mdi:arrow-left"
+        >
+          Back
+        </base-button>
+      </router-link>
       <base-button
-        :class="$style.backButton"
-        type="secondary"
-        icon="mdi:arrow-left"
+        :class="$style.updateButton"
+        type="primary"
+        icon="mdi:update"
       >
-        Back
+        Update
       </base-button>
-    </router-link>
+    </div>
   </page-container>
 </template>
 
@@ -88,22 +95,17 @@ const members = ref<User[]>([])
 .header {
   margin: 4rem 0 2rem;
 }
+.labeledForm {
+  margin-bottom: 2rem;
+}
 .link {
   text-decoration: none;
   color: inherit;
 }
-.section {
-  margin-bottom: 2rem;
-}
-.h2 {
-  font-weight: bold;
-  font-size: 20px;
-}
-.content {
-  margin-top: 0.5rem;
-  padding-left: 0.5rem;
-}
-.backButton {
-  margin-top: 2rem;
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4rem;
 }
 </style>
