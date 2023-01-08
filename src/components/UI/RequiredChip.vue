@@ -1,9 +1,9 @@
 <template>
-  <div :class="$style.required">必須</div>
+  <div :class="$style.requiredChip">必須</div>
 </template>
 
 <style lang="scss" module>
-.required {
+.requiredChip {
   display: inline-block;
 
   border-radius: 8px;
