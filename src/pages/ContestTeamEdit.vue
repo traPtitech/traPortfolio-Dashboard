@@ -2,32 +2,40 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis from '/@/lib/apis'
-import type { ContestDetail, ContestTeam, User } from '/@/lib/apis'
+import apis, { ContestTeamDetail } from '/@/lib/apis'
+import type { ContestDetail, User } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import useParam from '/@/use/param'
-import useFetcher from '/@/use/fetcher'
+import useDataFetcher from '/@/use/fetcher'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
-const { data: contest } = useFetcher<ContestDetail>(() =>
+const { data: contest } = useDataFetcher<ContestDetail>(() =>
   apis.getContest(contestId.value)
 )
-const { data: contestTeam } = useFetcher<ContestTeam>(() =>
+const { data: contestTeam } = useDataFetcher<ContestTeamDetail>(() =>
   apis.getContestTeam(contestId.value, contestTeamId.value)
 )
 
-const name = ref('')
-const result = ref('')
-const link = ref('')
-const description = ref('')
-const members = ref<User[]>([])
+const name = ref(contestTeam.value?.name ?? '')
+const result = ref(contestTeam.value?.result ?? '')
+const link = ref(contestTeam.value?.link ?? '')
+const description = ref(contestTeam.value?.description ?? '')
+const members = ref<User[]>(contestTeam.value?.members ?? [])
+
+watch(contestTeam, () => {
+  name.value = contestTeam.value?.name ?? ''
+  result.value = contestTeam.value?.result ?? ''
+  link.value = contestTeam.value?.link ?? ''
+  description.value = contestTeam.value?.description ?? ''
+  members.value = contestTeam.value?.members ?? []
+})
 
 const isSending = ref(false)
 
