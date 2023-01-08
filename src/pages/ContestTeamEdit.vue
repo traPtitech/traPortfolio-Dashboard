@@ -28,6 +28,29 @@ const result = ref('')
 const link = ref('')
 const description = ref('')
 const members = ref<User[]>([])
+
+const isSending = ref(false)
+
+const updateContestTeam = async () => {
+  isSending.value = true
+  try {
+    await apis.editContestTeam(contestId.value, contestTeamId.value, {
+      name: name.value,
+      result: result.value,
+      link: link.value,
+      description: description.value
+    })
+    await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
+      members: members.value.map(member => member.id)
+    })
+    //eslint-disable-next-line no-console
+    console.log('更新しました') // todo:トーストとかに変えたい
+  } catch {
+    //eslint-disable-next-line no-console
+    console.log('更新に失敗しました')
+  }
+  isSending.value = false
+}
 </script>
 
 <template>
@@ -65,6 +88,7 @@ const members = ref<User[]>([])
       </labeled-form>
     </form>
     <delete-form target="コンテストチーム" />
+
     <div :class="$style.buttonContainer">
       <router-link :to="`/contests/${contestId}`" :class="$style.link">
         <base-button
@@ -76,9 +100,11 @@ const members = ref<User[]>([])
         </base-button>
       </router-link>
       <base-button
+        :is-disabled="isSending"
         :class="$style.updateButton"
         type="primary"
         icon="mdi:update"
+        @click="updateContestTeam"
       >
         Update
       </base-button>
