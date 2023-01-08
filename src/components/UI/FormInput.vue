@@ -59,7 +59,11 @@ const handleInput = (event: Event) => {
       :class="$style.externalLink"
       :data-valid-link="isValidLink"
     >
-      <a :href="props.modelValue" :data-valid-link="isValidLink">
+      <a
+        :href="props.modelValue"
+        :data-valid-link="isValidLink"
+        target="_blank"
+      >
         <icon name="mdi:open-in-new" />
       </a>
     </div>
