@@ -25,7 +25,7 @@ const emit = defineEmits<{
       :class="$style.button"
       @click="emit('delete')"
     >
-      Remove
+      Delete
     </base-button>
   </div>
 </template>
