@@ -3,7 +3,7 @@ import { ref, Ref, watchEffect } from 'vue'
 
 export type FetcherState = 'loading' | 'loaded' | 'error'
 
-const useDataFetcher = <T>(
+export const useDataFetcher = <T>(
   id: Ref<string>,
   fetch: (id: string) => Promise<AxiosResponse<T>>
 ): { data: Ref<T | undefined>; fetcherState: Ref<FetcherState> } => {
@@ -21,5 +21,3 @@ const useDataFetcher = <T>(
   })
   return { data: data, fetcherState: state }
 }
-
-export default useDataFetcher

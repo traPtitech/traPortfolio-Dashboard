@@ -9,7 +9,7 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.userIcons">
-    <UserIcon
+    <user-icon
       v-for="(userId, i) in userIds.slice(0, 3)"
       :key="userId"
       :user-id="userId"

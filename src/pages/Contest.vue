@@ -6,15 +6,16 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { ContestDetail, ContestTeam } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
+import Icon from '/@/components/UI/Icon.vue'
 import useParam from '/@/use/param'
-import useFetcher from '/@/use/fetcher'
+import { useDataFetcher } from '/@/use/fetcher'
 import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
 const contestId = useParam('id')
-const { data: contest } = useFetcher<ContestDetail>(contestId, () =>
+const { data: contest } = useDataFetcher<ContestDetail>(contestId, () =>
   apis.getContest(contestId.value)
 )
-const { data: contestTeams } = useFetcher<ContestTeam[]>(contestId, () =>
+const { data: contestTeams } = useDataFetcher<ContestTeam[]>(contestId, () =>
   apis.getContestTeams(contestId.value)
 )
 
@@ -57,8 +58,11 @@ const searchContestTeams = (serachQuery: string) => {
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">リンク</h2>
-        <p :class="$style.content">
-          <a :href="contest.link">{{ contest.link }}</a>
+        <p :class="[$style.content, $style.contestLinkContainer]">
+          <icon name="mdi:open-in-new" />
+          <a :class="$style.contestLink" :href="contest.link">
+            {{ contest.link }}
+          </a>
         </p>
       </section>
       <section :class="$style.section">
@@ -111,6 +115,14 @@ const searchContestTeams = (serachQuery: string) => {
 .content {
   margin-top: 0.5rem;
   padding-left: 0.5rem;
+}
+.contestLinkContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.contestLink {
+  color: $color-text;
 }
 .backButton {
   margin-top: 2rem;
