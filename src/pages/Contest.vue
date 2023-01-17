@@ -15,7 +15,7 @@ const contestId = useParam('id')
 const { data: contest } = useFetcher<ContestDetail>(() =>
   apis.getContest(contestId.value)
 )
-const { data: contestTeams } = useFetcher<ContestTeam[]>(() =>
+const { data: contestTeams, fetcherState } = useFetcher<ContestTeam[]>(() =>
   apis.getContestTeams(contestId.value)
 )
 
@@ -45,7 +45,7 @@ const searchContestTeams = (serachQuery: string) => {
         <base-button type="primary" icon="mdi:pencil">Edit</base-button>
       </router-link>
     </div>
-    <div v-if="contest !== undefined">
+    <div v-if="contest !== undefined && fetcherState === 'loaded'">
       <section :class="$style.section">
         <h2 :class="$style.h2">コンテスト名</h2>
         <p :class="$style.content">{{ contest.name }}</p>
@@ -80,6 +80,9 @@ const searchContestTeams = (serachQuery: string) => {
         />
       </section>
     </div>
+    <p v-else-if="fetcherState === 'loading'">ローディング中...</p>
+    <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
+
     <router-link to="/contests" :class="$style.link">
       <base-button
         :class="$style.backButton"
