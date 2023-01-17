@@ -1,22 +1,22 @@
 <script lang="ts" setup>
-import type { Contest } from '/@/lib/apis'
+import { Project } from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
-import { getFullDayString } from '/@/lib/date'
+import { getGroupOrProjectDuration } from '/@/lib/date'
 
 interface Props {
-  contest: Contest
+  project: Project
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <router-link :to="`/contests/${contest.id}`" :class="$style.link">
+  <router-link :to="`/projects/${project.id}/edit`" :class="$style.link">
     <div :class="$style.container">
-      <p :class="$style.name">{{ contest.name }}</p>
+      <p :class="$style.name">{{ project.name }}</p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
-        {{ getFullDayString(new Date(contest.duration.since)) }}
+        {{ getGroupOrProjectDuration(project.duration) }}
       </p>
     </div>
   </router-link>
@@ -27,6 +27,7 @@ defineProps<Props>()
   color: inherit;
   text-decoration: none;
 }
+
 .container {
   padding: 0.5rem;
 

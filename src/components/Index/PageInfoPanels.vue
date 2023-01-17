@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PageInfoPanel from './PageInfoPanel.vue'
+import PageInfoPanel from '/@/components/Index/PageInfoPanel.vue'
 import { routes } from '/@/use/routeInfo'
 
 export default defineComponent({
