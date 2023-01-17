@@ -3,15 +3,14 @@ import { ref, Ref, watchEffect } from 'vue'
 
 export type FetcherState = 'loading' | 'loaded' | 'error'
 
-export const useDataFetcher = <T>(
-  id: Ref<string>,
-  fetch: (id: string) => Promise<AxiosResponse<T>>
+export const useFetcher = <T>(
+  fetch: () => Promise<AxiosResponse<T>>
 ): { data: Ref<T | undefined>; fetcherState: Ref<FetcherState> } => {
   const data = ref<T>()
   const state = ref<FetcherState>('loading')
   watchEffect(async () => {
     try {
-      data.value = (await fetch(id.value)).data
+      data.value = (await fetch()).data
       state.value = 'loaded'
     } catch (e) {
       state.value = 'error'
