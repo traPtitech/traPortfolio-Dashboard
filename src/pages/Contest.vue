@@ -18,15 +18,6 @@ const { data: contest } = useFetcher<ContestDetail>(() =>
 const { data: contestTeams, fetcherState } = useFetcher<ContestTeam[]>(() =>
   apis.getContestTeams(contestId.value)
 )
-
-const searchContestTeams = (serachQuery: string) => {
-  // todo: serverでやるかも
-  contestTeams.value =
-    contestTeams.value?.filter(contestTeam => {
-      const regexp = new RegExp(serachQuery, 'i')
-      return regexp.test(contestTeam.name)
-    }) ?? []
-}
 </script>
 
 <template>
@@ -76,7 +67,6 @@ const searchContestTeams = (serachQuery: string) => {
           :class="$style.content"
           :contest-id="contestId"
           :contest-teams="contestTeams"
-          @input="searchContestTeams($event)"
         />
       </section>
     </div>

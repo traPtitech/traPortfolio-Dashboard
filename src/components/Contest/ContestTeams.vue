@@ -5,19 +5,24 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import ContestTeamItem from '/@/components/Contest/ContestTeamItem.vue'
 import { RouterLink } from 'vue-router'
 import { ContestTeam } from '/@/lib/apis'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 interface Props {
   contestId: string
   contestTeams: ContestTeam[]
 }
 
-defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'input', value: string): void
-}>()
+const props = defineProps<Props>()
 
 const searchQuery = ref('')
+// todo: serverでやるかも
+const searchedContestTeams = computed(
+  () =>
+    props.contestTeams.filter(contestTeam => {
+      const regexp = new RegExp(searchQuery.value, 'i')
+      return regexp.test(contestTeam.name)
+    }) ?? []
+)
 </script>
 
 <template>
@@ -26,10 +31,9 @@ const searchQuery = ref('')
       <div :class="$style.searchForm">
         <p :class="$style.searchFormDescriptionText">検索</p>
         <form-input
-          :model-value="searchQuery"
+          v-model="searchQuery"
           placeholder="チーム名"
           icon="magnify"
-          @update:model-value="emit('input', $event)"
         />
       </div>
       <div :class="$style.newTeamLink">
@@ -43,7 +47,7 @@ const searchQuery = ref('')
       </div>
     </div>
     <ul :class="$style.teamList">
-      <li v-for="contestTeam in contestTeams" :key="contestTeam.id">
+      <li v-for="contestTeam in searchedContestTeams" :key="contestTeam.id">
         <contest-team-item
           :contest-id="contestId"
           :contest-team="contestTeam"
