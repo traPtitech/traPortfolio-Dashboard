@@ -59,9 +59,6 @@ const searchQuery = ref('')
   align-items: center;
   margin-top: 0.5rem;
 }
-.header {
-  margin: 4rem 0 2rem;
-}
 .searchFormDescriptionText {
   color: $color-secondary;
   font-size: 0.875rem;

@@ -113,7 +113,7 @@ const searchContestTeams = (serachQuery: string) => {
 }
 .h2 {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 .content {
   margin-top: 0.5rem;
