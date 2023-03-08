@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
-
 interface Props {
   modelValue: string
 }
@@ -17,7 +15,6 @@ const handleInput = (event: Event) => {
 
 <template>
   <div :class="$style.container">
-    <icon name="mdi:calendar-clock" :class="$style.icon" />
     <input
       :class="$style.input"
       :data-is-blank="props.modelValue === ''"
@@ -32,7 +29,7 @@ const handleInput = (event: Event) => {
 .container {
   display: flex;
   align-items: center;
-  padding: 8px;
+  padding: 0.5rem;
   border: 1px solid $color-secondary;
   border-radius: 6px;
   &:focus-within {
@@ -43,6 +40,16 @@ const handleInput = (event: Event) => {
   flex-grow: 1;
   &[data-is-blank='true'] {
     color: $color-secondary;
+  }
+  &::-webkit-calendar-picker-indicator {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-image: url('/icons/calendar-clock.svg');
+  }
+  &:focus::-webkit-calendar-picker-indicator {
+    background-image: url('/icons/calendar-clock_focus.svg');
   }
 }
 .icon {
