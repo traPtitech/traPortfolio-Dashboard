@@ -2,21 +2,29 @@
 import { ref } from 'vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 
-const dialogRef = ref<HTMLDialogElement>()
+interface Props {
+  title: string
+  body: string
+}
+defineProps<Props>()
+
+const modalRef = ref<HTMLDialogElement>()
 
 const open = () => {
-  dialogRef.value?.showModal()
-  dialogRef.value?.addEventListener('click', listener)
+  if (modalRef.value === undefined) return
+  modalRef.value.showModal()
+  modalRef.value.addEventListener('click', listener)
 }
 
 const close = () => {
-  dialogRef.value?.close()
-  dialogRef.value?.removeEventListener('click', listener)
+  if (modalRef.value === undefined) return
+  modalRef.value.close()
+  modalRef.value.removeEventListener('click', listener)
 }
 
 const listener = (e: Event) => {
-  if (dialogRef.value === undefined) return
-  if (e.target === dialogRef.value) {
+  if (modalRef.value === undefined) return
+  if (e.target === modalRef.value) {
     emit('close')
   }
 }
@@ -33,24 +41,21 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <dialog ref="dialogRef" :class="$style.modal">
+  <dialog ref="modalRef" :class="$style.modal">
     <div :class="$style.container">
-      <h1 :class="$style.header">コンテストの削除</h1>
+      <h1 :class="$style.header">{{ title }}</h1>
       <p :class="$style.body">
-        コンテンストと、コンテストに含まれるチームをすべて削除します。この操作は取り消せません。
+        {{ body }}
       </p>
       <div :class="$style.buttonContent">
         <base-button
           type="secondary"
           icon="mdi:arrow-left"
-          @click="() => emit('close')"
+          @click="emit('close')"
           >Back</base-button
         >
-        <base-button
-          type="warning"
-          icon="mdi:close"
-          @click="() => emit('remove')"
-          >Remove</base-button
+        <base-button type="warning" icon="mdi:close" @click="emit('remove')"
+          >Delete</base-button
         >
       </div>
     </div>
@@ -68,7 +73,7 @@ const emit = defineEmits<{
 }
 
 .container {
-  margin: 1rem 1.5rem;
+  padding: 1.5rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
