@@ -23,17 +23,18 @@ const { data: contestTeam } = useDataFetcher<ContestTeamDetail>(() =>
   apis.getContestTeam(contestId.value, contestTeamId.value)
 )
 
-const name = ref(contestTeam.value?.name ?? '')
-const result = ref(contestTeam.value?.result ?? '')
-const link = ref(contestTeam.value?.link ?? '')
-const description = ref(contestTeam.value?.description ?? '')
+const formValues = ref({
+  name: '',
+  result: '',
+  link: '',
+  description: ''
+})
 const members = ref<User[]>(contestTeam.value?.members ?? [])
 
-watch(contestTeam, () => {
-  name.value = contestTeam.value?.name ?? ''
-  result.value = contestTeam.value?.result ?? ''
-  link.value = contestTeam.value?.link ?? ''
-  description.value = contestTeam.value?.description ?? ''
+watch([contestTeam, members], () => {
+  if (contestTeam.value) {
+    formValues.value = contestTeam.value
+  }
   members.value = contestTeam.value?.members ?? []
 })
 
@@ -42,12 +43,11 @@ const isSending = ref(false)
 const updateContestTeam = async () => {
   isSending.value = true
   try {
-    await apis.editContestTeam(contestId.value, contestTeamId.value, {
-      name: name.value,
-      result: result.value,
-      link: link.value,
-      description: description.value
-    })
+    await apis.editContestTeam(
+      contestId.value,
+      contestTeamId.value,
+      formValues.value
+    )
     await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
       members: members.value.map(member => member.id)
     })
@@ -80,19 +80,23 @@ const updateContestTeam = async () => {
     </div>
     <form v-if="contestTeam !== undefined">
       <labeled-form required label="チーム名" :class="$style.labeledForm">
-        <form-input v-model="name" :limit="32" />
+        <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>
       <labeled-form label="結果" :class="$style.labeledForm">
-        <form-input v-model="result" :limit="32" />
+        <form-input v-model="formValues.result" :limit="32" />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
-        <form-input v-model="link" has-anchor />
+        <form-input v-model="formValues.link" has-anchor />
       </labeled-form>
       <labeled-form required label="メンバー" :class="$style.labeledForm">
         <member-input v-model="members" />
       </labeled-form>
       <labeled-form required label="説明" :class="$style.labeledForm">
-        <form-text-area v-model="description" :limit="256" :rows="3" />
+        <form-text-area
+          v-model="formValues.description"
+          :limit="256"
+          :rows="3"
+        />
       </labeled-form>
     </form>
     <delete-form target="コンテストチーム" />
