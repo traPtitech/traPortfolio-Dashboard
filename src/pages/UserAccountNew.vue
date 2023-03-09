@@ -4,29 +4,27 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
+import { link } from 'fs'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 
-const service = ref(0)
-const id = ref('')
-const link = ref('')
-const prPermitted = ref(false)
+const formValues = reactive({
+  type: 0,
+  displayName: '',
+  url: '',
+  prPermitted: false
+})
 
 const isSending = ref(false)
 const createNewAccount = async () => {
   isSending.value = true
   try {
-    await apis.addUserAccount(userId.value, {
-      type: service.value,
-      displayName: id.value,
-      url: link.value,
-      prPermitted: prPermitted.value
-    })
+    await apis.addUserAccount(userId.value, formValues)
     //eslint-disable-next-line no-console
     console.log('登録しました') // todo:トーストとかに変えたい
   } catch {
@@ -59,15 +57,23 @@ const createNewAccount = async () => {
         <!--todo: ServiceAccordionができたら使う-->
       </labeled-form>
       <labeled-form label="ID" :class="$style.labeledForm">
-        <form-input v-model="id" placeholder="IDを入力" icon="at" />
+        <form-input
+          v-model="formValues.displayName"
+          placeholder="IDを入力"
+          icon="at"
+        />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
-        <form-input v-model="link" placeholder="https://" has-anchor />
+        <form-input
+          v-model="formValues.url"
+          placeholder="https://"
+          has-anchor
+        />
       </labeled-form>
       <labeled-form label="traP広報での言及を許可" :class="$style.labeledForm">
         <div :class="$style.prPermittedForm">
           許可する
-          <toggle-switch v-model="prPermitted" />
+          <toggle-switch v-model="formValues.prPermitted" />
         </div>
       </labeled-form>
     </form>
