@@ -1,14 +1,23 @@
 <script lang="ts" setup>
+import ContentHeader from '/@/components/Layout/ContentHeader.vue'
+import PageInfoPanels from '/@/components/Index/PageInfoPanels.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import FormDuration from '/@/components/UI/FormDuration.vue'
-import { ref } from 'vue'
-import { Duration } from '/@/lib/apis'
-
-const value = ref<Duration>({ since: '', until: '' })
 </script>
 
 <template>
   <page-container>
-    <form-duration v-model="value" />
+    <content-header
+      icon-name="mdi:apps"
+      :header-texts="[{ title: 'Top', url: '/' }]"
+      detail="ポートフォリオの設定を変更します"
+      :class="$style.header"
+    />
+    <page-info-panels />
   </page-container>
 </template>
+
+<style lang="scss" module>
+.header {
+  margin: 4rem 0 2rem;
+}
+</style>
