@@ -8,6 +8,7 @@ import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
+import FormDuration from '/@/components/UI/FormDuration.vue'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -56,7 +57,7 @@ const createContest = async () => {
         />
       </labeled-form>
       <labeled-form label="開催日時" required :class="$style.labeledForm">
-        <!--dateコンポーネントができたら使う-->
+        <form-duration v-model="formValues.duration" />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input
