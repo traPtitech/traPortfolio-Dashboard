@@ -72,6 +72,10 @@ const updateContestTeam = async () => {
           {
             title: contestTeam?.name ?? '',
             url: `/contests/${contestId}/teams/${contestTeamId}`
+          },
+          {
+            title: 'Edit',
+            url: `/contests/${contestId}/teams/${contestTeamId}/edit`
           }
         ]"
         detail="コンテストチームの情報を変更します。"
