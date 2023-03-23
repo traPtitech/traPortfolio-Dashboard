@@ -74,7 +74,7 @@ watch(contest, () => {
       <labeled-form required label="コンテスト名" :class="$style.labeledForm">
         <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>
-      <labeled-form label="結果" :class="$style.labeledForm">
+      <labeled-form label="開催日時" :class="$style.labeledForm">
         <form-duration v-model="formValues.duration" since-required />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
