@@ -64,7 +64,8 @@ watch(contest, () => {
         icon-name="mdi:trophy-outline"
         :header-texts="[
           { title: 'Contests', url: '/contests' },
-          { title: contest?.name ?? '', url: `/contests/${contestId}` }
+          { title: contest?.name ?? '', url: `/contests/${contestId}` },
+          { title: 'Edit', url: `/contests/${contestId}/edit` }
         ]"
         detail="コンテストの情報を変更します。"
         :class="$style.header"
