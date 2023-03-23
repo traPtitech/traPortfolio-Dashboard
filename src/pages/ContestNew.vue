@@ -54,6 +54,7 @@ const createContest = async () => {
         <form-input
           v-model="formValues.name"
           placeholder="コンテスト名を入力"
+          :limit="32"
         />
       </labeled-form>
       <labeled-form label="開催日時" required :class="$style.labeledForm">
@@ -71,6 +72,7 @@ const createContest = async () => {
           v-model="formValues.description"
           placeholder="説明を入力"
           :rows="3"
+          :limit="256"
         />
       </labeled-form>
     </form>
