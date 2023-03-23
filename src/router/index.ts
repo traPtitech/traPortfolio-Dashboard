@@ -7,6 +7,7 @@ const UserAccountNew = () => import('/@/pages/UserAccountNew.vue')
 const UserAccountEdit = () => import('/@/pages/UserAccountEdit.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
+const ProjectNew = () => import('/@/pages/ProjectNew.vue')
 const Events = () => import('/@/pages/Events.vue')
 const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
@@ -31,6 +32,11 @@ const routes = [
     path: '/projects/:id',
     name: 'Project',
     component: Project
+  },
+  {
+    path: '/projects/new',
+    name: 'ProjectNew',
+    component: ProjectNew
   },
   {
     path: '/events',
