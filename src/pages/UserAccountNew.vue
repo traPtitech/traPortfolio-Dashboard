@@ -61,6 +61,7 @@ const createNewAccount = async () => {
           v-model="formValues.displayName"
           placeholder="IDを入力"
           icon="at"
+          :limit="256"
         />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
