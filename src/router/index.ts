@@ -10,6 +10,7 @@ const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
 const Contest = () => import('/@/pages/Contest.vue')
 const ContestCreate = () => import('/@/pages/ContestCreate.vue')
+const ContestEdit = () => import('/@/pages/ContestEdit.vue')
 
 const routes = [
   {
@@ -51,6 +52,11 @@ const routes = [
     path: '/contests/create',
     name: 'ContestCreate',
     component: ContestCreate
+  },
+  {
+    path: '/contests/:contestId/edit',
+    name: 'ContestEdit',
+    component: ContestEdit
   },
   {
     path: '/users',

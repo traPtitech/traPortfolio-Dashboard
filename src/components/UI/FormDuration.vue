@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import FormDate from '/@/components/UI/FormDate.vue'
 import { Duration } from '/@/lib/apis'
-import Required from '/@/components/UI/Required.vue'
+import Required from './Required.vue'
 
 type DateType = 'since' | 'until'
 
