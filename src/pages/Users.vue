@@ -5,13 +5,13 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import UserProfile from '/@/components/Users/UserProfile.vue'
 import UserProfileEdit from '/@/components/Users/UserProfileEdit.vue'
 import apis from '/@/lib/apis'
-import useUserDataFetcher from '/@/use/userDataFetcher'
+import { useFetcher } from '/@/use/fetcher'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 
-const { data: user, fetcherState } = useUserDataFetcher(userId, userId =>
-  apis.getUser(userId)
+const { data: user, fetcherState } = useFetcher(() =>
+  apis.getUser(userId.value)
 )
 </script>
 
