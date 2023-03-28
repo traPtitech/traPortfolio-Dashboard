@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
-import { services, serviceNameToType } from '/@/consts/services'
+import { services, serviceNameToType, serviceArray } from '/@/consts/services'
 import { AccountType } from '/@/lib/apis'
-
-const options = Array.from(services.values()).map(service => service.name)
 
 interface Props {
   modelValue: AccountType
+  registered: AccountType[]
 }
 const props = defineProps<Props>()
 
@@ -20,6 +19,10 @@ const value = computed({
   set: v =>
     emit('update:modelValue', serviceNameToType(v) ?? AccountType.homepage)
 })
+
+const options = computed(() =>
+  serviceArray.filter(s => !props.registered.includes(s.type)).map(s => s.name)
+)
 </script>
 
 <template>
