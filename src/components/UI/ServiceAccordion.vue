@@ -6,9 +6,11 @@ import { AccountType } from '/@/lib/apis'
 
 interface Props {
   modelValue: AccountType
-  registered: AccountType[]
+  registered?: AccountType[]
 }
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  registered: () => Array<AccountType>()
+})
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: AccountType): void
