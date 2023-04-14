@@ -11,6 +11,7 @@ import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import useParam from '/@/use/param'
 import useDataFetcher from '/@/use/fetcher'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
+import DeleteForm from '/@/components/Form/DeleteForm.vue'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -102,6 +103,7 @@ watch(account, () => {
         </div>
       </labeled-form>
     </form>
+    <delete-form target="アカウント" />
     <div :class="$style.buttonContainer">
       <router-link to="/users/accounts" :class="$style.link">
         <base-button
