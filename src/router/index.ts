@@ -10,9 +10,10 @@ const Events = () => import('/@/pages/Events.vue')
 const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
 const Contest = () => import('/@/pages/Contest.vue')
+const ContestNew = () => import('/@/pages/ContestNew.vue')
 const ContestEdit = () => import('/@/pages/ContestEdit.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
-const ContestNew = () => import('/@/pages/ContestNew.vue')
+const UserAccountEdit = () => import('/@/pages/UserAccountEdit.vue')
 
 const routes = [
   {
@@ -79,6 +80,11 @@ const routes = [
     path: '/users/accounts/new',
     name: 'UserAccountsNew',
     component: UserAccountNew
+  },
+  {
+    path: '/users/accounts/:accountId/edit',
+    name: 'UserAccountsEdit',
+    component: UserAccountEdit
   }
 ]
 
