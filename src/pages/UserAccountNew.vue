@@ -2,18 +2,18 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis from '/@/lib/apis'
+import apis, { AddAccountRequest } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
-import { link } from 'fs'
+import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 
-const formValues = reactive({
+const formValues = reactive<AddAccountRequest>({
   type: 0,
   displayName: '',
   url: '',
@@ -54,7 +54,7 @@ const createNewAccount = async () => {
     </div>
     <form>
       <labeled-form label="サービス名" :class="$style.labeledForm">
-        <!--todo: ServiceAccordionができたら使う-->
+        <service-accordion v-model="formValues.type" />
       </labeled-form>
       <labeled-form label="ID" :class="$style.labeledForm">
         <form-input
