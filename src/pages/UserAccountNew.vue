@@ -2,16 +2,22 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { AddAccountRequest } from '/@/lib/apis'
+import apis, { Account, AddAccountRequest } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
+import useDataFetcher from '/@/use/fetcher'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
+const { data: accounts } = useDataFetcher<Account[]>(() =>
+  apis.getUserAccounts(userId.value)
+)
+const registeredServices =
+  computed(() => accounts.value?.map(account => account.type)) ?? []
 
 const formValues = reactive<AddAccountRequest>({
   type: 0,
@@ -54,7 +60,10 @@ const createNewAccount = async () => {
     </div>
     <form>
       <labeled-form label="サービス名" :class="$style.labeledForm">
-        <service-accordion v-model="formValues.type" />
+        <service-accordion
+          v-model="formValues.type"
+          :registered="registeredServices"
+        />
       </labeled-form>
       <labeled-form label="ID" :class="$style.labeledForm">
         <form-input
