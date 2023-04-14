@@ -8,14 +8,14 @@ import { RouterLink } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import Icon from '/@/components/UI/Icon.vue'
 import useParam from '/@/use/param'
-import { useFetcher } from '/@/use/fetcher'
+import useDataFetcher from '/@/use/fetcher'
 import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
 const contestId = useParam('id')
-const { data: contest } = useFetcher<ContestDetail>(() =>
+const { data: contest } = useDataFetcher<ContestDetail>(() =>
   apis.getContest(contestId.value)
 )
-const { data: contestTeams, fetcherState } = useFetcher<ContestTeam[]>(() =>
+const { data: contestTeams, fetcherState } = useDataFetcher<ContestTeam[]>(() =>
   apis.getContestTeams(contestId.value)
 )
 </script>
