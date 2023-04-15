@@ -17,8 +17,6 @@ export const isValidUrl = (link: string) => {
 }
 
 export const isValidDuration = (duration: Duration) => {
-  // sinceとuntilが入っているか、sinceよりuntilの方が大きいかの確認
-  console.log(duration)
   if (duration.since && duration.until) {
     return duration.since <= duration.until
   }
