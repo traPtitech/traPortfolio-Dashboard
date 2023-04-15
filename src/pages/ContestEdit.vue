@@ -2,23 +2,24 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis from '/@/lib/apis'
+import apis, { EditContestRequest } from '/@/lib/apis'
 import type { ContestDetail } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import useParam from '/@/use/param'
-import useDataFetcher from '/@/use/fetcher'
+import { useDataFetcher } from '/@/use/fetcher'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
+import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
 
 const contestId = useParam('contestId')
 const { data: contest } = useDataFetcher<ContestDetail>(() =>
   apis.getContest(contestId.value)
 )
-const formValues = ref({
+const formValues = ref<Required<EditContestRequest>>({
   name: '',
   duration: {
     since: '',
@@ -29,10 +30,27 @@ const formValues = ref({
 })
 
 const isSending = ref(false)
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    isValidLength(formValues.value.name, 1, 32) &&
+    isValidDuration(formValues.value.duration) &&
+    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidLength(formValues.value.description, 1, 256)
+)
+
 const updateContest = async () => {
   isSending.value = true
   try {
-    await apis.editContest(contestId.value, formValues.value)
+    const requestData: EditContestRequest = {
+      ...formValues.value,
+      link: formValues.value.link || undefined,
+      duration: {
+        since: formValues.value.duration.since + ':00Z',
+        until: formValues.value.duration.until + ':00Z'
+      }
+    }
+    await apis.editContest(contestId.value, requestData)
     //eslint-disable-next-line no-console
     console.log('更新しました') // todo:トーストとかに変えたい
   } catch {
@@ -101,7 +119,7 @@ watch(contest, () => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         :class="$style.updateButton"
         type="primary"
         icon="mdi:update"
@@ -134,5 +152,8 @@ watch(contest, () => {
   justify-content: space-between;
   align-items: center;
   margin-top: 4rem;
+}
+.backButton {
+  margin-left: 0.5rem;
 }
 </style>
