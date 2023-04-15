@@ -4,7 +4,7 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { ContestTeamDetail, EditContestTeamRequest } from '/@/lib/apis'
 import type { ContestDetail, User } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
 import { useDataFetcher } from '/@/use/fetcher'
 import MemberInput from '/@/components/UI/MemberInput.vue'
@@ -14,6 +14,8 @@ import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+
+const router = useRouter()
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
@@ -53,16 +55,22 @@ const canSubmit = computed(
 const updateContestTeam = async () => {
   isSending.value = true
   try {
+    const requestData: EditContestTeamRequest = {
+      ...formValues.value,
+      result: formValues.value.result || undefined,
+      link: formValues.value.link || undefined
+    }
     await apis.editContestTeam(
       contestId.value,
       contestTeamId.value,
-      formValues.value
+      requestData
     )
     await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
       members: members.value.map(member => member.id)
     })
     //eslint-disable-next-line no-console
     console.log('更新しました') // todo:トーストとかに変えたい
+    router.push(`/contests/${contestId.value}/teams/${contestTeamId.value}`)
   } catch {
     //eslint-disable-next-line no-console
     console.log('更新に失敗しました')
