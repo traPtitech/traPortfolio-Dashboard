@@ -10,9 +10,10 @@ import { useDataFetcher } from '/@/use/fetcher'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
+import { isValidLength, isValidUrl } from '/@/use/validate'
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
@@ -39,6 +40,15 @@ watch([contestTeam, members], () => {
 })
 
 const isSending = ref(false)
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    isValidLength(formValues.value.name, 1, 32) &&
+    isValidLength(formValues.value.result, 0, 32) &&
+    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidLength(formValues.value.description, 1, 256) &&
+    members.value.length > 0
+)
 
 const updateContestTeam = async () => {
   isSending.value = true
@@ -90,7 +100,11 @@ const updateContestTeam = async () => {
         <form-input v-model="formValues.result" :limit="32" />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
-        <form-input v-model="formValues.link" has-anchor />
+        <form-input
+          v-model="formValues.link"
+          has-anchor
+          placeholder="https://"
+        />
       </labeled-form>
       <labeled-form required label="メンバー" :class="$style.labeledForm">
         <member-input v-model="members" />
@@ -111,7 +125,7 @@ const updateContestTeam = async () => {
         <base-button type="secondary" icon="mdi:arrow-left">Back</base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         type="primary"
         icon="mdi:update"
         @click="updateContestTeam"
