@@ -2,17 +2,17 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import apis, { CreateContestRequest } from '/@/lib/apis'
+import { RouterLink, useRouter } from 'vue-router'
 import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
-const formValues = reactive({
+const router = useRouter()
+
+const formValues = reactive<Required<CreateContestRequest>>({
   name: '',
   link: '',
   description: '',
@@ -25,9 +25,18 @@ const isSending = ref(false)
 const createContest = async () => {
   isSending.value = true
   try {
-    await apis.createContest(formValues)
+    const requestData: CreateContestRequest = {
+      ...formValues,
+      link: formValues.link || undefined,
+      duration: {
+        since: formValues.duration.since + ':00Z',
+        until: formValues.duration.until + ':00Z'
+      }
+    }
+    const res = await apis.createContest(requestData)
     //eslint-disable-next-line no-console
     console.log('追加しました') // todo:トーストとかに変えたい
+    router.push(`/contests/${res.data.id}`)
   } catch {
     //eslint-disable-next-line no-console
     console.log('追加に失敗しました')
@@ -88,7 +97,6 @@ const createContest = async () => {
       </router-link>
       <base-button
         :is-disabled="isSending"
-        :class="$style.createButton"
         type="primary"
         icon="mdi:plus"
         @click="createContest"
@@ -111,11 +119,6 @@ const createContest = async () => {
 .labeledForm {
   margin-bottom: 2rem;
 }
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 .link {
   text-decoration: none;
   color: inherit;
@@ -126,5 +129,7 @@ const createContest = async () => {
   align-items: center;
   margin-top: 4rem;
 }
+.backButton {
+  margin-left: 0.5rem;
+}
 </style>
-'
