@@ -11,6 +11,7 @@ import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import useDataFetcher from '/@/use/fetcher'
 import { hasAtmarkService, hasIdService } from '/@/consts/services'
+import { isValidLength, isValidUrl } from '/@/use/validate'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -28,6 +29,15 @@ const formValues = reactive<AddAccountRequest>({
 })
 
 const isSending = ref(false)
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    (hasIdService(formValues.type)
+      ? isValidLength(formValues.displayName, 1, 256)
+      : true) &&
+    isValidUrl(formValues.url)
+)
+
 const createNewAccount = async () => {
   isSending.value = true
   try {
@@ -103,7 +113,7 @@ const createNewAccount = async () => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         :class="$style.createButton"
         type="primary"
         icon="mdi:plus"
@@ -141,5 +151,8 @@ const createNewAccount = async () => {
   justify-content: space-between;
   align-items: center;
   margin-top: 4rem;
+}
+.backButton {
+  margin-left: 0.5rem;
 }
 </style>

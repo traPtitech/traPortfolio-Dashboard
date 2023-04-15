@@ -112,10 +112,8 @@ export const hasIdService = (type: AccountType) =>
 
 export const hasAtmarkService = (type: AccountType) =>
   [
-    AccountType.github,
-    AccountType.atcoder,
-    AccountType.zenn,
-    AccountType.soundcloud,
-    AccountType.ctftime,
-    AccountType.hackthebox
+    AccountType.twitter,
+    AccountType.facebook,
+    AccountType.pixiv,
+    AccountType.qiita
   ].includes(type)
