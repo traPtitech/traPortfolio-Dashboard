@@ -10,6 +10,7 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import useDataFetcher from '/@/use/fetcher'
+import { hasAtmarkService, hasIdService } from '/@/consts/services'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -65,11 +66,15 @@ const createNewAccount = async () => {
           :registered="registeredServices"
         />
       </labeled-form>
-      <labeled-form label="ID" :class="$style.labeledForm">
+      <labeled-form
+        v-if="hasIdService(formValues.type)"
+        label="ID"
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.displayName"
           placeholder="IDを入力"
-          icon="at"
+          :icon="hasAtmarkService(formValues.type) ? 'at' : undefined"
           :limit="256"
         />
       </labeled-form>

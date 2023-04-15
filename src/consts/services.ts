@@ -107,3 +107,15 @@ export const serviceNameToType = (name: string): AccountType | undefined => {
   )
   return entry?.[0]
 }
+export const hasIdService = (type: AccountType) =>
+  ![AccountType.homepage, AccountType.blog].includes(type)
+
+export const hasAtmarkService = (type: AccountType) =>
+  [
+    AccountType.github,
+    AccountType.atcoder,
+    AccountType.zenn,
+    AccountType.soundcloud,
+    AccountType.ctftime,
+    AccountType.hackthebox
+  ].includes(type)
