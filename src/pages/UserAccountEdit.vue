@@ -9,9 +9,11 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import useParam from '/@/use/param'
-import useDataFetcher from '/@/use/fetcher'
+import { useDataFetcher } from '/@/use/fetcher'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
+import { hasIdService, hasAtmarkService } from '/@/consts/services'
+import { isValidLength, isValidUrl } from '/@/use/validate'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -32,6 +34,15 @@ const formValues = ref<Required<EditUserAccountRequest>>({
   prPermitted: false
 })
 const isSending = ref(false)
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    (hasIdService(formValues.value.type)
+      ? isValidLength(formValues.value.displayName, 1, 256)
+      : true) &&
+    isValidUrl(formValues.value.url)
+)
+
 const updateAccount = async () => {
   isSending.value = true
   try {
@@ -81,11 +92,15 @@ watch(account, () => {
           :registered="registeredServices"
         />
       </labeled-form>
-      <labeled-form label="ID" :class="$style.labeledForm">
+      <labeled-form
+        v-if="hasIdService(formValues.type)"
+        label="ID"
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.displayName"
           placeholder="IDを入力"
-          icon="at"
+          :icon="hasAtmarkService(formValues.type) ? 'at' : undefined"
           :limit="256"
         />
       </labeled-form>
@@ -115,7 +130,7 @@ watch(account, () => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         :class="$style.updateButton"
         type="primary"
         icon="mdi:update"
@@ -153,5 +168,8 @@ watch(account, () => {
   justify-content: space-between;
   align-items: center;
   margin-top: 4rem;
+}
+.backButton {
+  margin-left: 0.5rem;
 }
 </style>
