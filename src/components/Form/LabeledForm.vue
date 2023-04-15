@@ -29,7 +29,7 @@ defineProps<Props>()
 }
 .label {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 .form {
   margin-left: 0.5rem;

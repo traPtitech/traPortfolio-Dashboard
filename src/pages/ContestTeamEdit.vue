@@ -2,7 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { ContestTeamDetail } from '/@/lib/apis'
+import apis, { ContestTeamDetail, EditContestTeamRequest } from '/@/lib/apis'
 import type { ContestDetail, User } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import useParam from '/@/use/param'
@@ -23,7 +23,7 @@ const { data: contestTeam } = useDataFetcher<ContestTeamDetail>(() =>
   apis.getContestTeam(contestId.value, contestTeamId.value)
 )
 
-const formValues = ref({
+const formValues = ref<Required<EditContestTeamRequest>>({
   name: '',
   result: '',
   link: '',
@@ -103,21 +103,15 @@ const updateContestTeam = async () => {
         />
       </labeled-form>
     </form>
+    <!--todo: モーダルの実装待ち-->
     <delete-form target="コンテストチーム" />
 
     <div :class="$style.buttonContainer">
       <router-link :to="`/contests/${contestId}`" :class="$style.link">
-        <base-button
-          :class="$style.backButton"
-          type="secondary"
-          icon="mdi:arrow-left"
-        >
-          Back
-        </base-button>
+        <base-button type="secondary" icon="mdi:arrow-left">Back</base-button>
       </router-link>
       <base-button
         :is-disabled="isSending"
-        :class="$style.updateButton"
         type="primary"
         icon="mdi:update"
         @click="updateContestTeam"
