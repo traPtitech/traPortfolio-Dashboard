@@ -4,11 +4,12 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { CreateContestRequest } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
+import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
 
 const router = useRouter()
 
@@ -22,6 +23,15 @@ const formValues = reactive<Required<CreateContestRequest>>({
   }
 })
 const isSending = ref(false)
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    isValidLength(formValues.name, 1, 32) &&
+    (formValues.link !== '' ? isValidUrl(formValues.link) : true) &&
+    isValidDuration(formValues.duration) &&
+    isValidLength(formValues.description, 1, 256)
+)
+
 const createContest = async () => {
   isSending.value = true
   try {
@@ -76,7 +86,7 @@ const createContest = async () => {
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="説明" :class="$style.labeledForm">
+      <labeled-form label="説明" required :class="$style.labeledForm">
         <form-text-area
           v-model="formValues.description"
           placeholder="説明を入力"
@@ -96,7 +106,7 @@ const createContest = async () => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         type="primary"
         icon="mdi:plus"
         @click="createContest"
