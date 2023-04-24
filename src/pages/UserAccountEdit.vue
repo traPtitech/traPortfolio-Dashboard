@@ -3,7 +3,7 @@ import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { EditUserAccountRequest, Account } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -14,6 +14,8 @@ import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { hasIdService, hasAtmarkService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+
+const router = useRouter()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -49,6 +51,7 @@ const updateAccount = async () => {
     await apis.editUserAccount(userId.value, accountId.value, formValues.value)
     //eslint-disable-next-line no-console
     console.log('更新しました') // todo:トーストとかに変えたい
+    router.push('/users/accounts')
   } catch {
     //eslint-disable-next-line no-console
     console.log('更新に失敗しました')
@@ -131,7 +134,6 @@ watch(account, () => {
       </router-link>
       <base-button
         :is-disabled="!canSubmit"
-        :class="$style.updateButton"
         type="primary"
         icon="mdi:update"
         @click="updateAccount"
