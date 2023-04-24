@@ -115,5 +115,6 @@ export const hasAtmarkService = (type: AccountType) =>
     AccountType.twitter,
     AccountType.facebook,
     AccountType.pixiv,
-    AccountType.qiita
+    AccountType.qiita,
+    AccountType.github
   ].includes(type)

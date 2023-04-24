@@ -3,7 +3,7 @@ import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { Account, AddAccountRequest } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -12,6 +12,8 @@ import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import { useDataFetcher } from '/@/use/fetcher'
 import { hasAtmarkService, hasIdService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+
+const router = useRouter()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -44,6 +46,7 @@ const createNewAccount = async () => {
     await apis.addUserAccount(userId.value, formValues)
     //eslint-disable-next-line no-console
     console.log('登録しました') // todo:トーストとかに変えたい
+    router.push('/users/accounts')
   } catch {
     //eslint-disable-next-line no-console
     console.log('登録に失敗しました')
@@ -115,7 +118,6 @@ const createNewAccount = async () => {
       </router-link>
       <base-button
         :is-disabled="!canSubmit"
-        :class="$style.createButton"
         type="primary"
         icon="mdi:plus"
         @click="createNewAccount"
