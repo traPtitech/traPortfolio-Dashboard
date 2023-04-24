@@ -4,7 +4,7 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { EditContestRequest } from '/@/lib/apis'
 import type { ContestDetail } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
 import { useDataFetcher } from '/@/use/fetcher'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
@@ -14,6 +14,8 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
 import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+
+const router = useRouter()
 
 const contestId = useParam('contestId')
 const { data: contest } = useDataFetcher<ContestDetail>(() =>
@@ -53,6 +55,7 @@ const updateContest = async () => {
     await apis.editContest(contestId.value, requestData)
     //eslint-disable-next-line no-console
     console.log('更新しました') // todo:トーストとかに変えたい
+    router.push(`/contests/${contestId.value}`)
   } catch {
     //eslint-disable-next-line no-console
     console.log('更新に失敗しました')
@@ -120,7 +123,6 @@ watch(contest, () => {
       </router-link>
       <base-button
         :is-disabled="!canSubmit"
-        :class="$style.updateButton"
         type="primary"
         icon="mdi:update"
         @click="updateContest"
