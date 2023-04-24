@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import RequiredChip from '/@/components/UI/Required.vue'
+import RequiredChip from '/@/components/UI/RequiredChip.vue'
+
 interface Props {
   label: string
   required?: boolean
@@ -28,7 +29,7 @@ defineProps<Props>()
 }
 .label {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 .form {
   margin-left: 0.5rem;

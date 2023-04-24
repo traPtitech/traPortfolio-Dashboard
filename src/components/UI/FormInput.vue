@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
+import { isValidUrl } from '/@/use/validate'
 
 interface Props {
   modelValue: string
@@ -25,15 +26,7 @@ const textLength = computed(() => [...props.modelValue].length)
 
 const isExceeded = computed(() => props.limit && textLength.value > props.limit)
 
-const isValidLink = computed(() => {
-  let url
-  try {
-    url = new URL(props.modelValue)
-  } catch {
-    return false
-  }
-  return url.protocol === 'http:' || url.protocol === 'https:'
-})
+const isValidLink = computed(() => isValidUrl(props.modelValue))
 
 const handleInput = (event: Event) => {
   emit('update:modelValue', (event.target as HTMLInputElement).value)
@@ -59,7 +52,11 @@ const handleInput = (event: Event) => {
       :class="$style.externalLink"
       :data-valid-link="isValidLink"
     >
-      <a :href="props.modelValue" :data-valid-link="isValidLink">
+      <a
+        :href="props.modelValue"
+        :data-valid-link="isValidLink"
+        target="_blank"
+      >
         <icon name="mdi:open-in-new" />
       </a>
     </div>

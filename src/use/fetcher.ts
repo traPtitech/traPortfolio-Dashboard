@@ -3,7 +3,7 @@ import { ref, Ref, watchEffect } from 'vue'
 
 export type FetcherState = 'loading' | 'loaded' | 'error'
 
-export const useFetcher = <T>(
+export const useDataFetcher = <T>(
   fetch: () => Promise<AxiosResponse<T>>
 ): { data: Ref<T | undefined>; fetcherState: Ref<FetcherState> } => {
   const data = ref<T>()
