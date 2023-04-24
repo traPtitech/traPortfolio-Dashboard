@@ -7,7 +7,7 @@ import AccountItem from '/@/components/UserAccounts/AccountItem.vue'
 import { ref } from 'vue'
 import apis from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
-import useDataFetcher from '/@/use/fetcher'
+import { useDataFetcher } from '/@/use/fetcher'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const toast = useToast()
 
 const shouldShowRealname = ref(props.user.realName !== '') // todo:checkがUserDetailに追加されたら初期値をそこから取得する
 const bio = ref(props.user.bio)
@@ -23,11 +26,9 @@ const updateUserProfile = async () => {
       bio: bio.value,
       check: shouldShowRealname.value
     })
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('更新に成功しました')
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('更新に失敗しました')
   } finally {
     isSending.value = false
   }
