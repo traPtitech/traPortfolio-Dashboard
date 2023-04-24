@@ -9,6 +9,7 @@ const Events = () => import('/@/pages/Events.vue')
 const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
 const Contest = () => import('/@/pages/Contest.vue')
+const ContestEdit = () => import('/@/pages/ContestEdit.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
 const ContestNew = () => import('/@/pages/ContestNew.vue')
 
@@ -57,6 +58,11 @@ const routes = [
     path: '/contests/:contestId/teams/:teamId/edit',
     name: 'ContestTeamEdit',
     component: ContestTeamEdit
+  },
+  {
+    path: '/contests/:contestId/edit',
+    name: 'ContestEdit',
+    component: ContestEdit
   },
   {
     path: '/users',
