@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import FormDate from '/@/components/UI/FormDate.vue'
 import { Duration } from '/@/lib/apis'
-import Required from './Required.vue'
+import RequiredChip from '/@/components/UI/RequiredChip.vue'
 
 type DateType = 'since' | 'until'
 
@@ -29,7 +29,7 @@ const handleInput = (value: string, dateType: DateType) => {
     <div :class="$style.formDate">
       <div :class="$style.sinceHead">
         <p :class="$style.head">～から</p>
-        <required v-if="sinceRequired" />
+        <required-chip v-if="sinceRequired" />
       </div>
       <form-date
         :model-value="modelValue.since"

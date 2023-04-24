@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import BaseButton from '/@/components/UI/BaseButton.vue'
+
 interface Props {
   target: string
   disabled?: boolean
 }
+
 defineProps<Props>()
 const emit = defineEmits<{
   (e: 'delete'): void
