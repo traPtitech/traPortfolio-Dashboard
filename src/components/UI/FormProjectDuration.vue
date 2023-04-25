@@ -127,6 +127,6 @@ const handleInput = (value: string, dateType: DateType) => {
   gap: 0.5rem;
 }
 .yearInput {
-  width: 140px;
+  width: 8.75rem;
 }
 </style>
