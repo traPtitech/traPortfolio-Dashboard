@@ -1,22 +1,19 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
-import { YearWithSemesterDuration, Semester } from '/@/lib/apis'
-
-const aaa = ref<YearWithSemesterDuration>({
-  since: {
-    year: 2021,
-    semester: Semester.first
-  },
-  until: {
-    year: 2021,
-    semester: Semester.second
-  }
-})
+import ContentHeader from '/@/components/Layout/ContentHeader.vue'
+import PageInfoPanels from '/@/components/Index/PageInfoPanels.vue'
+import PageContainer from '/@/components/Layout/PageContainer.vue'
 </script>
 
 <template>
-  <form-project-duration v-model="aaa" />
+  <page-container>
+    <content-header
+      icon-name="mdi:apps"
+      :header-texts="[{ title: 'Top', url: '/' }]"
+      detail="ポートフォリオの設定を変更します"
+      :class="$style.header"
+    />
+    <page-info-panels />
+  </page-container>
 </template>
 
 <style lang="scss" module>
