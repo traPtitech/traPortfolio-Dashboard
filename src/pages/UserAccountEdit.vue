@@ -89,7 +89,7 @@ watch(account, () => {
       />
     </div>
     <form>
-      <labeled-form label="サービス名" :class="$style.labeledForm">
+      <labeled-form label="サービス名" required :class="$style.labeledForm">
         <service-accordion
           v-model="formValues.type"
           :registered="registeredServices"
@@ -97,6 +97,7 @@ watch(account, () => {
       </labeled-form>
       <labeled-form
         v-if="hasIdService(formValues.type)"
+        required
         label="ID"
         :class="$style.labeledForm"
       >
@@ -107,7 +108,7 @@ watch(account, () => {
           :limit="256"
         />
       </labeled-form>
-      <labeled-form label="リンク" :class="$style.labeledForm">
+      <labeled-form label="リンク" required :class="$style.labeledForm">
         <form-input
           v-model="formValues.url"
           placeholder="https://"
