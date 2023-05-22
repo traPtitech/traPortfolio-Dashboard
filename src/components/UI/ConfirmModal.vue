@@ -52,10 +52,10 @@ const emit = defineEmits<{
           type="secondary"
           icon="mdi:arrow-left"
           @click="emit('close')"
-          >Back</base-button
+          >Close</base-button
         >
         <base-button type="warning" icon="mdi:close" @click="emit('remove')"
-          >Delete</base-button
+          >Cancel</base-button
         >
       </div>
     </div>
