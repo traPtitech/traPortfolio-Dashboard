@@ -36,7 +36,7 @@ defineExpose({
 
 const emit = defineEmits<{
   (e: 'cancel'): void
-  (e: 'remove'): void
+  (e: 'delete'): void
 }>()
 </script>
 
@@ -51,8 +51,8 @@ const emit = defineEmits<{
         <base-button type="secondary" icon="mdi:cancel" @click="emit('cancel')"
           >Cancel</base-button
         >
-        <base-button type="warning" icon="mdi:delete" @click="emit('remove')"
-          >Remove</base-button
+        <base-button type="warning" icon="mdi:delete" @click="emit('delete')"
+          >Delete</base-button
         >
       </div>
     </div>
