@@ -25,7 +25,7 @@ const close = () => {
 const listener = (e: Event) => {
   if (modalRef.value === undefined) return
   if (e.target === modalRef.value) {
-    emit('close')
+    emit('cancel')
   }
 }
 
@@ -35,7 +35,7 @@ defineExpose({
 })
 
 const emit = defineEmits<{
-  (e: 'close'): void
+  (e: 'cancel'): void
   (e: 'remove'): void
 }>()
 </script>
@@ -48,14 +48,11 @@ const emit = defineEmits<{
         {{ body }}
       </p>
       <div :class="$style.buttonContent">
-        <base-button
-          type="secondary"
-          icon="mdi:arrow-left"
-          @click="emit('close')"
-          >Close</base-button
-        >
-        <base-button type="warning" icon="mdi:close" @click="emit('remove')"
+        <base-button type="secondary" icon="mdi:cancel" @click="emit('cancel')"
           >Cancel</base-button
+        >
+        <base-button type="warning" icon="mdi:delete" @click="emit('remove')"
+          >Remove</base-button
         >
       </div>
     </div>
@@ -67,7 +64,7 @@ const emit = defineEmits<{
   margin: auto;
   max-width: 400px;
 
-  border: 1px solid $color-primary-text;
+  border: none;
   border-radius: 8px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
