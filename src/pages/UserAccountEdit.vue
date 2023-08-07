@@ -14,8 +14,11 @@ import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { hasIdService, hasAtmarkService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+import useModal from '/@/components/UI/composables/useModal'
+import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 
 const router = useRouter()
+const { modalRef, open, close } = useModal()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -36,6 +39,7 @@ const formValues = ref<Required<EditUserAccountRequest>>({
   prPermitted: false
 })
 const isSending = ref(false)
+const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
@@ -57,6 +61,20 @@ const updateAccount = async () => {
     console.log('更新に失敗しました')
   }
   isSending.value = false
+}
+
+const deleteAccount = async () => {
+  isDeleting.value = true
+  try {
+    await apis.deleteUserAccount(userId.value, accountId.value)
+    //eslint-disable-next-line no-console
+    console.log('削除しました')
+    router.push('/users/accounts')
+  } catch {
+    //eslint-disable-next-line no-console
+    console.log('削除に失敗しました')
+  }
+  isDeleting.value = false
 }
 
 watch(account, () => {
@@ -122,7 +140,8 @@ watch(account, () => {
         </div>
       </labeled-form>
     </form>
-    <delete-form target="アカウント" />
+    <delete-form target="アカウント" @delete="open" />
+
     <div :class="$style.buttonContainer">
       <router-link to="/users/accounts" :class="$style.link">
         <base-button
@@ -142,6 +161,15 @@ watch(account, () => {
         Update
       </base-button>
     </div>
+
+    <confirm-modal
+      ref="modalRef"
+      title="アカウントの削除"
+      body="アカウントを削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
+      @cancel="close"
+      @delete="deleteAccount"
+    />
   </page-container>
 </template>
 
