@@ -14,8 +14,11 @@ import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+import useModal from '/@/components/UI/composables/useModal'
+import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 
 const router = useRouter()
+const { modalRef, open, close } = useModal()
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
@@ -42,6 +45,7 @@ watch([contestTeam, members], () => {
 })
 
 const isSending = ref(false)
+const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
@@ -76,6 +80,20 @@ const updateContestTeam = async () => {
     console.log('更新に失敗しました')
   }
   isSending.value = false
+}
+
+const deleteContest = async () => {
+  isDeleting.value = true
+  try {
+    await apis.deleteContestTeam(contestId.value, contestTeamId.value)
+    //eslint-disable-next-line no-console
+    console.log('削除しました')
+    router.push(`/contests/${contestId.value}`)
+  } catch {
+    //eslint-disable-next-line no-console
+    console.log('削除に失敗しました')
+  }
+  isDeleting.value = false
 }
 </script>
 
@@ -125,8 +143,7 @@ const updateContestTeam = async () => {
         />
       </labeled-form>
     </form>
-    <!--todo: モーダルの実装待ち-->
-    <delete-form target="コンテストチーム" />
+    <delete-form target="コンテストチーム" @delete="open" />
 
     <div :class="$style.buttonContainer">
       <router-link :to="`/contests/${contestId}`" :class="$style.link">
@@ -141,6 +158,14 @@ const updateContestTeam = async () => {
         Update
       </base-button>
     </div>
+
+    <confirm-modal
+      ref="modalRef"
+      title="コンテストチームの削除"
+      body="コンテストチームを削除します。この操作は取り消せません。"
+      @cancel="close"
+      @delete="deleteContest"
+    />
   </page-container>
 </template>
 
