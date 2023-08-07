@@ -82,7 +82,7 @@ const updateContestTeam = async () => {
   isSending.value = false
 }
 
-const deleteContest = async () => {
+const deleteContestTeam = async () => {
   isDeleting.value = true
   try {
     await apis.deleteContestTeam(contestId.value, contestTeamId.value)
@@ -165,7 +165,7 @@ const deleteContest = async () => {
       body="コンテストチームを削除します。この操作は取り消せません。"
       :is-disabled="isDeleting"
       @cancel="close"
-      @delete="deleteContest"
+      @delete="deleteContestTeam"
     />
   </page-container>
 </template>
