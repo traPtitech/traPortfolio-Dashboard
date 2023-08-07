@@ -163,6 +163,7 @@ const deleteContest = async () => {
       ref="modalRef"
       title="コンテストチームの削除"
       body="コンテストチームを削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
       @cancel="close"
       @delete="deleteContest"
     />

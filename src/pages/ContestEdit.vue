@@ -153,6 +153,7 @@ watch(contest, () => {
       ref="modalRef"
       title="コンテストの削除"
       body="コンテストと、コンテストに含まれるチームをすべて削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
       @cancel="close"
       @delete="deleteContest"
     />
