@@ -10,8 +10,10 @@ import { getDisplayDuration } from '/@/lib/date'
 import useParam from '/@/use/param'
 import { useDataFetcher } from '/@/use/fetcher'
 import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const eventId = useParam('id')
 const { data: event } = useDataFetcher<EventDetail>(() =>
@@ -28,12 +30,10 @@ const updateEvent = async () => {
       eventLevel: eventLevel.value
     }
     await apis.editEvent(eventId.value, requestData)
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('イベント情報を更新しました')
     router.push(`/events/${eventId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('イベント情報の更新に失敗しました')
   }
   isSending.value = false
 }
