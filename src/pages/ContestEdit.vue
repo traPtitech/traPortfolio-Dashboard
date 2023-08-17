@@ -6,10 +6,9 @@ import apis, { EditContestRequest } from '/@/lib/apis'
 import type { ContestDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
-import { useDataFetcher } from '/@/use/fetcher'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
@@ -18,17 +17,17 @@ import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
 const router = useRouter()
 
 const contestId = useParam('contestId')
-const { data: contest } = useDataFetcher<ContestDetail>(() =>
-  apis.getContest(contestId.value)
-)
+const contestDetail: ContestDetail = (await apis.getContest(contestId.value))
+  .data
+
 const formValues = ref<Required<EditContestRequest>>({
-  name: '',
+  name: contestDetail.name,
   duration: {
-    since: '',
-    until: ''
+    since: contestDetail.duration.since.slice(0, 16),
+    until: contestDetail.duration.until?.slice(0, 16) ?? ''
   },
-  link: '',
-  description: ''
+  link: contestDetail.link,
+  description: contestDetail.description
 })
 
 const isSending = ref(false)
@@ -62,20 +61,6 @@ const updateContest = async () => {
   }
   isSending.value = false
 }
-
-watch(contest, () => {
-  if (contest.value) {
-    formValues.value = {
-      name: contest.value.name,
-      duration: {
-        since: contest.value.duration.since.slice(0, 16),
-        until: contest.value.duration.until?.slice(0, 16) ?? ''
-      },
-      link: contest.value.link,
-      description: contest.value.description
-    }
-  }
-})
 </script>
 
 <template>
@@ -85,14 +70,14 @@ watch(contest, () => {
         icon-name="mdi:trophy-outline"
         :header-texts="[
           { title: 'Contests', url: '/contests' },
-          { title: contest?.name ?? '', url: `/contests/${contestId}` },
+          { title: contestDetail.name, url: `/contests/${contestId}` },
           { title: 'Edit', url: `/contests/${contestId}/edit` }
         ]"
         detail="コンテストの情報を変更します。"
         :class="$style.header"
       />
     </div>
-    <form v-if="contest !== undefined">
+    <form>
       <labeled-form required label="コンテスト名" :class="$style.labeledForm">
         <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>

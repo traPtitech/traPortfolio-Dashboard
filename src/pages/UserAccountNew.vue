@@ -9,7 +9,6 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
-import { useDataFetcher } from '/@/use/fetcher'
 import { hasAtmarkService, hasIdService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
 
@@ -17,11 +16,9 @@ const router = useRouter()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
-const { data: accounts } = useDataFetcher<Account[]>(() =>
-  apis.getUserAccounts(userId.value)
-)
-const registeredServices =
-  computed(() => accounts.value?.map(account => account.type)) ?? []
+const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
+
+const registeredServices = computed(() => accounts.map(account => account.type))
 
 const formValues = reactive<AddAccountRequest>({
   type: 0,
