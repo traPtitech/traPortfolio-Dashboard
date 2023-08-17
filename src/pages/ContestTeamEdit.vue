@@ -16,8 +16,10 @@ import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 const { modalRef, open, close } = useModal()
 
 const contestId = useParam('contestId')
@@ -86,12 +88,10 @@ const deleteContestTeam = async () => {
   isDeleting.value = true
   try {
     await apis.deleteContestTeam(contestId.value, contestTeamId.value)
-    //eslint-disable-next-line no-console
-    console.log('削除しました')
+    toast.success('コンテストチーム情報を削除しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('削除に失敗しました')
+    toast.error('コンテストチ－ム情報の削除に失敗しました')
   }
   isDeleting.value = false
 }
