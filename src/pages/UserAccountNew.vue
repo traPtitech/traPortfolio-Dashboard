@@ -46,10 +46,10 @@ const createNewAccount = async () => {
   isSending.value = true
   try {
     await apis.addUserAccount(userId.value, formValues)
-    toast.success('アカウントを登録しました')
+    toast.success('アカウント情報を登録しました')
     router.push('/users/accounts')
   } catch {
-    toast.error('アカウントの登録に失敗しました')
+    toast.error('アカウント情報の登録に失敗しました')
   }
   isSending.value = false
 }
