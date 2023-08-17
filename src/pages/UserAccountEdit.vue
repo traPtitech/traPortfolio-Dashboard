@@ -16,8 +16,10 @@ import { hasIdService, hasAtmarkService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 const { modalRef, open, close } = useModal()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
@@ -53,12 +55,10 @@ const updateAccount = async () => {
   isSending.value = true
   try {
     await apis.editUserAccount(userId.value, accountId.value, formValues.value)
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('アカウント情報を更新しました')
     router.push('/users/accounts')
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('アカウント情報の更新に失敗しました')
   }
   isSending.value = false
 }
@@ -67,12 +67,10 @@ const deleteAccount = async () => {
   isDeleting.value = true
   try {
     await apis.deleteUserAccount(userId.value, accountId.value)
-    //eslint-disable-next-line no-console
-    console.log('削除しました')
+    toast.success('アカウント情報を削除しました')
     router.push('/users/accounts')
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('削除に失敗しました')
+    toast.error('アカウント情報の削除に失敗しました')
   }
   isDeleting.value = false
 }
