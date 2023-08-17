@@ -14,8 +14,10 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
 import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const contestId = useParam('contestId')
 const { data: contest } = useDataFetcher<ContestDetail>(() =>
@@ -53,12 +55,10 @@ const updateContest = async () => {
       }
     }
     await apis.editContest(contestId.value, requestData)
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('コンテスト情報を更新しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('コンテスト情報の更新に失敗しました')
   }
   isSending.value = false
 }
