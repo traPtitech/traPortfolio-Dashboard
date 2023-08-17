@@ -2,17 +2,17 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis from '/@/lib/apis'
+import apis, { CreateProjectRequest } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
-import FormDuration from '/@/components/UI/FormDuration.vue'
+import { useToast } from 'vue-toastification'
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
-const formValues = reactive({
+const toast = useToast()
+
+const formValues = reactive<Required<CreateProjectRequest>>({
   name: '',
   link: '',
   description: '',
@@ -32,11 +32,9 @@ const createProject = async () => {
   isSending.value = true
   try {
     await apis.createProject(formValues)
-    //eslint-disable-next-line no-console
-    console.log('追加しました') // todo:トーストとかに変えたい
+    toast.success('プロジェクトを追加しました')
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('追加に失敗しました')
+    toast.error('プロジェクトの追加に失敗しました')
   }
   isSending.value = false
 }
