@@ -46,11 +46,13 @@ const props = defineProps<Props>()
   color: $color-primary;
   margin-bottom: 0.5rem;
   font-size: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .link {
   text-decoration: none;
   color: $color-primary;
+  white-space: nowrap;
 
   &:hover {
     text-decoration: underline;
