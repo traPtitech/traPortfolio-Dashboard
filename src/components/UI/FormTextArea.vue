@@ -75,6 +75,7 @@ const wordCount = computed(() => [...props.modelValue].length)
 }
 
 .count {
+  color: $color-secondary;
   display: flex;
   justify-content: flex-end;
   font-size: 0.75rem;

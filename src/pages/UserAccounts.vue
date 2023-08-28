@@ -6,13 +6,14 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import AccountItem from '/@/components/UserAccounts/AccountItem.vue'
 import { ref } from 'vue'
 import apis from '/@/lib/apis'
-import useUserDataFetcher from '/@/use/userDataFetcher'
+import { RouterLink } from 'vue-router'
+import { useDataFetcher } from '/@/use/fetcher'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 
-const { data: accounts, fetcherState } = useUserDataFetcher(userId, userId =>
-  apis.getUserAccounts(userId)
+const { data: accounts, fetcherState } = useDataFetcher(() =>
+  apis.getUserAccounts(userId.value)
 )
 </script>
 

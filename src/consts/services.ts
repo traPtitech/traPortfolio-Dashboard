@@ -100,3 +100,21 @@ export const services: ServiceRecord = new Map([
 export const serviceArray: ServiceWithType[] = Array.from(
   services.entries()
 ).map(([type, service]) => ({ ...service, type }))
+
+export const serviceNameToType = (name: string): AccountType | undefined => {
+  const entry = Array.from(services).find(
+    ([, service]) => service.name === name
+  )
+  return entry?.[0]
+}
+export const hasIdService = (type: AccountType) =>
+  ![AccountType.homepage, AccountType.blog].includes(type)
+
+export const hasAtmarkService = (type: AccountType) =>
+  [
+    AccountType.twitter,
+    AccountType.facebook,
+    AccountType.pixiv,
+    AccountType.qiita,
+    AccountType.github
+  ].includes(type)
