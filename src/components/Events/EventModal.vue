@@ -5,27 +5,27 @@ interface Props {
 
 defineProps<Props>()
 
-const emit = defineEmits(['changeOpenStatus'])
+const emit = defineEmits(['update-public-status'])
 </script>
 
 <template>
-  <dev :class="$style.modalList">
+  <dev :class="$style.eventModalBox">
     <button
       :class="[
-        openStatus === 'open' ? $style.Selected : $style.NotSelected,
-        $style.modalListButton
+        openStatus === 'open' ? $style.selected : $style.notSelected,
+        $style.eventModalButton
       ]"
-      @click="emit('changeOpenStatus', 'open')"
+      @click="emit('update-public-status', 'open')"
     >
       <h3 :class="$style.statusName">公開</h3>
       <p :class="$style.discription">ポートフォリオにて公開します</p>
     </button>
     <button
       :class="[
-        openStatus === 'anonymous' ? $style.Selected : $style.NotSelected,
-        $style.modalListButton
+        openStatus === 'anonymous' ? $style.selected : $style.notSelected,
+        $style.eventModalButton
       ]"
-      @click="emit('changeOpenStatus', 'anonymous')"
+      @click="emit('update-public-status', 'anonymous')"
     >
       <h3 :class="$style.statusName">匿名公開</h3>
       <p :class="$style.discription">
@@ -34,10 +34,10 @@ const emit = defineEmits(['changeOpenStatus'])
     </button>
     <button
       :class="[
-        openStatus === 'private' ? $style.Selected : $style.NotSelected,
-        $style.modalListButton
+        openStatus === 'private' ? $style.selected : $style.notSelected,
+        $style.eventModalButton
       ]"
-      @click="emit('changeOpenStatus', 'private')"
+      @click="emit('update-public-status', 'private')"
     >
       <h3 :class="$style.statusName">非公開</h3>
       <p :class="$style.discription">ポートフォリオにて公開しません</p>
@@ -46,7 +46,7 @@ const emit = defineEmits(['changeOpenStatus'])
 </template>
 
 <style lang="scss" module>
-.modalList {
+.eventModalBox {
   width: min-content;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,7 @@ const emit = defineEmits(['changeOpenStatus'])
   border-color: $color-secondary;
   box-shadow: 0px 7px 4px rgba(0, 0, 0, 0.15);
 }
-.modalListButton {
+.eventModalButton {
   width: 234px;
   text-align: left;
   gap: 4px;
@@ -66,24 +66,11 @@ const emit = defineEmits(['changeOpenStatus'])
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  & .statusName {
-    font-size: 1.2rem;
-    margin-bottom: 0.25rem;
-  }
-  & .discription {
-    font-size: 0.875rem;
-  }
 }
-.NotSelected {
-  & .statusName {
-    color: $color-secondary;
-  }
-  & .discription {
-    color: $color-secondary;
-  }
+.discription {
+  font-size: 0.875rem;
 }
-
-.Selected {
+.selected {
   & .statusName {
     color: $color-primary;
   }
@@ -91,8 +78,12 @@ const emit = defineEmits(['changeOpenStatus'])
     color: $color-text;
   }
 }
-
-.discription {
-  font-size: 0.875rem;
+.notSelected {
+  & .statusName {
+    color: $color-secondary;
+  }
+  & .discription {
+    color: $color-secondary;
+  }
 }
 </style>
