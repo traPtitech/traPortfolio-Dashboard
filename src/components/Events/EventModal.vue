@@ -48,10 +48,11 @@ const emit = defineEmits(['update-public-status'])
 <style lang="scss" module>
 .eventModalBox {
   width: min-content;
+  height: min-content;
   display: flex;
   flex-direction: column;
   padding: 4px 4px;
-  border-radius: 6px;
+  border-radius: 10px;
   border: 2px solid;
   border-color: $color-secondary;
   box-shadow: 0px 7px 4px rgba(0, 0, 0, 0.15);
@@ -59,7 +60,6 @@ const emit = defineEmits(['update-public-status'])
 .eventModalButton {
   width: 234px;
   text-align: left;
-  gap: 4px;
   padding: 4px 12px;
   border-radius: 6px;
   cursor: pointer;
