@@ -11,6 +11,8 @@ import useParam from '/@/use/param'
 import { useDataFetcher } from '/@/use/fetcher'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
+import RadioButton from '/@/components/UI/RadioButton.vue'
+import { eventLevels, getEventLevelFromValue } from '/@/consts/eventLevel'
 
 const router = useRouter()
 const toast = useToast()
@@ -20,14 +22,16 @@ const { data: event } = useDataFetcher<EventDetail>(() =>
   apis.getEvent(eventId.value)
 )
 
-const eventLevel = ref(event.value?.eventLevel ?? 0)
+const eventLevel = ref(
+  eventLevels.get(event.value?.eventLevel ?? 0)?.value ?? 'public'
+)
 
 const isSending = ref(false)
 const updateEvent = async () => {
   isSending.value = true
   try {
     const requestData: EditEventRequest = {
-      eventLevel: eventLevel.value
+      eventLevel: getEventLevelFromValue(eventLevel.value)
     }
     await apis.editEvent(eventId.value, requestData)
     toast.success('イベント情報を更新しました')
@@ -83,7 +87,29 @@ const updateEvent = async () => {
         />
       </section>
 
-      <!--todo: 公開設定のフォームを入れる-->
+      <section :class="$style.section">
+        <h2 :class="$style.h2">公開設定</h2>
+        <div :class="[$style.content, $style.radioButtons]">
+          <radio-button
+            v-model="eventLevel"
+            label="公開"
+            value="public"
+            description="ポートフォリオにて公開します"
+          />
+          <radio-button
+            v-model="eventLevel"
+            label="匿名公開"
+            value="anonymous"
+            description="企画者の名前を伏せて、ポートフォリオにて公開します"
+          />
+          <radio-button
+            v-model="eventLevel"
+            label="非公開"
+            value="private"
+            description="ポートフォリオにて公開しません"
+          />
+        </div>
+      </section>
     </div>
 
     <div :class="$style.buttonContainer">
@@ -139,6 +165,13 @@ const updateEvent = async () => {
 }
 .contestLink {
   color: $color-text;
+}
+.radioButtons {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 1.25rem;
+  width: 60%;
 }
 .buttonContainer {
   display: flex;
