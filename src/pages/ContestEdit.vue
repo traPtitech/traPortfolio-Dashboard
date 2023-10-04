@@ -59,12 +59,10 @@ const updateContest = async () => {
       }
     }
     await apis.editContest(contestId.value, requestData)
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('コンテスト情報を更新しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('コンテスト情報の更新に失敗しました')
   }
   isSending.value = false
 }

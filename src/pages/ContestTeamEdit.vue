@@ -74,12 +74,10 @@ const updateContestTeam = async () => {
     await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
       members: members.value.map(member => member.id)
     })
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('コンテストチ－ム情報を更新しました')
     router.push(`/contests/${contestId.value}/teams/${contestTeamId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('コンテストチーム情報の更新に失敗しました')
   }
   isSending.value = false
 }

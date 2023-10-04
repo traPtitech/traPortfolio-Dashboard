@@ -12,8 +12,10 @@ import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import { useDataFetcher } from '/@/use/fetcher'
 import { hasAtmarkService, hasIdService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
@@ -44,12 +46,10 @@ const createNewAccount = async () => {
   isSending.value = true
   try {
     await apis.addUserAccount(userId.value, formValues)
-    //eslint-disable-next-line no-console
-    console.log('登録しました') // todo:トーストとかに変えたい
+    toast.success('アカウント情報を登録しました')
     router.push('/users/accounts')
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('登録に失敗しました')
+    toast.error('アカウント情報の登録に失敗しました')
   }
   isSending.value = false
 }
