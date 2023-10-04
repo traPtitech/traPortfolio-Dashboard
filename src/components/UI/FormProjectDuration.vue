@@ -22,24 +22,21 @@ const semesterOptions = [
 ]
 
 const handleInput = (value: string, dateType: DateType) => {
+  const numValue = parseInt(value)
   const duration: YearWithSemesterDuration = {
     since: {
-      year:
-        dateType === 'sinceYear' ? Number(value) : props.modelValue.since.year,
+      year: dateType === 'sinceYear' ? numValue : props.modelValue.since.year,
       semester:
         dateType === 'sinceSemester'
-          ? Number(semesterOptions.find(o => o.value === value)?.value) ??
-            Semester.first
+          ? numValue
           : props.modelValue.since.semester
     },
     until: props.modelValue.until && {
-      year:
-        dateType === 'untilYear' ? Number(value) : props.modelValue.until.year,
+      year: dateType === 'untilYear' ? numValue : props.modelValue.until.year,
       semester:
         dateType === 'untilSemester'
-          ? Number(semesterOptions.find(o => o.value === value)?.value) ??
-            Semester.first
-          : (props.modelValue.until.semester as Semester)
+          ? numValue
+          : props.modelValue.until.semester
     }
   }
   emit('update:modelValue', duration)
