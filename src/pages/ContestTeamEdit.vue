@@ -6,11 +6,10 @@ import apis, { ContestTeamDetail, EditContestTeamRequest } from '/@/lib/apis'
 import type { ContestDetail, User } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
-import { useDataFetcher } from '/@/use/fetcher'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
@@ -24,27 +23,13 @@ const { modalRef, open, close } = useModal()
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
-const { data: contest } = useDataFetcher<ContestDetail>(() =>
-  apis.getContest(contestId.value)
-)
-const { data: contestTeam } = useDataFetcher<ContestTeamDetail>(() =>
-  apis.getContestTeam(contestId.value, contestTeamId.value)
-)
+const contest: ContestDetail = (await apis.getContest(contestId.value)).data
+const contestTeam: ContestTeamDetail = (
+  await apis.getContestTeam(contestId.value, contestTeamId.value)
+).data
 
-const formValues = ref<Required<EditContestTeamRequest>>({
-  name: '',
-  result: '',
-  link: '',
-  description: ''
-})
-const members = ref<User[]>(contestTeam.value?.members ?? [])
-
-watch([contestTeam, members], () => {
-  if (contestTeam.value) {
-    formValues.value = contestTeam.value
-  }
-  members.value = contestTeam.value?.members ?? []
-})
+const formValues = ref<Required<EditContestTeamRequest>>(contestTeam)
+const members = ref<User[]>(contestTeam.members)
 
 const isSending = ref(false)
 const isDeleting = ref(false)
@@ -102,9 +87,9 @@ const deleteContestTeam = async () => {
         icon-name="mdi:trophy-outline"
         :header-texts="[
           { title: 'Contests', url: '/contests' },
-          { title: contest?.name ?? '', url: `/contests/${contestId}` },
+          { title: contest.name, url: `/contests/${contestId}` },
           {
-            title: contestTeam?.name ?? '',
+            title: contestTeam.name,
             url: `/contests/${contestId}/teams/${contestTeamId}`
           },
           {
@@ -116,7 +101,7 @@ const deleteContestTeam = async () => {
         :class="$style.header"
       />
     </div>
-    <form v-if="contestTeam !== undefined">
+    <form>
       <labeled-form required label="チーム名" :class="$style.labeledForm">
         <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>

@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
@@ -12,11 +11,9 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 
 const projectStore = useProjectStore()
-const { projects } = storeToRefs(projectStore)
+const projects = await projectStore.fetchProjects()
 
 const searchQuery = ref('')
-
-projectStore.fetchProjects()
 </script>
 
 <template>

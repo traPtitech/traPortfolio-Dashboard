@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia'
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
@@ -8,9 +7,8 @@ import { User } from '/@/lib/apis'
 import { useUserStore } from '/@/store/user'
 import UserIcon from '/@/components/UI/UserIcon.vue'
 
-const store = useUserStore()
-const { users } = storeToRefs(store)
-store.fetchUsers()
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
 
 interface Props {
   modelValue: User[]
@@ -31,7 +29,7 @@ const limit = ref(10)
 const search = ref('')
 
 const filtered = computed(
-  () => users.value?.filter(user => user.name.includes(search.value)) ?? []
+  () => users.filter(user => user.name.includes(search.value)) ?? []
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)

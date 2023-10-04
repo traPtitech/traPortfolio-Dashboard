@@ -8,22 +8,20 @@ import apis, { EditEventRequest, EventDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import useParam from '/@/use/param'
-import { useDataFetcher } from '/@/use/fetcher'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import RadioButton from '/@/components/UI/RadioButton.vue'
 import { eventLevels, getEventLevelFromValue } from '/@/consts/eventLevel'
+import { EventLevelValue } from '/@/consts/eventLevel'
 
 const router = useRouter()
 const toast = useToast()
 
 const eventId = useParam('id')
-const { data: event } = useDataFetcher<EventDetail>(() =>
-  apis.getEvent(eventId.value)
-)
+const event: EventDetail = (await apis.getEvent(eventId.value)).data
 
-const eventLevel = ref(
-  eventLevels.get(event.value?.eventLevel ?? 0)?.value ?? 'public'
+const eventLevel = ref<EventLevelValue>(
+  eventLevels.get(event.eventLevel)?.value ?? 'public'
 )
 
 const isSending = ref(false)
