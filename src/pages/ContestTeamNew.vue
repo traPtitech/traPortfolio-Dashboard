@@ -2,8 +2,8 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { ContestTeamDetail, EditContestTeamRequest } from '/@/lib/apis'
-import type { ContestDetail, User } from '/@/lib/apis'
+import apis from '/@/lib/apis'
+import type { AddContestTeamRequest, ContestDetail, User } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
 import MemberInput from '/@/components/UI/MemberInput.vue'
@@ -11,28 +11,24 @@ import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
-import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
-import useModal from '/@/components/UI/composables/useModal'
-import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const toast = useToast()
-const { modalRef, open, close } = useModal()
 
 const contestId = useParam('contestId')
-const contestTeamId = useParam('teamId')
 const contest: ContestDetail = (await apis.getContest(contestId.value)).data
-const contestTeam: ContestTeamDetail = (
-  await apis.getContestTeam(contestId.value, contestTeamId.value)
-).data
 
-const formValues = ref<Required<EditContestTeamRequest>>(contestTeam)
-const members = ref<User[]>(contestTeam.members)
+const formValues = ref<Required<AddContestTeamRequest>>({
+  name: '',
+  result: '',
+  link: '',
+  description: ''
+})
+const members = ref<User[]>([])
 
 const isSending = ref(false)
-const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
@@ -43,40 +39,24 @@ const canSubmit = computed(
     members.value.length > 0
 )
 
-const updateContestTeam = async () => {
+const createContestTeam = async () => {
   isSending.value = true
   try {
-    const requestData: EditContestTeamRequest = {
+    const requestData: AddContestTeamRequest = {
       ...formValues.value,
       result: formValues.value.result || undefined,
       link: formValues.value.link || undefined
     }
-    await apis.editContestTeam(
-      contestId.value,
-      contestTeamId.value,
-      requestData
-    )
-    await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
+    const res = (await apis.addContestTeam(contestId.value, requestData)).data
+    await apis.addContestTeamMembers(contestId.value, res.id, {
       members: members.value.map(member => member.id)
     })
-    toast.success('コンテストチ－ム情報を更新しました')
-    router.push(`/contests/${contestId.value}/teams/${contestTeamId.value}`)
-  } catch {
-    toast.error('コンテストチーム情報の更新に失敗しました')
-  }
-  isSending.value = false
-}
-
-const deleteContestTeam = async () => {
-  isDeleting.value = true
-  try {
-    await apis.deleteContestTeam(contestId.value, contestTeamId.value)
-    toast.success('コンテストチーム情報を削除しました')
+    toast.success('コンテストチ－ムを追加しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
-    toast.error('コンテストチ－ム情報の削除に失敗しました')
+    toast.error('コンテストチームの追加に失敗しました')
   }
-  isDeleting.value = false
+  isSending.value = false
 }
 </script>
 
@@ -92,14 +72,7 @@ const deleteContestTeam = async () => {
             title: 'Teams',
             url: `/contests/${contestId}`
           },
-          {
-            title: contestTeam.name,
-            url: `/contests/${contestId}/teams/${contestTeamId}`
-          },
-          {
-            title: 'Edit',
-            url: `/contests/${contestId}/teams/${contestTeamId}/edit`
-          }
+          { title: 'New', url: `/contests/${contestId}/teams/new` }
         ]"
         detail="コンテストチームの情報を変更します。"
         :class="$style.header"
@@ -130,7 +103,6 @@ const deleteContestTeam = async () => {
         />
       </labeled-form>
     </form>
-    <delete-form target="コンテストチーム" @delete="open" />
 
     <div :class="$style.buttonContainer">
       <router-link :to="`/contests/${contestId}`" :class="$style.link">
@@ -139,21 +111,12 @@ const deleteContestTeam = async () => {
       <base-button
         :is-disabled="!canSubmit"
         type="primary"
-        icon="mdi:update"
-        @click="updateContestTeam"
+        icon="mdi:plus"
+        @click="createContestTeam"
       >
-        Update
+        Create
       </base-button>
     </div>
-
-    <confirm-modal
-      ref="modalRef"
-      title="コンテストチームの削除"
-      body="コンテストチームを削除します。この操作は取り消せません。"
-      :is-disabled="isDeleting"
-      @cancel="close"
-      @delete="deleteContestTeam"
-    />
   </page-container>
 </template>
 
