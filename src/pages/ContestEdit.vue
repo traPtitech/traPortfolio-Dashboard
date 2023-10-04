@@ -8,13 +8,18 @@ import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
 import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+import useModal from '/@/components/UI/composables/useModal'
+import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
+const { modalRef, open, close } = useModal()
 
 const contestId = useParam('contestId')
 const contestDetail: ContestDetail = (await apis.getContest(contestId.value))
@@ -31,6 +36,7 @@ const formValues = ref<Required<EditContestRequest>>({
 })
 
 const isSending = ref(false)
+const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
@@ -52,15 +58,39 @@ const updateContest = async () => {
       }
     }
     await apis.editContest(contestId.value, requestData)
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('コンテスト情報を更新しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('コンテスト情報の更新に失敗しました')
   }
   isSending.value = false
 }
+
+const deleteContest = async () => {
+  isDeleting.value = true
+  try {
+    await apis.deleteContest(contestId.value)
+    toast.success('コンテスト情報を削除しました')
+    router.push('/contests')
+  } catch {
+    toast.error('コンテスト情報の削除に失敗しました')
+  }
+  isDeleting.value = false
+}
+
+watch(contestDetail, () => {
+  if (contestDetail) {
+    formValues.value = {
+      name: contestDetail.name,
+      duration: {
+        since: contestDetail.duration.since.slice(0, 16),
+        until: contestDetail.duration.until?.slice(0, 16) ?? ''
+      },
+      link: contestDetail.link,
+      description: contestDetail.description
+    }
+  }
+})
 </script>
 
 <template>
@@ -95,7 +125,8 @@ const updateContest = async () => {
         />
       </labeled-form>
     </form>
-    <delete-form target="コンテスト" />
+    <delete-form target="コンテスト" @delete="open" />
+
     <div :class="$style.buttonContainer">
       <router-link :to="`/contests/${contestId}`" :class="$style.link">
         <base-button
@@ -115,6 +146,15 @@ const updateContest = async () => {
         Update
       </base-button>
     </div>
+
+    <confirm-modal
+      ref="modalRef"
+      title="コンテストの削除"
+      body="コンテストと、コンテストに含まれるチームをすべて削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
+      @cancel="close"
+      @delete="deleteContest"
+    />
   </page-container>
 </template>
 

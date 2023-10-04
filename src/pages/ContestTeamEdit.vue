@@ -13,8 +13,13 @@ import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+import useModal from '/@/components/UI/composables/useModal'
+import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
+const { modalRef, open, close } = useModal()
 
 const contestId = useParam('contestId')
 const contestTeamId = useParam('teamId')
@@ -27,6 +32,7 @@ const formValues = ref<Required<EditContestTeamRequest>>(contestTeam)
 const members = ref<User[]>(contestTeam.members)
 
 const isSending = ref(false)
+const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
@@ -53,14 +59,24 @@ const updateContestTeam = async () => {
     await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
       members: members.value.map(member => member.id)
     })
-    //eslint-disable-next-line no-console
-    console.log('更新しました') // todo:トーストとかに変えたい
+    toast.success('コンテストチ－ム情報を更新しました')
     router.push(`/contests/${contestId.value}/teams/${contestTeamId.value}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('更新に失敗しました')
+    toast.error('コンテストチーム情報の更新に失敗しました')
   }
   isSending.value = false
+}
+
+const deleteContestTeam = async () => {
+  isDeleting.value = true
+  try {
+    await apis.deleteContestTeam(contestId.value, contestTeamId.value)
+    toast.success('コンテストチーム情報を削除しました')
+    router.push(`/contests/${contestId.value}`)
+  } catch {
+    toast.error('コンテストチ－ム情報の削除に失敗しました')
+  }
+  isDeleting.value = false
 }
 </script>
 
@@ -110,8 +126,7 @@ const updateContestTeam = async () => {
         />
       </labeled-form>
     </form>
-    <!--todo: モーダルの実装待ち-->
-    <delete-form target="コンテストチーム" />
+    <delete-form target="コンテストチーム" @delete="open" />
 
     <div :class="$style.buttonContainer">
       <router-link :to="`/contests/${contestId}`" :class="$style.link">
@@ -126,6 +141,15 @@ const updateContestTeam = async () => {
         Update
       </base-button>
     </div>
+
+    <confirm-modal
+      ref="modalRef"
+      title="コンテストチームの削除"
+      body="コンテストチームを削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
+      @cancel="close"
+      @delete="deleteContestTeam"
+    />
   </page-container>
 </template>
 

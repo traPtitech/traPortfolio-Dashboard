@@ -10,8 +10,10 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
 import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+import { useToast } from 'vue-toastification'
 
 const router = useRouter()
+const toast = useToast()
 
 const formValues = reactive<Required<CreateContestRequest>>({
   name: '',
@@ -44,12 +46,10 @@ const createContest = async () => {
       }
     }
     const res = await apis.createContest(requestData)
-    //eslint-disable-next-line no-console
-    console.log('追加しました') // todo:トーストとかに変えたい
+    toast.success('コンテストを追加しました')
     router.push(`/contests/${res.data.id}`)
   } catch {
-    //eslint-disable-next-line no-console
-    console.log('追加に失敗しました')
+    toast.error('コンテストの追加に失敗しました')
   }
   isSending.value = false
 }
