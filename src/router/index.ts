@@ -4,15 +4,16 @@ const Index = () => import('/@/pages/Index.vue')
 const Users = () => import('/@/pages/Users.vue')
 const UserAccounts = () => import('/@/pages/UserAccounts.vue')
 const UserAccountNew = () => import('/@/pages/UserAccountNew.vue')
+const UserAccountEdit = () => import('/@/pages/UserAccountEdit.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
 const Events = () => import('/@/pages/Events.vue')
 const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
 const Contest = () => import('/@/pages/Contest.vue')
+const ContestNew = () => import('/@/pages/ContestNew.vue')
 const ContestEdit = () => import('/@/pages/ContestEdit.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
-const ContestNew = () => import('/@/pages/ContestNew.vue')
 
 const routes = [
   {
@@ -56,14 +57,14 @@ const routes = [
     component: ContestNew
   },
   {
-    path: '/contests/:contestId/teams/:teamId/edit',
-    name: 'ContestTeamEdit',
-    component: ContestTeamEdit
-  },
-  {
     path: '/contests/:contestId/edit',
     name: 'ContestEdit',
     component: ContestEdit
+  },
+  {
+    path: '/contests/:contestId/teams/:teamId/edit',
+    name: 'ContestTeamEdit',
+    component: ContestTeamEdit
   },
   {
     path: '/users',
@@ -79,6 +80,11 @@ const routes = [
     path: '/users/accounts/new',
     name: 'UserAccountsNew',
     component: UserAccountNew
+  },
+  {
+    path: '/users/accounts/:accountId/edit',
+    name: 'UserAccountsEdit',
+    component: UserAccountEdit
   }
 ]
 

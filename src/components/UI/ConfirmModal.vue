@@ -5,6 +5,7 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 interface Props {
   title: string
   body: string
+  isDisabled?: boolean
 }
 defineProps<Props>()
 
@@ -48,10 +49,18 @@ const emit = defineEmits<{
         {{ body }}
       </p>
       <div :class="$style.buttonContent">
-        <base-button type="secondary" icon="mdi:cancel" @click="emit('cancel')"
+        <base-button
+          type="secondary"
+          icon="mdi:cancel"
+          :is-disabled="isDisabled"
+          @click="emit('cancel')"
           >Cancel</base-button
         >
-        <base-button type="warning" icon="mdi:delete" @click="emit('delete')"
+        <base-button
+          type="warning"
+          icon="mdi:delete"
+          :is-disabled="isDisabled"
+          @click="emit('delete')"
           >Delete</base-button
         >
       </div>
