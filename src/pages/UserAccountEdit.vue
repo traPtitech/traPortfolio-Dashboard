@@ -4,12 +4,11 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { EditUserAccountRequest, Account } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import useParam from '/@/use/param'
-import { useDataFetcher } from '/@/use/fetcher'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { hasIdService, hasAtmarkService } from '/@/consts/services'
@@ -25,21 +24,14 @@ const { modalRef, open, close } = useModal()
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 const accountId = useParam('accountId')
-const { data: account } = useDataFetcher<Account>(() =>
-  apis.getUserAccount(userId.value, accountId.value)
-)
-const { data: accounts } = useDataFetcher<Account[]>(() =>
-  apis.getUserAccounts(userId.value)
-)
-const registeredServices =
-  computed(() => accounts.value?.map(account => account.type)) ?? []
+const account: Account = (
+  await apis.getUserAccount(userId.value, accountId.value)
+).data
 
-const formValues = ref<Required<EditUserAccountRequest>>({
-  type: 0,
-  displayName: '',
-  url: '',
-  prPermitted: false
-})
+const accounts = (await apis.getUserAccounts(userId.value)).data
+const registeredServices = computed(() => accounts.map(account => account.type))
+
+const formValues = ref<Required<EditUserAccountRequest>>(account)
 const isSending = ref(false)
 const isDeleting = ref(false)
 const canSubmit = computed(
@@ -74,17 +66,6 @@ const deleteAccount = async () => {
   }
   isDeleting.value = false
 }
-
-watch(account, () => {
-  if (account.value) {
-    formValues.value = {
-      type: account.value.type,
-      displayName: account.value.displayName,
-      url: account.value.url,
-      prPermitted: account.value.prPermitted
-    }
-  }
-})
 </script>
 
 <template>

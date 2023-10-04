@@ -8,7 +8,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
@@ -26,13 +26,11 @@ const contestDetail: ContestDetail = (await apis.getContest(contestId.value))
   .data
 
 const formValues = ref<Required<EditContestRequest>>({
-  name: contestDetail.name,
+  ...contestDetail,
   duration: {
     since: contestDetail.duration.since.slice(0, 16),
     until: contestDetail.duration.until?.slice(0, 16) ?? ''
-  },
-  link: contestDetail.link,
-  description: contestDetail.description
+  }
 })
 
 const isSending = ref(false)
@@ -77,20 +75,6 @@ const deleteContest = async () => {
   }
   isDeleting.value = false
 }
-
-watch(contestDetail, () => {
-  if (contestDetail) {
-    formValues.value = {
-      name: contestDetail.name,
-      duration: {
-        since: contestDetail.duration.since.slice(0, 16),
-        until: contestDetail.duration.until?.slice(0, 16) ?? ''
-      },
-      link: contestDetail.link,
-      description: contestDetail.description
-    }
-  }
-})
 </script>
 
 <template>
