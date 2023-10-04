@@ -1,8 +1,10 @@
 import { EventLevel } from '/@/lib/apis'
 
+type EventLevelValue = 'public' | 'anonymous' | 'private'
+
 interface EventLevelDetail {
   label: string
-  value: string
+  value: EventLevelValue
   description: string
 }
 

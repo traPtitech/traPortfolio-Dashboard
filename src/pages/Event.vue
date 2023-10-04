@@ -12,6 +12,7 @@ import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import RadioButton from '/@/components/UI/RadioButton.vue'
 import { eventLevels, getEventLevelFromValue } from '/@/consts/eventLevel'
+import { EventLevelValue } from '/@/consts/eventLevel'
 
 const router = useRouter()
 const toast = useToast()
@@ -19,7 +20,9 @@ const toast = useToast()
 const eventId = useParam('id')
 const event: EventDetail = (await apis.getEvent(eventId.value)).data
 
-const eventLevel = ref(eventLevels.get(event.eventLevel)?.value ?? 'puiblic')
+const eventLevel = ref<EventLevelValue>(
+  eventLevels.get(event.eventLevel)?.value ?? 'public'
+)
 
 const isSending = ref(false)
 const updateEvent = async () => {
