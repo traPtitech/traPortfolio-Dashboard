@@ -17,6 +17,7 @@ import {
   isValidYearWithSemesterDuration
 } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
+import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 
 const router = useRouter()
 const toast = useToast()
@@ -78,7 +79,7 @@ const updateProject = async () => {
         <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>
       <labeled-form label="日時" :class="$style.labeledForm">
-        <!--TODO: FormProjectDuration-->
+        <form-project-duration v-model="formValues.duration" since-required />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input v-model="formValues.link" has-anchor />
