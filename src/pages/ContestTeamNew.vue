@@ -74,7 +74,7 @@ const createContestTeam = async () => {
           },
           { title: 'New', url: `/contests/${contestId}/teams/new` }
         ]"
-        detail="コンテストチームの情報を変更します。"
+        detail="コンテストチームを追加します。"
         :class="$style.header"
       />
     </div>
