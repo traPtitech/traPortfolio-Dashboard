@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import FormNumberInput from '/@/components/UI/FormNumberInput.vue'
 import { Semester, YearWithSemesterDuration } from '/@/lib/apis'
 import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
@@ -16,6 +15,12 @@ const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: YearWithSemesterDuration): void
 }>()
 
+const yearOptions = Array(20)
+  .fill(null)
+  .map((_, i) => ({
+    label: (new Date().getFullYear() - i).toString(),
+    value: (new Date().getFullYear() - i).toString()
+  }))
 const semesterOptions = [
   { label: '前期', value: Semester.first.toString() },
   { label: '後期', value: Semester.second.toString() }
@@ -52,7 +57,8 @@ const handleInput = (value: string, dateType: DateType) => {
       </div>
       <div :class="$style.form">
         <div :class="$style.yearForm">
-          <form-number-input
+          <base-select
+            :options="yearOptions"
             :class="$style.yearInput"
             :model-value="modelValue.since.year.toString()"
             @update:model-value="handleInput($event, 'sinceYear')"
@@ -72,15 +78,19 @@ const handleInput = (value: string, dateType: DateType) => {
       </div>
       <div :class="$style.form">
         <div :class="$style.yearForm">
-          <form-number-input
+          <base-select
+            :options="yearOptions"
             :class="$style.yearInput"
-            :model-value="modelValue.until?.year.toString() ?? ''"
+            :model-value="
+              modelValue.until?.year.toString() ??
+              new Date().getFullYear().toString()
+            "
             @update:model-value="handleInput($event, 'untilYear')"
           />年
         </div>
         <base-select
           :options="semesterOptions"
-          :model-value="modelValue.until?.semester.toString() ?? ''"
+          :model-value="modelValue.until?.semester.toString() ?? '前期'"
           @update:model-value="handleInput($event, 'untilSemester')"
         />
       </div>
