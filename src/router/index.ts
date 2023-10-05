@@ -13,6 +13,7 @@ const Contests = () => import('/@/pages/Contests.vue')
 const Contest = () => import('/@/pages/Contest.vue')
 const ContestNew = () => import('/@/pages/ContestNew.vue')
 const ContestEdit = () => import('/@/pages/ContestEdit.vue')
+const ContestTeamNew = () => import('/@/pages/ContestTeamNew.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
 
 const routes = [
@@ -60,6 +61,11 @@ const routes = [
     path: '/contests/:contestId/edit',
     name: 'ContestEdit',
     component: ContestEdit
+  },
+  {
+    path: '/contests/:contestId/teams/new',
+    name: 'ContestTeamNew',
+    component: ContestTeamNew
   },
   {
     path: '/contests/:contestId/teams/:teamId/edit',
