@@ -4,9 +4,14 @@ import 'vue-select/dist/vue-select.css'
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 
+export interface Option {
+  label: string
+  value: string
+}
+
 interface Props {
   modelValue: string
-  options: string[]
+  options: Option[]
   searchable?: boolean
 }
 
@@ -27,13 +32,15 @@ const value = computed({
     v-model="value"
     :options="options"
     :clearable="false"
+    label="label"
+    :reduce="(option:Option) => option.value"
     :class="$style.select"
     :searchable="searchable"
   >
     <template #option="{ label }">
       <div :class="$style.item">
         <icon
-          v-if="value === label"
+          v-if="label === options.find(o => o.value === value)?.label"
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />
