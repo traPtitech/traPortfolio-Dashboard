@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@iconify/iconify": "^3.0.0",
-    "autosize": "^5.0.1",
+    "autosize": "^6.0.1",
     "axios": "^0.27.2",
     "pinia": "^2.0.22",
     "ress": "^5.0.2",
