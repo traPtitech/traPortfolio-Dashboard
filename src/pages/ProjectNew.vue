@@ -9,6 +9,7 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import { useToast } from 'vue-toastification'
+import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 
 const toast = useToast()
 
@@ -18,15 +19,16 @@ const formValues = reactive<Required<CreateProjectRequest>>({
   description: '',
   duration: {
     since: {
-      year: 0,
+      year: new Date().getFullYear(),
       semester: 0
     },
     until: {
-      year: 0,
+      year: new Date().getFullYear(),
       semester: 0
     }
   }
 })
+
 const isSending = ref(false)
 const createProject = async () => {
   isSending.value = true
@@ -61,7 +63,7 @@ const createProject = async () => {
         />
       </labeled-form>
       <labeled-form label="期間" :class="$style.labeledForm">
-        <!--コンポーネントができたら使う-->
+        <form-project-duration v-model="formValues.duration" since-required />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input
