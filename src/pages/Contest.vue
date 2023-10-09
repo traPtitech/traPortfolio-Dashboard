@@ -10,7 +10,7 @@ import Icon from '/@/components/UI/Icon.vue'
 import useParam from '/@/use/param'
 import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
-const contestId = useParam('id')
+const contestId = useParam('contestId')
 const contestDetail: ContestDetail = (await apis.getContest(contestId.value))
   .data
 
