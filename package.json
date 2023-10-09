@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "concurrently \"vite\" \"npm run start-mock\"",
+    "serve": "vite preview",
     "build": "vite build",
     "lint": "eslint --fix --ext .ts,.vue src",
     "lint:nofix": "eslint --ext .ts,.vue src",
