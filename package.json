@@ -36,7 +36,6 @@
     "concurrently": "^8.2.1",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-vue": "^9.17.0",
     "node-fetch": "^2.6.7",
     "prettier": "^3.0.3",
