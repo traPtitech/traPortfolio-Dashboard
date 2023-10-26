@@ -4,7 +4,6 @@ import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
 
 type DurationType = 'since' | 'until'
-type DurationDate = `${number} ${number}`
 
 interface Props {
   modelValue: YearWithSemesterDuration
@@ -18,19 +17,24 @@ const emit = defineEmits<{
 
 const options = Array(20)
   .fill(null)
-  .map((_, i) => ({
-    label: `${(new Date().getFullYear() - i).toString()} ${
-      i % 2 ? '後期' : '前期'
-    }`,
-    value: `${(new Date().getFullYear() - i).toString()} ${
-      i % 2 ? Semester.second.toString() : Semester.first.toString()
-    }`
-  }))
+  .map((_, i) =>
+    Array(2)
+      .fill(null)
+      .map((_, j) => ({
+        label: `${(new Date().getFullYear() - i).toString()} ${
+          j % 2 ? '後期' : '前期'
+        }`,
+        value: `${(new Date().getFullYear() - i).toString()} ${
+          j % 2 ? Semester.second.toString() : Semester.first.toString()
+        }`
+      }))
+  )
+  .flat()
 
-const handleInput = (value: DurationDate, dateType: DurationType) => {
+const handleInput = (value: string, dateType: DurationType) => {
   const parsedDuration = value.split(' ')
-  const [year, semester] = parsedDuration.map(parseInt)
-  if (!year || !semester) return
+  const [year, semester] = parsedDuration.map(v => parseInt(v))
+  if (year === undefined || semester === undefined) return
   const duration: YearWithSemesterDuration = {
     since: {
       year: dateType === 'since' ? year : props.modelValue.since.year,
@@ -76,11 +80,8 @@ const handleInput = (value: DurationDate, dateType: DurationType) => {
             :options="options"
             :class="$style.input"
             :model-value="`${
-              modelValue.until?.year ??
-              new Date().getFullYear()
-            } ${
-              modelValue.until?.semester ?? Semester.first
-            }`"
+              modelValue.until?.year ?? new Date().getFullYear()
+            } ${modelValue.until?.semester ?? Semester.first}`"
             @update:model-value="handleInput($event, 'until')"
           />
         </div>
