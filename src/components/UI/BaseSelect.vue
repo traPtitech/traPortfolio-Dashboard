@@ -1,16 +1,16 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="T extends string">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 
 export interface Option {
-  label: string
-  value: string
+  label: T
+  value: T
 }
 
 interface Props {
-  modelValue: string
+  modelValue: T
   options: Option[]
   searchable?: boolean
 }
@@ -18,7 +18,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: 'update:modelValue', value: T): void
 }>()
 
 const value = computed({
