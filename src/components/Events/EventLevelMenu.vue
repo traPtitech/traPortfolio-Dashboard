@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { EventLevel } from '/@/lib/apis'
-import { eventLevels } from '/@/consts/eventLevel.ts'
+import { eventLevels } from '/@/consts/eventLevel'
 
 interface Props {
   eventLevel: EventLevel
@@ -22,7 +22,10 @@ const emit = defineEmits<{
         @click="emit('update-public-status', 'open')"
       >
         <p :class="$style.statusName">{{ detail.label }}</p>
-        <p :class="$style.description">{{ detail.description }}</p>
+        <!--タイポグラフィのため改行を有効に-->
+        <p :class="$style.description" style="white-space: pre-wrap">
+          {{ detail.description }}
+        </p>
       </button>
     </div>
   </div>

@@ -24,7 +24,7 @@ export const eventLevels: EventLevelMap = new Map([
     {
       label: '匿名公開',
       value: 'anonymous',
-      description: '企画者の名前を伏せて、ポートフォリオにて公開します'
+      description: '企画者の名前を伏せて、\nポートフォリオにて公開します'
     }
   ],
   [
