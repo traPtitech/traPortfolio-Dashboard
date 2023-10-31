@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { storeToRefs } from 'pinia'
 import { RouterLink } from 'vue-router'
 
 import { useContestStore } from '/@/store/contest'
@@ -12,11 +11,9 @@ import ContestItem from '/@/components/Contests/ContestItem.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 
 const contestStore = useContestStore()
-const { contests } = storeToRefs(contestStore)
+const contests = await contestStore.fetchContests()
 
 const searchQuery = ref('')
-
-contestStore.fetchContests()
 </script>
 
 <template>

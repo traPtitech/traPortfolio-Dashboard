@@ -2,54 +2,41 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { CreateContestRequest } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
-import { computed, reactive, ref } from 'vue'
+import apis, { CreateProjectRequest } from '/@/lib/apis'
+import { RouterLink } from 'vue-router'
+import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
-import FormDuration from '/@/components/UI/FormDuration.vue'
-import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
+import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 
-const router = useRouter()
 const toast = useToast()
 
-const formValues = reactive<Required<CreateContestRequest>>({
+const formValues = reactive<Required<CreateProjectRequest>>({
   name: '',
   link: '',
   description: '',
   duration: {
-    since: '',
-    until: ''
+    since: {
+      year: new Date().getFullYear(),
+      semester: 0
+    },
+    until: {
+      year: new Date().getFullYear(),
+      semester: 0
+    }
   }
 })
-const isSending = ref(false)
-const canSubmit = computed(
-  () =>
-    !isSending.value &&
-    isValidLength(formValues.name, 1, 32) &&
-    (formValues.link !== '' ? isValidUrl(formValues.link) : true) &&
-    isValidDuration(formValues.duration) &&
-    isValidLength(formValues.description, 1, 256)
-)
 
-const createContest = async () => {
+const isSending = ref(false)
+const createProject = async () => {
   isSending.value = true
   try {
-    const requestData: CreateContestRequest = {
-      ...formValues,
-      link: formValues.link || undefined,
-      duration: {
-        since: formValues.duration.since + ':00Z',
-        until: formValues.duration.until + ':00Z'
-      }
-    }
-    const res = await apis.createContest(requestData)
-    toast.success('コンテストを追加しました')
-    router.push(`/contests/${res.data.id}`)
+    await apis.createProject(formValues)
+    toast.success('プロジェクトを追加しました')
   } catch {
-    toast.error('コンテストの追加に失敗しました')
+    toast.error('プロジェクトの追加に失敗しました')
   }
   isSending.value = false
 }
@@ -59,25 +46,24 @@ const createContest = async () => {
   <page-container>
     <div :class="$style.headerContainer">
       <content-header
-        icon-name="mdi:trophy-outline"
+        icon-name="mdi:clipboard-file-outline"
         :header-texts="[
-          { title: 'Contests', url: '/contests' },
-          { title: 'New', url: '/contests/new' }
+          { title: 'Projects', url: '/projects' },
+          { title: 'New', url: '/projects/new' }
         ]"
-        detail="コンテストを作成します。"
+        detail="プロジェクトを作成します。"
         :class="$style.header"
       />
     </div>
     <form>
-      <labeled-form label="コンテスト名" required :class="$style.labeledForm">
+      <labeled-form label="プロジェクト名" required :class="$style.labeledForm">
         <form-input
           v-model="formValues.name"
-          placeholder="コンテスト名を入力"
-          :limit="32"
+          placeholder="プロジェクト名を入力"
         />
       </labeled-form>
-      <labeled-form label="開催日時" required :class="$style.labeledForm">
-        <form-duration v-model="formValues.duration" />
+      <labeled-form label="期間" :class="$style.labeledForm">
+        <form-project-duration v-model="formValues.duration" since-required />
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input
@@ -86,7 +72,7 @@ const createContest = async () => {
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="説明" required :class="$style.labeledForm">
+      <labeled-form label="説明" :class="$style.labeledForm">
         <form-text-area
           v-model="formValues.description"
           placeholder="説明を入力"
@@ -96,7 +82,7 @@ const createContest = async () => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link to="/contests" :class="$style.link">
+      <router-link to="/projects" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"
@@ -106,10 +92,11 @@ const createContest = async () => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="!canSubmit"
+        :is-disabled="isSending"
+        :class="$style.createButton"
         type="primary"
         icon="mdi:plus"
-        @click="createContest"
+        @click="createProject"
       >
         Create
       </base-button>
@@ -129,6 +116,11 @@ const createContest = async () => {
 .labeledForm {
   margin-bottom: 2rem;
 }
+.prPermittedForm {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 .link {
   text-decoration: none;
   color: inherit;
@@ -139,7 +131,5 @@ const createContest = async () => {
   align-items: center;
   margin-top: 4rem;
 }
-.backButton {
-  margin-left: 0.5rem;
-}
 </style>
+'

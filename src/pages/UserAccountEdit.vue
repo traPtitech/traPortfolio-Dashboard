@@ -2,53 +2,69 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { Account, AddAccountRequest } from '/@/lib/apis'
+import apis, { EditUserAccountRequest, Account } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
+import useParam from '/@/use/param'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
-import { hasAtmarkService, hasIdService } from '/@/consts/services'
+import DeleteForm from '/@/components/Form/DeleteForm.vue'
+import { hasIdService, hasAtmarkService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/use/validate'
+import useModal from '/@/components/UI/composables/useModal'
+import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const toast = useToast()
+const { modalRef, open, close } = useModal()
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
-const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
+const accountId = useParam('accountId')
+const account: Account = (
+  await apis.getUserAccount(userId.value, accountId.value)
+).data
 
+const accounts = (await apis.getUserAccounts(userId.value)).data
 const registeredServices = computed(() => accounts.map(account => account.type))
 
-const formValues = reactive<AddAccountRequest>({
-  type: 0,
-  displayName: '',
-  url: '',
-  prPermitted: false
-})
-
+const formValues = ref<Required<EditUserAccountRequest>>(account)
 const isSending = ref(false)
+const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
-    (hasIdService(formValues.type)
-      ? isValidLength(formValues.displayName, 1, 256)
+    (hasIdService(formValues.value.type)
+      ? isValidLength(formValues.value.displayName, 1, 256)
       : true) &&
-    isValidUrl(formValues.url)
+    isValidUrl(formValues.value.url)
 )
 
-const createNewAccount = async () => {
+const updateAccount = async () => {
   isSending.value = true
   try {
-    await apis.addUserAccount(userId.value, formValues)
-    toast.success('アカウント情報を登録しました')
+    await apis.editUserAccount(userId.value, accountId.value, formValues.value)
+    toast.success('アカウント情報を更新しました')
     router.push('/users/accounts')
   } catch {
-    toast.error('アカウント情報の登録に失敗しました')
+    toast.error('アカウント情報の更新に失敗しました')
   }
   isSending.value = false
+}
+
+const deleteAccount = async () => {
+  isDeleting.value = true
+  try {
+    await apis.deleteUserAccount(userId.value, accountId.value)
+    toast.success('アカウント情報を削除しました')
+    router.push('/users/accounts')
+  } catch {
+    toast.error('アカウント情報の削除に失敗しました')
+  }
+  isDeleting.value = false
 }
 </script>
 
@@ -61,11 +77,11 @@ const createNewAccount = async () => {
           { title: 'Profile', url: '/users' },
           { title: 'Accounts', url: `/users/accounts` },
           {
-            title: 'New',
-            url: `/users/accounts/new`
+            title: 'Edit',
+            url: `/users/accounts/edit`
           }
         ]"
-        detail="アカウントを登録します。"
+        detail="アカウント情報を編集します。"
         :class="$style.header"
       />
     </div>
@@ -78,8 +94,8 @@ const createNewAccount = async () => {
       </labeled-form>
       <labeled-form
         v-if="hasIdService(formValues.type)"
-        label="ID"
         required
+        label="ID"
         :class="$style.labeledForm"
       >
         <form-input
@@ -103,6 +119,8 @@ const createNewAccount = async () => {
         </div>
       </labeled-form>
     </form>
+    <delete-form target="アカウント" @delete="open" />
+
     <div :class="$style.buttonContainer">
       <router-link to="/users/accounts" :class="$style.link">
         <base-button
@@ -116,12 +134,21 @@ const createNewAccount = async () => {
       <base-button
         :is-disabled="!canSubmit"
         type="primary"
-        icon="mdi:plus"
-        @click="createNewAccount"
+        icon="mdi:update"
+        @click="updateAccount"
       >
-        Create
+        Update
       </base-button>
     </div>
+
+    <confirm-modal
+      ref="modalRef"
+      title="アカウントの削除"
+      body="アカウントを削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
+      @cancel="close"
+      @delete="deleteAccount"
+    />
   </page-container>
 </template>
 

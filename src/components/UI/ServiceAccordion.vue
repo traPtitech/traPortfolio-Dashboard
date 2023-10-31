@@ -23,7 +23,9 @@ const value = computed({
 })
 
 const options = computed(() =>
-  serviceArray.filter(s => !props.registered.includes(s.type)).map(s => s.name)
+  serviceArray
+    .filter(s => !props.registered.includes(s.type))
+    .map(s => ({ label: s.name, value: s.name }))
 )
 </script>
 

@@ -8,16 +8,15 @@ import { RouterLink } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import Icon from '/@/components/UI/Icon.vue'
 import useParam from '/@/use/param'
-import { useDataFetcher } from '/@/use/fetcher'
 import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
-const contestId = useParam('id')
-const { data: contest } = useDataFetcher<ContestDetail>(() =>
-  apis.getContest(contestId.value)
-)
-const { data: contestTeams, fetcherState } = useDataFetcher<ContestTeam[]>(() =>
-  apis.getContestTeams(contestId.value)
-)
+const contestId = useParam('contestId')
+const contestDetail: ContestDetail = (await apis.getContest(contestId.value))
+  .data
+
+const contestTeams: ContestTeam[] = (
+  await apis.getContestTeams(contestId.value)
+).data
 </script>
 
 <template>
@@ -27,7 +26,7 @@ const { data: contestTeams, fetcherState } = useDataFetcher<ContestTeam[]>(() =>
         icon-name="mdi:trophy-outline"
         :header-texts="[
           { title: 'Contests', url: '/contests' },
-          { title: contest?.name ?? '', url: `/contests/${contestId}` }
+          { title: contestDetail.name, url: `/contests/${contestId}` }
         ]"
         detail="コンテストの詳細です。"
         :class="$style.header"
@@ -36,42 +35,39 @@ const { data: contestTeams, fetcherState } = useDataFetcher<ContestTeam[]>(() =>
         <base-button type="primary" icon="mdi:pencil">Edit</base-button>
       </router-link>
     </div>
-    <div v-if="contest !== undefined && fetcherState === 'loaded'">
+    <div>
       <section :class="$style.section">
         <h2 :class="$style.h2">コンテスト名</h2>
-        <p :class="$style.content">{{ contest.name }}</p>
+        <p :class="$style.content">{{ contestDetail.name }}</p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">日時</h2>
         <p :class="$style.content">
-          {{ getDisplayDuration(contest.duration) }}
+          {{ getDisplayDuration(contestDetail.duration) }}
         </p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">リンク</h2>
         <p :class="[$style.content, $style.contestLinkContainer]">
           <icon name="mdi:open-in-new" />
-          <a :class="$style.contestLink" :href="contest.link">
-            {{ contest.link }}
+          <a :class="$style.contestLink" :href="contestDetail.link">
+            {{ contestDetail.link }}
           </a>
         </p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">説明</h2>
-        <p :class="$style.content">{{ contest.description }}</p>
+        <p :class="$style.content">{{ contestDetail.description }}</p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">チーム</h2>
         <contest-teams-component
-          v-if="contestTeams !== undefined"
           :class="$style.content"
           :contest-id="contestId"
           :contest-teams="contestTeams"
         />
       </section>
     </div>
-    <p v-else-if="fetcherState === 'loading'">ローディング中...</p>
-    <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
 
     <router-link to="/contests" :class="$style.link">
       <base-button

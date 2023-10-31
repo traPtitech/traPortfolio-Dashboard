@@ -1,15 +1,179 @@
+<script lang="ts" setup>
+import ContentHeader from '/@/components/Layout/ContentHeader.vue'
+import PageContainer from '/@/components/Layout/PageContainer.vue'
+import BaseButton from '/@/components/UI/BaseButton.vue'
+import EventHostItem from '/@/components/Event/EventHostItem.vue'
+
+import apis, { EditEventRequest, EventDetail } from '/@/lib/apis'
+import { RouterLink, useRouter } from 'vue-router'
+import { getDisplayDuration } from '/@/lib/date'
+import useParam from '/@/use/param'
+import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
+import RadioButton from '/@/components/UI/RadioButton.vue'
+import { eventLevels, getEventLevelFromValue } from '/@/consts/eventLevel'
+import { EventLevelValue } from '/@/consts/eventLevel'
+
+const router = useRouter()
+const toast = useToast()
+
+const eventId = useParam('id')
+const event: EventDetail = (await apis.getEvent(eventId.value)).data
+
+const eventLevel = ref<EventLevelValue>(
+  eventLevels.get(event.eventLevel)?.value ?? 'public'
+)
+
+const isSending = ref(false)
+const updateEvent = async () => {
+  isSending.value = true
+  try {
+    const requestData: EditEventRequest = {
+      eventLevel: getEventLevelFromValue(eventLevel.value)
+    }
+    await apis.editEvent(eventId.value, requestData)
+    toast.success('イベント情報を更新しました')
+    router.push(`/events/${eventId.value}`)
+  } catch {
+    toast.error('イベント情報の更新に失敗しました')
+  }
+  isSending.value = false
+}
+</script>
+
 <template>
-  <div>EventDetail</div>
+  <page-container>
+    <div :class="$style.headerContainer">
+      <content-header
+        icon-name="mdi:calendar"
+        :header-texts="[
+          { title: 'Events', url: '/events' },
+          { title: event?.name ?? '', url: `/events/${eventId}` }
+        ]"
+        detail="イベントの詳細を確認します。"
+        :class="$style.header"
+      />
+    </div>
+    <div v-if="event !== undefined">
+      <section :class="$style.section">
+        <h2 :class="$style.h2">イベント名</h2>
+        <p :class="$style.content">{{ event.name }}</p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">日時</h2>
+        <p :class="$style.content">
+          {{ getDisplayDuration(event.duration) }}
+        </p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">場所</h2>
+        <p :class="$style.content">
+          {{ event.place }}
+        </p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">説明</h2>
+        <p :class="$style.content">{{ event.description }}</p>
+      </section>
+      <section :class="$style.section">
+        <h2 :class="$style.h2">主催者</h2>
+        <event-host-item
+          v-for="host in event.hostname"
+          :key="host.id"
+          :class="$style.content"
+          :host="host"
+        />
+      </section>
+
+      <section :class="$style.section">
+        <h2 :class="$style.h2">公開設定</h2>
+        <div :class="[$style.content, $style.radioButtons]">
+          <radio-button
+            v-model="eventLevel"
+            label="公開"
+            value="public"
+            description="ポートフォリオにて公開します"
+          />
+          <radio-button
+            v-model="eventLevel"
+            label="匿名公開"
+            value="anonymous"
+            description="企画者の名前を伏せて、ポートフォリオにて公開します"
+          />
+          <radio-button
+            v-model="eventLevel"
+            label="非公開"
+            value="private"
+            description="ポートフォリオにて公開しません"
+          />
+        </div>
+      </section>
+    </div>
+
+    <div :class="$style.buttonContainer">
+      <router-link to="/events" :class="$style.link">
+        <base-button
+          :class="$style.backButton"
+          type="secondary"
+          icon="mdi:arrow-left"
+        >
+          Back
+        </base-button>
+      </router-link>
+      <base-button
+        :is-disabled="isSending"
+        type="primary"
+        icon="mdi:update"
+        @click="updateEvent"
+      >
+        Update
+      </base-button>
+    </div>
+  </page-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Event',
-  components: {},
-  setup() {
-    return {}
-  }
-})
-</script>
+<style lang="scss" module>
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header {
+  margin: 4rem 0 2rem;
+}
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+.section {
+  margin-bottom: 2rem;
+}
+.h2 {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+.content {
+  margin-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+.contestLinkContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.contestLink {
+  color: $color-text;
+}
+.radioButtons {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 1.25rem;
+  width: 60%;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+</style>
