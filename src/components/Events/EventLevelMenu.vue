@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { EventLevel } from '/@/lib/apis'
+import { eventLevels } from '/@/consts/eventLevel.ts'
 
 interface Props {
   eventLevel: EventLevel
@@ -14,32 +15,16 @@ const emit = defineEmits<{
 
 <template>
   <div :class="$style.eventLevelMenu">
-    <button
-      :class="[$style.eventLevelMenuButton]"
-      :disabled="eventLevel === 1"
-      @click="emit('update-public-status', 'open')"
-    >
-      <p :class="$style.statusName">公開</p>
-      <p :class="$style.description">ポートフォリオにて公開します</p>
-    </button>
-    <button
-      :class="[$style.eventLevelMenuButton]"
-      :disabled="eventLevel === 0"
-      @click="emit('update-public-status', 'anonymous')"
-    >
-      <p :class="$style.statusName">匿名公開</p>
-      <p :class="$style.description">
-        企画者の名前を伏せて、<br />ポートフォリオにて公開します
-      </p>
-    </button>
-    <button
-      :class="[$style.eventLevelMenuButton]"
-      :disabled="eventLevel === 2"
-      @click="emit('update-public-status', 'private')"
-    >
-      <p :class="$style.statusName">非公開</p>
-      <p :class="$style.description">ポートフォリオにて公開しません</p>
-    </button>
+    <div v-for="[level, detail] in eventLevels" :key="level">
+      <button
+        :class="[$style.eventLevelMenuButton]"
+        :disabled="eventLevel === level"
+        @click="emit('update-public-status', 'open')"
+      >
+        <p :class="$style.statusName">{{ detail.label }}</p>
+        <p :class="$style.description">{{ detail.description }}</p>
+      </button>
+    </div>
   </div>
 </template>
 
