@@ -5,16 +5,13 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 
 import AccountItem from '/@/components/UserAccounts/AccountItem.vue'
 import { ref } from 'vue'
-import apis from '/@/lib/apis'
+import apis, { Account } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
-import { useDataFetcher } from '/@/use/fetcher'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
 
-const { data: accounts, fetcherState } = useDataFetcher(() =>
-  apis.getUserAccounts(userId.value)
-)
+const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
 </script>
 
 <template>
@@ -33,13 +30,11 @@ const { data: accounts, fetcherState } = useDataFetcher(() =>
         <base-button type="primary" icon="mdi:account">New</base-button>
       </router-link>
     </div>
-    <ul v-if="fetcherState === 'loaded'" :class="$style.accountList">
+    <ul :class="$style.accountList">
       <li v-for="account in accounts" :key="account.id">
         <account-item :account="account" />
       </li>
     </ul>
-    <p v-else-if="fetcherState === 'loading'">ローディング中...</p>
-    <p v-else-if="fetcherState === 'error'">エラーが発生しました</p>
 
     <router-link to="/users" :class="$style.link">
       <base-button

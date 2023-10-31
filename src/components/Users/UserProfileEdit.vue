@@ -26,9 +26,9 @@ const updateUserProfile = async () => {
       bio: bio.value,
       check: shouldShowRealname.value
     })
-    toast.success('更新に成功しました')
+    toast.success('プロフィ－ルの更新に成功しました')
   } catch {
-    toast.error('更新に失敗しました')
+    toast.error('プロフィ－ルの更新に失敗しました')
   } finally {
     isSending.value = false
   }

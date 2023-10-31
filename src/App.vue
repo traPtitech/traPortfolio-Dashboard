@@ -1,25 +1,29 @@
-<template>
-  <div :class="$style.container">
-    <page-header :class="$style.header" />
-    <navigation-bar />
-    <div :class="$style.content">
-      <Suspense>
-        <template #default>
-          <router-view />
-        </template>
-        <template #fallback>
-          <loading />
-        </template>
-      </Suspense>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import NavigationBar from '/@/components/NavigationBar/NavigationBar.vue'
 import PageHeader from '/@/components/Layout/PageHeader.vue'
 import Loading from '/@/pages/Loading.vue'
 </script>
+
+<template>
+  <div :class="$style.container">
+    <page-header :class="$style.header" />
+    <navigation-bar />
+    <div :class="$style.content">
+      <router-view v-slot="{ Component }">
+        <template v-if="Component">
+          <suspense>
+            <template #default>
+              <component :is="Component" />
+            </template>
+            <template #fallback>
+              <loading />
+            </template>
+          </suspense>
+        </template>
+      </router-view>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" module>
 .header {
