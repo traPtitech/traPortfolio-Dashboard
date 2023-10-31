@@ -11,6 +11,7 @@ import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import MemberInput from '/@/components/UI/MemberInput.vue'
+import ProjectMember from '/@/components/Projects/ProjectMember.vue'
 
 const toast = useToast()
 
@@ -43,6 +44,10 @@ const createProject = async () => {
   isSending.value = false
 }
 const members = ref<User[]>([])
+
+const handleDelete = (id: string) => {
+  members.value = members.value.filter(member => member.id !== id)
+}
 </script>
 
 <template>
@@ -85,6 +90,13 @@ const members = ref<User[]>([])
       </labeled-form>
       <labeled-form label="メンバー" :class="$style.labeledForm">
         <member-input v-model="members" :class="$style.memberInput" />
+        <div v-for="(user, id) in members" :key="id">
+          <project-member
+            :user="user"
+            :class="$style.projectMember"
+            @delete="handleDelete"
+          />
+        </div>
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
@@ -139,8 +151,11 @@ const members = ref<User[]>([])
 }
 
 .memberInput {
-  margin-bottom: 2rem;
-  margin-left: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.projectMember {
+  margin-bottom: 0.5rem;
 }
 </style>
 '
