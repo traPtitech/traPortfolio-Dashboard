@@ -2,7 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { CreateProjectRequest } from '/@/lib/apis'
+import apis, { CreateProjectRequest, User } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import { reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
@@ -10,6 +10,7 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
+import MemberInput from '/@/components/UI/MemberInput.vue'
 
 const toast = useToast()
 
@@ -34,12 +35,14 @@ const createProject = async () => {
   isSending.value = true
   try {
     await apis.createProject(formValues)
+    await apis.addProjectMembers(formValues.name, undefined)
     toast.success('プロジェクトを追加しました')
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
   }
   isSending.value = false
 }
+const members = ref<User[]>([])
 </script>
 
 <template>
@@ -79,6 +82,9 @@ const createProject = async () => {
           :rows="3"
           :limit="256"
         />
+      </labeled-form>
+      <labeled-form label="メンバー" :class="$style.labeledForm">
+        <member-input v-model="members" :class="$style.memberInput" />
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
@@ -130,6 +136,11 @@ const createProject = async () => {
   justify-content: space-between;
   align-items: center;
   margin-top: 4rem;
+}
+
+.memberInput {
+  margin-bottom: 2rem;
+  margin-left: 0.5rem;
 }
 </style>
 '

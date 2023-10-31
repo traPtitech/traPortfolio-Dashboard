@@ -1,48 +1,56 @@
 <script lang="ts" setup>
-import { Semester, YearWithSemesterDuration } from '/@/lib/apis'
+import {
+  Semester,
+  YearWithSemester,
+  YearWithSemesterDuration
+} from '/@/lib/apis'
 import RequiredChip from '/@/components/UI/RequiredChip.vue'
+import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
 
 type DateType = 'sinceYear' | 'sinceSemester' | 'untilYear' | 'untilSemester'
 
 interface Props {
   modelValue: YearWithSemesterDuration
+  yearsAgo?: number
   sinceRequired?: boolean
 }
-
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  yearsAgo: 20
+})
 const emit = defineEmits<{
   (e: 'update:modelValue', modelValue: YearWithSemesterDuration): void
 }>()
-
-const yearOptions = Array(20)
+const options: Option<YearWithSemester>[] = Array(props.yearsAgo)
   .fill(null)
-  .map((_, i) => ({
-    label: (new Date().getFullYear() - i).toString(),
-    value: (new Date().getFullYear() - i).toString()
-  }))
-const semesterOptions = [
-  { label: '前期', value: Semester.first.toString() },
-  { label: '後期', value: Semester.second.toString() }
-]
-
-const handleInput = (value: string, dateType: DateType) => {
-  const numValue = parseInt(value)
-  const duration: YearWithSemesterDuration = {
-    since: {
-      year: dateType === 'sinceYear' ? numValue : props.modelValue.since.year,
-      semester:
-        dateType === 'sinceSemester'
-          ? numValue
-          : props.modelValue.since.semester
+  .map((_, i) => [
+    {
+      label: (new Date().getFullYear() - i).toString() + ' 前期',
+      value: {
+        year: new Date().getFullYear() - i,
+        semester: Semester.first
+      }
     },
-    until: props.modelValue.until && {
-      year: dateType === 'untilYear' ? numValue : props.modelValue.until.year,
-      semester:
-        dateType === 'untilSemester'
-          ? numValue
-          : props.modelValue.until.semester
+    {
+      label: (new Date().getFullYear() - i).toString() + ' 後期',
+      value: {
+        year: new Date().getFullYear() - i,
+        semester: Semester.second
+      }
     }
+  ])
+  .flat()
+
+const handleInput = (
+  value: YearWithSemester | undefined,
+  dateType: DateType
+) => {
+  const duration: YearWithSemesterDuration = {
+    since:
+      dateType === 'sinceYear' && value !== undefined
+        ? value
+        : props.modelValue.since,
+    until: dateType === 'untilYear' ? value : props.modelValue.until
   }
   emit('update:modelValue', duration)
 }
@@ -56,18 +64,11 @@ const handleInput = (value: string, dateType: DateType) => {
         <required-chip v-if="sinceRequired" />
       </div>
       <div :class="$style.form">
-        <div :class="$style.yearForm">
-          <base-select
-            :options="yearOptions"
-            :class="$style.yearInput"
-            :model-value="modelValue.since.year.toString()"
-            @update:model-value="handleInput($event, 'sinceYear')"
-          />年
-        </div>
         <base-select
-          :options="semesterOptions"
-          :model-value="modelValue.since.semester.toString()"
-          @update:model-value="handleInput($event, 'sinceSemester')"
+          :options="options"
+          :class="$style.yearInput"
+          :model-value="modelValue.since"
+          @update:model-value="handleInput($event, 'sinceYear')"
         />
       </div>
     </div>
@@ -77,21 +78,11 @@ const handleInput = (value: string, dateType: DateType) => {
         <p :class="$style.head">～まで</p>
       </div>
       <div :class="$style.form">
-        <div :class="$style.yearForm">
-          <base-select
-            :options="yearOptions"
-            :class="$style.yearInput"
-            :model-value="
-              modelValue.until?.year.toString() ??
-              new Date().getFullYear().toString()
-            "
-            @update:model-value="handleInput($event, 'untilYear')"
-          />年
-        </div>
         <base-select
-          :options="semesterOptions"
-          :model-value="modelValue.until?.semester.toString() ?? '前期'"
-          @update:model-value="handleInput($event, 'untilSemester')"
+          :options="options"
+          :class="$style.yearInput"
+          :model-value="modelValue.until"
+          @update:model-value="handleInput($event, 'untilYear')"
         />
       </div>
     </div>

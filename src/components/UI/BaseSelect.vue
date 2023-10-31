@@ -1,24 +1,24 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="T">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 
-export interface Option {
+export interface Option<T> {
   label: string
-  value: string
+  value: T
 }
 
 interface Props {
-  modelValue: string
-  options: Option[]
+  modelValue: T
+  options: Option<T>[]
   searchable?: boolean
 }
 
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: 'update:modelValue', value: T): void
 }>()
 
 const value = computed({
@@ -33,7 +33,7 @@ const value = computed({
     :options="options"
     :clearable="false"
     label="label"
-    :reduce="(option:Option) => option.value"
+    :reduce="(option: Option<T>) => option.value"
     :class="$style.select"
     :searchable="searchable"
   >
