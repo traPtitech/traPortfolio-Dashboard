@@ -2,9 +2,13 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { CreateProjectRequest, User } from '/@/lib/apis'
+import apis, {
+  CreateProjectRequest,
+  User,
+  YearWithSemesterDuration
+} from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
@@ -36,18 +40,56 @@ const createProject = async () => {
   isSending.value = true
   try {
     await apis.createProject(formValues)
-    await apis.addProjectMembers(formValues.name, undefined)
+    await apis.addProjectMembers(formValues.name, {
+      members: members.value.map(member => ({
+        userId: member.id,
+        duration: memberWithDurations.value.find(
+          memberWithDuration => memberWithDuration.user.id === member.id
+        )!.duration
+      }))
+    })
     toast.success('プロジェクトを追加しました')
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
   }
   isSending.value = false
 }
+
 const members = ref<User[]>([])
+const durations = ref<YearWithSemesterDuration[]>([])
 
 const handleDelete = (id: string) => {
+  members.value.map((member, i) => {
+    if (member.id === id) {
+      durations.value = durations.value.filter((_, j) => i !== j)
+    }
+    return member
+  })
+
   members.value = members.value.filter(member => member.id !== id)
 }
+
+const memberWithDurations = computed(() =>
+  members.value.map((member, i) => {
+    if (!durations.value[i]) {
+      durations.value.push({
+        since: {
+          year: new Date().getFullYear(),
+          semester: 0
+        },
+        until: {
+          year: new Date().getFullYear(),
+          semester: 0
+        }
+      })
+    }
+
+    return {
+      user: member,
+      duration: durations.value[i]!
+    }
+  })
+)
 </script>
 
 <template>
@@ -90,11 +132,13 @@ const handleDelete = (id: string) => {
       </labeled-form>
       <labeled-form label="メンバー" :class="$style.labeledForm">
         <member-input v-model="members" :class="$style.memberInput" />
-        <div v-for="(user, id) in members" :key="id">
+        <div v-for="(obj, id) in memberWithDurations" :key="id">
           <project-member
-            :user="user"
+            v-model="obj.duration"
+            :user="obj.user"
             :class="$style.projectMember"
             @delete="handleDelete"
+            @update="durations[id] = $event"
           />
         </div>
       </labeled-form>
