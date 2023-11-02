@@ -9,7 +9,7 @@ interface Props {
 defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update-public-status', value: string): void
+  (e: 'update-public-status', value: EventLevel): void
 }>()
 </script>
 
@@ -19,7 +19,7 @@ const emit = defineEmits<{
       <button
         :class="[$style.eventLevelMenuButton]"
         :disabled="eventLevel === level"
-        @click="emit('update-public-status', 'open')"
+        @click="emit('update-public-status', level)"
       >
         <p :class="$style.statusName">{{ detail.label }}</p>
         <!--タイポグラフィのため改行を有効に-->
