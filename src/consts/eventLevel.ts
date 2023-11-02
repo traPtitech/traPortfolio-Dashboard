@@ -1,6 +1,6 @@
 import { EventLevel } from '/@/lib/apis'
 
-type EventLevelValue = 'public' | 'anonymous' | 'private'
+export type EventLevelValue = 'public' | 'anonymous' | 'private'
 
 interface EventLevelDetail {
   label: string
