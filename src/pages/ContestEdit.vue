@@ -15,11 +15,13 @@ import FormDuration from '/@/components/UI/FormDuration.vue'
 import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
+import { useContestStore } from '/@/store/contest'
 import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const toast = useToast()
 const { modalRef, open, close } = useModal()
+const { mutate } = useContestStore()
 
 const contestId = useParam('contestId')
 const contestDetail: ContestDetail = (await apis.getContest(contestId.value))
@@ -56,6 +58,7 @@ const updateContest = async () => {
       }
     }
     await apis.editContest(contestId.value, requestData)
+    mutate()
     toast.success('コンテスト情報を更新しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
@@ -68,6 +71,7 @@ const deleteContest = async () => {
   isDeleting.value = true
   try {
     await apis.deleteContest(contestId.value)
+    mutate()
     toast.success('コンテスト情報を削除しました')
     router.push('/contests')
   } catch {
