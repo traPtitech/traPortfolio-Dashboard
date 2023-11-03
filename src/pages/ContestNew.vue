@@ -11,9 +11,11 @@ import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
 import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
+import { useContestStore } from '/@/store/contest'
 
 const router = useRouter()
 const toast = useToast()
+const { mutate } = useContestStore()
 
 const formValues = reactive<Required<CreateContestRequest>>({
   name: '',
@@ -46,6 +48,7 @@ const createContest = async () => {
       }
     }
     const res = await apis.createContest(requestData)
+    mutate()
     toast.success('コンテストを追加しました')
     router.push(`/contests/${res.data.id}`)
   } catch {

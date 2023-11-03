@@ -10,8 +10,10 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
+import { useProjectStore } from '/@/store/project'
 
 const toast = useToast()
+const { mutate } = useProjectStore()
 
 const formValues = reactive<Required<CreateProjectRequest>>({
   name: '',
@@ -34,6 +36,7 @@ const createProject = async () => {
   isSending.value = true
   try {
     await apis.createProject(formValues)
+    mutate()
     toast.success('プロジェクトを追加しました')
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
