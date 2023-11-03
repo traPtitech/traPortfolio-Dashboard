@@ -18,9 +18,11 @@ import {
 } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
+import { useProjectStore } from '/@/store/project'
 
 const router = useRouter()
 const toast = useToast()
+const { mutate } = useProjectStore()
 
 const projectId = useParam('projectId')
 const projectDetail: ProjectDetail = (await apis.getProject(projectId.value))
@@ -51,6 +53,7 @@ const updateProject = async () => {
       link: formValues.value.link || undefined
     }
     await apis.editProject(projectId.value, requestData)
+    mutate()
     toast.success('プロジェクト情報を更新しました')
     router.push(`/projects/${projectId.value}`)
   } catch {
