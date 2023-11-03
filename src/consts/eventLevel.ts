@@ -1,47 +1,45 @@
 import { EventLevel } from '/@/lib/apis'
 
-export type EventLevelValue = 'public' | 'anonymous' | 'private'
+export const eventLevelValueMap = Object.freeze({
+  [EventLevel.Public]: 'public',
+  [EventLevel.Anonymous]: 'anonymous',
+  [EventLevel.Private]: 'private'
+}) satisfies Record<EventLevel, string>
 
-interface EventLevelDetail {
+type EventLevelValueMap = typeof eventLevelValueMap
+
+export type EventLevelValue = EventLevelValueMap[keyof EventLevelValueMap]
+
+interface EventLevelDetail<Level extends EventLevel = EventLevel> {
   label: string
-  value: EventLevelValue
+  value: Level
   description: string
 }
 
-type EventLevelMap = Map<EventLevel, EventLevelDetail>
+type EventLevelMap = {
+  [K in EventLevel as EventLevelValueMap[K]]: EventLevelDetail<K>
+}
 
-export const eventLevels: EventLevelMap = new Map([
-  [
-    EventLevel.Public,
-    {
-      label: '公開',
-      value: 'public',
-      description: 'ポートフォリオにて公開します'
-    }
-  ],
-  [
-    EventLevel.Anonymous,
-    {
-      label: '匿名公開',
-      value: 'anonymous',
-      description: '企画者の名前を伏せて、ポートフォリオにて公開します'
-    }
-  ],
-  [
-    EventLevel.Private,
-    {
-      label: '非公開',
-      value: 'private',
-      description: 'ポートフォリオにて公開しません'
-    }
-  ]
-])
+export const eventLevels = Object.freeze({
+  public: {
+    label: '公開',
+    value: EventLevel.Public,
+    description: 'ポートフォリオにて公開します'
+  },
+  anonymous: {
+    label: '匿名公開',
+    value: EventLevel.Anonymous,
+    description: '企画者の名前を伏せて、ポートフォリオにて公開します'
+  },
+  private: {
+    label: '非公開',
+    value: EventLevel.Private,
+    description: 'ポートフォリオにて公開しません'
+  }
+}) as EventLevelMap
 
 export const getEventLevelFromValue = (
-  value: string
-): EventLevel | undefined => {
-  const entry = Array.from(eventLevels).find(
-    ([, service]) => service.value === value
-  )
-  return entry?.[0]
+  value: EventLevelValue
+): EventLevel => {
+  return eventLevels[value].value
 }
