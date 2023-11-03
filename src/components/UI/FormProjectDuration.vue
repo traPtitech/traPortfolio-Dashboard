@@ -8,7 +8,7 @@ import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
 
-type DateType = 'sinceYear' | 'sinceSemester' | 'untilYear' | 'untilSemester'
+type DateType = 'since' | 'until'
 
 interface Props {
   modelValue: YearWithSemesterDuration
@@ -25,17 +25,17 @@ const options: Option<YearWithSemester>[] = Array(props.yearsAgo)
   .fill(null)
   .map((_, i) => [
     {
-      label: (new Date().getFullYear() - i).toString() + ' 前期',
-      value: {
-        year: new Date().getFullYear() - i,
-        semester: Semester.first
-      }
-    },
-    {
-      label: (new Date().getFullYear() - i).toString() + ' 後期',
+      label: `${(new Date().getFullYear() - i).toString()} 後期`,
       value: {
         year: new Date().getFullYear() - i,
         semester: Semester.second
+      }
+    },
+    {
+      label: `${(new Date().getFullYear() - i).toString()} 前期`,
+      value: {
+        year: new Date().getFullYear() - i,
+        semester: Semester.first
       }
     }
   ])
@@ -47,10 +47,10 @@ const handleInput = (
 ) => {
   const duration: YearWithSemesterDuration = {
     since:
-      dateType === 'sinceYear' && value !== undefined
+      dateType === 'since' && value !== undefined
         ? value
         : props.modelValue.since,
-    until: dateType === 'untilYear' ? value : props.modelValue.until
+    until: dateType === 'until' ? value : props.modelValue.until
   }
   emit('update:modelValue', duration)
 }
@@ -66,9 +66,9 @@ const handleInput = (
       <div :class="$style.form">
         <base-select
           :options="options"
-          :class="$style.yearInput"
+          :class="$style.input"
           :model-value="modelValue.since"
-          @update:model-value="handleInput($event, 'sinceYear')"
+          @update:model-value="handleInput($event, 'since')"
         />
       </div>
     </div>
@@ -80,9 +80,9 @@ const handleInput = (
       <div :class="$style.form">
         <base-select
           :options="options"
-          :class="$style.yearInput"
+          :class="$style.input"
           :model-value="modelValue.until"
-          @update:model-value="handleInput($event, 'untilYear')"
+          @update:model-value="handleInput($event, 'until')"
         />
       </div>
     </div>
@@ -118,13 +118,14 @@ const handleInput = (
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex-wrap: nowrap;
 }
 .yearForm {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-.yearInput {
-  width: 8.75rem;
+.input {
+  width: 10rem;
 }
 </style>

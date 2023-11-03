@@ -1,18 +1,15 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="U extends User">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
 import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { User } from '/@/lib/apis'
-import { useUserStore } from '/@/store/user'
 import UserIcon from '/@/components/UI/UserIcon.vue'
 
-const userStore = useUserStore()
-const users = await userStore.fetchUsers()
-
 interface Props {
-  modelValue: User[]
+  modelValue: U[]
   isDisabled: boolean
+  users: U[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -32,7 +29,7 @@ const limit = ref(10)
 const search = ref('')
 
 const filtered = computed(
-  () => users.filter(user => user.name.includes(search.value)) ?? []
+  () => props.users.filter(user => user.name.includes(search.value)) ?? []
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)

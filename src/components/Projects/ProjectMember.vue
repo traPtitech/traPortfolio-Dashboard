@@ -12,12 +12,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const value = computed({
-  get() {
-    return props.modelValue
-  },
-  set(v) {
-    emit('update', v)
-  }
+  get: () => props.modelValue,
+  set: v => emit('update', v)
 })
 
 const emit = defineEmits<{
@@ -29,13 +25,15 @@ const emit = defineEmits<{
 <template>
   <div :class="$style.container">
     <div :class="$style.content">
-      <user-icon :user-id="user.id" :size="48" />
-      <p :class="$style.name">{{ user.name }}</p>
+      <div :class="$style.user">
+        <user-icon :user-id="user.id" :size="48" />
+        <p :class="$style.name">{{ user.name }}</p>
+      </div>
       <form-project-duration v-model="value" since-required />
     </div>
-    <div @click="emit('delete', user.id)">
+    <button @click="emit('delete', user.id)">
       <icon :size="32" name="mdi:delete" :class="$style.icon" />
-    </div>
+    </button>
   </div>
 </template>
 
@@ -53,12 +51,19 @@ const emit = defineEmits<{
 .content {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
 }
+
 .icon {
   color: $color-secondary;
   &:hover {
     opacity: 0.8;
   }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>

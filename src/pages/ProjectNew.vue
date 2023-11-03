@@ -16,8 +16,11 @@ import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import ProjectMember from '/@/components/Projects/ProjectMember.vue'
+import { useUserStore } from '/@/store/user'
 
 const toast = useToast()
+
+type UserWithDuration = User & { duration: YearWithSemesterDuration }
 
 const formValues = reactive<Required<CreateProjectRequest>>({
   name: '',
@@ -43,9 +46,7 @@ const createProject = async () => {
     await apis.addProjectMembers(formValues.name, {
       members: members.value.map(member => ({
         userId: member.id,
-        duration: memberWithDurations.value.find(
-          memberWithDuration => memberWithDuration.user.id === member.id
-        )!.duration
+        duration: member.duration
       }))
     })
     toast.success('プロジェクトを追加しました')
@@ -54,42 +55,26 @@ const createProject = async () => {
   }
   isSending.value = false
 }
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
 
-const members = ref<User[]>([])
-const durations = ref<YearWithSemesterDuration[]>([])
+const userWithDurations = computed<UserWithDuration[]>(() =>
+  users.map(user => ({
+    ...user,
+    duration: {
+      since: {
+        year: new Date().getFullYear(),
+        semester: 0
+      },
+      until: undefined
+    }
+  }))
+)
+const members = ref<UserWithDuration[]>([])
 
 const handleDelete = (id: string) => {
-  members.value.map((member, i) => {
-    if (member.id === id) {
-      durations.value = durations.value.filter((_, j) => i !== j)
-    }
-    return member
-  })
-
   members.value = members.value.filter(member => member.id !== id)
 }
-
-const memberWithDurations = computed(() =>
-  members.value.map((member, i) => {
-    if (!durations.value[i]) {
-      durations.value.push({
-        since: {
-          year: new Date().getFullYear(),
-          semester: 0
-        },
-        until: {
-          year: new Date().getFullYear(),
-          semester: 0
-        }
-      })
-    }
-
-    return {
-      user: member,
-      duration: durations.value[i]!
-    }
-  })
-)
 </script>
 
 <template>
@@ -131,14 +116,19 @@ const memberWithDurations = computed(() =>
         />
       </labeled-form>
       <labeled-form label="メンバー" :class="$style.labeledForm">
-        <member-input v-model="members" :class="$style.memberInput" />
-        <div v-for="(obj, id) in memberWithDurations" :key="id">
+        <member-input
+          v-model="members"
+          :class="$style.memberInput"
+          :users="userWithDurations"
+          :is-disabled="false"
+        />
+        <div v-for="member in members" :key="member.id">
           <project-member
-            v-model="obj.duration"
-            :user="obj.user"
+            v-model="member.duration"
+            :user="member"
             :class="$style.projectMember"
             @delete="handleDelete"
-            @update="durations[id] = $event"
+            @update="member.duration = $event"
           />
         </div>
       </labeled-form>

@@ -16,6 +16,7 @@ import { isValidLength, isValidUrl } from '/@/use/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
+import { useUserStore } from '/@/store/user'
 
 const router = useRouter()
 const toast = useToast()
@@ -30,6 +31,9 @@ const contestTeam: ContestTeamDetail = (
 
 const formValues = ref<Required<EditContestTeamRequest>>(contestTeam)
 const members = ref<User[]>(contestTeam.members)
+
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
 
 const isSending = ref(false)
 const isDeleting = ref(false)
@@ -120,7 +124,7 @@ const deleteContestTeam = async () => {
         />
       </labeled-form>
       <labeled-form required label="メンバー" :class="$style.labeledForm">
-        <member-input v-model="members" />
+        <member-input v-model="members" :users="users" :is-disabled="false" />
       </labeled-form>
       <labeled-form required label="説明" :class="$style.labeledForm">
         <form-text-area
