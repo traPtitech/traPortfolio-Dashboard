@@ -2,11 +2,9 @@
 import {
   nextTick,
   watch,
-  defineProps,
   onMounted,
   ref,
   toRef,
-  withDefaults,
   computed,
   onBeforeUnmount
 } from 'vue'
