@@ -87,7 +87,7 @@ export const serviceArray: readonly ServiceWithName[] = Object.entries(
   services
 ).map(([name, service]) => ({
   ...service,
-  name: name as ServiceName
+  name: name as keyof typeof services
 }))
 
 export const serviceNameToType = (name: ServiceName): AccountType => {
