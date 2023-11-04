@@ -1,3 +1,4 @@
+import { deepFreeze } from '/@/lib/deepFreeze'
 import { AccountType } from '/@/lib/apis'
 
 export interface Service<Type extends AccountType = AccountType> {
@@ -31,7 +32,7 @@ type ServiceRecord = {
   [Type in AccountType as ServiceTypeToName[Type]]: Service<Type>
 }
 
-export const services = Object.freeze({
+export const services = deepFreeze({
   HomePage: {
     icon: 'mdi:home',
     type: AccountType.homepage

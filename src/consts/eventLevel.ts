@@ -1,3 +1,4 @@
+import { deepFreeze } from '/@/lib/deepFreeze'
 import { EventLevel } from '/@/lib/apis'
 
 export const eventLevelValueMap = Object.freeze({
@@ -20,7 +21,7 @@ type EventLevelMap = {
   [K in EventLevel as EventLevelValueMap[K]]: EventLevelDetail<K>
 }
 
-export const eventLevels = Object.freeze({
+export const eventLevels = deepFreeze({
   public: {
     label: '公開',
     value: EventLevel.Public,
