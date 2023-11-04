@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
-import { serviceArray, type ServiceWithType } from '/@/consts/services'
+import { serviceArray, type ServiceWithName } from '/@/consts/services'
 import type { Account } from '/@/lib/apis'
 
-interface Service extends ServiceWithType {
+interface Service extends ServiceWithName {
   url: string | undefined
   displayName: string | undefined
 }

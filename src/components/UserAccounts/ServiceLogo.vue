@@ -1,19 +1,22 @@
 <script lang="ts" setup>
 import Icon from '/@/components/UI/Icon.vue'
 import type { AccountType } from '/@/lib/apis'
-import { services } from '/@/consts/services'
+import { services, serviceTypeToNameMap } from '/@/consts/services'
+import { computed } from 'vue'
 
 interface Props {
   service: AccountType
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const serviceName = computed(() => serviceTypeToNameMap[props.service])
 </script>
 
 <template>
   <div :class="$style.logo">
-    <icon :name="services.get(service)?.icon ?? ''" />
-    {{ services.get(service)?.name }}
+    <icon :name="services[serviceName].icon" />
+    {{ serviceName }}
   </div>
 </template>
 
