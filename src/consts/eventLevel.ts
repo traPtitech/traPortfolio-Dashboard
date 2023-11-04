@@ -36,7 +36,7 @@ export const eventLevels = Object.freeze({
     value: EventLevel.Private,
     description: 'ポートフォリオにて公開しません'
   }
-}) as EventLevelMap
+}) satisfies EventLevelMap
 
 export const getEventLevelFromValue = (
   value: EventLevelValue
