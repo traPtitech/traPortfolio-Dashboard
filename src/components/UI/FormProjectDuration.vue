@@ -102,6 +102,7 @@ const handleInput = (value: string, dateType: DateType) => {
 .container {
   display: flex;
   align-items: flex-end;
+  flex-wrap: wrap;
   gap: 0.5rem;
 }
 .sinceHead {

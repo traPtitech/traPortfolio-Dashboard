@@ -180,4 +180,10 @@ const updateEvent = async () => {
   justify-content: flex-end;
   gap: 1rem;
 }
+
+@media (width <= 768px) {
+  .radioButtons {
+    width: 100%;
+  }
+}
 </style>
