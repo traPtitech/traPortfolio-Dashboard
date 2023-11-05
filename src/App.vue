@@ -7,7 +7,7 @@ import Loading from '/@/pages/Loading.vue'
 <template>
   <div :class="$style.container">
     <page-header :class="$style.header" />
-    <navigation-bar />
+    <navigation-bar :class="$style.navigationBar" />
     <div :class="$style.content">
       <router-view v-slot="{ Component }">
         <template v-if="Component">
@@ -36,6 +36,15 @@ import Loading from '/@/pages/Loading.vue'
   grid-template-columns: 260px 1fr;
   grid-template-rows: min-content 1fr;
   height: 100%;
+}
+
+@media (width <= 768px) {
+  .navigationBar {
+    display: none;
+  }
+  .container {
+    grid-template-columns: 1fr;
+  }
 }
 
 .content {

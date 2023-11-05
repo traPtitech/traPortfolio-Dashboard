@@ -11,4 +11,10 @@
   margin: 0 auto;
   padding: 4rem 3rem 3rem;
 }
+
+@media (width <= 768px) {
+  .container {
+    padding: 2rem 1.25rem;
+  }
+}
 </style>
