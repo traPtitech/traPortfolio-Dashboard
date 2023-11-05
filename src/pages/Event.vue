@@ -143,7 +143,7 @@ const updateEvent = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .link {
   text-decoration: none;
