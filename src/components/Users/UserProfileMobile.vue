@@ -52,6 +52,7 @@ defineProps<Props>()
 .accounts {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 2rem;
   margin-top: 1rem;
 }
