@@ -17,6 +17,7 @@ import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import ProjectMember from '/@/components/Projects/ProjectMember.vue'
 import { useUserStore } from '/@/store/user'
+import { isValidYearWithSemesterDuration } from '/@/use/validate'
 
 const toast = useToast()
 
@@ -42,8 +43,12 @@ const isSending = ref(false)
 const createProject = async () => {
   isSending.value = true
   try {
-    await apis.createProject(formValues)
-    await apis.addProjectMembers(formValues.name, {
+    const req: CreateProjectRequest = {
+      ...formValues,
+      link: formValues.link || undefined
+    }
+    const res = await apis.createProject(req)
+    await apis.addProjectMembers(res.data.id, {
       members: members.value.map(member => ({
         userId: member.id,
         duration: member.duration
@@ -55,6 +60,19 @@ const createProject = async () => {
   }
   isSending.value = false
 }
+
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    formValues.name !== '' &&
+    isValidYearWithSemesterDuration(formValues.duration) &&
+    members.value
+      .map(member => member.duration)
+      .every(isValidYearWithSemesterDuration) &&
+    new Set(members.value.map(member => member.id)).size ===
+      members.value.length
+)
+
 const userStore = useUserStore()
 const users = await userStore.fetchUsers()
 
@@ -144,7 +162,7 @@ const handleDelete = (id: string) => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         :class="$style.createButton"
         type="primary"
         icon="mdi:plus"

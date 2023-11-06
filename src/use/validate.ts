@@ -1,4 +1,4 @@
-import { Duration } from '/@/lib/apis'
+import { Duration, YearWithSemesterDuration } from '/@/lib/apis'
 
 export const isValidLength = (value: string, min: number, max: number) => {
   if (value.length < min) return false
@@ -19,6 +19,19 @@ export const isValidUrl = (link: string) => {
 export const isValidDuration = (duration: Duration) => {
   if (duration.since && duration.until) {
     return duration.since <= duration.until
+  }
+  return false
+}
+
+export const isValidYearWithSemesterDuration = (
+  duration: YearWithSemesterDuration
+) => {
+  if (duration.since && duration.until) {
+    return (
+      duration.since.year < duration.until.year ||
+      (duration.since.year == duration.until.year &&
+        duration.since.semester < duration.until.semester)
+    )
   }
   return false
 }
