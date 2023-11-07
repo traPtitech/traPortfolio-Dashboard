@@ -21,7 +21,7 @@ const vModelValue = computed({
 </script>
 
 <template>
-  <div :class="$style.container">
+  <label :class="$style.container">
     <input
       :id="value"
       v-model="vModelValue"
@@ -29,9 +29,9 @@ const vModelValue = computed({
       type="radio"
       :class="$style.input"
     />
-    <label :for="value" :class="$style.label">{{ label }}</label>
+    <span :for="value" :class="$style.label">{{ label }}</span>
     <p v-if="description" :class="$style.description">{{ description }}</p>
-  </div>
+  </label>
 </template>
 
 <style lang="scss" module>
@@ -68,6 +68,18 @@ const vModelValue = computed({
 
   &:not(:checked)::after {
     display: none;
+  }
+
+  &:hover:not(:checked)::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    margin: auto;
+    inset: 0;
+    background-color: $color-secondary;
   }
 }
 .label {
