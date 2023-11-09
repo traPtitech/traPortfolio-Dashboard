@@ -17,13 +17,12 @@ const emit = defineEmits<{
   <div :class="$style.eventLevelMenu">
     <div v-for="[level, detail] in eventLevels" :key="level">
       <button
-        :class="[$style.eventLevelMenuButton]"
+        :class="$style.eventLevelMenuButton"
         :disabled="eventLevel === level"
         @click="emit('update-public-status', level)"
       >
         <p :class="$style.statusName">{{ detail.label }}</p>
-        <!--タイポグラフィのため改行を有効に-->
-        <p :class="$style.description" style="white-space: pre-wrap">
+        <p :class="$style.description" style="">
           {{ detail.description }}
         </p>
       </button>
@@ -33,30 +32,28 @@ const emit = defineEmits<{
 
 <style lang="scss" module>
 .eventLevelMenu {
-  width: 212px;
-  height: max-content;
+  width: max-content;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  gap: 16px;
+  padding: 1rem;
+  gap: 1rem;
   border: 1px solid $color-secondary;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .eventLevelMenuButton {
-  width: 180px;
   text-align: left;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.25rem;
   .description {
-    font-size: 12px;
-    font-weight: 400;
+    font-size: 0.75rem;
     color: $color-secondary;
+    // タイポグラフィのため改行を有効に
+    white-space: pre-wrap
   }
   .statusName {
-    font-size: 16px;
-    font-weight: 600;
+    font-weight: bold;
     color: $color-secondary;
   }
   &:disabled {
