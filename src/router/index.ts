@@ -54,7 +54,7 @@ const routes = [
     component: Contests
   },
   {
-    path: '/contests/:id',
+    path: '/contests/:contestId',
     name: 'Contest',
     component: Contest
   },

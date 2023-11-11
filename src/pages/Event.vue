@@ -11,18 +11,21 @@ import useParam from '/@/use/param'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import RadioButton from '/@/components/UI/RadioButton.vue'
-import { eventLevels, getEventLevelFromValue } from '/@/consts/eventLevel'
+import {
+  eventLevelValueMap,
+  getEventLevelFromValue
+} from '/@/consts/eventLevel'
 import { EventLevelValue } from '/@/consts/eventLevel'
+import { useEventStore } from '/@/store/event'
 
 const router = useRouter()
 const toast = useToast()
+const { mutate } = useEventStore()
 
 const eventId = useParam('id')
 const event: EventDetail = (await apis.getEvent(eventId.value)).data
 
-const eventLevel = ref<EventLevelValue>(
-  eventLevels.get(event.eventLevel)?.value ?? 'public'
-)
+const eventLevel = ref<EventLevelValue>(eventLevelValueMap[event.eventLevel])
 
 const isSending = ref(false)
 const updateEvent = async () => {
@@ -32,6 +35,7 @@ const updateEvent = async () => {
       eventLevel: getEventLevelFromValue(eventLevel.value)
     }
     await apis.editEvent(eventId.value, requestData)
+    mutate()
     toast.success('イベント情報を更新しました')
     router.push(`/events/${eventId.value}`)
   } catch {
