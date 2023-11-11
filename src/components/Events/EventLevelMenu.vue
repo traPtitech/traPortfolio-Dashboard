@@ -1,29 +1,32 @@
 <script lang="ts" setup>
-import { EventLevel } from '/@/lib/apis'
-import { eventLevels } from '/@/consts/eventLevel'
+import {
+  EventLevelValue,
+  eventLevelValueMap,
+  eventLevels
+} from '/@/consts/eventLevel'
 
 interface Props {
-  eventLevel: EventLevel
+  eventLevel: EventLevelValue
 }
 
 defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update-public-status', value: EventLevel): void
+  (e: 'update-public-status', value: EventLevelValue): void
 }>()
 </script>
 
 <template>
   <div :class="$style.eventLevelMenu">
-    <div v-for="[level, detail] in eventLevels" :key="level">
+    <div v-for="[key, value] in Object.entries(eventLevels)" :key="key">
       <button
         :class="$style.eventLevelMenuButton"
-        :disabled="eventLevel === level"
-        @click="emit('update-public-status', level)"
+        :disabled="eventLevel === key"
+        @click="emit('update-public-status', eventLevelValueMap[value.value])"
       >
-        <p :class="$style.statusName">{{ detail.label }}</p>
+        <p :class="$style.statusName">{{ value.label }}</p>
         <p :class="$style.description">
-          {{ detail.description }}
+          {{ value.description }}
         </p>
       </button>
     </div>
@@ -50,7 +53,7 @@ const emit = defineEmits<{
     font-size: 0.75rem;
     color: $color-secondary;
     // タイポグラフィのため改行を有効に
-    white-space: pre-wrap
+    white-space: pre-wrap;
   }
   .statusName {
     font-weight: bold;
