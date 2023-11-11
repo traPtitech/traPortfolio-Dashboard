@@ -12,21 +12,21 @@ interface Props {
 defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update-public-status', value: EventLevelValue): void
+  (e: 'update-event-level', value: EventLevelValue): void
 }>()
 </script>
 
 <template>
   <div :class="$style.eventLevelMenu">
-    <div v-for="[key, value] in Object.entries(eventLevels)" :key="key">
+    <div v-for="[level, detail] in Object.entries(eventLevels)" :key="level">
       <button
         :class="$style.eventLevelMenuButton"
-        :disabled="eventLevel === key"
-        @click="emit('update-public-status', eventLevelValueMap[value.value])"
+        :disabled="eventLevel === level"
+        @click="emit('update-event-level', eventLevelValueMap[detail.value])"
       >
-        <p :class="$style.statusName">{{ value.label }}</p>
+        <p :class="$style.statusName">{{ detail.label }}</p>
         <p :class="$style.description">
-          {{ value.description }}
+          {{ detail.description }}
         </p>
       </button>
     </div>
