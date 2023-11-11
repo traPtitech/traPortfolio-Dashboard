@@ -22,7 +22,7 @@ const emit = defineEmits<{
         @click="emit('update-public-status', level)"
       >
         <p :class="$style.statusName">{{ detail.label }}</p>
-        <p :class="$style.description" style="">
+        <p :class="$style.description">
           {{ detail.description }}
         </p>
       </button>
