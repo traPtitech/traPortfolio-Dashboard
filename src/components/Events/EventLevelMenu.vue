@@ -22,7 +22,7 @@ const emit = defineEmits<{
       <button
         :class="$style.eventLevelMenuButton"
         :disabled="eventLevel === level"
-        @click="emit('update-event-level', eventLevelValueMap[detail.value])"
+        @click="emit('update-event-level', level as EventLevelValue)"
       >
         <p :class="$style.statusName">{{ detail.label }}</p>
         <p :class="$style.description">
