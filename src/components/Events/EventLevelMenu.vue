@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import {
   EventLevelValue,
-  eventLevelValueMap,
   eventLevels
 } from '/@/consts/eventLevel'
 
