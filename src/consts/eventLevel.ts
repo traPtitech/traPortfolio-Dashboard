@@ -30,7 +30,7 @@ export const eventLevels = deepFreeze({
   anonymous: {
     label: '匿名公開',
     value: EventLevel.Anonymous,
-    description: '企画者の名前を伏せて、ポートフォリオにて公開します'
+    description: '企画者の名前を伏せて、\nポートフォリオにて公開します'
   },
   private: {
     label: '非公開',
