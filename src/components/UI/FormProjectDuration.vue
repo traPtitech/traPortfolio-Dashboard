@@ -113,6 +113,7 @@ const handleInput = (
 <style module lang="scss">
 .container {
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   gap: 0.5rem;
 }

@@ -24,15 +24,18 @@ const emit = defineEmits<{
 
 <template>
   <div :class="$style.container">
-    <div :class="$style.content">
-      <div :class="$style.user">
-        <user-icon :user-id="user.id" :size="48" />
-        <p :class="$style.name">{{ user.name }}</p>
-      </div>
-      <form-project-duration v-model="value" since-required />
+    <div :class="$style.user">
+      <user-icon :user-id="user.id" :size="48" />
+      <p :class="$style.name">{{ user.name }}</p>
     </div>
-    <button @click="emit('delete', user.id)">
-      <icon :size="32" name="mdi:delete" :class="$style.icon" />
+
+    <form-project-duration
+      v-model="value"
+      since-required
+      :class="$style.projectDuration"
+    />
+    <button :class="$style.icon" @click="emit('delete', user.id)">
+      <icon :size="32" name="mdi:delete" />
     </button>
   </div>
 </template>
@@ -40,18 +43,22 @@ const emit = defineEmits<{
 <style lang="scss" module>
 .container {
   display: flex;
+  gap: 1rem;
+
   align-items: center;
-  justify-content: space-between;
   padding: 0.5rem;
 
   border: 1px solid $color-primary-text;
   border-radius: 8px;
 }
-
-.content {
+.name {
+  word-break: break-all;
+}
+.user {
+  width: 30%;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .icon {
@@ -59,11 +66,6 @@ const emit = defineEmits<{
   &:hover {
     opacity: 0.8;
   }
-}
-
-.user {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  margin-left: auto;
 }
 </style>
