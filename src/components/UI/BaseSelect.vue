@@ -25,6 +25,14 @@ const value = computed({
   get: () => props.modelValue,
   set: v => emit('update:modelValue', v)
 })
+
+const isEquals = (a: T, b: T) => {
+  if (value.value !== null && typeof value.value === 'object') {
+    return JSON.stringify(a) === JSON.stringify(b)
+  } else {
+    return a === b
+  }
+}
 </script>
 
 <template>
@@ -40,7 +48,7 @@ const value = computed({
     <template #option="{ label }">
       <div :class="$style.item">
         <icon
-          v-if="label === options.find(o => o.value === value)?.label"
+          v-if="label === options.find(o => isEquals(o.value, value))?.label"
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />
@@ -60,6 +68,7 @@ const value = computed({
     color: $color-primary;
   }
   .label {
+    display: grid;
     grid-column: 2;
   }
 }

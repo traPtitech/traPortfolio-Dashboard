@@ -19,9 +19,16 @@ const props = withDefaults(defineProps<Props>(), {
   yearsAgo: 20
 })
 const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: YearWithSemesterDuration): void
+  (
+    e: 'update:modelValue',
+    modelValue: {
+      since: YearWithSemester | undefined
+      until: YearWithSemester | undefined
+    }
+  ): void
 }>()
-const options: Option<YearWithSemester>[] = Array(props.yearsAgo)
+
+const options: Option<YearWithSemester | undefined>[] = Array(props.yearsAgo)
   .fill(null)
   .map((_, i) => [
     {
@@ -41,15 +48,29 @@ const options: Option<YearWithSemester>[] = Array(props.yearsAgo)
   ])
   .flat()
 
+const sinceOptions = props.sinceRequired
+  ? options
+  : [
+      {
+        label: '未定',
+        value: undefined
+      },
+      ...options
+    ]
+const untilOptions = [
+  {
+    label: '未定',
+    value: undefined
+  },
+  ...options
+]
+
 const handleInput = (
   value: YearWithSemester | undefined,
   dateType: DateType
 ) => {
-  const duration: YearWithSemesterDuration = {
-    since:
-      dateType === 'since' && value !== undefined
-        ? value
-        : props.modelValue.since,
+  const duration = {
+    since: dateType === 'since' ? value : props.modelValue.since,
     until: dateType === 'until' ? value : props.modelValue.until
   }
   emit('update:modelValue', duration)
@@ -65,7 +86,7 @@ const handleInput = (
       </div>
       <div :class="$style.form">
         <base-select
-          :options="options"
+          :options="sinceOptions"
           :class="$style.input"
           :model-value="modelValue.since"
           @update:model-value="handleInput($event, 'since')"
@@ -79,7 +100,7 @@ const handleInput = (
       </div>
       <div :class="$style.form">
         <base-select
-          :options="options"
+          :options="untilOptions"
           :class="$style.input"
           :model-value="modelValue.until"
           @update:model-value="handleInput($event, 'until')"
