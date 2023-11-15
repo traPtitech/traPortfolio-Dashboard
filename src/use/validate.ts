@@ -29,9 +29,13 @@ export const isValidYearWithSemesterDuration = (
   if (duration.since && duration.until) {
     return (
       duration.since.year < duration.until.year ||
-      (duration.since.year == duration.until.year &&
-        duration.since.semester < duration.until.semester)
+      (duration.since.year === duration.until.year &&
+        duration.since.semester <= duration.until.semester)
     )
   }
+  if (duration.since) {
+    return true
+  }
+
   return false
 }

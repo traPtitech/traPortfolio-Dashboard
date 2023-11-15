@@ -66,9 +66,9 @@ const canSubmit = computed(
     !isSending.value &&
     formValues.name !== '' &&
     isValidYearWithSemesterDuration(formValues.duration) &&
-    members.value
-      .map(member => member.duration)
-      .every(isValidYearWithSemesterDuration)
+    members.value.every(member =>
+      isValidYearWithSemesterDuration(member.duration)
+    )
 )
 
 const userStore = useUserStore()
