@@ -7,7 +7,7 @@
     "build": "vite build",
     "lint": "eslint --fix --ext .ts,.vue src",
     "lint:nofix": "eslint --ext .ts,.vue src",
-    "type-check": "tsc",
+    "type-check": "vue-tsc --noEmit",
     "fetch-openapi": "node scripts/fetchOpenapi.js",
     "gen-api": "node scripts/generateApi.js",
     "start-mock": "prism mock -p 4010 -d scripts/traPortfolio.v1.yaml",
@@ -45,7 +45,8 @@
     "ts-morph": "^20.0.0",
     "typescript": "^5.2.2",
     "vite": "^4.4.11",
-    "vite-plugin-purge-icons": "^0.9.2"
+    "vite-plugin-purge-icons": "^0.9.2",
+    "vue-tsc": "1.8.0"
   },
   "private": true
 }

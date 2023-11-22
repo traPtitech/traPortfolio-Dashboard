@@ -18,8 +18,10 @@ import MemberInput from '/@/components/UI/MemberInput.vue'
 import ProjectMember from '/@/components/Projects/ProjectMember.vue'
 import { useUserStore } from '/@/store/user'
 import { isValidYearWithSemesterDuration } from '/@/use/validate'
+import { useProjectStore } from '/@/store/project'
 
 const toast = useToast()
+const { mutate } = useProjectStore()
 
 type UserWithDuration = User & { duration: YearWithSemesterDuration }
 
@@ -48,6 +50,7 @@ const createProject = async () => {
       link: formValues.link || undefined
     }
     const res = await apis.createProject(req)
+    mutate()
     await apis.addProjectMembers(res.data.id, {
       members: members.value.map(member => ({
         userId: member.id,

@@ -141,8 +141,6 @@ const onClose = () => {
     height: 24px;
     background-color: $color-secondary;
     mask: url('/icons/account.svg') no-repeat center center;
-    margin-top: 4px;
-    margin-left: 4px;
   }
   &:focus-within::before {
     background-color: $color-primary;
@@ -153,5 +151,17 @@ const onClose = () => {
   &:hover {
     filter: brightness(0.95);
   }
+}
+
+.select :global(.vs__selected) {
+  margin: 0 2px;
+}
+
+.select :global(.vs__search) {
+  margin: 0 2px;
+}
+
+.select :global(.vs__dropdown-toggle) {
+  padding: 8px;
 }
 </style>
