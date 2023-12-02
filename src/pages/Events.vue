@@ -1,15 +1,88 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+import ContentHeader from '/@/components/Layout/ContentHeader.vue'
+import PageContainer from '/@/components/Layout/PageContainer.vue'
+import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
+import EventItem from '/@/components/Events/EventItem.vue'
+import FormInput from '/@/components/UI/FormInput.vue'
+import { useEventStore } from '/@/store/event'
+
+const eventStore = useEventStore()
+const events = await eventStore.fetchEvents()
+const eventType = ref<number>(1)
+
+const searchQuery = ref<string>('')
+</script>
+
 <template>
-  <div>Events</div>
+  <page-container>
+    <content-header
+      icon-name="mdi:trophy-outline"
+      :header-texts="[{ title: 'Events', url: '/events' }]"
+      detail="イベントの公開設定を変更します"
+      :class="$style.header"
+    />
+    <div :class="$style.searchFormContainer">
+      <div :class="$style.searchForm">
+        <p :class="$style.body2">検索</p>
+        <form-input
+          v-model="searchQuery"
+          placeholder="イベント名"
+          icon="magnify"
+        />
+      </div>
+      <div>
+        <p :class="$style.body2">公開設定で絞り込み</p>
+          <service-accordion v-model="eventType" />
+      </div>
+    </div>
+    <ul :class="$style.eventList">
+      <li v-for="event in events" :key="event.id">
+        <event-item :event="event" />
+      </li>
+    </ul>
+  </page-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<style lang="scss" module>
+.header {
+  margin: 4rem 0 2rem;
+}
 
-export default defineComponent({
-  name: 'Events',
-  components: {},
-  setup() {
-    return {}
+.searchFormContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+.searchForm {
+  flex-grow: 1;
+}
+
+.body2 {
+  font-size: 0.875rem;
+  color: $color-secondary;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.eventList {
+  list-style: none;
+  li {
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:hover {
+      background-color: $color-background-dim;
+    }
   }
-})
-</script>
+}
+</style>
