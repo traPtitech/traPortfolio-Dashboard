@@ -10,7 +10,7 @@ import { useEventStore } from '/@/store/event'
 
 const eventStore = useEventStore()
 const events = await eventStore.fetchEvents()
-const eventType = ref<number>(1)
+const eventType = ref<number>(0)
 
 const searchQuery = ref<string>('')
 </script>
@@ -64,11 +64,6 @@ const searchQuery = ref<string>('')
 .body2 {
   font-size: 0.875rem;
   color: $color-secondary;
-}
-
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 
 .eventList {

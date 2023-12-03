@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import apis, { EventDetail } from '/@/lib/apis'
-import type { Event } from '/@/lib/apis'
+import apis, { EventDetail, Event } from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
 import { getFullDayString } from '/@/lib/date'
 import EventLevelMenu from '/@/components/Events/EventLevelMenu.vue'
@@ -95,23 +94,12 @@ const eventLevel = ref<EventLevelValue>(
 }
 
 .opener {
-  vertical-align: middle;
   display: flex;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-button {
-  display: flex;
-  margin-top: auto;
-  margin-bottom: auto;
 }
 
 .displayMenu {
   position: relative;
-}
-
-.menu {
-  z-index: 3;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 </style>
