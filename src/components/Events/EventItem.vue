@@ -35,28 +35,34 @@ const eventLevel = ref<EventLevelValue>(
         {{ getFullDayString(new Date(event.duration.since)) }}
       </p>
     </router-link>
-    <button
-      :class="$style.opener"
-      @click="displayMenu = displayMenu ? false : true"
-    >
-      <span v-for="[level, detail] in Object.entries(eventLevels)" :key="level">
-        <span
-          v-if="eventLevel === level"
-          :class="$style.eventLevelMenuButton"
-        >
-          <p :class="$style.statusName">{{ detail.label }}</p>
+    <div :class="$style.displayMenu">
+      <button @click="displayMenu = displayMenu ? false : true">
+        <span :class="$style.opener">
+          <span
+            v-for="[level, detail] in Object.entries(eventLevels)"
+            :key="level"
+          >
+            <span
+              v-if="eventLevel === level"
+              :class="$style.eventLevelMenuButton"
+            >
+              <p :class="$style.statusName">{{ detail.label }}</p>
+            </span>
+          </span>
+          <span v-if="displayMenu">
+            <icon name="mdi:chevron-up" :class="$style.icon" />
+          </span>
+          <span v-else>
+            <icon name="mdi:chevron-down" :class="$style.icon" />
+          </span>
         </span>
-      </span>
-      <span v-if="displayMenu">
-        <icon name="mdi:chevron-up" :class="$style.icon" />
-      </span>
-      <span v-else>
-        <icon name="mdi:chevron-down" :class="$style.icon" />
-      </span>
-    </button>
-  </div>
-  <div v-if="displayMenu" :class="$style.displayMenu">
-    <event-level-menu :event-level="eventLevel" />
+      </button>
+      <event-level-menu
+        v-if="displayMenu"
+        :event-level="eventLevel"
+        :style="$style.menu"
+      />
+    </div>
   </div>
 </template>
 
@@ -89,7 +95,10 @@ const eventLevel = ref<EventLevelValue>(
 }
 
 .opener {
-  // margin-left: auto;
+  vertical-align: middle;
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 button {
@@ -100,5 +109,9 @@ button {
 
 .displayMenu {
   position: relative;
+}
+
+.menu {
+  z-index: 3;
 }
 </style>

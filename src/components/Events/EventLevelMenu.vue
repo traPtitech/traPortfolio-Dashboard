@@ -33,8 +33,6 @@ const emit = defineEmits<{
 .eventLevelMenu {
   width: max-content;
   position: absolute;
-  top: 0px;
-  left: 0px;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -42,10 +40,11 @@ const emit = defineEmits<{
   border: 1px solid $color-secondary;
   border-radius: 0.375rem;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: 0px;
+  top: 1.75rem;
   right: 0px;
   opacity: 1;
   background-color: $color-background;
+  z-index: 1;
 }
 .eventLevelMenuButton {
   text-align: left;
