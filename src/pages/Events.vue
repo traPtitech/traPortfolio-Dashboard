@@ -18,7 +18,7 @@ const searchQuery = ref<string>('')
 <template>
   <page-container>
     <content-header
-      icon-name="mdi:trophy-outline"
+      icon-name="mdi:calendar-outline"
       :header-texts="[{ title: 'Events', url: '/events' }]"
       detail="イベントの公開設定を変更します"
       :class="$style.header"
