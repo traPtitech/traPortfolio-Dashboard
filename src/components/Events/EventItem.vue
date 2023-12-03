@@ -1,19 +1,29 @@
 <script lang="ts" setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
+
+import apis, { EventDetail } from '/@/lib/apis'
 import type { Event } from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
 import { getFullDayString } from '/@/lib/date'
 import EventLevelMenu from '/@/components/Events/EventLevelMenu.vue'
-import { EventLevelValue } from '/@/consts/eventLevel'
+import {
+  eventLevelValueMap,
+  eventLevels,
+  type EventLevelValue
+} from '/@/consts/eventLevel'
 
 interface Props {
   event: Event
 }
 
-const displayMenu = ref<boolean>(false)
-const aaa = ref<EventLevelValue>("private")
+const props = defineProps<Props>()
 
-defineProps<Props>()
+const displayMenu = ref<boolean>(false)
+
+const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
+const eventLevel = ref<EventLevelValue>(
+  eventLevelValueMap[eventDetail.eventLevel]
+)
 </script>
 
 <template>
@@ -23,12 +33,30 @@ defineProps<Props>()
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(event.duration.since)) }}
-      </p> 
+      </p>
     </router-link>
-    <button @click="displayMenu = displayMenu ? false : true">aa</button>
+    <button
+      :class="$style.opener"
+      @click="displayMenu = displayMenu ? false : true"
+    >
+      <span v-for="[level, detail] in Object.entries(eventLevels)" :key="level">
+        <span
+          v-if="eventLevel === level"
+          :class="$style.eventLevelMenuButton"
+        >
+          <p :class="$style.statusName">{{ detail.label }}</p>
+        </span>
+      </span>
+      <span v-if="displayMenu">
+        <icon name="mdi:chevron-up" :class="$style.icon" />
+      </span>
+      <span v-else>
+        <icon name="mdi:chevron-down" :class="$style.icon" />
+      </span>
+    </button>
   </div>
-  <div v-if="displayMenu">
-    <event-level-menu :event-level="aaa" >aaa</event-level-menu>
+  <div v-if="displayMenu" :class="$style.displayMenu">
+    <event-level-menu :event-level="eventLevel" />
   </div>
 </template>
 
@@ -36,6 +64,8 @@ defineProps<Props>()
 .link {
   color: inherit;
   text-decoration: none;
+  margin-right: auto;
+  padding-right: auto;
 }
 .container {
   padding: 0.5rem;
@@ -56,5 +86,19 @@ defineProps<Props>()
   align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
+}
+
+.opener {
+  // margin-left: auto;
+}
+
+button {
+  display: flex;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.displayMenu {
+  position: relative;
 }
 </style>
