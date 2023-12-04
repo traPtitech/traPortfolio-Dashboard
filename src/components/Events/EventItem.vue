@@ -20,9 +20,13 @@ const props = defineProps<Props>()
 const displayMenu = ref<boolean>(false)
 
 const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
-const eventLevel = ref<EventLevelValue>(
+const currentEventLevel = ref<EventLevelValue>(
   eventLevelValueMap[eventDetail.eventLevel]
 )
+
+const updateEventLevel = (eventLevel: EventLevelValue) => {
+  currentEventLevel.value = eventLevel
+}
 </script>
 
 <template>
@@ -42,7 +46,7 @@ const eventLevel = ref<EventLevelValue>(
             :key="level"
           >
             <span
-              v-if="eventLevel === level"
+              v-if="currentEventLevel === level"
               :class="$style.eventLevelMenuButton"
             >
               <p :class="$style.statusName">{{ detail.label }}</p>
@@ -58,8 +62,9 @@ const eventLevel = ref<EventLevelValue>(
       </button>
       <event-level-menu
         v-if="displayMenu"
-        :event-level="eventLevel"
+        :event-level="currentEventLevel"
         :style="$style.menu"
+        @update-event-level="updateEventLevel"
       />
     </div>
   </div>
