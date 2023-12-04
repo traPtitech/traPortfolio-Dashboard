@@ -1,12 +1,18 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import apis, { EventDetail, Event } from '/@/lib/apis'
+import apis, {
+  EventDetail,
+  Event,
+  EditEventRequest,
+  EventLevel
+} from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
 import { getFullDayString } from '/@/lib/date'
 import EventLevelMenu from '/@/components/Events/EventLevelMenu.vue'
 import {
   eventLevelValueMap,
+  getEventLevelFromValue,
   eventLevels,
   type EventLevelValue
 } from '/@/consts/eventLevel'
@@ -20,12 +26,18 @@ const props = defineProps<Props>()
 const displayMenu = ref<boolean>(false)
 
 const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
-const currentEventLevel = ref<EventLevelValue>(
+const eventLevelValue = ref<EventLevelValue>(
   eventLevelValueMap[eventDetail.eventLevel]
 )
 
+const editReq = ref<EditEventRequest>()
+const currentEventLevel = ref<EventLevel>(EventLevel.Anonymous)
+
 const updateEventLevel = (eventLevel: EventLevelValue) => {
-  currentEventLevel.value = eventLevel
+  eventLevelValue.value = eventLevel
+  currentEventLevel.value = getEventLevelFromValue(eventLevelValue.value)
+  editReq.value = { eventLevel: currentEventLevel.value }
+  apis.editEvent(props.event.id, editReq.value)
 }
 </script>
 
@@ -46,7 +58,7 @@ const updateEventLevel = (eventLevel: EventLevelValue) => {
             :key="level"
           >
             <span
-              v-if="currentEventLevel === level"
+              v-if="eventLevelValue === level"
               :class="$style.eventLevelMenuButton"
             >
               <p :class="$style.statusName">{{ detail.label }}</p>
@@ -62,7 +74,7 @@ const updateEventLevel = (eventLevel: EventLevelValue) => {
       </button>
       <event-level-menu
         v-if="displayMenu"
-        :event-level="currentEventLevel"
+        :event-level="eventLevelValue"
         :style="$style.menu"
         @update-event-level="updateEventLevel"
       />
