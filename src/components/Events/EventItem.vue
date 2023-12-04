@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 import apis, {
   EventDetail,
@@ -39,6 +39,23 @@ const updateEventLevel = (eventLevel: EventLevelValue) => {
   editReq.value = { eventLevel: currentEventLevel.value }
   apis.editEvent(props.event.id, editReq.value)
 }
+
+const element = ref<HTMLDivElement | null>(null)
+
+const clickOutside = (e: MouseEvent) => {
+  // [対象の要素]が[クリックされた要素]を含まない場合
+  if (e.target instanceof Node && !element.value?.contains(e.target)) {
+    displayMenu.value = false
+  }
+}
+
+// windowにセットしたイベントはremoveするのを忘れずに
+onMounted(() => {
+  addEventListener('click', clickOutside)
+})
+onBeforeUnmount(() => {
+  removeEventListener('click', clickOutside)
+})
 </script>
 
 <template>
@@ -51,25 +68,27 @@ const updateEventLevel = (eventLevel: EventLevelValue) => {
       </p>
     </router-link>
     <div :class="$style.displayMenu">
-      <button @click="displayMenu = displayMenu ? false : true">
-        <span :class="$style.opener">
+      <button
+        ref="element"
+        :class="$style.opener"
+        @click="displayMenu = displayMenu ? false : true"
+      >
+        <span
+          v-for="[level, detail] in Object.entries(eventLevels)"
+          :key="level"
+        >
           <span
-            v-for="[level, detail] in Object.entries(eventLevels)"
-            :key="level"
+            v-if="eventLevelValue === level"
+            :class="$style.eventLevelMenuButton"
           >
-            <span
-              v-if="eventLevelValue === level"
-              :class="$style.eventLevelMenuButton"
-            >
-              <p :class="$style.statusName">{{ detail.label }}</p>
-            </span>
+            <p :class="$style.statusName">{{ detail.label }}</p>
           </span>
-          <span v-if="displayMenu">
-            <icon name="mdi:chevron-up" :class="$style.icon" />
-          </span>
-          <span v-else>
-            <icon name="mdi:chevron-down" :class="$style.icon" />
-          </span>
+        </span>
+        <span v-if="displayMenu" ref="element">
+          <icon name="mdi:chevron-up" :class="$style.icon" />
+        </span>
+        <span v-else ref="element">
+          <icon name="mdi:chevron-down" :class="$style.icon" />
         </span>
       </button>
       <event-level-menu
