@@ -43,8 +43,8 @@ const createContest = async () => {
       ...formValues,
       link: formValues.link || undefined,
       duration: {
-        since: formValues.duration.since + ':00Z',
-        until: formValues.duration.until + ':00Z'
+        since: formValues.duration.since + ':00+0900',
+        until: formValues.duration.until + ':00+0900'
       }
     }
     const res = await apis.createContest(requestData)
