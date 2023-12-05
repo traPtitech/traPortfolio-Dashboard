@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
+import EventTypeAccordion from '/@/components/UI/EventTypeAccordion.vue'
 import EventItem from '/@/components/Events/EventItem.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { useEventStore } from '/@/store/event'
@@ -34,7 +34,7 @@ const searchQuery = ref('')
       </div>
       <div>
         <p :class="$style.body2">公開設定で絞り込み</p>
-          <service-accordion v-model="eventType" />
+          <event-type-accordion v-model="eventType" />
       </div>
     </div>
     <ul :class="$style.eventList">
