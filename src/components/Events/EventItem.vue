@@ -23,7 +23,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const displayMenu = ref<boolean>(false)
+const displayMenu = ref(false)
 
 const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
 const eventLevelValue = ref<EventLevelValue>(
@@ -71,11 +71,12 @@ onBeforeUnmount(() => {
       <button
         ref="element"
         :class="$style.opener"
-        @click="displayMenu = displayMenu ? false : true"
+        @click="displayMenu = !displayMenu"
       >
         <span
           v-for="[level, detail] in Object.entries(eventLevels)"
           :key="level"
+          style="padding-right: 8px"
         >
           <span
             v-if="eventLevelValue === level"
@@ -84,17 +85,14 @@ onBeforeUnmount(() => {
             <p :class="$style.statusName">{{ detail.label }}</p>
           </span>
         </span>
-        <span v-if="displayMenu" ref="element">
-          <icon name="mdi:chevron-up" :class="$style.icon" />
-        </span>
-        <span v-else ref="element">
-          <icon name="mdi:chevron-down" :class="$style.icon" />
+        <span ref="element" :class="$style.icon" :is-menu-open="displayMenu">
+          <icon name="mdi:chevron-down" />
         </span>
       </button>
       <event-level-menu
         v-if="displayMenu"
         :event-level="eventLevelValue"
-        :style="$style.menu"
+        :class="$style.menu"
         @update-event-level="updateEventLevel"
       />
     </div>
@@ -137,5 +135,11 @@ onBeforeUnmount(() => {
   position: relative;
   margin-top: auto;
   margin-bottom: auto;
+}
+.icon {
+  &[is-menu-open='true'] {
+    transform: rotate(-0.5turn);
+  }
+  transition: 0.5s;
 }
 </style>
