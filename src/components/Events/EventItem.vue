@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 import apis, {
   EventDetail,
@@ -53,7 +53,7 @@ const clickOutside = (e: MouseEvent) => {
 onMounted(() => {
   addEventListener('click', clickOutside)
 })
-onBeforeUnmount(() => {
+onUnmounted(() => {
   removeEventListener('click', clickOutside)
 })
 </script>
