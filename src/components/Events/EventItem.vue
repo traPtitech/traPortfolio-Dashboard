@@ -76,7 +76,6 @@ onUnmounted(() => {
         <span
           v-for="[level, detail] in Object.entries(eventLevels)"
           :key="level"
-          style="padding-right: 8px"
         >
           <span
             v-if="eventLevelValue === level"
@@ -137,6 +136,7 @@ onUnmounted(() => {
   margin-bottom: auto;
 }
 .icon {
+  margin-left: 8px;
   &[is-menu-open='true'] {
     transform: rotate(-0.5turn);
   }
