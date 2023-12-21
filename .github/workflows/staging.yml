@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: traportfolio-ui
+  IMAGE_NAME: traportfolio-dashboard
   IMAGE_TAG: main
 
 jobs:
