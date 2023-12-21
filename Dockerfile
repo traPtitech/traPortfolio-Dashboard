@@ -6,6 +6,7 @@ RUN apk update \
     && rm -rf /var/cache/apk/*
 
 COPY package.json package-lock.json ./
+COPY scripts/ ./scripts/
 RUN npm ci
 COPY . .
 RUN NODE_ENV=production npm run build
