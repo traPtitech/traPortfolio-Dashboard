@@ -12,6 +12,7 @@ export interface Option<T> {
 interface Props {
   modelValue: T
   options: Option<T>[]
+  by?: keyof T | ((a: T, b: T) => boolean)
   searchable?: boolean
 }
 
@@ -26,12 +27,27 @@ const value = computed({
   set: v => emit('update:modelValue', v)
 })
 
-const isEquals = (a: T, b: T) => {
-  if (value.value !== null && typeof value.value === 'object') {
-    return JSON.stringify(a) === JSON.stringify(b)
-  } else {
-    return a === b
+const compare = (a: T, b: T) => {
+  if (typeof props.by === 'function') {
+    return props.by(a, b)
   }
+
+  if (typeof props.by === 'string') {
+    return a[props.by] === b[props.by]
+  }
+
+  if (
+    a !== null &&
+    b !== null &&
+    typeof a === 'object' &&
+    typeof b === 'object' &&
+    'id' in a &&
+    'id' in b
+  ) {
+    return a.id === b.id
+  }
+
+  return a === b
 }
 </script>
 
@@ -48,7 +64,7 @@ const isEquals = (a: T, b: T) => {
     <template #option="{ label }">
       <div :class="$style.item">
         <icon
-          v-if="label === options.find(o => isEquals(o.value, value))?.label"
+          v-if="label === options.find(o => compare(o.value, value))?.label"
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />

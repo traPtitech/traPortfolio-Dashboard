@@ -147,7 +147,6 @@ const handleDelete = (id: string) => {
             :user="member"
             :class="$style.projectMember"
             @delete="handleDelete"
-            @update="member.duration = $event"
           />
         </div>
       </labeled-form>

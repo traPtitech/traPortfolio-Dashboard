@@ -13,12 +13,12 @@ const props = defineProps<Props>()
 
 const value = computed({
   get: () => props.modelValue,
-  set: v => emit('update', v)
+  set: v => emit('update:modelValue', v)
 })
 
 const emit = defineEmits<{
   (e: 'delete', value: string): void
-  (e: 'update', value: YearWithSemesterDuration): void
+  (e: 'update:modelValue', value: YearWithSemesterDuration): void
 }>()
 </script>
 

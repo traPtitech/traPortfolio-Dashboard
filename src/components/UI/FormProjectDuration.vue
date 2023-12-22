@@ -27,10 +27,9 @@ const emit = defineEmits<{
     }
   ): void
 }>()
-
 const options: Option<YearWithSemester | undefined>[] = Array(props.yearsAgo)
   .fill(null)
-  .map((_, i) => [
+  .flatMap((_, i) => [
     {
       label: `${(new Date().getFullYear() - i).toString()} 後期`,
       value: {
@@ -46,17 +45,7 @@ const options: Option<YearWithSemester | undefined>[] = Array(props.yearsAgo)
       }
     }
   ])
-  .flat()
 
-const sinceOptions = props.sinceRequired
-  ? options
-  : [
-      {
-        label: '未定',
-        value: undefined
-      },
-      ...options
-    ]
 const untilOptions = [
   {
     label: '未定',
@@ -64,6 +53,8 @@ const untilOptions = [
   },
   ...options
 ]
+
+const sinceOptions = props.sinceRequired ? options : untilOptions
 
 const handleInput = (
   value: YearWithSemester | undefined,
@@ -74,6 +65,15 @@ const handleInput = (
     until: dateType === 'until' ? value : props.modelValue.until
   }
   emit('update:modelValue', duration)
+}
+
+const compare = (
+  a: YearWithSemester | undefined,
+  b: YearWithSemester | undefined
+) => {
+  if (a === undefined && b === undefined) return true
+  if (a === undefined || b === undefined) return false
+  return a.year === b.year && a.semester === b.semester
 }
 </script>
 
@@ -89,6 +89,7 @@ const handleInput = (
           :options="sinceOptions"
           :class="$style.input"
           :model-value="modelValue.since"
+          :by="compare"
           @update:model-value="handleInput($event, 'since')"
         />
       </div>
@@ -103,6 +104,7 @@ const handleInput = (
           :options="untilOptions"
           :class="$style.input"
           :model-value="modelValue.until"
+          :by="compare"
           @update:model-value="handleInput($event, 'until')"
         />
       </div>
