@@ -52,13 +52,13 @@ const updateEvent = async () => {
         icon-name="mdi:calendar"
         :header-texts="[
           { title: 'Events', url: '/events' },
-          { title: event?.name ?? '', url: `/events/${eventId}` }
+          { title: event.name, url: `/events/${eventId}` }
         ]"
         detail="イベントの詳細を確認します。"
         :class="$style.header"
       />
     </div>
-    <div v-if="event !== undefined">
+    <div>
       <section :class="$style.section">
         <h2 :class="$style.h2">イベント名</h2>
         <p :class="$style.content">{{ event.name }}</p>
