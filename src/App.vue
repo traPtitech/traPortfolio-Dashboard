@@ -16,6 +16,9 @@ const showCover = computed(() => isMobile.value && isOpenNavigationBar.value)
 watch(
   () => route.fullPath,
   () => {
+    if (!isMobile.value) {
+      return
+    }
     isOpenNavigationBar.value = false
   }
 )
@@ -67,7 +70,7 @@ watch(
 @media (width <= 768px) {
   .navigationBarCover {
     position: absolute;
-    z-index: --z-index-navigationBarCover;
+    z-index: $z-index-navigationBarCover;
     top: 5rem;
     left: 0;
     height: 100%;
@@ -77,7 +80,7 @@ watch(
   }
   .navigationBar {
     position: absolute;
-    z-index: --z-index-navigationBar;
+    z-index: $z-index-navigationBar;
     top: 5rem;
     left: 0;
     height: 100%;

@@ -23,7 +23,11 @@ const config: UserConfig = {
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "${srcPath}/styles/common.scss";`
+        additionalData: `
+        @import "${srcPath}/styles/color.scss";
+        @import "${srcPath}/styles/z-index.scss";
+        @import "${srcPath}/styles/toast.scss";
+        `
       }
     }
   },

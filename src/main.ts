@@ -5,7 +5,6 @@ import App from './App.vue'
 import type { PluginOptions } from 'vue-toastification'
 import Toast, { POSITION } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
-import './styles/toast.scss'
 
 import './index.scss'
 import '@purge-icons/generated'

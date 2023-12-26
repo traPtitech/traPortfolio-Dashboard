@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
-
 <template>
-  <main :class="$style.container"><slot /></main>
+  <main :class="$style.container">
+    <slot />
+  </main>
 </template>
 
 <style lang="scss" module>
