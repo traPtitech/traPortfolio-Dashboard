@@ -23,14 +23,15 @@ const vModelValue = computed({
 <template>
   <label :class="$style.container">
     <input
-      :id="value"
       v-model="vModelValue"
       :value="value"
       type="radio"
       :class="$style.input"
     />
-    <span :for="value" :class="$style.label">{{ label }}</span>
-    <p v-if="description" :class="$style.description">{{ description }}</p>
+    <span :class="$style.label">{{ label }}</span>
+    <span v-if="description" :class="$style.description">
+      {{ description }}
+    </span>
   </label>
 </template>
 
@@ -40,6 +41,7 @@ const vModelValue = computed({
   align-items: center;
   gap: 12px;
   grid-template-columns: auto minmax(0, 0.5fr) 1fr;
+  cursor: pointer;
 }
 .input {
   appearance: none;
