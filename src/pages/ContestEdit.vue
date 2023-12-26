@@ -153,7 +153,7 @@ const deleteContest = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;

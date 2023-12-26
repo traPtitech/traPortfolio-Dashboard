@@ -2,12 +2,17 @@
 import { ref } from 'vue'
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import UserProfile from '/@/components/Users/UserProfile.vue'
 import UserProfileEdit from '/@/components/Users/UserProfileEdit.vue'
 import apis, { UserDetail } from '/@/lib/apis'
+import UserProfileMobile from '/@/components/Users/UserProfileMobile.vue'
+import UserProfileDesktop from '/@/components/Users/UserProfileDesktop.vue'
+import { useResponsiveStore } from '/@/store/responsive'
+import { storeToRefs } from 'pinia'
 
 const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
 // todo: get meが実装されたらそれを使う
+
+const { isMobile } = storeToRefs(useResponsiveStore())
 
 const user: UserDetail = (await apis.getUser(userId.value)).data
 </script>
@@ -23,7 +28,8 @@ const user: UserDetail = (await apis.getUser(userId.value)).data
       />
       <!-- todo:プレビューボタンの追加 -->
     </div>
-    <user-profile :user="user" />
+    <user-profile-mobile v-if="isMobile" :user="user" />
+    <user-profile-desktop v-else :user="user" />
     <user-profile-edit :user="user" :class="$style.userProfileEdit" />
   </page-container>
 </template>
@@ -35,7 +41,7 @@ const user: UserDetail = (await apis.getUser(userId.value)).data
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .userProfileEdit {
   margin-top: 2rem;

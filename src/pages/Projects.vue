@@ -52,7 +52,7 @@ const searchQuery = ref('')
 
 <style lang="scss" module>
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 
 .searchFormContainer {

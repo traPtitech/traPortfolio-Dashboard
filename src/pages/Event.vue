@@ -143,7 +143,7 @@ const updateEvent = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .link {
   text-decoration: none;
@@ -179,5 +179,11 @@ const updateEvent = async () => {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+@media (width <= 768px) {
+  .radioButtons {
+    width: 100%;
+  }
 }
 </style>
