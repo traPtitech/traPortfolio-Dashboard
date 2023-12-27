@@ -18,7 +18,7 @@ const searchQuery = ref('')
 <template>
   <page-container>
     <content-header
-      icon-name="mdi:calendar-outline"
+      icon-name="mdi:calendar"
       :header-texts="[{ title: 'Events', url: '/events' }]"
       detail="イベントの公開設定を変更します"
       :class="$style.header"
