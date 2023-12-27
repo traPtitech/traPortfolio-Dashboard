@@ -18,22 +18,21 @@ const emit = defineEmits<{
 
 const value = computed({
   get: () => eventLevelValueMap[props.modelValue],
-  set: v =>
-    emit('update:modelValue', getEventLevelFromValue(v) ?? EventLevel.Anonymous)
+  set: v => emit('update:modelValue', getEventLevelFromValue(v) ?? '匿名公開')
 })
 
 const options = [
   {
-    label: eventLevelValueMap[EventLevel.Anonymous],
-    value: eventLevelValueMap[EventLevel.Anonymous]
+    label: '匿名公開',
+    value: "anonymous"
   },
   {
-    label: eventLevelValueMap[EventLevel.Private],
-    value: eventLevelValueMap[EventLevel.Private]
+    label: '非公開',
+    value: "private"
   },
   {
-    label: eventLevelValueMap[EventLevel.Public],
-    value: eventLevelValueMap[EventLevel.Public]
+    label: '公開',
+    value: "public"
   }
 ]
 </script>
