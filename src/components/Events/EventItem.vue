@@ -16,9 +16,11 @@ import {
   eventLevels,
   type EventLevelValue
 } from '/@/consts/eventLevel'
+import router from '/@/router'
 
 interface Props {
   event: Event
+  eventLevel: EventLevel
 }
 
 const props = defineProps<Props>()
@@ -30,14 +32,13 @@ const eventLevelValue = ref<EventLevelValue>(
   eventLevelValueMap[eventDetail.eventLevel]
 )
 
-const editReq = ref<EditEventRequest>()
-const currentEventLevel = ref<EventLevel>(EventLevel.Anonymous)
-
 const updateEventLevel = (eventLevel: EventLevelValue) => {
   eventLevelValue.value = eventLevel
-  currentEventLevel.value = getEventLevelFromValue(eventLevelValue.value)
-  editReq.value = { eventLevel: currentEventLevel.value }
-  apis.editEvent(props.event.id, editReq.value)
+  const currentEventLevel: EventLevel = getEventLevelFromValue(
+    eventLevelValue.value
+  )
+  const editReq: EditEventRequest = { eventLevel: currentEventLevel }
+  apis.editEvent(props.event.id, editReq)
 }
 
 const element = ref<HTMLDivElement | null>(null)
@@ -59,30 +60,28 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div :class="$style.container">
-    <router-link :to="`/events/${event.id}`" :class="$style.link">
+  <div
+    v-if="eventDetail.eventLevel === eventLevel"
+    :class="$style.container"
+    @click="router.push({ name: 'Event', params: { id: event.id } })"
+  >
+    <div :class="$style.link">
       <p :class="$style.name">{{ event.name }}</p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(event.duration.since)) }}
       </p>
-    </router-link>
+    </div>
     <div :class="$style.displayMenu">
       <button
         ref="element"
         :class="$style.opener"
-        @click="displayMenu = !displayMenu"
+        @click.stop="displayMenu = !displayMenu"
       >
-        <span
-          v-for="[level, detail] in Object.entries(eventLevels)"
-          :key="level"
-        >
-          <span
-            v-if="eventLevelValue === level"
-            :class="$style.eventLevelMenuButton"
-          >
-            <p :class="$style.statusName">{{ detail.label }}</p>
-          </span>
+        <span :class="$style.eventLevelMenuButton">
+          <p :class="$style.statusName">
+            {{ eventLevels[eventLevelValue].label }}
+          </p>
         </span>
         <span ref="element" :class="$style.icon" :is-menu-open="displayMenu">
           <icon name="mdi:chevron-down" />
