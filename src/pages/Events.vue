@@ -34,12 +34,12 @@ const searchQuery = ref('')
       </div>
       <div>
         <p :class="$style.body2">公開設定で絞り込み</p>
-          <event-type-accordion v-model="eventType" />
+        <event-type-accordion v-model="eventType" />
       </div>
     </div>
     <ul :class="$style.eventList">
       <li v-for="event in events" :key="event.id">
-        <event-item :event="event" />
+        <event-item :event="event" :event-level="eventType" />
       </li>
     </ul>
   </page-container>
