@@ -40,7 +40,7 @@ jobs:
           node-version: 20.x
       - uses: actions/checkout@v4
       - run: SKIP_GENAPI=1 npm ci
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: apis
           path: ./src/lib/apis/generated
@@ -57,7 +57,7 @@ jobs:
           node-version: 20.x
       - uses: actions/checkout@v4
       - run: SKIP_GENAPI=1 npm ci
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: apis
           path: ./src/lib/apis/generated
@@ -72,7 +72,7 @@ jobs:
           node-version: 20.x
       - uses: actions/checkout@v4
       - run: SKIP_GENAPI=1 npm ci
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: apis
           path: ./src/lib/apis/generated
