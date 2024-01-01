@@ -16,7 +16,6 @@ import {
   eventLevels,
   type EventLevelValue
 } from '/@/consts/eventLevel'
-import router from '/@/router'
 
 interface Props {
   event: Event
@@ -60,18 +59,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div
-    v-if="eventDetail.eventLevel === eventLevel"
-    :class="$style.container"
-    @click="router.push({ name: 'Event', params: { id: event.id } })"
-  >
-    <div :class="$style.link">
+  <div :class="$style.container">
+    <router-link :to="`events/${event.id}`" :class="$style.link">
       <p :class="$style.name">{{ event.name }}</p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(event.duration.since)) }}
       </p>
-    </div>
+    </router-link>
     <div :class="$style.displayMenu">
       <button
         ref="element"
@@ -99,18 +94,16 @@ onUnmounted(() => {
 
 <style lang="scss" module>
 .link {
+  flex-grow: 1;
   color: inherit;
   text-decoration: none;
-  margin-right: auto;
-  padding-right: auto;
 }
 .container {
   padding: 0.5rem;
-
   border: 1px solid $color-primary-text;
   border-radius: 8px;
-
   display: flex;
+  position: relative;
 }
 
 .name {
