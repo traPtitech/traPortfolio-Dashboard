@@ -73,10 +73,8 @@ onUnmounted(() => {
         :class="$style.opener"
         @click.stop="displayMenu = !displayMenu"
       >
-        <span :class="$style.eventLevelMenuButton">
-          <p :class="$style.statusName">
-            {{ eventLevels[eventLevelValue].label }}
-          </p>
+        <span :class="[$style.eventLevelMenuButton, $style.statusName]">
+          {{ eventLevels[eventLevelValue].label }}
         </span>
         <span ref="element" :class="$style.icon" :is-menu-open="displayMenu">
           <icon name="mdi:chevron-down" />

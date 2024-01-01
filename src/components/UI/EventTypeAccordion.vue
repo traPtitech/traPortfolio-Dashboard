@@ -18,7 +18,7 @@ const emit = defineEmits<{
 
 const value = computed({
   get: () => eventLevelValueMap[props.modelValue],
-  set: v => emit('update:modelValue', getEventLevelFromValue(v) ?? '匿名公開')
+  set: v => emit('update:modelValue', getEventLevelFromValue(v) ?? '公開')
 })
 
 const options = [
