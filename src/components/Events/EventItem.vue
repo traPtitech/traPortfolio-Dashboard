@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 import apis, {
   EventDetail,
@@ -28,16 +28,12 @@ const props = defineProps<Props>()
 const displayMenu = ref(false)
 
 const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
-const eventLevelValue = computed<EventLevelValue>({
-  get: () => {
-    return eventLevelValueMap[eventDetail.eventLevel]
-  },
-  set: () => {
-    eventLevelValue.value = eventLevelValueMap[eventDetail.eventLevel]
-  }
-})
+const eventLevelValue = ref<EventLevelValue>(
+  eventLevelValueMap[eventDetail.eventLevel]
+)
 
 const updateEventLevel = async (v: EventLevelValue) => {
+  eventLevelValue.value = v
   const currentEventLevel: EventLevel = getEventLevelFromValue(v)
   const editReq: EditEventRequest = { eventLevel: currentEventLevel }
   await apis.editEvent(props.event.id, editReq)
