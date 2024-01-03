@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 import apis, {
   EventDetail,
@@ -16,6 +16,7 @@ import {
   eventLevels,
   type EventLevelValue
 } from '/@/consts/eventLevel'
+import { useEventStore } from '/@/store/event'
 
 interface Props {
   event: Event
@@ -27,17 +28,20 @@ const props = defineProps<Props>()
 const displayMenu = ref(false)
 
 const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
-const eventLevelValue = ref<EventLevelValue>(
-  eventLevelValueMap[eventDetail.eventLevel]
-)
+const eventLevelValue = computed<EventLevelValue>({
+  get: () => {
+    return eventLevelValueMap[eventDetail.eventLevel]
+  },
+  set: () => {
+    eventLevelValue.value = eventLevelValueMap[eventDetail.eventLevel]
+  }
+})
 
-const updateEventLevel = (eventLevel: EventLevelValue) => {
-  eventLevelValue.value = eventLevel
-  const currentEventLevel: EventLevel = getEventLevelFromValue(
-    eventLevelValue.value
-  )
+const updateEventLevel = async (v: EventLevelValue) => {
+  const currentEventLevel: EventLevel = getEventLevelFromValue(v)
   const editReq: EditEventRequest = { eventLevel: currentEventLevel }
-  apis.editEvent(props.event.id, editReq)
+  await apis.editEvent(props.event.id, editReq)
+  useEventStore().mutate()
 }
 
 const element = ref<HTMLDivElement | null>(null)
@@ -71,7 +75,7 @@ onUnmounted(() => {
       <button
         ref="element"
         :class="$style.opener"
-        @click.stop="displayMenu = !displayMenu"
+        @click="displayMenu = !displayMenu"
       >
         <span :class="[$style.eventLevelMenuButton, $style.statusName]">
           {{ eventLevels[eventLevelValue].label }}
