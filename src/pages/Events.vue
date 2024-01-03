@@ -10,7 +10,7 @@ import { useEventStore } from '/@/store/event'
 
 const eventStore = useEventStore()
 const events = await eventStore.fetchEvents()
-const eventType = ref(1)
+const eventType = ref(3)
 
 const searchQuery = ref('')
 </script>
