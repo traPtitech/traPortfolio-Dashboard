@@ -35,5 +35,10 @@ export const isValidYearWithSemesterDuration = (
     }
     return true
   }
+
+  if (duration.since) {
+    return true
+  }
+
   return false
 }

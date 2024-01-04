@@ -2,7 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis from '/@/lib/apis'
+import apis, { ProjectMember as ProjectMemberType } from '/@/lib/apis'
 import type { EditProjectRequest, ProjectDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import useParam from '/@/use/param'
@@ -19,6 +19,9 @@ import {
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import { useProjectStore } from '/@/store/project'
+import MemberInput from '/@/components/UI/MemberInput.vue'
+import ProjectMember from '/@/components/Projects/ProjectMember.vue'
+import { useUserStore } from '/@/store/user'
 
 const router = useRouter()
 const toast = useToast()
@@ -27,6 +30,9 @@ const { mutate } = useProjectStore()
 const projectId = useParam('projectId')
 const projectDetail: ProjectDetail = (await apis.getProject(projectId.value))
   .data
+const projectMembers: ProjectMemberType[] = (
+  await apis.getProjectMembers(projectId.value)
+).data
 
 const formValues = ref<Required<EditProjectRequest>>({
   name: projectDetail.name,
@@ -42,7 +48,10 @@ const canSubmit = computed(
     isValidLength(formValues.value.name, 1, 32) &&
     isValidYearWithSemesterDuration(formValues.value.duration) &&
     (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
-    isValidLength(formValues.value.description, 1, 256)
+    isValidLength(formValues.value.description, 1, 256) &&
+    members.value.every(member =>
+      isValidYearWithSemesterDuration(member.duration)
+    )
 )
 
 const updateProject = async () => {
@@ -54,12 +63,44 @@ const updateProject = async () => {
     }
     await apis.editProject(projectId.value, requestData)
     mutate()
+    //TODO: 無駄なのでPATCHにしたい
+    await apis.deleteProjectMembers(projectId.value, {
+      members: projectMembers.map(member => member.id)
+    })
+    await apis.addProjectMembers(projectId.value, {
+      members: members.value.map(member => ({
+        userId: member.id,
+        duration: member.duration
+      }))
+    })
+
     toast.success('プロジェクト情報を更新しました')
-    router.push(`/projects/${projectId.value}`)
+    router.push('/projects')
   } catch {
     toast.error('プロジェクト情報の更新に失敗しました')
   }
   isSending.value = false
+}
+
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
+
+const userWithDurations = computed<ProjectMemberType[]>(() =>
+  users.map(user => ({
+    ...user,
+    duration: {
+      since: {
+        year: new Date().getFullYear(),
+        semester: 0
+      },
+      until: undefined
+    }
+  }))
+)
+const members = ref<ProjectMemberType[]>(projectMembers)
+
+const handleDelete = (id: string) => {
+  members.value = members.value.filter(member => member.id !== id)
 }
 </script>
 
@@ -94,8 +135,24 @@ const updateProject = async () => {
           :rows="3"
         />
       </labeled-form>
+      <labeled-form label="メンバー" :class="$style.labeledForm">
+        <member-input
+          v-model="members"
+          :class="$style.memberInput"
+          :users="userWithDurations"
+          :is-disabled="false"
+        />
+        <div v-for="member in members" :key="member.id">
+          <project-member
+            v-model="member.duration"
+            :user="member"
+            :class="$style.projectMember"
+            @delete="handleDelete"
+          />
+        </div>
+      </labeled-form>
     </form>
-    <!--TODO: メンバ－-->
+
     <delete-form target="プロジェクト" />
     <div :class="$style.buttonContainer">
       <router-link :to="`/projects/${projectId}`" :class="$style.link">
@@ -126,7 +183,7 @@ const updateProject = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;
@@ -143,5 +200,13 @@ const updateProject = async () => {
 }
 .backButton {
   margin-left: 0.5rem;
+}
+
+.memberInput {
+  margin-bottom: 1rem;
+}
+
+.projectMember {
+  margin-bottom: 0.5rem;
 }
 </style>
