@@ -1,20 +1,20 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="U extends User">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 
 import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { User } from '/@/lib/apis'
-import { useUserStore } from '/@/store/user'
 import UserIcon from '/@/components/UI/UserIcon.vue'
 
-const userStore = useUserStore()
-const users = await userStore.fetchUsers()
-
 interface Props {
-  modelValue: User[]
+  modelValue: U[]
+  isDisabled: boolean
+  users: U[]
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  isDisabled: false
+})
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: User[]): void
@@ -29,7 +29,7 @@ const limit = ref(10)
 const search = ref('')
 
 const filtered = computed(
-  () => users.filter(user => user.name.includes(search.value)) ?? []
+  () => props.users.filter(user => user.name.includes(search.value)) ?? []
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)
@@ -82,6 +82,7 @@ const onClose = () => {
     multiple
     :close-on-select="false"
     deselect-from-dropdown
+    :disabled="isDisabled"
     @open="onOpen"
     @close="onClose"
     @search="onSearch"
@@ -140,8 +141,6 @@ const onClose = () => {
     height: 24px;
     background-color: $color-secondary;
     mask: url('/icons/account.svg') no-repeat center center;
-    margin-top: 4px;
-    margin-left: 4px;
   }
   &:focus-within::before {
     background-color: $color-primary;
@@ -152,5 +151,17 @@ const onClose = () => {
   &:hover {
     filter: brightness(0.95);
   }
+}
+
+.select :global(.vs__selected) {
+  margin: 0 2px;
+}
+
+.select :global(.vs__search) {
+  margin: 0 2px;
+}
+
+.select :global(.vs__dropdown-toggle) {
+  padding: 8px;
 }
 </style>

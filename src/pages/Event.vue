@@ -11,7 +11,10 @@ import useParam from '/@/use/param'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import RadioButton from '/@/components/UI/RadioButton.vue'
-import { eventLevels, getEventLevelFromValue } from '/@/consts/eventLevel'
+import {
+  eventLevelValueMap,
+  getEventLevelFromValue
+} from '/@/consts/eventLevel'
 import { EventLevelValue } from '/@/consts/eventLevel'
 import { useEventStore } from '/@/store/event'
 
@@ -22,9 +25,7 @@ const { mutate } = useEventStore()
 const eventId = useParam('id')
 const event: EventDetail = (await apis.getEvent(eventId.value)).data
 
-const eventLevel = ref<EventLevelValue>(
-  eventLevels.get(event.eventLevel)?.value ?? 'public'
-)
+const eventLevel = ref<EventLevelValue>(eventLevelValueMap[event.eventLevel])
 
 const isSending = ref(false)
 const updateEvent = async () => {
@@ -51,13 +52,13 @@ const updateEvent = async () => {
         icon-name="mdi:calendar"
         :header-texts="[
           { title: 'Events', url: '/events' },
-          { title: event?.name ?? '', url: `/events/${eventId}` }
+          { title: event.name, url: `/events/${eventId}` }
         ]"
         detail="イベントの詳細を確認します。"
         :class="$style.header"
       />
     </div>
-    <div v-if="event !== undefined">
+    <div>
       <section :class="$style.section">
         <h2 :class="$style.h2">イベント名</h2>
         <p :class="$style.content">{{ event.name }}</p>
@@ -142,7 +143,7 @@ const updateEvent = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .link {
   text-decoration: none;
@@ -178,5 +179,11 @@ const updateEvent = async () => {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+@media (width <= 768px) {
+  .radioButtons {
+    width: 100%;
+  }
 }
 </style>

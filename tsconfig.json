@@ -14,8 +14,6 @@
     "lib": ["esnext", "dom", "dom.iterable"],
     "skipLibCheck": true,
     "noEmit": true,
-    "incremental": true,
-    "tsBuildInfoFile": "./node_modules/.tsbuildinfo",
     "typeRoots": ["node_modules/@types", "src/types"],
     "paths": {
       "/@/*": ["src/*"]

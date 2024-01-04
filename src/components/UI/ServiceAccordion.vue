@@ -1,7 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
-import { services, serviceNameToType, serviceArray } from '/@/consts/services'
+import {
+  serviceNameToType,
+  serviceArray,
+  serviceTypeToNameMap
+} from '/@/consts/services'
 import { AccountType } from '/@/lib/apis'
 
 interface Props {
@@ -17,7 +21,7 @@ const emit = defineEmits<{
 }>()
 
 const value = computed({
-  get: () => services.get(props.modelValue)?.name ?? '',
+  get: () => serviceTypeToNameMap[props.modelValue],
   set: v =>
     emit('update:modelValue', serviceNameToType(v) ?? AccountType.homepage)
 })

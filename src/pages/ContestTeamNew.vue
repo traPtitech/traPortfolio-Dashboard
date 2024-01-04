@@ -13,12 +13,16 @@ import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import { isValidLength, isValidUrl } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
+import { useUserStore } from '/@/store/user'
 
 const router = useRouter()
 const toast = useToast()
 
 const contestId = useParam('contestId')
 const contest: ContestDetail = (await apis.getContest(contestId.value)).data
+
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
 
 const formValues = ref<Required<AddContestTeamRequest>>({
   name: '',
@@ -93,7 +97,7 @@ const createContestTeam = async () => {
         />
       </labeled-form>
       <labeled-form required label="メンバー" :class="$style.labeledForm">
-        <member-input v-model="members" />
+        <member-input v-model="members" :users="users" :is-disabled="false" />
       </labeled-form>
       <labeled-form required label="説明" :class="$style.labeledForm">
         <form-text-area
@@ -127,7 +131,7 @@ const createContestTeam = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;

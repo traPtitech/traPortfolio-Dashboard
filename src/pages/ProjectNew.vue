@@ -2,18 +2,28 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { CreateProjectRequest } from '/@/lib/apis'
+import apis, {
+  CreateProjectRequest,
+  User,
+  YearWithSemesterDuration
+} from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
+import MemberInput from '/@/components/UI/MemberInput.vue'
+import ProjectMember from '/@/components/Projects/ProjectMember.vue'
+import { useUserStore } from '/@/store/user'
+import { isValidYearWithSemesterDuration } from '/@/use/validate'
 import { useProjectStore } from '/@/store/project'
 
 const toast = useToast()
 const { mutate } = useProjectStore()
+
+type UserWithDuration = User & { duration: YearWithSemesterDuration }
 
 const formValues = reactive<Required<CreateProjectRequest>>({
   name: '',
@@ -35,13 +45,54 @@ const isSending = ref(false)
 const createProject = async () => {
   isSending.value = true
   try {
-    await apis.createProject(formValues)
+    const req: CreateProjectRequest = {
+      ...formValues,
+      link: formValues.link || undefined
+    }
+    const res = await apis.createProject(req)
     mutate()
+    await apis.addProjectMembers(res.data.id, {
+      members: members.value.map(member => ({
+        userId: member.id,
+        duration: member.duration
+      }))
+    })
     toast.success('プロジェクトを追加しました')
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
   }
   isSending.value = false
+}
+
+const canSubmit = computed(
+  () =>
+    !isSending.value &&
+    formValues.name !== '' &&
+    isValidYearWithSemesterDuration(formValues.duration) &&
+    members.value.every(member =>
+      isValidYearWithSemesterDuration(member.duration)
+    )
+)
+
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
+
+const userWithDurations = computed<UserWithDuration[]>(() =>
+  users.map(user => ({
+    ...user,
+    duration: {
+      since: {
+        year: new Date().getFullYear(),
+        semester: 0
+      },
+      until: undefined
+    }
+  }))
+)
+const members = ref<UserWithDuration[]>([])
+
+const handleDelete = (id: string) => {
+  members.value = members.value.filter(member => member.id !== id)
 }
 </script>
 
@@ -83,6 +134,22 @@ const createProject = async () => {
           :limit="256"
         />
       </labeled-form>
+      <labeled-form label="メンバー" :class="$style.labeledForm">
+        <member-input
+          v-model="members"
+          :class="$style.memberInput"
+          :users="userWithDurations"
+          :is-disabled="false"
+        />
+        <div v-for="member in members" :key="member.id">
+          <project-member
+            v-model="member.duration"
+            :user="member"
+            :class="$style.projectMember"
+            @delete="handleDelete"
+          />
+        </div>
+      </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
       <router-link to="/projects" :class="$style.link">
@@ -95,7 +162,7 @@ const createProject = async () => {
         </base-button>
       </router-link>
       <base-button
-        :is-disabled="isSending"
+        :is-disabled="!canSubmit"
         :class="$style.createButton"
         type="primary"
         icon="mdi:plus"
@@ -114,7 +181,7 @@ const createProject = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;
@@ -133,6 +200,14 @@ const createProject = async () => {
   justify-content: space-between;
   align-items: center;
   margin-top: 4rem;
+}
+
+.memberInput {
+  margin-bottom: 1rem;
+}
+
+.projectMember {
+  margin-bottom: 0.5rem;
 }
 </style>
 '

@@ -37,14 +37,14 @@ const updateUserProfile = async () => {
 
 <template>
   <div>
-    <div>
+    <section>
       <h2 :class="$style.shouldShowRealnameText">本名を表示する</h2>
       <div :class="$style.toggleContainer">
         <p>{{ user.realName }}</p>
         <toggle-switch v-model="shouldShowRealname" />
       </div>
-    </div>
-    <div>
+    </section>
+    <section>
       <h2 :class="$style.bio">自己紹介</h2>
       <div :class="$style.textareaContainer">
         <form-text-area
@@ -53,15 +53,16 @@ const updateUserProfile = async () => {
           :limit="256"
           placeholder="自己紹介を入力してください"
         />
-        <base-button
-          icon="mdi:update"
-          :class="$style.updateButton"
-          :disabled="isSending"
-          @click="updateUserProfile"
-        >
-          Update
-        </base-button>
       </div>
+    </section>
+    <div :class="$style.buttonContainer">
+      <base-button
+        icon="mdi:update"
+        :disabled="isSending"
+        @click="updateUserProfile"
+      >
+        Update
+      </base-button>
     </div>
   </div>
 </template>
@@ -77,13 +78,16 @@ const updateUserProfile = async () => {
   font-size: 1.25rem;
 }
 .textareaContainer {
-  margin: 0.5rem 0 0 0.5rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
 }
 .bio {
   font-size: 1.25rem;
   margin-top: 2rem;
 }
-.updateButton {
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
   margin-top: 2rem;
 }
 </style>
