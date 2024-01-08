@@ -36,6 +36,12 @@ defineProps<Props>()
 }
 .container {
   padding: 0.5rem;
+  border: 1px solid $color-primary-text;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $color-background-dim;
+  }
 }
 .displayNameContainer {
   margin-bottom: 0.75rem;

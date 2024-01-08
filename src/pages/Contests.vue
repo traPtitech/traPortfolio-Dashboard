@@ -82,10 +82,6 @@ const searchQuery = ref('')
     &:last-child {
       margin-bottom: 0;
     }
-
-    &:hover {
-      background-color: $color-background-dim;
-    }
   }
 }
 </style>

@@ -37,6 +37,12 @@ const userIds = ['sapphi_red', 'toshi00', 'tesso', 'mehm8128']
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid $color-primary-text;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: $color-background-dim;
+  }
 }
 .name {
   color: $color-primary;
