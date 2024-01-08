@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import PageInfoPanel from '/@/components/Index/PageInfoPanel.vue'
+import { routes } from '/@/lib/routeInfo'
+
+const pages = routes.filter(route => route.name != 'Top')
+</script>
+
 <template>
   <ul :class="$style.list">
     <page-info-panel
@@ -8,21 +15,6 @@
     />
   </ul>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-import PageInfoPanel from '/@/components/Index/PageInfoPanel.vue'
-import { routes } from '/@/lib/routeInfo'
-
-export default defineComponent({
-  name: 'PageInfoPanels',
-  components: { PageInfoPanel },
-  setup() {
-    const pages = routes.filter(route => route.name != 'Top')
-    return { pages }
-  }
-})
-</script>
 
 <style lang="scss" module>
 .list {
