@@ -5,7 +5,7 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { EditContestRequest } from '/@/lib/apis'
 import type { ContestDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
@@ -16,7 +16,7 @@ import {
   isValidDuration,
   isValidLength,
   isValidOptionalUrl
-} from '/@/use/validate'
+} from '/@/lib/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useContestStore } from '/@/store/contest'

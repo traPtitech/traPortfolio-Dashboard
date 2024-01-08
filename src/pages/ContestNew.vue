@@ -9,7 +9,7 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
-import { isValidDuration, isValidLength, isValidOptionalUrl} from '/@/use/validate'
+import { isValidDuration, isValidLength, isValidOptionalUrl} from '/@/lib/validate'
 import { useToast } from 'vue-toastification'
 import { useContestStore } from '/@/store/contest'
 

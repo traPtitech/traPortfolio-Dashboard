@@ -10,7 +10,7 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import { hasAtmarkService, hasIdService } from '/@/consts/services'
-import { isValidLength, isValidUrl } from '/@/use/validate'
+import { isValidLength, isValidUrl } from '/@/lib/validate'
 import { useToast } from 'vue-toastification'
 
 const router = useRouter()

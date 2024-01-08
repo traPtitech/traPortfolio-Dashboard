@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent, toRef } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
-import useRouteInfo from '/@/use/routeInfo'
+import useRouteInfo from '/@/lib/routeInfo'
 export default defineComponent({
   name: 'PageInfoPanel',
   components: {
