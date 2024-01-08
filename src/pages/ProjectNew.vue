@@ -4,8 +4,7 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, {
   CreateProjectRequest,
-  User,
-  YearWithSemesterDuration
+  ProjectMember as ProjectMemberType
 } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
@@ -22,8 +21,6 @@ import { useProjectStore } from '/@/store/project'
 
 const toast = useToast()
 const { mutate } = useProjectStore()
-
-type UserWithDuration = User & { duration: YearWithSemesterDuration }
 
 const formValues = reactive<Required<CreateProjectRequest>>({
   name: '',
@@ -77,7 +74,7 @@ const canSubmit = computed(
 const userStore = useUserStore()
 const users = await userStore.fetchUsers()
 
-const userWithDurations = computed<UserWithDuration[]>(() =>
+const userWithDurations = computed<ProjectMemberType[]>(() =>
   users.map(user => ({
     ...user,
     duration: {
@@ -89,7 +86,7 @@ const userWithDurations = computed<UserWithDuration[]>(() =>
     }
   }))
 )
-const members = ref<UserWithDuration[]>([])
+const members = ref<ProjectMemberType[]>([])
 
 const handleDelete = (id: string) => {
   members.value = members.value.filter(member => member.id !== id)
@@ -210,4 +207,3 @@ const handleDelete = (id: string) => {
   margin-bottom: 0.5rem;
 }
 </style>
-'
