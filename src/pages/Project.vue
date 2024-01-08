@@ -5,7 +5,7 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { ProjectMember as ProjectMemberType } from '/@/lib/apis'
 import type { EditProjectRequest, ProjectDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
@@ -15,7 +15,7 @@ import {
   isValidLength,
   isValidOptionalUrl,
   isValidYearWithSemesterDuration
-} from '/@/use/validate'
+} from '/@/lib/validate'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import { useProjectStore } from '/@/store/project'

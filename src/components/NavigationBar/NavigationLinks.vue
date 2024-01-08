@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import NavigationLinksItem from './NavigationLinksItem.vue'
-import { routes } from '/@/use/routeInfo'
+import { routes } from '/@/lib/routeInfo'
 </script>
 
 <template>

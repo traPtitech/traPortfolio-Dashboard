@@ -2,7 +2,7 @@
 import { computed, toRef } from 'vue'
 import { useRoute } from 'vue-router'
 import Icon from '/@/components/UI/Icon.vue'
-import useRouteInfo from '/@/use/routeInfo'
+import useRouteInfo from '/@/lib/routeInfo'
 
 interface Props {
   name: string

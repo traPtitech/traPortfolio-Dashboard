@@ -20,7 +20,7 @@ import {
   isValidLength,
   isValidOptionalUrl,
   isValidYearWithSemesterDuration
-} from '/@/use/validate'
+} from '/@/lib/validate'
 import { useProjectStore } from '/@/store/project'
 
 const toast = useToast()
