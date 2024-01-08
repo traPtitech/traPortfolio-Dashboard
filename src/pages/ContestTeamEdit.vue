@@ -12,7 +12,7 @@ import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
-import { isValidLength, isValidUrl } from '/@/use/validate'
+import { isValidLength, isValidOptionalUrl } from '/@/use/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
@@ -42,7 +42,7 @@ const canSubmit = computed(
     !isSending.value &&
     isValidLength(formValues.value.name, 1, 32) &&
     isValidLength(formValues.value.result, 0, 32) &&
-    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256) &&
     members.value.length > 0
 )

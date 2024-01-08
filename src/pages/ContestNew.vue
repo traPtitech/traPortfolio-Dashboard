@@ -9,7 +9,7 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
-import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+import { isValidDuration, isValidLength, isValidOptionalUrl} from '/@/use/validate'
 import { useToast } from 'vue-toastification'
 import { useContestStore } from '/@/store/contest'
 
@@ -31,7 +31,7 @@ const canSubmit = computed(
   () =>
     !isSending.value &&
     isValidLength(formValues.name, 1, 32) &&
-    (formValues.link !== '' ? isValidUrl(formValues.link) : true) &&
+    isValidOptionalUrl(formValues.link) &&
     isValidDuration(formValues.duration) &&
     isValidLength(formValues.description, 1, 256)
 )

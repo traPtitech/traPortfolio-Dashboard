@@ -13,7 +13,7 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import {
   isValidLength,
-  isValidUrl,
+  isValidOptionalUrl,
   isValidYearWithSemesterDuration
 } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
@@ -47,7 +47,7 @@ const canSubmit = computed(
     !isSending.value &&
     isValidLength(formValues.value.name, 1, 32) &&
     isValidYearWithSemesterDuration(formValues.value.duration) &&
-    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256) &&
     members.value.every(member =>
       isValidYearWithSemesterDuration(member.duration)

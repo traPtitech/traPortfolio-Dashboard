@@ -18,7 +18,7 @@ import ProjectMember from '/@/components/Projects/ProjectMember.vue'
 import { useUserStore } from '/@/store/user'
 import {
   isValidLength,
-  isValidUrl,
+  isValidOptionalUrl,
   isValidYearWithSemesterDuration
 } from '/@/use/validate'
 import { useProjectStore } from '/@/store/project'
@@ -69,7 +69,7 @@ const canSubmit = computed(
   () =>
     !isSending.value &&
     isValidLength(formValues.name, 1, 32) &&
-    (formValues.link !== '' ? isValidUrl(formValues.link) : true) &&
+    isValidOptionalUrl(formValues.link) &&
     isValidYearWithSemesterDuration(formValues.duration) &&
     isValidLength(formValues.description, 1, 256) &&
     isValidYearWithSemesterDuration(formValues.duration) &&
