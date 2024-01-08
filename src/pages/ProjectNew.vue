@@ -16,7 +16,11 @@ import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import ProjectMember from '/@/components/Projects/ProjectMember.vue'
 import { useUserStore } from '/@/store/user'
-import { isValidYearWithSemesterDuration } from '/@/use/validate'
+import {
+  isValidLength,
+  isValidOptionalUrl,
+  isValidYearWithSemesterDuration
+} from '/@/use/validate'
 import { useProjectStore } from '/@/store/project'
 
 const toast = useToast()
@@ -64,7 +68,10 @@ const createProject = async () => {
 const canSubmit = computed(
   () =>
     !isSending.value &&
-    formValues.name !== '' &&
+    isValidLength(formValues.name, 1, 32) &&
+    isValidOptionalUrl(formValues.link) &&
+    isValidYearWithSemesterDuration(formValues.duration) &&
+    isValidLength(formValues.description, 1, 256) &&
     isValidYearWithSemesterDuration(formValues.duration) &&
     members.value.every(member =>
       isValidYearWithSemesterDuration(member.duration)
@@ -123,7 +130,7 @@ const handleDelete = (id: string) => {
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="説明" :class="$style.labeledForm">
+      <labeled-form label="説明" :class="$style.labeledForm" required>
         <form-text-area
           v-model="formValues.description"
           placeholder="説明を入力"

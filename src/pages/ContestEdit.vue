@@ -12,7 +12,11 @@ import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
-import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+import {
+  isValidDuration,
+  isValidLength,
+  isValidOptionalUrl
+} from '/@/use/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useContestStore } from '/@/store/contest'
@@ -42,7 +46,7 @@ const canSubmit = computed(
     !isSending.value &&
     isValidLength(formValues.value.name, 1, 32) &&
     isValidDuration(formValues.value.duration) &&
-    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256)
 )
 

@@ -11,7 +11,7 @@ import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
-import { isValidLength, isValidUrl } from '/@/use/validate'
+import { isValidLength, isValidOptionalUrl } from '/@/use/validate'
 import { useToast } from 'vue-toastification'
 import { useUserStore } from '/@/store/user'
 
@@ -38,7 +38,7 @@ const canSubmit = computed(
     !isSending.value &&
     isValidLength(formValues.value.name, 1, 32) &&
     isValidLength(formValues.value.result, 0, 32) &&
-    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256) &&
     members.value.length > 0
 )

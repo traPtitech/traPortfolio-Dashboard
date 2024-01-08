@@ -16,6 +16,11 @@ export const isValidUrl = (link: string) => {
   return url.protocol === 'http:' || url.protocol === 'https:'
 }
 
+export const isValidOptionalUrl = (link: string) => {
+  if (link === '') return true
+  return isValidUrl(link)
+}
+
 export const isValidDuration = (duration: Duration) => {
   if (duration.since && duration.until) {
     return duration.since <= duration.until
