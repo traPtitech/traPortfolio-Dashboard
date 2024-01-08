@@ -24,16 +24,18 @@ const emit = defineEmits<{
 
 <template>
   <div :class="$style.container">
-    <div :class="$style.user">
-      <user-icon :user-id="user.id" :size="48" />
-      <p :class="$style.name">{{ user.name }}</p>
-    </div>
+    <div :class="$style.content">
+      <div :class="$style.user">
+        <user-icon :user-id="user.id" :size="48" />
+        <p :class="$style.name">{{ user.name }}</p>
+      </div>
 
-    <form-project-duration
-      v-model="value"
-      since-required
-      :class="$style.projectDuration"
-    />
+      <form-project-duration
+        v-model="value"
+        since-required
+        :class="$style.projectDuration"
+      />
+    </div>
     <button :class="$style.icon" @click="emit('delete', user.id)">
       <icon :size="32" name="mdi:delete" />
     </button>
@@ -51,6 +53,12 @@ const emit = defineEmits<{
   border: 1px solid $color-primary-text;
   border-radius: 8px;
 }
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex: 1;
+}
 .name {
   word-break: break-all;
 }
@@ -59,6 +67,10 @@ const emit = defineEmits<{
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  @media (width <= 768px) {
+    width: 100%;
+  }
 }
 
 .icon {
