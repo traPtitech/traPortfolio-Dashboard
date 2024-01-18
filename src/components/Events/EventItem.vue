@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 import apis, {
-  EventDetail,
   Event,
   EditEventRequest,
   EventLevel
@@ -27,15 +26,14 @@ const props = defineProps<Props>()
 
 const displayMenu = ref(false)
 
-const eventDetail: EventDetail = (await apis.getEvent(props.event.id)).data
 const eventLevelValue = ref<EventLevelValue>(
-  eventLevelValueMap[eventDetail.eventLevel]
+  eventLevelValueMap[props.event.level]
 )
 
 const updateEventLevel = async (v: EventLevelValue) => {
   eventLevelValue.value = v
   const currentEventLevel: EventLevel = getEventLevelFromValue(v)
-  const editReq: EditEventRequest = { eventLevel: currentEventLevel }
+  const editReq: EditEventRequest = { level: currentEventLevel }
   await apis.editEvent(props.event.id, editReq)
   useEventStore().mutate()
 }
