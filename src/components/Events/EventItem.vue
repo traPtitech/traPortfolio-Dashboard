@@ -1,11 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
-import apis, {
-  Event,
-  EditEventRequest,
-  EventLevel
-} from '/@/lib/apis'
+import apis, { Event, EditEventRequest, EventLevel } from '/@/lib/apis'
 import Icon from '/@/components/UI/Icon.vue'
 import { getFullDayString } from '/@/lib/date'
 import EventLevelMenu from '/@/components/Events/EventLevelMenu.vue'
@@ -70,7 +66,7 @@ onUnmounted(() => {
         :class="$style.opener"
         @click="displayMenu = !displayMenu"
       >
-        <span :class="[$style.eventLevelMenuButton, $style.statusName]">
+        <span>
           {{ eventLevels[eventLevelValue].label }}
         </span>
         <span ref="element" :class="$style.icon" :is-menu-open="displayMenu">
@@ -98,7 +94,9 @@ onUnmounted(() => {
   border: 1px solid $color-primary-text;
   border-radius: 8px;
   display: flex;
-  position: relative;
+  &:hover {
+    background-color: $color-background-dim;
+  }
 }
 
 .name {
