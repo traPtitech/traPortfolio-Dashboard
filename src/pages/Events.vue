@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
@@ -13,6 +13,14 @@ const events = await eventStore.fetchEvents()
 const eventType = ref(3)
 
 const searchQuery = ref('')
+
+const filteredEvents = computed(() => {
+  if (eventType.value === 3) {
+    return events
+  } else {
+    return events.filter(event => event.level === eventType.value)
+  }
+})
 </script>
 
 <template>
@@ -38,8 +46,8 @@ const searchQuery = ref('')
       </div>
     </div>
     <ul :class="$style.eventList">
-      <li v-for="event in events" :key="event.id">
-        <event-item :event="event" :event-level="eventType" />
+      <li v-for="event in filteredEvents" :key="event.id">
+        <event-item :event="event" />
       </li>
     </ul>
   </page-container>

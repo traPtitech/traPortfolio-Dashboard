@@ -19,7 +19,6 @@ import { useEventStore } from '/@/store/event'
 
 interface Props {
   event: Event
-  eventLevel: EventLevel
 }
 
 const props = defineProps<Props>()
