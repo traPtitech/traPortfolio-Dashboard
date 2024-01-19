@@ -1,40 +1,23 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
-import { EventLevel } from '/@/lib/apis'
-import {
-  eventLevelValueMap,
-  getEventLevelFromValue
-} from '/@/consts/eventLevel'
+import { EventLevelValue } from '/@/consts/eventLevel'
 
-enum All {
-  All = 3
-}
-
-type EventLevelWithAll = EventLevel | All
+export type EventLevelValueWithAll = EventLevelValue | 'all'
 
 interface Props {
-  modelValue: EventLevelWithAll
+  modelValue: EventLevelValueWithAll
 }
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: EventLevelWithAll): void
+  (e: 'update:modelValue', value: EventLevelValueWithAll): void
 }>()
 
 const value = computed({
-  get() {
-    if (
-      props.modelValue === 1 ||
-      props.modelValue === 2 ||
-      props.modelValue === 0
-    ) {
-      return eventLevelValueMap[props.modelValue]
-    } else return 'all'
-  },
-  set(v) {
-    if (v === 'all') emit('update:modelValue', 3)
-    else emit('update:modelValue', getEventLevelFromValue(v))
+  get: () => props.modelValue,
+  set(v: EventLevelValueWithAll) {
+    emit('update:modelValue', v)
   }
 })
 
