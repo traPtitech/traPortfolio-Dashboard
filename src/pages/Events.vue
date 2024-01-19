@@ -4,11 +4,13 @@ import { computed, ref } from 'vue'
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import EventTypeAccordion from '/@/components/UI/EventTypeAccordion.vue'
-import type { EventLevelValueWithAll } from '/@/components/UI/EventTypeAccordion.vue'
 import EventItem from '/@/components/Events/EventItem.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { useEventStore } from '/@/store/event'
-import { eventLevelValueMap } from '/@/consts/eventLevel'
+import {
+  type EventLevelValueWithAll,
+  eventLevelValueMap
+} from '/@/consts/eventLevel'
 
 const eventStore = useEventStore()
 const events = await eventStore.fetchEvents()
@@ -20,7 +22,9 @@ const filteredEvents = computed(() => {
   if (eventType.value === 'all') {
     return events
   } else {
-    return events.filter(event => eventLevelValueMap[event.level] === eventType.value)
+    return events.filter(
+      event => eventLevelValueMap[event.level] === eventType.value
+    )
   }
 })
 </script>

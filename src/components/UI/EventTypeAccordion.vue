@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
-import { EventLevelValue } from '/@/consts/eventLevel'
-
-export type EventLevelValueWithAll = EventLevelValue | 'all'
+import type { EventLevelValueWithAll } from '/@/consts/eventLevel'
 
 interface Props {
   modelValue: EventLevelValueWithAll
