@@ -25,14 +25,14 @@ const { mutate } = useEventStore()
 const eventId = useParam('id')
 const event: EventDetail = (await apis.getEvent(eventId.value)).data
 
-const eventLevel = ref<EventLevelValue>(eventLevelValueMap[event.eventLevel])
+const eventLevel = ref<EventLevelValue>(eventLevelValueMap[event.level])
 
 const isSending = ref(false)
 const updateEvent = async () => {
   isSending.value = true
   try {
     const requestData: EditEventRequest = {
-      eventLevel: getEventLevelFromValue(eventLevel.value)
+      level: getEventLevelFromValue(eventLevel.value)
     }
     await apis.editEvent(eventId.value, requestData)
     mutate()
