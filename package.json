@@ -8,11 +8,9 @@
     "lint": "eslint --fix --ext .ts,.vue src",
     "lint:nofix": "eslint --ext .ts,.vue src",
     "type-check": "vue-tsc --noEmit",
-    "fetch-openapi": "node scripts/fetchOpenapi.js",
     "gen-api": "node scripts/generateApi.js",
-    "start-mock": "prism mock -p 4010 -d scripts/traPortfolio.v1.yaml",
-    "clean": "rimraf scripts/traPorfolio.v1.yaml src/lib/apis/generated",
-    "postinstall": "npm run fetch-openapi && npm run gen-api"
+    "start-mock": "prism mock -p 4010 -d https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml",
+    "postinstall": "npm run gen-api"
   },
   "dependencies": {
     "@iconify/iconify": "^3.1.1",
