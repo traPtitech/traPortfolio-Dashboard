@@ -5,14 +5,18 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { EditContestRequest } from '/@/lib/apis'
 import type { ContestDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
-import { isValidDuration, isValidLength, isValidUrl } from '/@/use/validate'
+import {
+  isValidDuration,
+  isValidLength,
+  isValidOptionalUrl
+} from '/@/lib/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useContestStore } from '/@/store/contest'
@@ -42,7 +46,7 @@ const canSubmit = computed(
     !isSending.value &&
     isValidLength(formValues.value.name, 1, 32) &&
     isValidDuration(formValues.value.duration) &&
-    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256)
 )
 
@@ -153,7 +157,7 @@ const deleteContest = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;

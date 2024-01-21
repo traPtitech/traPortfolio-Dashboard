@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
-import { isValidUrl } from '/@/use/validate'
+import { isValidUrl } from '/@/lib/validate'
 
 interface Props {
   modelValue: string

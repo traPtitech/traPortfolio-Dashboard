@@ -7,7 +7,7 @@ import EventHostItem from '/@/components/Event/EventHostItem.vue'
 import apis, { EditEventRequest, EventDetail } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import RadioButton from '/@/components/UI/RadioButton.vue'
@@ -25,14 +25,14 @@ const { mutate } = useEventStore()
 const eventId = useParam('id')
 const event: EventDetail = (await apis.getEvent(eventId.value)).data
 
-const eventLevel = ref<EventLevelValue>(eventLevelValueMap[event.eventLevel])
+const eventLevel = ref<EventLevelValue>(eventLevelValueMap[event.level])
 
 const isSending = ref(false)
 const updateEvent = async () => {
   isSending.value = true
   try {
     const requestData: EditEventRequest = {
-      eventLevel: getEventLevelFromValue(eventLevel.value)
+      level: getEventLevelFromValue(eventLevel.value)
     }
     await apis.editEvent(eventId.value, requestData)
     mutate()
@@ -52,13 +52,13 @@ const updateEvent = async () => {
         icon-name="mdi:calendar"
         :header-texts="[
           { title: 'Events', url: '/events' },
-          { title: event?.name ?? '', url: `/events/${eventId}` }
+          { title: event.name, url: `/events/${eventId}` }
         ]"
         detail="イベントの詳細を確認します。"
         :class="$style.header"
       />
     </div>
-    <div v-if="event !== undefined">
+    <div>
       <section :class="$style.section">
         <h2 :class="$style.h2">イベント名</h2>
         <p :class="$style.content">{{ event.name }}</p>
@@ -143,7 +143,7 @@ const updateEvent = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .link {
   text-decoration: none;
@@ -179,5 +179,11 @@ const updateEvent = async () => {
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
+}
+
+@media (width <= 768px) {
+  .radioButtons {
+    width: 100%;
+  }
 }
 </style>

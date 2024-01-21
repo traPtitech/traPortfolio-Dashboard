@@ -1,30 +1,54 @@
-<script lang="ts" setup>
+<script lang="ts" setup generic="T">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
 import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 
-export interface Option {
+export interface Option<T> {
   label: string
-  value: string
+  value: T
 }
 
 interface Props {
-  modelValue: string
-  options: Option[]
+  modelValue: T
+  options: Option<T>[]
+  by?: keyof T | ((a: T, b: T) => boolean)
   searchable?: boolean
 }
 
 const props = defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: 'update:modelValue', value: T): void
 }>()
 
 const value = computed({
   get: () => props.modelValue,
   set: v => emit('update:modelValue', v)
 })
+
+const compare = (a: T, b: T) => {
+  if (typeof props.by === 'function') {
+    return props.by(a, b)
+  }
+
+  if (typeof props.by === 'string') {
+    return a[props.by] === b[props.by]
+  }
+
+  if (
+    a !== null &&
+    b !== null &&
+    typeof a === 'object' &&
+    typeof b === 'object' &&
+    'id' in a &&
+    'id' in b
+  ) {
+    return a.id === b.id
+  }
+
+  return a === b
+}
 </script>
 
 <template>
@@ -33,14 +57,14 @@ const value = computed({
     :options="options"
     :clearable="false"
     label="label"
-    :reduce="(option:Option) => option.value"
+    :reduce="(option: Option<T>) => option.value"
     :class="$style.select"
     :searchable="searchable"
   >
     <template #option="{ label }">
       <div :class="$style.item">
         <icon
-          v-if="label === options.find(o => o.value === value)?.label"
+          v-if="label === options.find(o => compare(o.value, value))?.label"
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />
@@ -60,6 +84,7 @@ const value = computed({
     color: $color-primary;
   }
   .label {
+    display: grid;
     grid-column: 2;
   }
 }

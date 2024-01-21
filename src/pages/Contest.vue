@@ -7,7 +7,7 @@ import apis, { ContestDetail, ContestTeam } from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import Icon from '/@/components/UI/Icon.vue'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
 const contestId = useParam('contestId')
@@ -88,7 +88,7 @@ const contestTeams: ContestTeam[] = (
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .link {
   text-decoration: none;

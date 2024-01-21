@@ -8,11 +8,11 @@ import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { hasIdService, hasAtmarkService } from '/@/consts/services'
-import { isValidLength, isValidUrl } from '/@/use/validate'
+import { isValidLength, isValidUrl } from '/@/lib/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
@@ -159,7 +159,7 @@ const deleteAccount = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;

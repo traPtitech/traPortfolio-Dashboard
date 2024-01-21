@@ -5,17 +5,18 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { ContestTeamDetail, EditContestTeamRequest } from '/@/lib/apis'
 import type { ContestDetail, User } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
-import useParam from '/@/use/param'
+import useParam from '/@/lib/param'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
-import { isValidLength, isValidUrl } from '/@/use/validate'
+import { isValidLength, isValidOptionalUrl } from '/@/lib/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
+import { useUserStore } from '/@/store/user'
 
 const router = useRouter()
 const toast = useToast()
@@ -31,6 +32,9 @@ const contestTeam: ContestTeamDetail = (
 const formValues = ref<Required<EditContestTeamRequest>>(contestTeam)
 const members = ref<User[]>(contestTeam.members)
 
+const userStore = useUserStore()
+const users = await userStore.fetchUsers()
+
 const isSending = ref(false)
 const isDeleting = ref(false)
 const canSubmit = computed(
@@ -38,7 +42,7 @@ const canSubmit = computed(
     !isSending.value &&
     isValidLength(formValues.value.name, 1, 32) &&
     isValidLength(formValues.value.result, 0, 32) &&
-    (formValues.value.link !== '' ? isValidUrl(formValues.value.link) : true) &&
+    isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256) &&
     members.value.length > 0
 )
@@ -120,7 +124,7 @@ const deleteContestTeam = async () => {
         />
       </labeled-form>
       <labeled-form required label="メンバー" :class="$style.labeledForm">
-        <member-input v-model="members" />
+        <member-input v-model="members" :users="users" :is-disabled="false" />
       </labeled-form>
       <labeled-form required label="説明" :class="$style.labeledForm">
         <form-text-area
@@ -164,7 +168,7 @@ const deleteContestTeam = async () => {
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .labeledForm {
   margin-bottom: 2rem;

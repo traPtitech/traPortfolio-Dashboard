@@ -32,6 +32,10 @@ defineProps<Props>()
 
   border: 1px solid $color-primary-text;
   border-radius: 8px;
+
+  &:hover {
+    background-color: $color-background-dim;
+  }
 }
 
 .name {

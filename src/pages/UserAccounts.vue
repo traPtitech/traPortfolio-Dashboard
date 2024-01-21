@@ -55,7 +55,7 @@ const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
   align-items: center;
 }
 .header {
-  margin: 4rem 0 2rem;
+  margin-bottom: 2rem;
 }
 .link {
   text-decoration: none;
@@ -65,14 +65,9 @@ const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
   list-style: none;
   padding: 0.5rem 0;
   li {
-    border: 1px solid $color-primary-text;
-    border-radius: 8px;
     margin-bottom: 0.5rem;
     &:last-child {
       margin-bottom: 0;
-    }
-    &:hover {
-      background-color: $color-background-dim;
     }
   }
 }

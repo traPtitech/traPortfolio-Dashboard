@@ -11,6 +11,8 @@ type EventLevelValueMap = typeof eventLevelValueMap
 
 export type EventLevelValue = EventLevelValueMap[keyof EventLevelValueMap]
 
+export type EventLevelValueWithAll = EventLevelValue | 'all'
+
 interface EventLevelDetail<Level extends EventLevel = EventLevel> {
   label: string
   value: Level

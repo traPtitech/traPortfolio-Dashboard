@@ -11,30 +11,20 @@
     </router-link>
   </li>
 </template>
-<script lang="ts">
-import { defineComponent, toRef } from 'vue'
+
+<script lang="ts" setup>
+import { toRef } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
-import useRouteInfo from '/@/use/routeInfo'
-export default defineComponent({
-  name: 'PageInfoPanel',
-  components: {
-    Icon
-  },
-  props: {
-    name: {
-      type: String,
-      required: true
-    },
-    path: {
-      type: String,
-      required: true
-    }
-  },
-  setup(props) {
-    const routeInfo = useRouteInfo(toRef(props, 'name'))
-    return { routeInfo }
-  }
-})
+import useRouteInfo from '/@/lib/routeInfo'
+
+interface Props {
+  name: string
+  path: string
+}
+
+const props = defineProps<Props>()
+
+const routeInfo = useRouteInfo(toRef(props.name))
 </script>
 
 <style lang="scss" module>
