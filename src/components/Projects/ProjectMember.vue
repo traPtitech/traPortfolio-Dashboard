@@ -42,10 +42,7 @@ const shouldShowDurationError = computed(
           since-required
           :class="$style.projectDuration"
         />
-        <field-error-message
-          v-if="shouldShowDurationError"
-          :class="$style.errorMessage"
-        >
+        <field-error-message v-if="shouldShowDurationError">
           開始期間は終了期間よりも前に指定してください。
         </field-error-message>
       </div>
@@ -85,10 +82,6 @@ const shouldShowDurationError = computed(
   @media (width <= 768px) {
     width: 100%;
   }
-}
-
-.errorMessage {
-  align-self: flex-end;
 }
 
 .icon {
