@@ -9,9 +9,14 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormDuration from '/@/components/UI/FormDuration.vue'
-import { isValidDuration, isValidLength, isValidOptionalUrl} from '/@/lib/validate'
+import {
+  isValidDuration,
+  isValidLength,
+  isValidOptionalUrl
+} from '/@/lib/validate'
 import { useToast } from 'vue-toastification'
 import { useContestStore } from '/@/store/contest'
+import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
 const router = useRouter()
 const toast = useToast()
@@ -34,6 +39,13 @@ const canSubmit = computed(
     isValidOptionalUrl(formValues.link) &&
     isValidDuration(formValues.duration) &&
     isValidLength(formValues.description, 1, 256)
+)
+
+const shouldShowDurationError = computed(
+  () =>
+    formValues.duration.since !== '' &&
+    formValues.duration.until !== '' &&
+    !isValidDuration(formValues.duration)
 )
 
 const createContest = async () => {
@@ -81,6 +93,9 @@ const createContest = async () => {
       </labeled-form>
       <labeled-form label="開催日時" required :class="$style.labeledForm">
         <form-duration v-model="formValues.duration" />
+        <field-error-message v-if="shouldShowDurationError">
+          開始日時は終了日時よりも前に指定してください。
+        </field-error-message>
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input
