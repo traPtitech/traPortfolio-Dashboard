@@ -22,6 +22,7 @@ import { useProjectStore } from '/@/store/project'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import ProjectMember from '/@/components/Projects/ProjectMember.vue'
 import { useUserStore } from '/@/store/user'
+import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
 const router = useRouter()
 const toast = useToast()
@@ -52,6 +53,10 @@ const canSubmit = computed(
     members.value.every(member =>
       isValidYearWithSemesterDuration(member.duration)
     )
+)
+
+const shouldShowDurationError = computed(
+  () => !isValidYearWithSemesterDuration(formValues.value.duration)
 )
 
 const updateProject = async () => {
@@ -122,8 +127,11 @@ const handleDelete = (id: string) => {
       <labeled-form required label="プロジェクト名" :class="$style.labeledForm">
         <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>
-      <labeled-form label="日時" :class="$style.labeledForm">
+      <labeled-form label="期間" :class="$style.labeledForm">
         <form-project-duration v-model="formValues.duration" since-required />
+        <field-error-message v-if="shouldShowDurationError">
+          開始期間は終了期間よりも前に指定してください。
+        </field-error-message>
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input v-model="formValues.link" has-anchor />

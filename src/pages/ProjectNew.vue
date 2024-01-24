@@ -22,6 +22,7 @@ import {
   isValidYearWithSemesterDuration
 } from '/@/lib/validate'
 import { useProjectStore } from '/@/store/project'
+import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
 const toast = useToast()
 const { mutate } = useProjectStore()
@@ -72,10 +73,13 @@ const canSubmit = computed(
     isValidOptionalUrl(formValues.link) &&
     isValidYearWithSemesterDuration(formValues.duration) &&
     isValidLength(formValues.description, 1, 256) &&
-    isValidYearWithSemesterDuration(formValues.duration) &&
     members.value.every(member =>
       isValidYearWithSemesterDuration(member.duration)
     )
+)
+
+const shouldShowDurationError = computed(
+  () => !isValidYearWithSemesterDuration(formValues.duration)
 )
 
 const userStore = useUserStore()
@@ -122,6 +126,9 @@ const handleDelete = (id: string) => {
       </labeled-form>
       <labeled-form label="期間" :class="$style.labeledForm">
         <form-project-duration v-model="formValues.duration" since-required />
+        <field-error-message v-if="shouldShowDurationError">
+          開始期間は終了期間よりも前に指定してください。
+        </field-error-message>
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input

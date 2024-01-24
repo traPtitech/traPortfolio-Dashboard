@@ -21,6 +21,7 @@ import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useContestStore } from '/@/store/contest'
 import { useToast } from 'vue-toastification'
+import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
 const router = useRouter()
 const toast = useToast()
@@ -48,6 +49,13 @@ const canSubmit = computed(
     isValidDuration(formValues.value.duration) &&
     isValidOptionalUrl(formValues.value.link) &&
     isValidLength(formValues.value.description, 1, 256)
+)
+
+const shouldShowDurationError = computed(
+  () =>
+    formValues.value.duration.since !== '' &&
+    formValues.value.duration.until !== '' &&
+    !isValidDuration(formValues.value.duration)
 )
 
 const updateContest = async () => {
@@ -105,6 +113,9 @@ const deleteContest = async () => {
       </labeled-form>
       <labeled-form label="開催日時" :class="$style.labeledForm">
         <form-duration v-model="formValues.duration" since-required />
+        <field-error-message v-if="shouldShowDurationError">
+          開始日時は終了日時よりも前に指定してください。
+        </field-error-message>
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input v-model="formValues.link" has-anchor />
