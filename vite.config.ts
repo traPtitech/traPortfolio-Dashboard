@@ -1,11 +1,10 @@
-import { UserConfig } from 'vite'
 import path from 'path'
 import VuePlugin from '@vitejs/plugin-vue'
 import PurgeIcons from 'vite-plugin-purge-icons'
 
 const srcPath = path.resolve(__dirname, 'src').replace(/\\/g, '/')
 
-const config: UserConfig = {
+const config = {
   resolve: {
     alias: {
       '/@': srcPath
@@ -15,7 +14,7 @@ const config: UserConfig = {
     proxy: {
       '/api': {
         target: 'http://localhost:4010',
-        rewrite: path => path.replace('/api/v1', '/'),
+        rewrite: (path: string) => path.replace('/api/v1', '/'),
         changeOrigin: true
       }
     }
@@ -31,7 +30,11 @@ const config: UserConfig = {
       }
     }
   },
-  plugins: [VuePlugin(), PurgeIcons()]
+  plugins: [VuePlugin(), PurgeIcons()],
+  test: {
+    globals: true,
+    environment: 'jsdom'
+  }
 }
 
 export default config
