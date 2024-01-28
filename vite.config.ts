@@ -1,11 +1,13 @@
-import { UserConfig } from 'vite'
+/// <reference types="vitest" />
+
+import { defineConfig } from 'vite'
 import path from 'path'
 import VuePlugin from '@vitejs/plugin-vue'
 import PurgeIcons from 'vite-plugin-purge-icons'
 
 const srcPath = path.resolve(__dirname, 'src').replace(/\\/g, '/')
 
-const config: UserConfig = {
+export default defineConfig(() => ({
   resolve: {
     alias: {
       '/@': srcPath
@@ -31,7 +33,8 @@ const config: UserConfig = {
       }
     }
   },
-  plugins: [VuePlugin(), PurgeIcons()]
-}
-
-export default config
+  plugins: [VuePlugin(), PurgeIcons()],
+  test: {
+    globals: true
+  }
+}))
