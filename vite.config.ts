@@ -35,7 +35,6 @@ export default defineConfig(() => ({
   },
   plugins: [VuePlugin(), PurgeIcons()],
   test: {
-    globals: true,
-    environment: 'jsdom'
+    globals: true
   }
 }))
