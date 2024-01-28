@@ -101,6 +101,6 @@ const routes = [
 ]
 
 export default createRouter({
-  history: createWebHistory('/admin'),
+  history: createWebHistory(),
   routes
 })
