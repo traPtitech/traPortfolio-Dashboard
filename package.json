@@ -25,7 +25,7 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.126",
+    "@iconify/json": "^2.2.177",
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "@stoplight/prism-cli": "^5.3.2",
     "@types/autosize": "^4.0.1",
