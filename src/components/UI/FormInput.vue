@@ -47,14 +47,10 @@ const handleInput = (event: Event) => {
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
       {{ textLength }}/{{ props.limit }}
     </div>
-    <div
-      v-if="props.hasAnchor"
-      :class="$style.externalLink"
-      :data-valid-link="isValidLink"
-    >
+    <div v-if="props.hasAnchor" :class="$style.externalLink">
       <a
         :href="props.modelValue"
-        :data-valid-link="isValidLink"
+        :data-is-invalid-link="!isValidLink"
         target="_blank"
         rel="noopener noreferrer"
         :tabindex="isValidLink ? 0 : -1"
@@ -116,15 +112,19 @@ const handleInput = (event: Event) => {
   .container:focus-within & {
     border-left: 1px solid $color-primary;
   }
-  &[data-valid-link='false'] {
+  &:has([data-is-invalid-link='true']) {
     cursor: not-allowed;
   }
+
   a {
     padding: 8px 16px;
     color: $color-text;
-    &[data-valid-link='false'] {
+    &[data-is-invalid-link='true'] {
       pointer-events: none;
       color: $color-secondary;
+    }
+    &:focus {
+      color: $color-primary;
     }
   }
 }
