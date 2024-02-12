@@ -56,6 +56,8 @@ const handleInput = (event: Event) => {
         :href="props.modelValue"
         :data-valid-link="isValidLink"
         target="_blank"
+        rel="noopener noreferrer"
+        :tabindex="isValidLink ? 0 : -1"
       >
         <icon name="mdi:open-in-new" />
       </a>
