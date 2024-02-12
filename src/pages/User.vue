@@ -2,10 +2,10 @@
 import { ref } from 'vue'
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import UserProfileEdit from '/@/components/Users/UserProfileEdit.vue'
+import UserProfileEdit from '/@/components/User/UserProfileEdit.vue'
 import apis, { UserDetail } from '/@/lib/apis'
-import UserProfileMobile from '/@/components/Users/UserProfileMobile.vue'
-import UserProfileDesktop from '/@/components/Users/UserProfileDesktop.vue'
+import UserProfileMobile from '/@/components/User/UserProfileMobile.vue'
+import UserProfileDesktop from '/@/components/User/UserProfileDesktop.vue'
 import { useResponsiveStore } from '/@/store/responsive'
 import { storeToRefs } from 'pinia'
 
@@ -22,7 +22,7 @@ const user: UserDetail = (await apis.getUser(userId.value)).data
     <div :class="$style.headerContainer">
       <content-header
         icon-name="mdi:account-circle-outline"
-        :header-texts="[{ title: 'Profile', url: '/users' }]"
+        :header-texts="[{ title: 'Profile', url: '/user' }]"
         detail="プロフィールを変更します。"
         :class="$style.header"
       />

@@ -48,7 +48,7 @@ const updateAccount = async () => {
   try {
     await apis.editUserAccount(userId.value, accountId.value, formValues.value)
     toast.success('アカウント情報を更新しました')
-    router.push('/users/accounts')
+    router.push('/user/accounts')
   } catch {
     toast.error('アカウント情報の更新に失敗しました')
   }
@@ -60,7 +60,7 @@ const deleteAccount = async () => {
   try {
     await apis.deleteUserAccount(userId.value, accountId.value)
     toast.success('アカウント情報を削除しました')
-    router.push('/users/accounts')
+    router.push('/user/accounts')
   } catch {
     toast.error('アカウント情報の削除に失敗しました')
   }
@@ -74,11 +74,11 @@ const deleteAccount = async () => {
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/users' },
-          { title: 'Accounts', url: `/users/accounts` },
+          { title: 'Profile', url: '/user' },
+          { title: 'Accounts', url: `/user/accounts` },
           {
             title: 'Edit',
-            url: `/users/accounts/edit`
+            url: `/user/accounts/edit`
           }
         ]"
         detail="アカウント情報を編集します。"
@@ -122,7 +122,7 @@ const deleteAccount = async () => {
     <delete-form target="アカウント" @delete="open" />
 
     <div :class="$style.buttonContainer">
-      <router-link to="/users/accounts" :class="$style.link">
+      <router-link to="/user/accounts" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

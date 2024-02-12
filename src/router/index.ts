@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 const Index = () => import('/@/pages/Index.vue')
-const Users = () => import('/@/pages/Users.vue')
+const User = () => import('/@/pages/User.vue')
 const UserAccounts = () => import('/@/pages/UserAccounts.vue')
 const UserAccountNew = () => import('/@/pages/UserAccountNew.vue')
 const UserAccountEdit = () => import('/@/pages/UserAccountEdit.vue')
@@ -79,22 +79,22 @@ const routes = [
     component: ContestTeamEdit
   },
   {
-    path: '/users',
+    path: '/user',
     name: 'Profile',
-    component: Users
+    component: User
   },
   {
-    path: '/users/accounts',
+    path: '/user/accounts',
     name: 'UserAccounts',
     component: UserAccounts
   },
   {
-    path: '/users/accounts/new',
+    path: '/user/accounts/new',
     name: 'UserAccountsNew',
     component: UserAccountNew
   },
   {
-    path: '/users/accounts/:accountId/edit',
+    path: '/user/accounts/:accountId/edit',
     name: 'UserAccountsEdit',
     component: UserAccountEdit
   }

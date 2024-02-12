@@ -5,3 +5,5 @@ dist
 
 scripts/traPortfolio.v1.yaml
 src/lib/apis/generated
+
+.eslintcache

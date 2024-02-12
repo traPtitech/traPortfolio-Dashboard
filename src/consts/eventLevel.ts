@@ -41,8 +41,6 @@ export const eventLevels = deepFreeze({
   }
 }) satisfies EventLevelMap
 
-export const getEventLevelFromValue = (
-  value: EventLevelValue
-): EventLevel => {
+export const getEventLevelFromValue = (value: EventLevelValue): EventLevel => {
   return eventLevels[value].value
 }
