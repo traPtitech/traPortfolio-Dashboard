@@ -44,7 +44,7 @@ const createNewAccount = async () => {
   try {
     await apis.addUserAccount(userId.value, formValues)
     toast.success('アカウント情報を登録しました')
-    router.push('/users/accounts')
+    router.push('/user/accounts')
   } catch {
     toast.error('アカウント情報の登録に失敗しました')
   }
@@ -58,11 +58,11 @@ const createNewAccount = async () => {
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/users' },
-          { title: 'Accounts', url: `/users/accounts` },
+          { title: 'Profile', url: '/user' },
+          { title: 'Accounts', url: `/user/accounts` },
           {
             title: 'New',
-            url: `/users/accounts/new`
+            url: `/user/accounts/new`
           }
         ]"
         detail="アカウントを登録します。"
@@ -104,7 +104,7 @@ const createNewAccount = async () => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link to="/users/accounts" :class="$style.link">
+      <router-link to="/user/accounts" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

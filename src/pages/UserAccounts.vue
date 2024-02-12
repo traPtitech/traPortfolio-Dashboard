@@ -20,13 +20,13 @@ const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/users' },
-          { title: 'Accounts', url: '/users/accounts' }
+          { title: 'Profile', url: '/user' },
+          { title: 'Accounts', url: '/user/accounts' }
         ]"
         detail="アカウント情報を変更します。"
         :class="$style.header"
       />
-      <router-link to="/users/accounts/new" :class="$style.link">
+      <router-link to="/user/accounts/new" :class="$style.link">
         <base-button type="primary" icon="mdi:account">New</base-button>
       </router-link>
     </div>
@@ -36,7 +36,7 @@ const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
       </li>
     </ul>
 
-    <router-link to="/users" :class="$style.link">
+    <router-link to="/user" :class="$style.link">
       <base-button
         :class="$style.backButton"
         type="secondary"

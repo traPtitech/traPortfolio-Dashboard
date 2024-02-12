@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import SearchInput from '/@/components/UI/SearchInput.vue'
 import Icon from '/@/components/UI/Icon.vue'
-import { storeToRefs } from 'pinia';
-import { useResponsiveStore } from '/@/store/responsive';
+import { storeToRefs } from 'pinia'
+import { useResponsiveStore } from '/@/store/responsive'
 
 interface Props {
   isOpenNavigationBar: boolean
