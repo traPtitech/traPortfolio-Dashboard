@@ -48,7 +48,8 @@ const contestTeams: ContestTeam[] = (
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">リンク</h2>
-        <p :class="[$style.content, $style.contestLinkContainer]">
+        <p v-if="contestDetail.link === ''">未設定</p>
+        <p v-else :class="[$style.content, $style.contestLinkContainer]">
           <icon name="mdi:open-in-new" />
           <a :class="$style.contestLink" :href="contestDetail.link">
             {{ contestDetail.link }}
