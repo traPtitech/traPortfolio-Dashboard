@@ -18,7 +18,7 @@ const eventType = ref<EventLevelValueWithAll>('all')
 
 const searchQuery = ref('')
 
-const filteredEvents = computed(() => {
+const filteredEventsByLevel = computed(() => {
   if (eventType.value === 'all') {
     return events
   } else {
@@ -27,6 +27,11 @@ const filteredEvents = computed(() => {
     )
   }
 })
+const filteredEventsBySearch = computed(() =>
+  filteredEventsByLevel.value.filter(event =>
+    event.name.includes(searchQuery.value)
+  )
+)
 </script>
 
 <template>
@@ -52,7 +57,7 @@ const filteredEvents = computed(() => {
       </div>
     </div>
     <ul :class="$style.eventList">
-      <li v-for="event in filteredEvents" :key="event.id">
+      <li v-for="event in filteredEventsBySearch" :key="event.id">
         <event-item :event="event" />
       </li>
     </ul>

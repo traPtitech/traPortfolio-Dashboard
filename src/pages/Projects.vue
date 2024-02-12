@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import { useProjectStore } from '/@/store/project'
@@ -14,6 +14,9 @@ const projectStore = useProjectStore()
 const projects = await projectStore.fetchProjects()
 
 const searchQuery = ref('')
+const filteredProjects = computed(() =>
+  projects.filter(project => project.name.includes(searchQuery.value))
+)
 </script>
 
 <template>
@@ -43,7 +46,7 @@ const searchQuery = ref('')
       </div>
     </div>
     <ul :class="$style.projectList">
-      <li v-for="project in projects" :key="project.id">
+      <li v-for="project in filteredProjects" :key="project.id">
         <project-item :project="project" />
       </li>
     </ul>

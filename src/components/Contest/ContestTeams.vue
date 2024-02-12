@@ -13,15 +13,11 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
 const searchQuery = ref('')
-// todo: serverでやるかも
-const searchedContestTeams = computed(
-  () =>
-    props.contestTeams.filter(contestTeam => {
-      const regexp = new RegExp(searchQuery.value, 'i')
-      return regexp.test(contestTeam.name)
-    }) ?? []
+const filteredContestTeams = computed(() =>
+  props.contestTeams.filter(contestTeam =>
+    contestTeam.name.includes(searchQuery.value)
+  )
 )
 </script>
 
@@ -47,7 +43,7 @@ const searchedContestTeams = computed(
       </div>
     </div>
     <ul :class="$style.teamList">
-      <li v-for="contestTeam in searchedContestTeams" :key="contestTeam.id">
+      <li v-for="contestTeam in filteredContestTeams" :key="contestTeam.id">
         <contest-team-item
           :contest-id="contestId"
           :contest-team="contestTeam"
