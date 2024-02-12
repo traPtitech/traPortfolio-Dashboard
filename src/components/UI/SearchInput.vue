@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import Icon from '/@/components/UI/Icon.vue'
+import { useRouter } from 'vue-router'
+
+interface Props {
+  size: 'large' | 'normal'
+  placeholder: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  size: 'normal',
+  placeholder: '検索'
+})
+
+const router = useRouter()
+
+const input = ref('')
+
+const submit = () => {
+  // 検索結果ページへ遷移
+  router.push({ name: 'UserSearch', query: { q: input.value } })
+}
+
+const iconSize = computed(() => {
+  switch (props.size) {
+    case 'large':
+      return 36
+    case 'normal':
+      return 20
+    default:
+      throw new Error(`Invalid size: ${props.size satisfies never}`)
+  }
+})
+</script>
+
 <template>
   <div :class="[$style.inputWrapper, size === 'large' ? $style.large : '']">
     <icon name="mdi:magnify" :size="iconSize" :class="$style.icon" />
@@ -10,46 +46,6 @@
     />
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, computed, ref, PropType } from 'vue'
-import { useRouter } from 'vue-router'
-import Icon from '/@/components/UI/Icon.vue'
-
-export default defineComponent({
-  name: 'SearchInput',
-  components: {
-    Icon
-  },
-  props: {
-    size: {
-      type: String as PropType<'large' | 'normal'>,
-      default: 'normal'
-    },
-    placeholder: {
-      type: String,
-      default: '検索'
-    }
-  },
-  setup(props) {
-    const router = useRouter()
-    const input = ref('')
-    const submit = () => {
-      // 検索結果ページへ遷移
-      router.push({ name: 'UserSearch', query: { q: input.value } })
-    }
-    const iconSize = computed(() => {
-      if (props.size === 'large') return 36
-      else if (props.size === 'normal') return 20
-      else {
-        const _exhaustiveCheck: never = props.size
-        return _exhaustiveCheck
-      }
-    })
-    return { input, submit, iconSize }
-  }
-})
-</script>
 
 <style lang="scss" module>
 .inputWrapper {
@@ -73,6 +69,6 @@ export default defineComponent({
 }
 
 .large {
-  font-size: 24px;
+  font-size: 1.5rem;
 }
 </style>
