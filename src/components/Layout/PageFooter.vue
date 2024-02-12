@@ -5,14 +5,6 @@
   </footer>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'PageFooter'
-})
-</script>
-
 <style lang="scss" module>
 .container {
   padding: 1.5rem 3rem;

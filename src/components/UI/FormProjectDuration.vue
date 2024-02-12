@@ -94,7 +94,7 @@ const compare = (
         />
       </div>
     </div>
-    <p :class="$style.wave">～</p>
+    <p>～</p>
     <div>
       <div :class="$style.untilHead">
         <p :class="$style.head">～まで</p>
@@ -116,7 +116,7 @@ const compare = (
 .container {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
@@ -130,11 +130,6 @@ const compare = (
   display: flex;
   align-items: center;
   margin-bottom: 0.25rem;
-}
-.wave {
-  height: 4rem;
-  display: flex;
-  align-items: center;
 }
 .head {
   font-size: 0.75rem;

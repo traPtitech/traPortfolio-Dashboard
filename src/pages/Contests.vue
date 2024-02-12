@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import { useContestStore } from '/@/store/contest'
@@ -14,6 +14,9 @@ const contestStore = useContestStore()
 const contests = await contestStore.fetchContests()
 
 const searchQuery = ref('')
+const filteredContests = computed(() =>
+  contests.filter(contest => contest.name.includes(searchQuery.value))
+)
 </script>
 
 <template>
@@ -41,7 +44,7 @@ const searchQuery = ref('')
       </div>
     </div>
     <ul :class="$style.contestList">
-      <li v-for="contest in contests" :key="contest.id">
+      <li v-for="contest in filteredContests" :key="contest.id">
         <contest-item :contest="contest" />
       </li>
     </ul>
