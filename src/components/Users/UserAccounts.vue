@@ -5,8 +5,8 @@ import { serviceArray, type ServiceWithName } from '/@/consts/services'
 import type { Account } from '/@/lib/apis'
 
 interface Service extends ServiceWithName {
-  url: string | undefined
-  displayName: string | undefined
+  url: string | null
+  displayName: string | null
 }
 
 interface Props {
@@ -15,18 +15,18 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const shownServices = computed((): Service[] => {
-  return serviceArray.map(service => {
+const shownServices = computed((): Service[] =>
+  serviceArray.map(service => {
     const account = props.accounts.find(
       account => account.type === service.type
     )
     return {
       ...service,
-      url: account?.url,
-      displayName: account?.displayName
+      url: account?.url ?? null,
+      displayName: account?.displayName ?? null
     }
   })
-})
+)
 </script>
 
 <template>
@@ -34,10 +34,10 @@ const shownServices = computed((): Service[] => {
     <a
       v-for="service in shownServices"
       :key="service.name"
-      :href="service.url"
-      :title="service.displayName"
+      :href="service.url ?? undefined"
+      :title="service.displayName ?? undefined"
       :class="$style.anchor"
-      :data-has-account="service.url !== undefined"
+      :data-has-account="service.url !== null"
     >
       <icon :name="service.icon" :class="$style.icon" />
     </a>

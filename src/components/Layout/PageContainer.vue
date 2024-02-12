@@ -10,6 +10,7 @@
   max-width: 1024px;
   margin: 0 auto;
   padding: 4rem 3rem 3rem;
+  overflow-x: auto;
 }
 
 @media (width <= 768px) {
