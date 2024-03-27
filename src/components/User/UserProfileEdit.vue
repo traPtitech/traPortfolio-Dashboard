@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useToast } from 'vue-toastification'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
-import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
+// import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import apis, { type UserDetail } from '/@/lib/apis'
 
 interface Props {
@@ -37,13 +37,13 @@ const updateUserProfile = async () => {
 
 <template>
   <div>
-    <section>
+    <!-- <section>
       <h2 :class="$style.shouldShowRealnameText">本名を表示する</h2>
       <div :class="$style.toggleContainer">
         <p>{{ user.realName }}</p>
         <toggle-switch v-model="shouldShowRealname" />
       </div>
-    </section>
+    </section> -->
     <section>
       <h2 :class="$style.bio">自己紹介</h2>
       <div :class="$style.textareaContainer">
