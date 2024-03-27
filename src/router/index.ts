@@ -8,8 +8,8 @@ const UserAccountEdit = () => import('/@/pages/UserAccountEdit.vue')
 const Projects = () => import('/@/pages/Projects.vue')
 const Project = () => import('/@/pages/Project.vue')
 const ProjectNew = () => import('/@/pages/ProjectNew.vue')
-const Events = () => import('/@/pages/Events.vue')
-const Event = () => import('/@/pages/Event.vue')
+// const Events = () => import('/@/pages/Events.vue')
+// const Event = () => import('/@/pages/Event.vue')
 const Contests = () => import('/@/pages/Contests.vue')
 const Contest = () => import('/@/pages/Contest.vue')
 const ContestNew = () => import('/@/pages/ContestNew.vue')
@@ -38,16 +38,16 @@ const routes = [
     name: 'ProjectNew',
     component: ProjectNew
   },
-  {
-    path: '/events',
-    name: 'Events',
-    component: Events
-  },
-  {
-    path: '/events/:id',
-    name: 'Event',
-    component: Event
-  },
+  // {
+  //   path: '/events',
+  //   name: 'Events',
+  //   component: Events
+  // },
+  // {
+  //   path: '/events/:id',
+  //   name: 'Event',
+  //   component: Event
+  // },
   {
     path: '/contests',
     name: 'Contests',

@@ -18,7 +18,7 @@ defineProps<Props>()
       <user-icon :user-id="user.id" :size="64" />
       <div :class="$style.nameContainer">
         <p :class="$style.name">{{ user.name }}</p>
-        <p :class="$style.realName">{{ user.realName }}</p>
+        <!-- <p :class="$style.realName">{{ user.realName }}</p> -->
       </div>
     </div>
     <div :class="$style.accounts">

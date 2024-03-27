@@ -20,12 +20,12 @@ export const routes: routeinfo[] = [
     icon: 'mdi:account-circle-outline',
     description: '掲載するアカウントや自己紹介を編集します'
   },
-  {
-    name: 'Events',
-    path: '/events',
-    icon: 'mdi:calendar',
-    description: '講習会など、イベントの公開状態を設定します'
-  },
+  // {
+  //   name: 'Events',
+  //   path: '/events',
+  //   icon: 'mdi:calendar',
+  //   description: '講習会など、イベントの公開状態を設定します'
+  // },
   {
     name: 'Contests',
     path: '/contests',

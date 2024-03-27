@@ -18,7 +18,7 @@ defineProps<Props>()
     <div>
       <div :class="$style.nameContainer">
         <p :class="$style.name">{{ user.name }}</p>
-        <p :class="$style.realName">{{ user.realName }}</p>
+        <!-- <p :class="$style.realName">{{ user.realName }}</p> -->
       </div>
       <div :class="$style.accounts">
         <user-accounts :accounts="user.accounts" />
