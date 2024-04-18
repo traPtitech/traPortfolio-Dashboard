@@ -23,7 +23,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
         <icon name="mdi:menu" />
       </button>
       <router-link to="/">
-        <img src="/traP_logo_blue.svg" alt="traP" width="343" height="48" />
+        <img src="/@/assets/traP_logo_blue.svg" alt="traP" width="343" height="48" />
       </router-link>
     </div>
     <search-input />
