@@ -1,4 +1,7 @@
-/* eslint-disable no-undef */
-module.exports = {
-  plugins: [require('autoprefixer')]
+import autoprefixer from 'autoprefixer'
+
+const postcss = {
+  plugins: [autoprefixer]
 }
+
+export default postcss
