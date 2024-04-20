@@ -11,7 +11,7 @@
     "format:nofix": "prettier --cache --check \"src/**/*.{vue,ts}\"",
     "type-check": "vue-tsc --noEmit",
     "test": "vitest --passWithNoTests",
-    "gen-api": "node scripts/generateApi.js",
+    "gen-api": "node scripts/generateApi.cjs",
     "start-mock": "prism mock -p 4010 -d https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml",
     "postinstall": "npm run gen-api"
   },
