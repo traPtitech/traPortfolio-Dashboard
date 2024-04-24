@@ -35,7 +35,10 @@ const shouldShowDurationError = computed(
       <div :class="$style.user">
         <user-icon :user-id="user.id" :size="48" />
         <p :class="$style.name">{{ user.name }}</p>
-        <button :class="$style.icon" @click="emit('delete', user.id)">
+        <button
+          :class="[$style.deleteButton, $style.sp]"
+          @click="emit('delete', user.id)"
+        >
           <icon :size="32" name="mdi:delete" />
         </button>
       </div>
@@ -50,6 +53,12 @@ const shouldShowDurationError = computed(
         </field-error-message>
       </div>
     </div>
+    <button
+      :class="[$style.deleteButton, $style.pc]"
+      @click="emit('delete', user.id)"
+    >
+      <icon :size="32" name="mdi:delete" />
+    </button>
   </div>
 </template>
 
@@ -85,11 +94,20 @@ const shouldShowDurationError = computed(
   }
 }
 
-.icon {
+.deleteButton {
   color: $color-secondary;
   &:hover {
     opacity: 0.8;
   }
-  margin-left: auto;
+}
+.pc {
+  @media (width <= 768px) {
+    display: none;
+  }
+}
+.sp {
+  @media (width > 768px) {
+    display: none;
+  }
 }
 </style>
