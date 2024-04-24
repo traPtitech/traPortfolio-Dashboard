@@ -35,6 +35,9 @@ const shouldShowDurationError = computed(
       <div :class="$style.user">
         <user-icon :user-id="user.id" :size="48" />
         <p :class="$style.name">{{ user.name }}</p>
+        <button :class="$style.icon" @click="emit('delete', user.id)">
+          <icon :size="32" name="mdi:delete" />
+        </button>
       </div>
       <div>
         <form-project-duration
@@ -47,9 +50,6 @@ const shouldShowDurationError = computed(
         </field-error-message>
       </div>
     </div>
-    <button :class="$style.icon" @click="emit('delete', user.id)">
-      <icon :size="32" name="mdi:delete" />
-    </button>
   </div>
 </template>
 
@@ -71,6 +71,7 @@ const shouldShowDurationError = computed(
   flex: 1;
 }
 .name {
+  flex: 1;
   word-break: break-all;
 }
 .user {
