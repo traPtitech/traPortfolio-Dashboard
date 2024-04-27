@@ -24,7 +24,7 @@ const handleSyncUsers = async () => {
     await apis.syncUsers()
     toast.success('ユーザーとグループ情報を同期しました')
   } catch {
-    toast.success('ユーザーとグループ情報の同期に失敗しました')
+    toast.error('ユーザーとグループ情報の同期に失敗しました')
   }
 }
 </script>
