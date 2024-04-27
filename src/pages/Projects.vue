@@ -9,13 +9,14 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import ProjectItem from '/@/components/Projects/ProjectItem.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
+import { searchListCaseInsensitive } from '/@/lib/search'
 
 const projectStore = useProjectStore()
 const projects = await projectStore.fetchProjects()
 
 const searchQuery = ref('')
 const filteredProjects = computed(() =>
-  projects.filter(project => project.name.includes(searchQuery.value))
+  searchListCaseInsensitive(projects, searchQuery.value)
 )
 </script>
 

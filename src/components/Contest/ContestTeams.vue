@@ -6,6 +6,7 @@ import ContestTeamItem from '/@/components/Contest/ContestTeamItem.vue'
 import { RouterLink } from 'vue-router'
 import { ContestTeam } from '/@/lib/apis'
 import { computed, ref } from 'vue'
+import { searchListCaseInsensitive } from '/@/lib/search'
 
 interface Props {
   contestId: string
@@ -15,9 +16,7 @@ interface Props {
 const props = defineProps<Props>()
 const searchQuery = ref('')
 const filteredContestTeams = computed(() =>
-  props.contestTeams.filter(contestTeam =>
-    contestTeam.name.includes(searchQuery.value)
-  )
+  searchListCaseInsensitive(props.contestTeams, searchQuery.value)
 )
 </script>
 

@@ -5,6 +5,7 @@ import 'vue-select/dist/vue-select.css'
 import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { User } from '/@/lib/apis'
 import UserIcon from '/@/components/UI/UserIcon.vue'
+import { searchListCaseInsensitive } from '/@/lib/search'
 
 interface Props {
   modelValue: U[]
@@ -28,8 +29,8 @@ const value = computed({
 const limit = ref(10)
 const search = ref('')
 
-const filtered = computed(
-  () => props.users.filter(user => user.name.includes(search.value)) ?? []
+const filtered = computed(() =>
+  searchListCaseInsensitive(props.users, search.value)
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)

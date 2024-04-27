@@ -9,13 +9,14 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import ContestItem from '/@/components/Contests/ContestItem.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
+import { searchListCaseInsensitive } from '/@/lib/search'
 
 const contestStore = useContestStore()
 const contests = await contestStore.fetchContests()
 
 const searchQuery = ref('')
 const filteredContests = computed(() =>
-  contests.filter(contest => contest.name.includes(searchQuery.value))
+  searchListCaseInsensitive(contests, searchQuery.value)
 )
 </script>
 
