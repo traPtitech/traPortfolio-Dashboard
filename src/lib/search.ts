@@ -1,7 +1,17 @@
-export const searchListCaseInsensitive = <T extends { name: string }>(
+export const searchListCaseInsensitive = <T,>(
   list: T[],
-  _query: string
+  _query: string,
+  key: keyof T = 'name' as keyof T
 ): T[] => {
+  const value = list[0]?.[key]
+  if (typeof value !== 'string') {
+    throw new Error(
+      `The value corresponds to a given key ${key.toString()} must be string`
+    )
+  }
   const query = _query.toLowerCase()
-  return list.filter(item => item.name.toLowerCase().includes(query))
+  // valueがstringなので、item[key]もstringなはず
+  return list.filter(item =>
+    (item[key] as string).toLowerCase().includes(query)
+  )
 }
