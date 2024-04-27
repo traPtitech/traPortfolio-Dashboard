@@ -1,4 +1,4 @@
-export const searchListCaseInsensitive = <T,>(
+export const searchListCaseInsensitive = <T>(
   list: T[],
   _query: string,
   key: keyof T
