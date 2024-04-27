@@ -29,7 +29,11 @@ const filteredEventsByLevel = computed(() => {
   }
 })
 const filteredEventsBySearch = computed(() =>
-  searchListCaseInsensitive(filteredEventsByLevel.value, searchQuery.value)
+  searchListCaseInsensitive(
+    filteredEventsByLevel.value,
+    searchQuery.value,
+    'name'
+  )
 )
 </script>
 

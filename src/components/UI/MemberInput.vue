@@ -30,7 +30,7 @@ const limit = ref(10)
 const search = ref('')
 
 const filtered = computed(() =>
-  searchListCaseInsensitive(props.users, search.value)
+  searchListCaseInsensitive(props.users, search.value, 'name')
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)

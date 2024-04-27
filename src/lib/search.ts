@@ -1,7 +1,7 @@
 export const searchListCaseInsensitive = <T,>(
   list: T[],
   _query: string,
-  key: keyof T = 'name' as keyof T
+  key: keyof T
 ): T[] => {
   const value = list[0]?.[key]
   if (typeof value !== 'string') {
