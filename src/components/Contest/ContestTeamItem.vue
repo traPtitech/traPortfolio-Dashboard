@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import UserIcons from '/@/components/UI/UserIcons.vue'
 import type { ContestTeam } from '/@/lib/apis'
 
@@ -7,9 +8,11 @@ interface Props {
   contestTeam: ContestTeam
 }
 
-defineProps<Props>()
-/* todo:サーバーからmembersが返ってくるようになったらcontestTeam.members.map(member=>member.id)を使う */
-const userIds = ['sapphi_red', 'toshi00', 'tesso', 'mehm8128']
+const props = defineProps<Props>()
+
+const userIds = computed(() =>
+  props.contestTeam.members.map(member => member.id)
+)
 </script>
 
 <template>
