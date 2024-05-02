@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 import UserIcons from '/@/components/UI/UserIcons.vue'
 import type { ContestTeam } from '/@/lib/apis'
 
