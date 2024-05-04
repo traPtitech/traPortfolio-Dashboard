@@ -3,7 +3,6 @@ import AutoResizeTextArea from '/@/components/UI/AutoResizeTextArea.vue'
 import { computed } from 'vue'
 
 interface Props {
-  modelValue: string
   readonly?: boolean
   placeholder?: string
   limit?: number
@@ -21,26 +20,19 @@ const props = withDefaults(defineProps<Props>(), {
   name: undefined
 })
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: string): void
-}>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+const model = defineModel<string>({ required: true })
 
 const isExceeded = computed(
-  () => props.limit && [...props.modelValue].length > props.limit
+  () => props.limit && [...model.value].length > props.limit
 )
 
-const wordCount = computed(() => [...props.modelValue].length)
+const wordCount = computed(() => [...model.value].length)
 </script>
 
 <template>
   <div :class="$style.container">
     <auto-resize-text-area
-      v-model="value"
+      v-model="model"
       :readonly="readonly"
       :placeholder="placeholder"
       :class="$style.textarea"

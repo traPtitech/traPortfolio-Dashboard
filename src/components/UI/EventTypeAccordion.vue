@@ -1,23 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
 import type { EventLevelValueWithAll } from '/@/consts/eventLevel'
 
-interface Props {
-  modelValue: EventLevelValueWithAll
-}
-const props = defineProps<Props>()
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: EventLevelValueWithAll): void
-}>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set(v: EventLevelValueWithAll) {
-    emit('update:modelValue', v)
-  }
-})
+const model = defineModel<EventLevelValueWithAll>({ required: true })
 
 const options = [
   {
@@ -40,5 +25,5 @@ const options = [
 </script>
 
 <template>
-  <base-select v-model="value" :options="options" searchable />
+  <base-select v-model="model" :options="options" searchable />
 </template>

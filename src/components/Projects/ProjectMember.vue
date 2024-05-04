@@ -9,23 +9,18 @@ import { isValidYearWithSemesterDuration } from '/@/lib/validate'
 
 interface Props {
   user: User
-  modelValue: YearWithSemesterDuration
 }
 
-const props = defineProps<Props>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'delete', value: string): void
-  (e: 'update:modelValue', value: YearWithSemesterDuration): void
 }>()
 
+const model = defineModel<YearWithSemesterDuration>({ required: true })
+
 const shouldShowDurationError = computed(
-  () => !isValidYearWithSemesterDuration(value.value)
+  () => !isValidYearWithSemesterDuration(model.value)
 )
 </script>
 
@@ -38,7 +33,7 @@ const shouldShowDurationError = computed(
       </div>
       <div>
         <form-project-duration
-          v-model="value"
+          v-model="model"
           since-required
           :class="$style.projectDuration"
         />

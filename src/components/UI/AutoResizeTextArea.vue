@@ -1,18 +1,9 @@
 <script lang="ts" setup>
-import {
-  nextTick,
-  watch,
-  onMounted,
-  ref,
-  toRef,
-  computed,
-  onBeforeUnmount
-} from 'vue'
+import { nextTick, watch, onMounted, ref, computed, onBeforeUnmount } from 'vue'
 
 import autosize from 'autosize'
 
 interface Props {
-  modelValue: string
   placeholder?: string
   rows?: number
   readonly?: boolean
@@ -30,12 +21,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const textareaEle = ref<HTMLTextAreaElement | null>(null)
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: string): void
-}>()
+const model = defineModel<string>({ required: true })
 
 const handleInput = (event: Event) => {
-  emit('update:modelValue', (event.target as HTMLInputElement).value)
+  model.value = (event.target as HTMLInputElement).value
 }
 
 const style = computed(() => ({ maxHeight: `${props.maxHeight}px` }))
@@ -45,7 +34,7 @@ onMounted(() => {
   autosize(textareaEle.value)
 })
 
-watch(toRef(props, 'modelValue'), async () => {
+watch(model, async () => {
   await nextTick()
   if (textareaEle.value === null) return
   autosize.update(textareaEle.value)
@@ -61,7 +50,7 @@ onBeforeUnmount(() => {
   <textarea
     ref="textareaEle"
     :class="$style.textarea"
-    :value="modelValue"
+    :value="model"
     :placeholder="placeholder"
     :readonly="readonly"
     :rows="rows"

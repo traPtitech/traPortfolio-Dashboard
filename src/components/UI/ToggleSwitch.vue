@@ -1,8 +1,6 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-const props = withDefaults(
+withDefaults(
   defineProps<{
-    modelValue: boolean
     disabled?: boolean
   }>(),
   {
@@ -10,20 +8,13 @@ const props = withDefaults(
   }
 )
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-}>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+const model = defineModel<boolean>({ required: true })
 </script>
 
 <template>
   <label :class="$style.container">
     <input
-      v-model="value"
+      v-model="model"
       type="checkbox"
       :disabled="disabled"
       :class="$style.input"

@@ -1,15 +1,8 @@
 <script lang="ts" setup>
-interface Props {
-  modelValue: string
-}
-
-const props = defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: string): void
-}>()
+const model = defineModel<string>({ required: true })
 
 const handleInput = (event: Event) => {
-  emit('update:modelValue', (event.target as HTMLInputElement).value)
+  model.value = (event.target as HTMLInputElement).value
 }
 </script>
 
@@ -17,9 +10,9 @@ const handleInput = (event: Event) => {
   <div :class="$style.container">
     <input
       :class="$style.input"
-      :data-is-blank="props.modelValue === ''"
+      :data-is-blank="model === ''"
       type="datetime-local"
-      :value="props.modelValue"
+      :value="model"
       @input="handleInput"
     />
   </div>
