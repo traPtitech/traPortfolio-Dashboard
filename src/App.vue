@@ -13,15 +13,13 @@ const { isMobile } = storeToRefs(useResponsiveStore())
 const isOpenNavigationBar = ref(!isMobile.value)
 const showCover = computed(() => isMobile.value && isOpenNavigationBar.value)
 
-watch(
-  () => route.fullPath,
-  () => {
-    if (!isMobile.value) {
-      return
-    }
-    isOpenNavigationBar.value = false
+watch([() => route.fullPath, isMobile], () => {
+  if (!isMobile.value) {
+    isOpenNavigationBar.value = true
+    return
   }
-)
+  isOpenNavigationBar.value = false
+})
 </script>
 
 <template>
