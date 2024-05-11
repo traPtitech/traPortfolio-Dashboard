@@ -11,22 +11,15 @@ import BaseSelect from '/@/components/UI/BaseSelect.vue'
 type DateType = 'since' | 'until'
 
 interface Props {
-  modelValue: YearWithSemesterDuration
   yearsAgo?: number
   sinceRequired?: boolean
 }
 const props = withDefaults(defineProps<Props>(), {
   yearsAgo: 20
 })
-const emit = defineEmits<{
-  (
-    e: 'update:modelValue',
-    modelValue: {
-      since: YearWithSemester | undefined
-      until: YearWithSemester | undefined
-    }
-  ): void
-}>()
+
+const model = defineModel<Partial<YearWithSemesterDuration>>({ required: true })
+
 const options: Option<YearWithSemester | undefined>[] = Array(props.yearsAgo)
   .fill(null)
   .flatMap((_, i) => [
@@ -60,11 +53,10 @@ const handleInput = (
   value: YearWithSemester | undefined,
   dateType: DateType
 ) => {
-  const duration = {
-    since: dateType === 'since' ? value : props.modelValue.since,
-    until: dateType === 'until' ? value : props.modelValue.until
+  model.value = {
+    since: dateType === 'since' ? value : model.value.since,
+    until: dateType === 'until' ? value : model.value.until
   }
-  emit('update:modelValue', duration)
 }
 
 const compare = (
@@ -88,7 +80,7 @@ const compare = (
         <base-select
           :options="sinceOptions"
           :class="$style.input"
-          :model-value="modelValue.since"
+          :model-value="model.since"
           :by="compare"
           @update:model-value="handleInput($event, 'since')"
         />
@@ -103,7 +95,7 @@ const compare = (
         <base-select
           :options="untilOptions"
           :class="$style.input"
-          :model-value="modelValue.until"
+          :model-value="model.until"
           :by="compare"
           @update:model-value="handleInput($event, 'until')"
         />

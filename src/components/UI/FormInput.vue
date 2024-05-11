@@ -4,7 +4,6 @@ import Icon from '/@/components/UI/Icon.vue'
 import { isValidUrl } from '/@/lib/validate'
 
 interface Props {
-  modelValue: string
   placeholder?: string
   limit?: number
   icon?: 'magnify' | 'at'
@@ -17,19 +16,18 @@ const props = withDefaults(defineProps<Props>(), {
   icon: undefined,
   hasAnchor: false
 })
-const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: string): void
-}>()
+
+const model = defineModel<string>({ required: true })
 
 //Unicode Codepoint数でカウント
-const textLength = computed(() => [...props.modelValue].length)
+const textLength = computed(() => [...model.value].length)
 
 const isExceeded = computed(() => props.limit && textLength.value > props.limit)
 
-const isValidLink = computed(() => isValidUrl(props.modelValue))
+const isValidLink = computed(() => isValidUrl(model.value))
 
 const handleInput = (event: Event) => {
-  emit('update:modelValue', (event.target as HTMLInputElement).value)
+  model.value = (event.target as HTMLInputElement).value
 }
 </script>
 
@@ -41,7 +39,7 @@ const handleInput = (event: Event) => {
     <input
       :class="$style.input"
       :placeholder="props.placeholder"
-      :value="props.modelValue"
+      :value="model"
       @input="handleInput"
     />
     <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
@@ -49,7 +47,7 @@ const handleInput = (event: Event) => {
     </div>
     <div v-if="props.hasAnchor" :class="$style.externalLink">
       <a
-        :href="props.modelValue"
+        :href="model"
         :data-is-invalid-link="!isValidLink"
         target="_blank"
         rel="noopener noreferrer"

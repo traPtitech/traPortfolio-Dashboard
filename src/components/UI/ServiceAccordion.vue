@@ -9,21 +9,17 @@ import {
 import { AccountType } from '/@/lib/apis'
 
 interface Props {
-  modelValue: AccountType
   registered?: AccountType[]
 }
 const props = withDefaults(defineProps<Props>(), {
   registered: () => Array<AccountType>()
 })
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: AccountType): void
-}>()
+const model = defineModel<AccountType>({ required: true })
 
 const value = computed({
-  get: () => serviceTypeToNameMap[props.modelValue],
-  set: v =>
-    emit('update:modelValue', serviceNameToType(v) ?? AccountType.homepage)
+  get: () => serviceTypeToNameMap[model.value],
+  set: v => (model.value = serviceNameToType(v) ?? AccountType.homepage)
 })
 
 const options = computed(() =>

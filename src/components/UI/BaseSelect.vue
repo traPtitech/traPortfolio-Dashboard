@@ -1,7 +1,6 @@
 <script lang="ts" setup generic="T">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
-import { computed } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 
 export interface Option<T> {
@@ -10,7 +9,6 @@ export interface Option<T> {
 }
 
 interface Props {
-  modelValue: T
   options: Option<T>[]
   by?: keyof T | ((a: T, b: T) => boolean)
   searchable?: boolean
@@ -18,14 +16,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: T): void
-}>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+const model = defineModel<T>({ required: true })
 
 const compare = (a: T, b: T) => {
   if (typeof props.by === 'function') {
@@ -53,7 +44,7 @@ const compare = (a: T, b: T) => {
 
 <template>
   <v-select
-    v-model="value"
+    v-model="model"
     :options="options"
     :clearable="false"
     label="label"
@@ -64,7 +55,7 @@ const compare = (a: T, b: T) => {
     <template #option="{ label }">
       <div :class="$style.item">
         <icon
-          v-if="label === options.find(o => compare(o.value, value))?.label"
+          v-if="label === options.find(o => compare(o.value, model))?.label"
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />

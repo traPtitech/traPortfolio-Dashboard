@@ -1,33 +1,18 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
-
 interface Props {
-  modelValue: string
   label: string
   value: string
   description?: string
 }
 
-const props = defineProps<Props>()
+defineProps<Props>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
-
-const vModelValue = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+const model = defineModel<string>({ required: true })
 </script>
 
 <template>
   <label :class="$style.container">
-    <input
-      v-model="vModelValue"
-      :value="value"
-      type="radio"
-      :class="$style.input"
-    />
+    <input v-model="model" :value="value" type="radio" :class="$style.input" />
     <span :class="$style.label">{{ label }}</span>
     <span v-if="description" :class="$style.description">
       {{ description }}
