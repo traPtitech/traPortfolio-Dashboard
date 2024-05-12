@@ -45,6 +45,7 @@ defineProps<Props>()
 .name {
   color: $color-primary;
   font-size: 3rem;
+  word-break: break-all;
 }
 .realName {
   font-size: 1.5rem;
