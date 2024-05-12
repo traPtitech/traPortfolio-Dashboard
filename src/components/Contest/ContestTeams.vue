@@ -30,7 +30,7 @@ const filteredContestTeams = computed(() =>
           icon="magnify"
         />
       </div>
-      <div :class="$style.newTeamLink">
+      <div>
         <router-link
           :to="`/contests/${contestId}/teams/new`"
           :class="$style.link"
@@ -54,13 +54,11 @@ const filteredContestTeams = computed(() =>
 .searchFormContainer {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   margin-top: 0.5rem;
 }
 .searchForm {
   flex-grow: 1;
-}
-.newTeamLink {
-  margin-left: 0.5rem;
 }
 .link {
   text-decoration: none;
