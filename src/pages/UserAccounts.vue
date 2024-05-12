@@ -4,14 +4,10 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 
 import AccountItem from '/@/components/UserAccounts/AccountItem.vue'
-import { ref } from 'vue'
-import apis, { Account } from '/@/lib/apis'
+import apis from '/@/lib/apis'
 import { RouterLink } from 'vue-router'
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
-
-const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
+const me = (await apis.getMe()).data
 </script>
 
 <template>
@@ -31,7 +27,7 @@ const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
       </router-link>
     </div>
     <ul :class="$style.accountList">
-      <li v-for="account in accounts" :key="account.id">
+      <li v-for="account in me.accounts" :key="account.id">
         <account-item :account="account" />
       </li>
     </ul>

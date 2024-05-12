@@ -2,7 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { Account, AddAccountRequest } from '/@/lib/apis'
+import apis, { AddAccountRequest } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
@@ -16,11 +16,10 @@ import { useToast } from 'vue-toastification'
 const router = useRouter()
 const toast = useToast()
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
-const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
-
-const registeredServices = computed(() => accounts.map(account => account.type))
+const me = (await apis.getMe()).data
+const registeredServices = computed(() =>
+  me.accounts.map(account => account.type)
+)
 
 const formValues = reactive<AddAccountRequest>({
   type: 0,
@@ -42,7 +41,7 @@ const canSubmit = computed(
 const createNewAccount = async () => {
   isSending.value = true
   try {
-    await apis.addUserAccount(userId.value, formValues)
+    await apis.addUserAccount(me.id, formValues)
     toast.success('アカウント情報を登録しました')
     router.push('/user/accounts')
   } catch {
