@@ -34,7 +34,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
 <style lang="scss" module>
 .container {
   display: flex;
-  padding: 1rem 1rem;
+  padding: 1rem;
   align-items: center;
   border-bottom: solid 0.1rem $color-secondary;
   gap: 1rem;
