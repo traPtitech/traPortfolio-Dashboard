@@ -68,7 +68,7 @@ const handleInput = (value: string, dateType: DateType) => {
   font-size: 0.75rem;
 }
 .wave {
-  height: 44px;
+  height: 46px;
   display: flex;
   align-items: center;
 }
