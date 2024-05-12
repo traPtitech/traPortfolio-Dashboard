@@ -30,15 +30,13 @@ const filteredContests = computed(() =>
     />
     <div :class="$style.searchFormContainer">
       <div :class="$style.searchForm">
-        <p :class="$style.body2">検索</p>
         <form-input
           v-model="searchQuery"
-          placeholder="コンテスト名"
+          placeholder="コンテスト名で検索"
           icon="magnify"
         />
       </div>
       <div>
-        <p :class="$style.body2">コンテスト作成</p>
         <router-link to="/contests/new" :class="$style.link">
           <base-button type="primary" icon="mdi:trophy">New</base-button>
         </router-link>
@@ -66,11 +64,6 @@ const filteredContests = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-}
-
-.body2 {
-  font-size: 0.875rem;
-  color: $color-secondary;
 }
 
 .link {
