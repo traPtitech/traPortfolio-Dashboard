@@ -73,7 +73,7 @@ const compare = (
   <div :class="$style.container">
     <div>
       <div :class="$style.sinceHead">
-        <p :class="$style.head">～から</p>
+        <p :class="$style.head">開始</p>
         <required-chip v-if="sinceRequired" />
       </div>
       <div :class="$style.form">
@@ -86,10 +86,10 @@ const compare = (
         />
       </div>
     </div>
-    <p>～</p>
+    <p :class="$style.wave">～</p>
     <div>
       <div :class="$style.untilHead">
-        <p :class="$style.head">～まで</p>
+        <p :class="$style.head">終了</p>
       </div>
       <div :class="$style.form">
         <base-select
@@ -108,8 +108,7 @@ const compare = (
 .container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  flex-wrap: wrap;
+  align-items: flex-end;
   gap: 0.5rem;
 }
 .sinceHead {
@@ -139,5 +138,10 @@ const compare = (
 }
 .input {
   width: 10rem;
+}
+.wave {
+  height: 34px;
+  display: flex;
+  align-items: center;
 }
 </style>
