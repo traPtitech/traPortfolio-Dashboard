@@ -48,6 +48,7 @@ const shownServices = computed((): Service[] =>
 .container {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.75rem;
 }
 .anchor {
