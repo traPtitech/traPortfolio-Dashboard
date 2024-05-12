@@ -9,9 +9,10 @@ updates:
       types:
         patterns:
         - "@types/*"
-      eslint:
+      formatter:
         patterns:
-        - "eslint*"
+        - "*eslint*"
+        - "*prettier*"
       patches:
         update-types:
         - "patch"
