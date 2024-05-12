@@ -2,8 +2,6 @@
 import Icon from '/@/components/UI/Icon.vue'
 import { storeToRefs } from 'pinia'
 import { useResponsiveStore } from '/@/store/responsive'
-import apis from '/@/lib/apis'
-import { useToast } from 'vue-toastification'
 
 interface Props {
   isOpenNavigationBar: boolean
@@ -14,18 +12,8 @@ const emit = defineEmits<{
   (e: 'toggleNavigationBar'): void
 }>()
 
-const toast = useToast()
 const { isMobile } = storeToRefs(useResponsiveStore())
 
-const handleSyncUsers = async () => {
-  if (!confirm('ユーザーとグループ情報を同期します')) return
-  try {
-    await apis.syncUsers()
-    toast.success('ユーザーとグループ情報を同期しました')
-  } catch {
-    toast.error('ユーザーとグループ情報の同期に失敗しました')
-  }
-}
 </script>
 
 <template>
@@ -42,11 +30,6 @@ const handleSyncUsers = async () => {
           height="48"
         />
       </router-link>
-    </div>
-    <div :class="$style.rightContainer">
-      <button @click="handleSyncUsers">
-        <icon name="mdi:sync" :class="$style.syncButton" />
-      </button>
     </div>
   </div>
 </template>
