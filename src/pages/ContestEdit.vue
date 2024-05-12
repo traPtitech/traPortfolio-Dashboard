@@ -65,8 +65,8 @@ const updateContest = async () => {
       ...formValues.value,
       link: formValues.value.link || undefined,
       duration: {
-        since: formValues.value.duration.since + ':00Z',
-        until: formValues.value.duration.until + ':00Z'
+        since: formValues.value.duration.since + ':00+09:00',
+        until: formValues.value.duration.until + ':00+09:00'
       }
     }
     await apis.editContest(contestId.value, requestData)
