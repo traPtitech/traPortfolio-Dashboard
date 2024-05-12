@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import SearchInput from '/@/components/UI/SearchInput.vue'
 import Icon from '/@/components/UI/Icon.vue'
 import { storeToRefs } from 'pinia'
 import { useResponsiveStore } from '/@/store/responsive'
@@ -48,7 +47,6 @@ const handleSyncUsers = async () => {
       <button @click="handleSyncUsers">
         <icon name="mdi:sync" :class="$style.syncButton" />
       </button>
-      <search-input />
     </div>
   </div>
 </template>
