@@ -36,7 +36,6 @@ const { isMobile } = storeToRefs(useResponsiveStore())
   display: flex;
   height: 5rem;
   padding: 0 1rem;
-  justify-content: space-between;
   align-items: center;
   border-bottom: solid 0.1rem $color-secondary;
   gap: 1rem;
