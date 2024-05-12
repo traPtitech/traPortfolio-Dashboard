@@ -47,10 +47,9 @@ const filteredEventsBySearch = computed(() =>
     />
     <div :class="$style.searchFormContainer">
       <div :class="$style.searchForm">
-        <p :class="$style.body2">検索</p>
         <form-input
           v-model="searchQuery"
-          placeholder="イベント名"
+          placeholder="イベント名で検索"
           icon="magnify"
         />
       </div>
@@ -81,11 +80,6 @@ const filteredEventsBySearch = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-}
-
-.body2 {
-  font-size: 0.875rem;
-  color: $color-secondary;
 }
 
 .eventList {

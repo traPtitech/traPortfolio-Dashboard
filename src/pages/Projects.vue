@@ -30,15 +30,13 @@ const filteredProjects = computed(() =>
     />
     <div :class="$style.searchFormContainer">
       <div :class="$style.searchForm">
-        <p :class="$style.body2">検索</p>
         <form-input
           v-model="searchQuery"
-          placeholder="プロジェクト名"
+          placeholder="プロジェクト名で検索"
           icon="magnify"
         />
       </div>
       <div>
-        <p :class="$style.body2">プロジェクト作成</p>
         <router-link to="/projects/new" :class="$style.link">
           <base-button type="primary" icon="mdi:clipboard-file">
             New</base-button
@@ -68,11 +66,6 @@ const filteredProjects = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-}
-
-.body2 {
-  font-size: 0.875rem;
-  color: $color-secondary;
 }
 
 .link {
