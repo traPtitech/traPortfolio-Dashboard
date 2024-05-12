@@ -13,7 +13,6 @@ const emit = defineEmits<{
 }>()
 
 const { isMobile } = storeToRefs(useResponsiveStore())
-
 </script>
 
 <template>
