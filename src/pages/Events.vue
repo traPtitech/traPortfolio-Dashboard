@@ -11,6 +11,7 @@ import {
   type EventLevelValueWithAll,
   eventLevelValueMap
 } from '/@/consts/eventLevel'
+import { searchListCaseInsensitive } from '/@/lib/search'
 
 const eventStore = useEventStore()
 const events = await eventStore.fetchEvents()
@@ -28,8 +29,10 @@ const filteredEventsByLevel = computed(() => {
   }
 })
 const filteredEventsBySearch = computed(() =>
-  filteredEventsByLevel.value.filter(event =>
-    event.name.includes(searchQuery.value)
+  searchListCaseInsensitive(
+    filteredEventsByLevel.value,
+    searchQuery.value,
+    'name'
   )
 )
 </script>

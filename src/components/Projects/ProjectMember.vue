@@ -9,23 +9,18 @@ import { isValidYearWithSemesterDuration } from '/@/lib/validate'
 
 interface Props {
   user: User
-  modelValue: YearWithSemesterDuration
 }
 
-const props = defineProps<Props>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+defineProps<Props>()
 
 const emit = defineEmits<{
   (e: 'delete', value: string): void
-  (e: 'update:modelValue', value: YearWithSemesterDuration): void
 }>()
 
+const model = defineModel<YearWithSemesterDuration>({ required: true })
+
 const shouldShowDurationError = computed(
-  () => !isValidYearWithSemesterDuration(value.value)
+  () => !isValidYearWithSemesterDuration(model.value)
 )
 </script>
 
@@ -35,10 +30,16 @@ const shouldShowDurationError = computed(
       <div :class="$style.user">
         <user-icon :user-id="user.id" :size="48" />
         <p :class="$style.name">{{ user.name }}</p>
+        <button
+          :class="[$style.deleteButton, $style.sp]"
+          @click="emit('delete', user.id)"
+        >
+          <icon :size="32" name="mdi:delete" />
+        </button>
       </div>
       <div>
         <form-project-duration
-          v-model="value"
+          v-model="model"
           since-required
           :class="$style.projectDuration"
         />
@@ -47,7 +48,10 @@ const shouldShowDurationError = computed(
         </field-error-message>
       </div>
     </div>
-    <button :class="$style.icon" @click="emit('delete', user.id)">
+    <button
+      :class="[$style.deleteButton, $style.pc]"
+      @click="emit('delete', user.id)"
+    >
       <icon :size="32" name="mdi:delete" />
     </button>
   </div>
@@ -71,6 +75,7 @@ const shouldShowDurationError = computed(
   flex: 1;
 }
 .name {
+  flex: 1;
   word-break: break-all;
 }
 .user {
@@ -84,11 +89,20 @@ const shouldShowDurationError = computed(
   }
 }
 
-.icon {
+.deleteButton {
   color: $color-secondary;
   &:hover {
     opacity: 0.8;
   }
-  margin-left: auto;
+}
+.pc {
+  @media (width <= 768px) {
+    display: none;
+  }
+}
+.sp {
+  @media (width > 768px) {
+    display: none;
+  }
 }
 </style>

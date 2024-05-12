@@ -5,9 +5,9 @@ import 'vue-select/dist/vue-select.css'
 import { computed, nextTick, onUnmounted, ref } from 'vue'
 import { User } from '/@/lib/apis'
 import UserIcon from '/@/components/UI/UserIcon.vue'
+import { searchListCaseInsensitive } from '/@/lib/search'
 
 interface Props {
-  modelValue: U[]
   isDisabled: boolean
   users: U[]
 }
@@ -16,20 +16,13 @@ const props = withDefaults(defineProps<Props>(), {
   isDisabled: false
 })
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: User[]): void
-}>()
-
-const value = computed({
-  get: () => props.modelValue,
-  set: v => emit('update:modelValue', v)
-})
+const model = defineModel<U[]>({ required: true })
 
 const limit = ref(10)
 const search = ref('')
 
-const filtered = computed(
-  () => props.users.filter(user => user.name.includes(search.value)) ?? []
+const filtered = computed(() =>
+  searchListCaseInsensitive(props.users, search.value, 'name')
 )
 const options = computed(() => filtered.value.slice(0, limit.value))
 const hasNextPage = computed(() => filtered.value.length > options.value.length)
@@ -73,7 +66,7 @@ const onClose = () => {
 
 <template>
   <v-select
-    v-model="value"
+    v-model="model"
     :options="options"
     placeholder="メンバー"
     label="name"

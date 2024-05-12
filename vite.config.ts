@@ -29,6 +29,7 @@ export default defineConfig(() => ({
         @import "${srcPath}/styles/color.scss";
         @import "${srcPath}/styles/z-index.scss";
         @import "${srcPath}/styles/toast.scss";
+        @import "${srcPath}/styles/scrollbar.scss";
         `
       }
     }

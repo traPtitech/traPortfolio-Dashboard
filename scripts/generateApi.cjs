@@ -5,7 +5,7 @@ const path = require('path')
 const { exec } = require('child_process')
 const { promisify } = require('util')
 const execPromise = promisify(exec)
-const addApis = require('./addApis')
+const addApis = require('./addApis.cjs')
 
 const SWAGGER_PATH = 'https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml'
 const GENERATED_DIR = 'src/lib/apis/generated'

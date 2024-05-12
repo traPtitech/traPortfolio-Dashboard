@@ -6,21 +6,18 @@ import RequiredChip from '/@/components/UI/RequiredChip.vue'
 type DateType = 'since' | 'until'
 
 interface Props {
-  modelValue: Duration
   sinceRequired?: boolean
 }
 
-const props = defineProps<Props>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', modelValue: Duration): void
-}>()
+defineProps<Props>()
+const model = defineModel<Duration>({ required: true })
 
 const handleInput = (value: string, dateType: DateType) => {
   const duration: Duration = {
-    since: dateType === 'since' ? value : props.modelValue.since,
-    until: dateType === 'until' ? value : props.modelValue.until
+    since: dateType === 'since' ? value : model.value.since,
+    until: dateType === 'until' ? value : model.value.until
   }
-  emit('update:modelValue', duration)
+  model.value = duration
 }
 </script>
 
@@ -32,7 +29,7 @@ const handleInput = (value: string, dateType: DateType) => {
         <required-chip v-if="sinceRequired" />
       </div>
       <form-date
-        :model-value="modelValue.since"
+        :model-value="model.since"
         @update:model-value="handleInput($event, 'since')"
       />
     </div>
@@ -42,7 +39,7 @@ const handleInput = (value: string, dateType: DateType) => {
         <p :class="$style.head">～まで</p>
       </div>
       <form-date
-        :model-value="modelValue.until ?? ''"
+        :model-value="model.until ?? ''"
         @update:model-value="handleInput($event, 'until')"
       />
     </div>
