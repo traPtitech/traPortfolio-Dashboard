@@ -8,14 +8,14 @@ updates:
     groups:
       types:
         patterns:
-        - "@types/*"
+          - '@types/*'
       formatter:
         patterns:
-        - "*eslint*"
-        - "*prettier*"
+          - '*eslint*'
+          - '*prettier*'
       patches:
         update-types:
-        - "patch"
+          - 'patch'
 
   - package-ecosystem: github-actions
     directory: '/'
@@ -25,4 +25,4 @@ updates:
     groups:
       actions-deps:
         patterns:
-          - "*"
+          - '*'
