@@ -24,7 +24,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
       <img
         src="/@/assets/traP_logo_blue.svg"
         alt="traP"
-        width="343"
+        :width="!isMobile ? '343' : '240'"
         height="48"
       />
     </router-link>
