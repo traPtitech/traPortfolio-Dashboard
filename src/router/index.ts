@@ -16,7 +16,6 @@ const ContestNew = () => import('/@/pages/ContestNew.vue')
 const ContestEdit = () => import('/@/pages/ContestEdit.vue')
 const ContestTeamNew = () => import('/@/pages/ContestTeamNew.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
-const SearchPage = () => import('/@/pages/SearchPage.vue')
 
 const routes = [
   {
@@ -83,11 +82,6 @@ const routes = [
     path: '/user',
     name: 'Profile',
     component: User
-  },
-  {
-    path: '/search',
-    name: 'UserSearch',
-    component: SearchPage
   },
   {
     path: '/user/accounts',
