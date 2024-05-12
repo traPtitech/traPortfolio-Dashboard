@@ -10,7 +10,7 @@
  * @param query lowercaseになっているクエリ
  * @param f キーから検索対象の文字列を取得する関数
  */
-export const searchListCaseInsensitive = <T,>(
+export const searchListCaseInsensitive = <T>(
   arr: readonly T[],
   _query: string,
   f: (v: T) => string
