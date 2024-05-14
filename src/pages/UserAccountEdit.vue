@@ -2,7 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { EditUserAccountRequest, Account } from '/@/lib/apis'
+import apis, { EditUserAccountRequest } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
@@ -23,8 +23,10 @@ const { modalRef, open, close } = useModal()
 
 const me = (await apis.getMe()).data
 const accountId = useParam('accountId')
-const account: Account = (await apis.getUserAccount(me.id, accountId.value))
-  .data
+const account = me.accounts.find(account => account.id === accountId.value)
+if (!account) {
+  throw new Error('Account not found')
+}
 
 const registeredServices = computed(() =>
   me.accounts.map(account => account.type)
