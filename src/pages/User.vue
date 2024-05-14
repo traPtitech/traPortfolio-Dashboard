@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import UserProfileEdit from '/@/components/User/UserProfileEdit.vue'
-import apis, { UserDetail } from '/@/lib/apis'
+import apis from '/@/lib/apis'
 import UserProfileMobile from '/@/components/User/UserProfileMobile.vue'
 import UserProfileDesktop from '/@/components/User/UserProfileDesktop.vue'
 import { useResponsiveStore } from '/@/store/responsive'
 import { storeToRefs } from 'pinia'
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
+const me = (await apis.getMe()).data
 
 const { isMobile } = storeToRefs(useResponsiveStore())
-
-const user: UserDetail = (await apis.getUser(userId.value)).data
 </script>
 
 <template>
@@ -28,9 +24,9 @@ const user: UserDetail = (await apis.getUser(userId.value)).data
       />
       <!-- todo:プレビューボタンの追加 -->
     </div>
-    <user-profile-mobile v-if="isMobile" :user="user" />
-    <user-profile-desktop v-else :user="user" />
-    <user-profile-edit :user="user" :class="$style.userProfileEdit" />
+    <user-profile-mobile v-if="isMobile" :user="me" />
+    <user-profile-desktop v-else :user="me" />
+    <user-profile-edit :user="me" :class="$style.userProfileEdit" />
   </page-container>
 </template>
 

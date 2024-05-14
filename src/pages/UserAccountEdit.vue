@@ -2,7 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { EditUserAccountRequest, Account } from '/@/lib/apis'
+import apis, { EditUserAccountRequest } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
@@ -21,15 +21,16 @@ const router = useRouter()
 const toast = useToast()
 const { modalRef, open, close } = useModal()
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
+const me = (await apis.getMe()).data
 const accountId = useParam('accountId')
-const account: Account = (
-  await apis.getUserAccount(userId.value, accountId.value)
-).data
+const account = me.accounts.find(account => account.id === accountId.value)
+if (!account) {
+  throw new Error('Account not found')
+}
 
-const accounts = (await apis.getUserAccounts(userId.value)).data
-const registeredServices = computed(() => accounts.map(account => account.type))
+const registeredServices = computed(() =>
+  me.accounts.map(account => account.type)
+)
 
 const formValues = ref<Required<EditUserAccountRequest>>(account)
 const isSending = ref(false)
@@ -46,7 +47,7 @@ const canSubmit = computed(
 const updateAccount = async () => {
   isSending.value = true
   try {
-    await apis.editUserAccount(userId.value, accountId.value, formValues.value)
+    await apis.editUserAccount(me.id, accountId.value, formValues.value)
     toast.success('アカウント情報を更新しました')
     router.push('/user/accounts')
   } catch {
@@ -58,7 +59,7 @@ const updateAccount = async () => {
 const deleteAccount = async () => {
   isDeleting.value = true
   try {
-    await apis.deleteUserAccount(userId.value, accountId.value)
+    await apis.deleteUserAccount(me.id, accountId.value)
     toast.success('アカウント情報を削除しました')
     router.push('/user/accounts')
   } catch {
