@@ -16,7 +16,6 @@
     "postinstall": "npm run gen-api"
   },
   "dependencies": {
-    "@iconify/iconify": "^3.1.1",
     "autosize": "^6.0.1",
     "axios": "^1.6.8",
     "pinia": "^2.1.6",
@@ -27,7 +26,7 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.196",
+    "@iconify/vue": "^4.1.2",
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "@stoplight/prism-cli": "^5.8.1",
     "@types/autosize": "^4.0.3",
@@ -47,7 +46,6 @@
     "ts-morph": "^20.0.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.7",
-    "vite-plugin-purge-icons": "^0.10.0",
     "vitest": "^1.5.3",
     "vue-tsc": "2.0.16"
   },

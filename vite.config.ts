@@ -3,7 +3,6 @@
 import { defineConfig } from 'vite'
 import path from 'path'
 import VuePlugin from '@vitejs/plugin-vue'
-import PurgeIcons from 'vite-plugin-purge-icons'
 
 const srcPath = path.resolve(__dirname, 'src').replace(/\\/g, '/')
 
@@ -34,7 +33,7 @@ export default defineConfig(() => ({
       }
     }
   },
-  plugins: [VuePlugin(), PurgeIcons()],
+  plugins: [VuePlugin()],
   test: {
     globals: true
   }

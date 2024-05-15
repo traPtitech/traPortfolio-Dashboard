@@ -33,8 +33,8 @@ const handleInput = (event: Event) => {
 
 <template>
   <div :class="$style.container" :data-has-anchor="props.hasAnchor">
-    <div v-if="typeof props.icon !== 'undefined'" :class="$style.iconContainer">
-      <icon :name="`mdi:${props.icon}`" :icon="$style.icon" />
+    <div v-if="props.icon !== undefined" :class="$style.iconContainer">
+      <icon :name="`mdi:${props.icon}`" />
     </div>
     <input
       :class="$style.input"

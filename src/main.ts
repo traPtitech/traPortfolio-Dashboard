@@ -7,7 +7,6 @@ import Toast, { POSITION } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
 import './index.scss'
-import '@purge-icons/generated'
 
 const pinia = createPinia()
 const app = createApp(App)
