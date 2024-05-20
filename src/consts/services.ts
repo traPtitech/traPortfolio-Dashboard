@@ -42,7 +42,7 @@ export const services = deepFreeze({
     type: AccountType.blog
   },
   X: {
-    icon: 'mdi:twitter',
+    icon: 'ph:x-logo',
     type: AccountType.twitter
   },
   Facebook: {
