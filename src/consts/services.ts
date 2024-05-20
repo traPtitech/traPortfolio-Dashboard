@@ -14,10 +14,10 @@ export interface ServiceWithName<Type extends AccountType = AccountType>
 export const serviceTypeToNameMap = Object.freeze({
   [AccountType.homepage]: 'HomePage',
   [AccountType.blog]: 'Blog',
-  [AccountType.twitter]: 'Twitter',
+  [AccountType.twitter]: 'X',
   [AccountType.facebook]: 'Facebook',
   [AccountType.pixiv]: 'pixiv',
-  [AccountType.github]: 'Github',
+  [AccountType.github]: 'GitHub',
   [AccountType.qiita]: 'Qiita',
   [AccountType.zenn]: 'Zenn',
   [AccountType.atcoder]: 'AtCoder',
@@ -41,8 +41,8 @@ export const services = deepFreeze({
     icon: 'mdi:post-outline',
     type: AccountType.blog
   },
-  Twitter: {
-    icon: 'mdi:twitter',
+  X: {
+    icon: 'ph:x-logo',
     type: AccountType.twitter
   },
   Facebook: {
@@ -53,7 +53,7 @@ export const services = deepFreeze({
     icon: 'simple-icons:pixiv',
     type: AccountType.pixiv
   },
-  Github: {
+  GitHub: {
     icon: 'mdi:github',
     type: AccountType.github
   },
