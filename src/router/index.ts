@@ -101,7 +101,7 @@ const routes = [
   },
   {
     path: '/:path(.*)',
-    name: { name: 'NotFound' },
+    name: 'NotFound',
     component: NotFound
   }
 ]
