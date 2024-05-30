@@ -100,7 +100,7 @@ const routes = [
     component: UserAccountEdit
   },
   {
-    path: '/:path(.*)',
+    path: '/:path(.*)*',
     name: 'NotFound',
     component: NotFound
   }
