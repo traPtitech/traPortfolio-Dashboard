@@ -16,6 +16,7 @@ const ContestNew = () => import('/@/pages/ContestNew.vue')
 const ContestEdit = () => import('/@/pages/ContestEdit.vue')
 const ContestTeamNew = () => import('/@/pages/ContestTeamNew.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
+const NotFound = () => import('/@/pages/NotFound.vue')
 
 const routes = [
   {
@@ -97,6 +98,11 @@ const routes = [
     path: '/user/accounts/:accountId/edit',
     name: 'UserAccountsEdit',
     component: UserAccountEdit
+  },
+  {
+    path: '/:path(.*)*',
+    name: 'NotFound',
+    component: NotFound
   }
 ]
 
