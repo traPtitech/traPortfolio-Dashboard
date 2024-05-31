@@ -21,9 +21,9 @@ jobs:
         with:
           node-version-file: ./.node-version
           cache: npm
-      - name: node package install
+      - name: Node package install
         run: npm ci
-      - name: vite build
+      - name: Vite build
         run: npm run build
         env:
           NODE_ENV: production
