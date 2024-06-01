@@ -44,7 +44,7 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.7",
     "sass": "^1.76.0",
-    "ts-morph": "^20.0.0",
+    "ts-morph": "^22.0.0",
     "typescript": "^5.2.2",
     "vite": "^5.2.12",
     "vite-plugin-purge-icons": "^0.10.0",
