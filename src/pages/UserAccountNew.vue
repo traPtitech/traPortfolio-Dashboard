@@ -88,7 +88,12 @@ const createNewAccount = async () => {
           :limit="256"
         />
       </labeled-form>
-      <labeled-form label="リンク" required :class="$style.labeledForm">
+      <labeled-form
+        description="traPブログは設定無しで表示されます。"
+        label="リンク"
+        required
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.url"
           placeholder="https://"

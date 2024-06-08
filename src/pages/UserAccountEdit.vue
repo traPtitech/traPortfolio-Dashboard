@@ -106,7 +106,12 @@ const deleteAccount = async () => {
           :limit="256"
         />
       </labeled-form>
-      <labeled-form label="リンク" required :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        required
+        :class="$style.labeledForm"
+        description="traPブログは設定無しで表示されます。"
+      >
         <form-input
           v-model="formValues.url"
           placeholder="https://"
