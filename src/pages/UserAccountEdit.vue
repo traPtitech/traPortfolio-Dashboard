@@ -158,11 +158,6 @@ const deleteAccount = async () => {
 .labeledForm {
   margin-bottom: 2rem;
 }
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 .link {
   text-decoration: none;
   color: inherit;
