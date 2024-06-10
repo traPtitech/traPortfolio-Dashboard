@@ -7,7 +7,6 @@ import { RouterLink, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import { hasAtmarkService, hasIdService } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/lib/validate'
@@ -25,7 +24,7 @@ const formValues = reactive<AddAccountRequest>({
   type: 0,
   displayName: '',
   url: '',
-  prPermitted: false
+  prPermitted: true
 })
 
 const isSending = ref(false)
@@ -95,12 +94,6 @@ const createNewAccount = async () => {
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="traP広報での言及を許可" :class="$style.labeledForm">
-        <div :class="$style.prPermittedForm">
-          許可する
-          <toggle-switch v-model="formValues.prPermitted" />
-        </div>
-      </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
       <router-link to="/user/accounts" :class="$style.link">
@@ -135,11 +128,6 @@ const createNewAccount = async () => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 .link {
   text-decoration: none;
