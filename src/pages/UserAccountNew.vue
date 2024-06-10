@@ -41,7 +41,15 @@ const canSubmit = computed(
 const createNewAccount = async () => {
   isSending.value = true
   try {
-    await apis.addUserAccount(me.id, formValues)
+    // FIXME: https://github.com/traPtitech/traPortfolio-Dashboard/issues/71
+    // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
+    const _formValues = {
+      ...formValues,
+      displayName: [0, 1].includes(formValues.type)
+        ? me.name
+        : formValues.displayName
+    }
+    await apis.addUserAccount(me.id, _formValues)
     toast.success('アカウント情報を登録しました')
     router.push('/user/accounts')
   } catch {
