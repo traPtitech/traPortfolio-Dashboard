@@ -47,7 +47,15 @@ const canSubmit = computed(
 const updateAccount = async () => {
   isSending.value = true
   try {
-    await apis.editUserAccount(me.id, accountId.value, formValues.value)
+    // FIXME: https://github.com/traPtitech/traPortfolio-Dashboard/issues/71
+    // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
+    const _formValues = {
+      ...formValues.value,
+      displayName: [0, 1].includes(formValues.value.type)
+        ? me.name
+        : formValues.value.displayName
+    }
+    await apis.editUserAccount(me.id, accountId.value, _formValues)
     toast.success('アカウント情報を更新しました')
     router.push('/user/accounts')
   } catch {

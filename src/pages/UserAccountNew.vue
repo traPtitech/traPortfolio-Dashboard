@@ -9,7 +9,11 @@ import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
-import { hasAtmarkService, hasIdService } from '/@/consts/services'
+import {
+  hasAtmarkService,
+  hasIdService,
+  serviceArray
+} from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/lib/validate'
 import { useToast } from 'vue-toastification'
 
@@ -22,7 +26,10 @@ const registeredServices = computed(() =>
 )
 
 const formValues = reactive<AddAccountRequest>({
-  type: 0,
+  type:
+    serviceArray
+      .filter(s => !registeredServices.value.includes(s.type))
+      .map(s => s.type)[0] ?? 0,
   displayName: '',
   url: '',
   prPermitted: false
@@ -41,7 +48,15 @@ const canSubmit = computed(
 const createNewAccount = async () => {
   isSending.value = true
   try {
-    await apis.addUserAccount(me.id, formValues)
+    // FIXME: https://github.com/traPtitech/traPortfolio-Dashboard/issues/71
+    // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
+    const _formValues = {
+      ...formValues,
+      displayName: [0, 1].includes(formValues.type)
+        ? me.name
+        : formValues.displayName
+    }
+    await apis.addUserAccount(me.id, _formValues)
     toast.success('アカウント情報を登録しました')
     router.push('/user/accounts')
   } catch {
