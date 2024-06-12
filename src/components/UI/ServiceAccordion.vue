@@ -25,6 +25,8 @@ const value = computed({
 const options = computed(() =>
   serviceArray
     .filter(s => !props.registered.includes(s.type))
+    // TODO: https://github.com/traPtitech/traPortfolio-Dashboard/issues/283 のための暫定的な対応
+    .filter(s => s.type !== 1)
     .map(s => ({ label: s.name, value: s.name }))
 )
 </script>
