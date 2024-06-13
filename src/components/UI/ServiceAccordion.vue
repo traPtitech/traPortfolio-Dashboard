@@ -25,8 +25,9 @@ const value = computed({
 const options = computed(() =>
   serviceArray
     .filter(s => !props.registered.includes(s.type))
-    // TODO: https://github.com/traPtitech/traPortfolio-Dashboard/issues/283 のための暫定的な対応
-    .filter(s => s.type !== 1)
+    // TODO: blogは https://github.com/traPtitech/traPortfolio-Dashboard/issues/283 のための暫定的な対応
+    // ctftimeはロゴを追加したら戻す
+    .filter(s => s.type !== AccountType.blog && s.type !== AccountType.ctftime)
     .map(s => ({ label: s.name, value: s.name }))
 )
 </script>
