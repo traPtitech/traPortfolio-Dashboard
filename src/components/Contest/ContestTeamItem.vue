@@ -11,7 +11,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const userIds = computed(() =>
-  props.contestTeam.members.map(member => member.id)
+  props.contestTeam.members.map(member => member.name)
 )
 </script>
 
