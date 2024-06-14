@@ -6,9 +6,7 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), { size: 24 })
 const src = computed(
-  () =>
-    // TODO: userIdから画像を読み込む `https://q.trap.jp/api/v3/public/icon/${props.userId}`
-    `https://q.trap.jp/api/v3/public/icon/toshi00`
+  () => `https://q.trap.jp/api/v3/public/icon/${props.userId}`
 )
 
 const styles = computed(() => ({
