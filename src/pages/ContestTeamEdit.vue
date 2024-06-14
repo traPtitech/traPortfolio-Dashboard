@@ -64,7 +64,7 @@ const updateContestTeam = async () => {
       members: members.value.map(member => member.id)
     })
     toast.success('コンテストチ－ム情報を更新しました')
-    router.push(`/contests/${contestId.value}/teams/${contestTeamId.value}`)
+    router.push(`/contests/${contestId.value}`)
   } catch {
     toast.error('コンテストチーム情報の更新に失敗しました')
   }
@@ -98,7 +98,7 @@ const deleteContestTeam = async () => {
           },
           {
             title: contestTeam.name,
-            url: `/contests/${contestId}/teams/${contestTeamId}`
+            url: `/contests/${contestId}/teams/${contestTeamId}/edit`
           },
           {
             title: 'Edit',
