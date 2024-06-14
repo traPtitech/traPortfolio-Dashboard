@@ -6,7 +6,7 @@ import apis, {
   CreateProjectRequest,
   ProjectMember as ProjectMemberType
 } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -24,6 +24,7 @@ import {
 import { useProjectStore } from '/@/store/project'
 import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
+const router = useRouter()
 const toast = useToast()
 const { mutate } = useProjectStore()
 
@@ -60,6 +61,7 @@ const createProject = async () => {
       }))
     })
     toast.success('プロジェクトを追加しました')
+    router.push(`/projects/${res.data.id}`)
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
   }
