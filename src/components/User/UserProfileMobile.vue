@@ -15,7 +15,7 @@ defineProps<Props>()
 <template>
   <div>
     <div :class="$style.iconAndNameContainer">
-      <user-icon :user-id="user.name" :size="64" />
+      <user-icon :user-name="user.name" :size="64" />
       <div :class="$style.nameContainer">
         <p :class="$style.name">{{ user.name }}</p>
         <!-- <p :class="$style.realName">{{ user.realName }}</p> -->

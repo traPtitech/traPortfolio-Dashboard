@@ -10,7 +10,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const userIds = computed(() =>
+const userNames = computed(() =>
   props.contestTeam.members.map(member => member.name)
 )
 </script>
@@ -25,7 +25,7 @@ const userIds = computed(() =>
         <p :class="$style.name">{{ contestTeam.name }}</p>
         <p :class="$style.result">{{ contestTeam.result }}</p>
       </div>
-      <user-icons :user-ids="userIds" />
+      <user-icons :user-names="userNames" />
     </div>
   </router-link>
 </template>
