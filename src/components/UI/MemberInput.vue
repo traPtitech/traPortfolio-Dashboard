@@ -85,7 +85,7 @@ const onClose = () => {
     </template>
     <template #option="{ name }">
       <div :class="$style.item">
-        <user-icon :user-id="name" />
+        <user-icon :user-name="name" />
         <p>{{ name }}</p>
       </div>
     </template>
