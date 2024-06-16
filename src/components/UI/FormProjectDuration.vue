@@ -43,6 +43,7 @@ const untilOptions = [
 
 const sinceOptions = props.sinceRequired ? options : untilOptions
 
+// 出力。stringをオブジェクトに変換して出力
 const handleInput = (value: string | undefined, dateType: DateType) => {
   const [year, semester] = value?.split(' ') ?? [undefined, undefined]
   model.value = {
@@ -76,6 +77,7 @@ const handleInput = (value: string | undefined, dateType: DateType) => {
         <required-chip v-if="sinceRequired" />
       </div>
       <div :class="$style.form">
+        <!--modelValueはオブジェクトを文字列に変換している-->
         <base-select
           :options="sinceOptions"
           :class="$style.input"
@@ -94,6 +96,7 @@ const handleInput = (value: string | undefined, dateType: DateType) => {
         <p :class="$style.head">終了</p>
       </div>
       <div :class="$style.form">
+        <!--modelValueはオブジェクトを文字列に変換している-->
         <base-select
           :options="untilOptions"
           :class="$style.input"
