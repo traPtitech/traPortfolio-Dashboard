@@ -116,7 +116,7 @@ const handleDelete = (id: string) => {
         icon-name="mdi:clipboard-file-outline"
         :header-texts="[
           { title: 'Projects', url: '/projects' },
-          { title: projectDetail.name, url: `/projects/${projectId}` },
+          { title: projectDetail.name, url: `/projects/${projectId}/edit` },
           { title: 'Edit', url: `/projects/${projectId}/edit` }
         ]"
         detail="プロジェクトの情報を変更します。"
