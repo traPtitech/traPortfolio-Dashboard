@@ -7,7 +7,7 @@ import { RouterLink, useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import useParam from '/@/lib/param'
+//import useParam from '/@/lib/param'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import { hasIdService, hasAtmarkService } from '/@/consts/services'
@@ -20,15 +20,39 @@ const router = useRouter()
 const toast = useToast()
 const { modalRef, open, close } = useModal()
 
-const me = (await apis.getMe()).data
-const accountId = useParam('accountId')
-const account = me.accounts.find(account => account.id === accountId.value)
+const me = {
+  accounts: [
+    {
+      displayName: 'elonmusk',
+      id: '1ba0f1a8-9e54-4d28-9981-68f430d0cdff',
+      prPermitted: true,
+      type: 2,
+      url: 'https://twitter.com/elonmusk'
+    },
+    {
+      displayName: 'mehm8128',
+      id: '3a6bd2ba-c7b9-4a59-9398-83ed69be57e6',
+      prPermitted: false,
+      type: 5,
+      url: 'https://github.com/mehm8128'
+    }
+  ],
+  bio: '21B SysAd班のmehm8128です。',
+  id: 'c714a848-2886-4c10-a313-de9bc61cb2bb',
+  name: 'mehm8128',
+  realName: '',
+  state: 1
+}
+const accountId = '1ba0f1a8-9e54-4d28-9981-68f430d0cdff'
+const account = me.accounts.find(account => account.id === accountId)
 if (!account) {
   throw new Error('Account not found')
 }
 
 const registeredServices = computed(() =>
-  me.accounts.map(account => account.type)
+  me.accounts
+    .map(account => account.type)
+    .filter(accountType => accountType !== account.type)
 )
 
 const formValues = ref<Required<EditUserAccountRequest>>(account)
@@ -54,7 +78,7 @@ const updateAccount = async () => {
         ? me.name
         : formValues.value.displayName
     }
-    await apis.editUserAccount(me.id, accountId.value, _formValues)
+    await apis.editUserAccount(me.id, accountId, _formValues)
     toast.success('アカウント情報を更新しました')
     router.push('/user/accounts')
   } catch {
@@ -66,7 +90,7 @@ const updateAccount = async () => {
 const deleteAccount = async () => {
   isDeleting.value = true
   try {
-    await apis.deleteUserAccount(me.id, accountId.value)
+    await apis.deleteUserAccount(me.id, accountId)
     toast.success('アカウント情報を削除しました')
     router.push('/user/accounts')
   } catch {
