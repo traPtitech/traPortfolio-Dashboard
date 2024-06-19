@@ -28,6 +28,7 @@ const generateCmd = [
 if (process.env.SKIP_GENAPI) {
   // eslint-disable-next-line no-console
   console.log('Skipped generating apis.')
+  process.exitCode = 0
 }
 
 ;(async () => {
