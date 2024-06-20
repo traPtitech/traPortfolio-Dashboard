@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 import fs from 'fs/promises'
 import path from 'path'
@@ -22,7 +21,7 @@ const generateCmd = [
   '-i',
   SWAGGER_PATH,
   '-o',
-  '/local/src/lib/apis/generated'
+  `/local/${GENERATED_DIR}`
 ]
 
 if (process.env.SKIP_GENAPI) {
