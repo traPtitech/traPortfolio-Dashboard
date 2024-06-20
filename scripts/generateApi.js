@@ -1,33 +1,32 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
-const fs = require('fs/promises')
-const path = require('path')
-const { exec } = require('child_process')
-const { promisify } = require('util')
-const execPromise = promisify(exec)
-const addApis = require('./addApis.cjs')
+import fs from 'fs/promises'
+import path from 'path'
+import { exec } from 'child_process'
+import { promisify } from 'util'
+import { addApis } from './addApis.js'
 
-const SWAGGER_PATH = 'https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml'
+const __dirname = import.meta.dirname
+
+const execPromise = promisify(exec)
+
+const SWAGGER_PATH =
+  'https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml'
 const GENERATED_DIR = 'src/lib/apis/generated'
 
-const npx = process.platform === 'win32' ? 'npx.cmd' : 'npx'
-
 const generateCmd = [
-  npx,
-  'openapi-generator-cli',
+  'docker run --rm -v "${PWD}:/local" -u $(id -u) openapitools/openapi-generator-cli:v7.5.0',
   'generate',
   '-g',
   'typescript-axios',
   '-i',
   SWAGGER_PATH,
   '-o',
-  GENERATED_DIR
+  `/local/${GENERATED_DIR}`
 ]
 
 if (process.env.SKIP_GENAPI) {
   // eslint-disable-next-line no-console
   console.log('Skipped generating apis.')
-  return
 }
 
 ;(async () => {
