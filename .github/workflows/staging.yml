@@ -10,11 +10,27 @@ env:
   IMAGE_TAG: main
 
 jobs:
+  genApi:
+    name: Generate APIs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apis
+          path: ./src/lib/apis/generated
   image:
     permissions:
       contents: read
       packages: write
     runs-on: ubuntu-latest
+    needs:
+      - genApi
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -23,6 +39,10 @@ jobs:
           username: traptitech
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: apis
+          path: ./src/lib/apis/generated
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
@@ -33,7 +53,8 @@ jobs:
   deploy-staging:
     name: Deploy staging
     runs-on: ubuntu-latest
-    needs: [image]
+    needs:
+      - image
     steps:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
