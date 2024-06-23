@@ -12,8 +12,7 @@
     "type-check": "vue-tsc --noEmit",
     "test": "vitest --passWithNoTests",
     "gen-api": "node scripts/generateApi.js",
-    "start-mock": "prism mock -p 4010 -d https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml",
-    "postinstall": "npm run gen-api"
+    "start-mock": "prism mock -p 4010 -d https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml"
   },
   "dependencies": {
     "@iconify/iconify": "^3.1.1",

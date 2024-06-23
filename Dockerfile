@@ -3,10 +3,9 @@ WORKDIR /app
 
 RUN apk update
 
-ENV NODE_ENV=production SKIP_GENAPI=1
+ENV NODE_ENV=production
 
 COPY package.json package-lock.json ./
-COPY scripts/ ./scripts/
 RUN npm ci
 COPY . .
 RUN npm run build

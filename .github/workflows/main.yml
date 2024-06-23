@@ -17,8 +17,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-        env:
-          SKIP_GENAPI: 1
   genApi:
     name: Generate APIs
     runs-on: ubuntu-latest
@@ -29,6 +27,7 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
+      - run: npm run gen-api
       - uses: actions/upload-artifact@v4
         with:
           name: apis
@@ -46,8 +45,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-        env:
-          SKIP_GENAPI: 1
       - uses: actions/download-artifact@v4
         with:
           name: apis
@@ -68,8 +65,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-        env:
-          SKIP_GENAPI: 1
       - uses: actions/download-artifact@v4
         with:
           name: apis
@@ -88,8 +83,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-        env:
-          SKIP_GENAPI: 1
       - uses: actions/download-artifact@v4
         with:
           name: apis
@@ -108,8 +101,6 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-        env:
-          SKIP_GENAPI: 1
       - uses: actions/download-artifact@v4
         with:
           name: apis
@@ -127,7 +118,7 @@ jobs:
         with:
           node-version-file: .node-version
           cache: npm
-      - run: SKIP_GENAPI=1 npm ci
+      - run: npm ci
       - uses: actions/download-artifact@v4
         with:
           name: apis
