@@ -3,12 +3,10 @@ WORKDIR /app
 
 RUN apk update
 
-ENV NODE_ENV=production
-
 COPY package.json package-lock.json ./
 RUN npm ci
 COPY . .
-RUN npm run build
+RUN NODE_ENV=production npm run build
 
 # 本番環境
 FROM caddy:2.4.6-alpine
