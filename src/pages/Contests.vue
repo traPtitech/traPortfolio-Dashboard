@@ -16,7 +16,7 @@ const contests = await contestStore.fetchContests()
 
 const searchQuery = ref('')
 const filteredContests = computed(() =>
-  searchListCaseInsensitive(contests, searchQuery.value, 'name')
+  searchListCaseInsensitive(contests, searchQuery.value, v => v.name)
 )
 </script>
 
