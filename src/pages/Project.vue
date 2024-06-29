@@ -66,18 +66,17 @@ const updateProject = async () => {
       ...formValues.value,
       link: formValues.value.link || undefined
     }
-    await apis.editProject(projectId.value, requestData)
+    const promises = [
+      apis.editProject(projectId.value, requestData),
+      apis.editProjectMembers(projectId.value, {
+        members: members.value.map(member => ({
+          userId: member.id,
+          duration: member.duration
+        }))
+      })
+    ]
+    await Promise.all(promises)
     mutate()
-    //TODO: 無駄なのでPATCHにしたい
-    await apis.deleteProjectMembers(projectId.value, {
-      members: projectMembers.map(member => member.id)
-    })
-    await apis.addProjectMembers(projectId.value, {
-      members: members.value.map(member => ({
-        userId: member.id,
-        duration: member.duration
-      }))
-    })
 
     toast.success('プロジェクト情報を更新しました')
     router.push('/projects')
