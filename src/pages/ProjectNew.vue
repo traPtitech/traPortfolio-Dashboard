@@ -54,7 +54,7 @@ const createProject = async () => {
     }
     const res = await apis.createProject(req)
     mutate()
-    await apis.addProjectMembers(res.data.id, {
+    await apis.editProjectMembers(res.data.id, {
       members: members.value.map(member => ({
         userId: member.id,
         duration: member.duration

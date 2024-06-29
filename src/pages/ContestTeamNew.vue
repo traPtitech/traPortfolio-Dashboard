@@ -52,7 +52,7 @@ const createContestTeam = async () => {
       link: formValues.value.link || undefined
     }
     const res = (await apis.addContestTeam(contestId.value, requestData)).data
-    await apis.addContestTeamMembers(contestId.value, res.id, {
+    await apis.editContestTeamMembers(contestId.value, res.id, {
       members: members.value.map(member => member.id)
     })
     toast.success('コンテストチ－ムを追加しました')
