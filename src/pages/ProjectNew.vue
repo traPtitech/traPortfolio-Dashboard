@@ -53,15 +53,15 @@ const createProject = async () => {
       link: formValues.link || undefined
     }
     const res = await apis.createProject(req)
-    mutate()
     await apis.editProjectMembers(res.data.id, {
       members: members.value.map(member => ({
         userId: member.id,
         duration: member.duration
       }))
     })
+    mutate()
     toast.success('プロジェクトを追加しました')
-    router.push(`/projects/${res.data.id}`)
+    router.push(`/projects/${res.data.id}/edit`)
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
   }
