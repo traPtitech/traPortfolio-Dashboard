@@ -49,23 +49,22 @@ const sinceOptions = computed(() =>
 // 出力。stringをオブジェクトに変換して出力
 const handleInput = (value: string | undefined, dateType: DateType) => {
   const [year, semester] = value?.split(' ') ?? [undefined, undefined]
+  const newValue = {
+    year: Number(year),
+    semester: Number(semester) as Semester
+  }
+
   model.value = {
     since:
       dateType === 'since'
         ? value !== undefined
-          ? {
-              year: Number(year),
-              semester: Number(semester) as Semester
-            }
+          ? newValue
           : undefined
         : model.value.since,
     until:
       dateType === 'until'
         ? value !== undefined
-          ? {
-              year: Number(year),
-              semester: Number(semester) as Semester
-            }
+          ? newValue
           : undefined
         : model.value.until
   }
