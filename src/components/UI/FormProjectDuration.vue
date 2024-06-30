@@ -3,6 +3,7 @@ import { Semester, YearWithSemesterDuration } from '/@/lib/apis'
 import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
+import { computed } from 'vue'
 // vue-selectが上手く初期値を表示してくれないため、valueはstringで扱い、オブジェクトで入出力を行っている
 
 type DateType = 'since' | 'until'
@@ -20,28 +21,30 @@ const model = defineModel<Partial<YearWithSemesterDuration>>({
   required: true
 })
 
-const options: Option<string | undefined>[] = Array(props.yearsAgo)
-  .fill(null)
-  .flatMap((_, i) => [
-    {
-      label: `${(new Date().getFullYear() - i).toString()} 後期`,
-      value: `${new Date().getFullYear() - i} ${Semester.second}`
-    },
-    {
-      label: `${(new Date().getFullYear() - i).toString()} 前期`,
-      value: `${new Date().getFullYear() - i} ${Semester.first}`
-    }
-  ])
-
-const untilOptions = [
+const options = computed<Option<string | undefined>[]>(() =>
+  Array(props.yearsAgo)
+    .fill(null)
+    .flatMap((_, i) => [
+      {
+        label: `${(new Date().getFullYear() - i).toString()} 後期`,
+        value: `${new Date().getFullYear() - i} ${Semester.second}`
+      },
+      {
+        label: `${(new Date().getFullYear() - i).toString()} 前期`,
+        value: `${new Date().getFullYear() - i} ${Semester.first}`
+      }
+    ])
+)
+const untilOptions = computed(() => [
   {
     label: '未定',
     value: undefined
   },
-  ...options
-]
-
-const sinceOptions = props.sinceRequired ? options : untilOptions
+  ...options.value
+])
+const sinceOptions = computed(() =>
+  props.sinceRequired ? options.value : untilOptions.value
+)
 
 // 出力。stringをオブジェクトに変換して出力
 const handleInput = (value: string | undefined, dateType: DateType) => {
@@ -153,3 +156,5 @@ const handleInput = (value: string | undefined, dateType: DateType) => {
   align-items: center;
 }
 </style>
+import { computed } from 'vue'; import { computed } from 'vue'; import {
+computed } from 'vue';
