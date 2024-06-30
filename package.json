@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@iconify/json": "^2.2.215",
-    "@openapitools/openapi-generator-cli": "^2.7.0",
     "@stoplight/prism-cli": "^5.8.1",
     "@types/autosize": "^4.0.3",
     "@types/jest": "^29.5.12",
