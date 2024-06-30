@@ -10,7 +10,6 @@ import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
-import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import {
   isValidLength,
   isValidOptionalUrl,
@@ -160,7 +159,6 @@ const handleDelete = (id: string) => {
       </labeled-form>
     </form>
 
-    <delete-form target="プロジェクト" />
     <div :class="$style.buttonContainer">
       <router-link :to="`/projects/${projectId}`" :class="$style.link">
         <base-button
