@@ -21,7 +21,7 @@
     "pinia": "^2.1.7",
     "ress": "^5.0.2",
     "vue": "^3.4.27",
-    "vue-router": "^4.3.2",
+    "vue-router": "^4.4.0",
     "vue-select": "^4.0.0-beta.6",
     "vue-toastification": "^2.0.0-rc.5"
   },
