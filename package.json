@@ -43,7 +43,7 @@
     "rimraf": "^5.0.7",
     "sass": "^1.77.6",
     "ts-morph": "^20.0.0",
-    "typescript": "^5.4.5",
+    "typescript": "^5.5.2",
     "vite": "^5.2.12",
     "vite-plugin-purge-icons": "^0.10.0",
     "vitest": "^1.5.3",
