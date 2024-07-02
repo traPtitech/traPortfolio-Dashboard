@@ -20,13 +20,13 @@
     "axios": "^1.6.8",
     "pinia": "^2.1.7",
     "ress": "^5.0.2",
-    "vue": "^3.4.27",
+    "vue": "^3.4.31",
     "vue-router": "^4.4.0",
     "vue-select": "^4.0.0-beta.6",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@iconify/json": "^2.2.215",
+    "@iconify/json": "^2.2.224",
     "@stoplight/prism-cli": "^5.8.1",
     "@types/autosize": "^4.0.3",
     "@types/jest": "^29.5.12",
@@ -43,11 +43,11 @@
     "rimraf": "^5.0.7",
     "sass": "^1.77.6",
     "ts-morph": "^20.0.0",
-    "typescript": "^5.5.2",
+    "typescript": "^5.5.3",
     "vite": "^5.3.2",
     "vite-plugin-purge-icons": "^0.10.0",
     "vitest": "^1.6.0",
-    "vue-tsc": "2.0.19"
+    "vue-tsc": "2.0.24"
   },
   "private": true,
   "type": "module"
