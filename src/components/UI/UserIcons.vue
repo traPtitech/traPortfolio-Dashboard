@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import UserIcon from '/@/components/UI/UserIcon.vue'
 interface Props {
-  userIds: string[]
+  userNames: string[]
 }
 
 defineProps<Props>()
@@ -10,13 +10,13 @@ defineProps<Props>()
 <template>
   <div :class="$style.userIcons">
     <user-icon
-      v-for="(userId, i) in userIds.slice(0, 3)"
-      :key="userId"
-      :user-id="userId"
+      v-for="(userName, i) in userNames.slice(0, 3)"
+      :key="userName"
+      :user-name="userName"
       :class="$style.userIcon"
       :style="{ left: `${i * 16}px` }"
     />
-    <span v-if="userIds.length > 3">+{{ userIds.length - 3 }}</span>
+    <span v-if="userNames.length > 3">+{{ userNames.length - 3 }}</span>
   </div>
 </template>
 

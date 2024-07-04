@@ -7,65 +7,56 @@ import {
 import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
+import { computed } from 'vue'
 
-type DateType = 'since' | 'until'
+// vue-selectが上手く初期値を表示してくれないため、valueはstringで扱い、オブジェクトで入出力を行っている
 
 interface Props {
   yearsAgo?: number
-  sinceRequired?: boolean
 }
+
 const props = withDefaults(defineProps<Props>(), {
   yearsAgo: 20
 })
 
-const model = defineModel<Partial<YearWithSemesterDuration>>({ required: true })
+const model = defineModel<Partial<YearWithSemesterDuration>>({
+  required: true
+})
 
-const options: Option<YearWithSemester | undefined>[] = Array(props.yearsAgo)
-  .fill(null)
-  .flatMap((_, i) => [
-    {
-      label: `${(new Date().getFullYear() - i).toString()} 後期`,
-      value: {
-        year: new Date().getFullYear() - i,
-        semester: Semester.second
+const currentYear = new Date().getFullYear()
+const options = computed<Option<string | undefined>[]>(() =>
+  Array(props.yearsAgo)
+    .fill(null)
+    .flatMap((_, i) => [
+      {
+        label: `${currentYear - i} 後期`,
+        value: `${currentYear - i} ${Semester.second}`
+      },
+      {
+        label: `${currentYear - i} 前期`,
+        value: `${currentYear - i} ${Semester.first}`
       }
-    },
-    {
-      label: `${(new Date().getFullYear() - i).toString()} 前期`,
-      value: {
-        year: new Date().getFullYear() - i,
-        semester: Semester.first
-      }
-    }
-  ])
-
-const untilOptions = [
+    ])
+)
+const untilOptions = computed(() => [
   {
     label: '未定',
     value: undefined
   },
-  ...options
-]
+  ...options.value
+])
 
-const sinceOptions = props.sinceRequired ? options : untilOptions
+// ラベルとして表示する文字列
+const yearWithSemesterToString = (value: YearWithSemester) =>
+  `${value.year} ${value.semester}`
 
-const handleInput = (
-  value: YearWithSemester | undefined,
-  dateType: DateType
-) => {
-  model.value = {
-    since: dateType === 'since' ? value : model.value.since,
-    until: dateType === 'until' ? value : model.value.until
+// 親コンポーネントに出力するために、stringをobjectに変換
+const stringToYearWithSemester = (value: string): YearWithSemester => {
+  const [year, semester] = value.split(' ')
+  return {
+    year: Number(year),
+    semester: Number(semester) as Semester
   }
-}
-
-const compare = (
-  a: YearWithSemester | undefined,
-  b: YearWithSemester | undefined
-) => {
-  if (a === undefined && b === undefined) return true
-  if (a === undefined || b === undefined) return false
-  return a.year === b.year && a.semester === b.semester
 }
 </script>
 
@@ -74,15 +65,22 @@ const compare = (
     <div>
       <div :class="$style.sinceHead">
         <p :class="$style.head">開始</p>
-        <required-chip v-if="sinceRequired" />
+        <required-chip />
       </div>
       <div :class="$style.form">
+        <!--modelValueはオブジェクトを文字列に変換している-->
         <base-select
-          :options="sinceOptions"
+          :options="options"
           :class="$style.input"
-          :model-value="model.since"
-          :by="compare"
-          @update:model-value="handleInput($event, 'since')"
+          :model-value="
+            model.since ? yearWithSemesterToString(model.since) : undefined
+          "
+          @update:model-value="
+            model.since =
+              $event !== undefined
+                ? stringToYearWithSemester($event)
+                : undefined
+          "
         />
       </div>
     </div>
@@ -92,12 +90,19 @@ const compare = (
         <p :class="$style.head">終了</p>
       </div>
       <div :class="$style.form">
+        <!--modelValueはオブジェクトを文字列に変換している-->
         <base-select
           :options="untilOptions"
           :class="$style.input"
-          :model-value="model.until"
-          :by="compare"
-          @update:model-value="handleInput($event, 'until')"
+          :model-value="
+            model.until ? yearWithSemesterToString(model.until) : undefined
+          "
+          @update:model-value="
+            model.until =
+              $event !== undefined
+                ? stringToYearWithSemester($event)
+                : undefined
+          "
         />
       </div>
     </div>

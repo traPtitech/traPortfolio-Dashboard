@@ -28,7 +28,7 @@ const shouldShowDurationError = computed(
   <div :class="$style.container">
     <div :class="$style.content">
       <div :class="$style.user">
-        <user-icon :user-id="user.id" :size="48" />
+        <user-icon :user-name="user.name" :size="48" />
         <p :class="$style.name">{{ user.name }}</p>
         <button
           :class="[$style.deleteButton, $style.sp]"
@@ -40,7 +40,6 @@ const shouldShowDurationError = computed(
       <div>
         <form-project-duration
           v-model="model"
-          since-required
           :class="$style.projectDuration"
         />
         <field-error-message v-if="shouldShowDurationError">

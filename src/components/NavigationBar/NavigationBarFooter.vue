@@ -5,8 +5,11 @@ import Icon from '/@/components/UI/Icon.vue'
 <template>
   <div :class="$style.container">
     <p>traPortfolio</p>
-    <!-- TODO: 開発者向けWikiへのリンクをユーザー向けWikiのリンクにさしかえ -->
-    <a href="https://wiki.trap.jp/SysAd/dev/traPortfolio" target="_blank">
+    <a
+      href="https://wiki.trap.jp/services/traPortfolio"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <icon name="mdi:help" :class="$style.icon" />
     </a>
   </div>

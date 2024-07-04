@@ -7,7 +7,6 @@ import { RouterLink, useRouter } from 'vue-router'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import useParam from '/@/lib/param'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
@@ -29,7 +28,9 @@ if (!account) {
 }
 
 const registeredServices = computed(() =>
-  me.accounts.map(account => account.type)
+  me.accounts
+    .map(account => account.type)
+    .filter(accountType => accountType !== account.type)
 )
 
 const formValues = ref<Required<EditUserAccountRequest>>(account)
@@ -47,7 +48,15 @@ const canSubmit = computed(
 const updateAccount = async () => {
   isSending.value = true
   try {
-    await apis.editUserAccount(me.id, accountId.value, formValues.value)
+    // FIXME: https://github.com/traPtitech/traPortfolio-Dashboard/issues/71
+    // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
+    const _formValues = {
+      ...formValues.value,
+      displayName: [0, 1].includes(formValues.value.type)
+        ? me.name
+        : formValues.value.displayName
+    }
+    await apis.editUserAccount(me.id, accountId.value, _formValues)
     toast.success('アカウント情報を更新しました')
     router.push('/user/accounts')
   } catch {
@@ -113,12 +122,6 @@ const deleteAccount = async () => {
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="traP広報での言及を許可" :class="$style.labeledForm">
-        <div :class="$style.prPermittedForm">
-          許可する
-          <toggle-switch v-model="formValues.prPermitted" />
-        </div>
-      </labeled-form>
     </form>
     <delete-form target="アカウント" @delete="open" />
 
@@ -164,11 +167,6 @@ const deleteAccount = async () => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 .link {
   text-decoration: none;
