@@ -8,6 +8,7 @@ import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
 import { computed } from 'vue'
+
 // vue-selectが上手く初期値を表示してくれないため、valueはstringで扱い、オブジェクトで入出力を行っている
 
 interface Props {
@@ -22,17 +23,18 @@ const model = defineModel<Partial<YearWithSemesterDuration>>({
   required: true
 })
 
+const currentYear = new Date().getFullYear()
 const options = computed<Option<string | undefined>[]>(() =>
   Array(props.yearsAgo)
     .fill(null)
     .flatMap((_, i) => [
       {
-        label: `${(new Date().getFullYear() - i).toString()} 後期`,
-        value: `${new Date().getFullYear() - i} ${Semester.second}`
+        label: `${(currentYear - i).toString()} 後期`,
+        value: `${currentYear - i} ${Semester.second}`
       },
       {
-        label: `${(new Date().getFullYear() - i).toString()} 前期`,
-        value: `${new Date().getFullYear() - i} ${Semester.first}`
+        label: `${(currentYear - i).toString()} 前期`,
+        value: `${currentYear - i} ${Semester.first}`
       }
     ])
 )
