@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import { Semester, YearWithSemesterDuration } from '/@/lib/apis'
+import { Semester, YearWithSemester, YearWithSemesterDuration } from '/@/lib/apis'
 import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
 import { computed } from 'vue'
 // vue-selectが上手く初期値を表示してくれないため、valueはstringで扱い、オブジェクトで入出力を行っている
-
-type DateType = 'since' | 'until'
 
 interface Props {
   yearsAgo?: number
@@ -46,27 +44,24 @@ const sinceOptions = computed(() =>
   props.sinceRequired ? options.value : untilOptions.value
 )
 
-// 出力。stringをオブジェクトに変換して出力
-const handleInput = (value: string | undefined, dateType: DateType) => {
-  const [year, semester] = value?.split(' ') ?? [undefined, undefined]
-  const newValue = {
-    year: Number(year),
-    semester: Number(semester) as Semester
+// ラベルとして表示する文字列
+const objectToString = (value: YearWithSemester | undefined) => {
+  if (value === undefined) {
+    return undefined
+  }
+  return `${value.year} ${value.semester}`
+}
+
+// 親コンポーネントに出力するために、stringをobjectに変換
+const stringToObject = (value: string | undefined) => {
+  if (value === undefined) {
+    return undefined
   }
 
-  model.value = {
-    since:
-      dateType === 'since'
-        ? value !== undefined
-          ? newValue
-          : undefined
-        : model.value.since,
-    until:
-      dateType === 'until'
-        ? value !== undefined
-          ? newValue
-          : undefined
-        : model.value.until
+  const [year, semester] = value.split(' ')
+  return {
+    year: Number(year),
+    semester: Number(semester) as Semester
   }
 }
 </script>
@@ -83,12 +78,8 @@ const handleInput = (value: string | undefined, dateType: DateType) => {
         <base-select
           :options="sinceOptions"
           :class="$style.input"
-          :model-value="
-            model.since !== undefined
-              ? `${model.since.year} ${model.since.semester}`
-              : undefined
-          "
-          @update:model-value="handleInput($event, 'since')"
+          :model-value="objectToString(model.since)"
+          @update:model-value="model.since = stringToObject($event)"
         />
       </div>
     </div>
@@ -102,12 +93,8 @@ const handleInput = (value: string | undefined, dateType: DateType) => {
         <base-select
           :options="untilOptions"
           :class="$style.input"
-          :model-value="
-            model.until !== undefined
-              ? `${model.until.year} ${model.until.semester}`
-              : undefined
-          "
-          @update:model-value="handleInput($event, 'until')"
+          :model-value="objectToString(model.until)"
+          @update:model-value="model.until = stringToObject($event)"
         />
       </div>
     </div>
