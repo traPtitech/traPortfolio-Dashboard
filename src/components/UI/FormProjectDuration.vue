@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import { Semester, YearWithSemester, YearWithSemesterDuration } from '/@/lib/apis'
+import {
+  Semester,
+  YearWithSemester,
+  YearWithSemesterDuration
+} from '/@/lib/apis'
 import RequiredChip from '/@/components/UI/RequiredChip.vue'
 import { Option } from '/@/components/UI/BaseSelect.vue'
 import BaseSelect from '/@/components/UI/BaseSelect.vue'
@@ -8,7 +12,6 @@ import { computed } from 'vue'
 
 interface Props {
   yearsAgo?: number
-  sinceRequired?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -40,9 +43,6 @@ const untilOptions = computed(() => [
   },
   ...options.value
 ])
-const sinceOptions = computed(() =>
-  props.sinceRequired ? options.value : untilOptions.value
-)
 
 // ラベルとして表示する文字列
 const objectToString = (value: YearWithSemester | undefined) => {
@@ -71,12 +71,12 @@ const stringToObject = (value: string | undefined) => {
     <div>
       <div :class="$style.sinceHead">
         <p :class="$style.head">開始</p>
-        <required-chip v-if="sinceRequired" />
+        <required-chip />
       </div>
       <div :class="$style.form">
         <!--modelValueはオブジェクトを文字列に変換している-->
         <base-select
-          :options="sinceOptions"
+          :options="options"
           :class="$style.input"
           :model-value="objectToString(model.since)"
           @update:model-value="model.since = stringToObject($event)"
