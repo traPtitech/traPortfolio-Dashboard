@@ -127,7 +127,7 @@ const handleDelete = (id: string) => {
         />
       </labeled-form>
       <labeled-form label="期間" :class="$style.labeledForm">
-        <form-project-duration v-model="formValues.duration" since-required />
+        <form-project-duration v-model="formValues.duration" />
         <field-error-message v-if="shouldShowDurationError">
           開始期間は終了期間よりも前に指定してください。
         </field-error-message>

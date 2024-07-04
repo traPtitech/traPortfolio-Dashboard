@@ -40,7 +40,6 @@ const shouldShowDurationError = computed(
       <div>
         <form-project-duration
           v-model="model"
-          since-required
           :class="$style.projectDuration"
         />
         <field-error-message v-if="shouldShowDurationError">
