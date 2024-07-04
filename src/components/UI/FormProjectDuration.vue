@@ -29,11 +29,11 @@ const options = computed<Option<string | undefined>[]>(() =>
     .fill(null)
     .flatMap((_, i) => [
       {
-        label: `${(currentYear - i).toString()} 後期`,
+        label: `${currentYear - i} 後期`,
         value: `${currentYear - i} ${Semester.second}`
       },
       {
-        label: `${(currentYear - i).toString()} 前期`,
+        label: `${currentYear - i} 前期`,
         value: `${currentYear - i} ${Semester.first}`
       }
     ])
@@ -47,19 +47,11 @@ const untilOptions = computed(() => [
 ])
 
 // ラベルとして表示する文字列
-const objectToString = (value: YearWithSemester | undefined) => {
-  if (value === undefined) {
-    return undefined
-  }
-  return `${value.year} ${value.semester}`
-}
+const yearWithSemesterToString = (value: YearWithSemester) =>
+  `${value.year} ${value.semester}`
 
 // 親コンポーネントに出力するために、stringをobjectに変換
-const stringToObject = (value: string | undefined) => {
-  if (value === undefined) {
-    return undefined
-  }
-
+const stringToYearWithSemester = (value: string): YearWithSemester => {
   const [year, semester] = value.split(' ')
   return {
     year: Number(year),
@@ -80,8 +72,15 @@ const stringToObject = (value: string | undefined) => {
         <base-select
           :options="options"
           :class="$style.input"
-          :model-value="objectToString(model.since)"
-          @update:model-value="model.since = stringToObject($event)"
+          :model-value="
+            model.since ? yearWithSemesterToString(model.since) : undefined
+          "
+          @update:model-value="
+            model.since =
+              $event !== undefined
+                ? stringToYearWithSemester($event)
+                : undefined
+          "
         />
       </div>
     </div>
@@ -95,8 +94,15 @@ const stringToObject = (value: string | undefined) => {
         <base-select
           :options="untilOptions"
           :class="$style.input"
-          :model-value="objectToString(model.until)"
-          @update:model-value="model.until = stringToObject($event)"
+          :model-value="
+            model.until ? yearWithSemesterToString(model.until) : undefined
+          "
+          @update:model-value="
+            model.until =
+              $event !== undefined
+                ? stringToYearWithSemester($event)
+                : undefined
+          "
         />
       </div>
     </div>
