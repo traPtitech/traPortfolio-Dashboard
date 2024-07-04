@@ -50,6 +50,7 @@ const userNames = computed(() =>
 .name {
   color: $color-primary;
   font-size: 1.125rem;
+  font-weight: 500;
 }
 .result {
   margin-top: 2rem;

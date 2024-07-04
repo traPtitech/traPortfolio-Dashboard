@@ -28,7 +28,9 @@ if (!account) {
 }
 
 const registeredServices = computed(() =>
-  me.accounts.map(account => account.type)
+  me.accounts
+    .map(account => account.type)
+    .filter(accountType => accountType !== account.type)
 )
 
 const formValues = ref<Required<EditUserAccountRequest>>(account)

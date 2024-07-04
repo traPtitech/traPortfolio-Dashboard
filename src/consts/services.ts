@@ -93,14 +93,18 @@ export const serviceArray: readonly ServiceWithName[] = Object.entries(
 export const serviceNameToType = (name: ServiceName): AccountType => {
   return services[name].type
 }
-export const hasIdService = (type: AccountType) =>
-  ![AccountType.homepage, AccountType.blog].includes(type)
+export const hasIdService = (type: AccountType) => {
+  const array: AccountType[] = [AccountType.homepage, AccountType.blog]
+  return !array.includes(type)
+}
 
-export const hasAtmarkService = (type: AccountType) =>
-  [
+export const hasAtmarkService = (type: AccountType) => {
+  const array: AccountType[] = [
     AccountType.twitter,
     AccountType.facebook,
     AccountType.pixiv,
     AccountType.qiita,
     AccountType.github
-  ].includes(type)
+  ]
+  return array.includes(type)
+}

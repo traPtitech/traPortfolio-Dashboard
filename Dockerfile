@@ -1,12 +1,9 @@
-FROM --platform=$BUILDPLATFORM node:20.8.0-alpine as build
+FROM --platform=$BUILDPLATFORM node:20.11.1-alpine as build
 WORKDIR /app
 
-RUN apk update \
-    && apk --no-cache add openjdk11 \
-    && rm -rf /var/cache/apk/*
+RUN apk update
 
 COPY package.json package-lock.json ./
-COPY scripts/ ./scripts/
 RUN npm ci
 COPY . .
 RUN NODE_ENV=production npm run build

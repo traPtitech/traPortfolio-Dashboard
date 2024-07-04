@@ -12,9 +12,28 @@ env:
   IMAGE_NAME: traportfolio-dashboard
 
 jobs:
+  # API生成部分をDockerのビルド部分から分離
+  genApi:
+    name: Generate APIs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npm run gen-api
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apis
+          path: ./src/lib/apis/generated
+
   # GitHubリリース機能で自動リリース
   make-dist:
     runs-on: ubuntu-latest
+    needs:
+      - genApi
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -23,6 +42,10 @@ jobs:
           cache: npm
       - name: Node package install
         run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: apis
+          path: ./src/lib/apis/generated
       - name: Vite build
         run: npm run build
         env:
@@ -40,6 +63,9 @@ jobs:
   # ghcrにビルド済みイメージをアップロード
   image:
     name: Build Docker Image
+    needs:
+      - genApi
+      - make-dist
     runs-on: ubuntu-latest
     steps:
       - name: Set IMAGE_TAG env
@@ -61,8 +87,13 @@ jobs:
           username: traptitech
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: apis
+          path: ./src/lib/apis/generated
+
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: true

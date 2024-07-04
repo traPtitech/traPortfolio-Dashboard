@@ -55,14 +55,13 @@ const updateContestTeam = async () => {
       result: formValues.value.result || undefined,
       link: formValues.value.link || undefined
     }
-    await apis.editContestTeam(
-      contestId.value,
-      contestTeamId.value,
-      requestData
-    )
-    await apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
-      members: members.value.map(member => member.id)
-    })
+    const promises = [
+      apis.editContestTeam(contestId.value, contestTeamId.value, requestData),
+      apis.editContestTeamMembers(contestId.value, contestTeamId.value, {
+        members: members.value.map(member => member.id)
+      })
+    ]
+    await Promise.all(promises)
     toast.success('コンテストチ－ム情報を更新しました')
     router.push(`/contests/${contestId.value}`)
   } catch {
