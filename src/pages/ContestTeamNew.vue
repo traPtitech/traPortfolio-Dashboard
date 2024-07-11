@@ -109,7 +109,10 @@ const createContestTeam = async () => {
     </form>
 
     <div :class="$style.buttonContainer">
-      <router-link :to="`/contests/${contestId}`" :class="$style.link">
+      <router-link
+        :to="{ name: 'Contest', params: { contestId: contestId } }"
+        :class="$style.link"
+      >
         <base-button type="secondary" icon="mdi:arrow-left">Back</base-button>
       </router-link>
       <base-button

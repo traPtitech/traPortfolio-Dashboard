@@ -126,7 +126,7 @@ const deleteAccount = async () => {
     <delete-form target="アカウント" @delete="open" />
 
     <div :class="$style.buttonContainer">
-      <router-link to="/user/accounts" :class="$style.link">
+      <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

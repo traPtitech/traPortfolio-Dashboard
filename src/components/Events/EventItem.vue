@@ -53,7 +53,10 @@ onUnmounted(() => {
 
 <template>
   <div :class="$style.container">
-    <router-link :to="`events/${event.id}`" :class="$style.link">
+    <router-link
+      :to="{ name: 'Event', params: { id: event.id } }"
+      :class="$style.link"
+    >
       <p :class="$style.name">{{ event.name }}</p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />

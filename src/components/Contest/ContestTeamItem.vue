@@ -17,7 +17,10 @@ const userNames = computed(() =>
 
 <template>
   <router-link
-    :to="`/contests/${contestId}/teams/${contestTeam.id}/edit`"
+    :to="{
+      name: 'ContestTeamEdit',
+      params: { contestId: contestId, teamId: contestTeam.id }
+    }"
     :class="$style.link"
   >
     <div :class="$style.container">

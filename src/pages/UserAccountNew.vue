@@ -111,7 +111,7 @@ const createNewAccount = async () => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link to="/user/accounts" :class="$style.link">
+      <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

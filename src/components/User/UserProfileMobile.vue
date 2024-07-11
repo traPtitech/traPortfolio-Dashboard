@@ -23,7 +23,7 @@ defineProps<Props>()
     </div>
     <div :class="$style.accounts">
       <user-accounts :accounts="user.accounts" />
-      <router-link to="/user/accounts" :class="$style.link">
+      <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
         <base-button icon="mdi:account">Edit</base-button>
       </router-link>
     </div>
