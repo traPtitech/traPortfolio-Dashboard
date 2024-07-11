@@ -84,8 +84,8 @@ const deleteAccount = async () => {
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/user' },
-          { title: 'Accounts', url: `/user/accounts` },
+          { title: 'Profile', path: { name: 'Profile' } },
+          { title: 'Accounts', path: { name: 'UserAccounts' } },
           {
             title: 'Edit',
             url: `/user/accounts/edit`

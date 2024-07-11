@@ -89,19 +89,28 @@ const deleteContestTeam = async () => {
       <content-header
         icon-name="mdi:trophy-outline"
         :header-texts="[
-          { title: 'Contests', url: '/contests' },
-          { title: contest.name, url: `/contests/${contestId}` },
+          { title: 'Contests', path: { name: 'Contests' } },
+          {
+            title: contest.name,
+            path: { name: 'Contest', params: { contestId: contestId } }
+          },
           {
             title: 'Teams',
-            url: `/contests/${contestId}`
+            path: { name: 'Contest', params: { contestId: contestId } }
           },
           {
             title: contestTeam.name,
-            url: `/contests/${contestId}/teams/${contestTeamId}/edit`
+            path: {
+              name: 'ContestTeamEdit',
+              params: { contestId: contestId, teamId: contestTeamId }
+            }
           },
           {
             title: 'Edit',
-            url: `/contests/${contestId}/teams/${contestTeamId}/edit`
+            path: {
+              name: 'ContestTeamEdit',
+              params: { contestId: contestId, teamId: contestTeamId }
+            }
           }
         ]"
         detail="コンテストチームの情報を変更します。"

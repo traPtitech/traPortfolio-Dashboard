@@ -8,7 +8,7 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
   <page-container>
     <content-header
       icon-name="mdi:apps"
-      :header-texts="[{ title: 'Top', url: '/' }]"
+      :header-texts="[{ title: 'Top', path: { name: 'Index' } }]"
       detail="ポートフォリオの設定を変更します"
       :class="$style.header"
     />

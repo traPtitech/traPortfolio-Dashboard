@@ -9,7 +9,7 @@ import { routes } from '/@/lib/routeInfo'
       v-for="route in routes"
       :key="route.name"
       :name="route.name"
-      :path="route.path"
+      :path="{ name: route.name }"
     />
   </ul>
 </template>

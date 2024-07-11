@@ -71,11 +71,11 @@ const createNewAccount = async () => {
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/user' },
-          { title: 'Accounts', url: `/user/accounts` },
+          { title: 'Profile', path: { name: 'Profile' } },
+          { title: 'Accounts', path: { name: 'UserAccounts' } },
           {
             title: 'New',
-            url: `/user/accounts/new`
+            path: { name: 'UserAccountsNew' }
           }
         ]"
         detail="アカウントを登録します。"

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { computed, toRef } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, RouteLocationNamedRaw } from 'vue-router'
 import Icon from '/@/components/UI/Icon.vue'
 import useRouteInfo from '/@/lib/routeInfo'
 
 interface Props {
   name: string
-  path: string
+  path: RouteLocationNamedRaw
 }
 
 const currentRoute = useRoute()
@@ -16,11 +16,7 @@ const props = defineProps<Props>()
 const routeInfo = useRouteInfo(toRef(props, 'name'))
 
 const isActive = computed(() => {
-  if (props.path === '/') return currentRoute.path === props.path
-  return (
-    currentRoute.path === props.path ||
-    currentRoute.path.startsWith(`${props.path}/`)
-  )
+  return currentRoute.name === props.name
 })
 </script>
 
