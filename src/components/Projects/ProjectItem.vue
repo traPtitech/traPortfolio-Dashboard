@@ -11,7 +11,10 @@ defineProps<Props>()
 </script>
 
 <template>
-  <router-link :to="`/projects/${project.id}/edit`" :class="$style.link">
+  <router-link 
+    :to="{ name: 'Project', params: { projectId: project.id } }"
+    :class="$style.link"
+  >
     <div :class="$style.container">
       <p :class="$style.name">{{ project.name }}</p>
       <p :class="$style.duration">
