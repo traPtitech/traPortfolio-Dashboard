@@ -20,7 +20,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
     <button v-if="isMobile" @click="emit('toggleNavigationBar')">
       <icon name="mdi:menu" />
     </button>
-    <router-link to="/">
+    <router-link :to="{ name: 'Index' }">
       <img
         src="/@/assets/traP_logo_blue.svg"
         alt="traP"

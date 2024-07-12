@@ -114,7 +114,7 @@ const createContest = async () => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link to="/contests" :class="$style.link">
+      <router-link :to="{ name: 'Contests' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

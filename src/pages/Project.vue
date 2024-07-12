@@ -160,7 +160,7 @@ const handleDelete = (id: string) => {
     </form>
 
     <div :class="$style.buttonContainer">
-      <router-link :to="`/projects/${projectId}`" :class="$style.link">
+      <router-link :to="{ name: 'Projects' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

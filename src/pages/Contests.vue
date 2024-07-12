@@ -37,7 +37,7 @@ const filteredContests = computed(() =>
         />
       </div>
       <div>
-        <router-link to="/contests/new" :class="$style.link">
+        <router-link :to="{ name: 'ContestNew' }" :class="$style.link">
           <base-button type="primary" icon="mdi:trophy">New</base-button>
         </router-link>
       </div>

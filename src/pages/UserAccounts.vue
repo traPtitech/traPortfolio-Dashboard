@@ -22,7 +22,7 @@ const me = (await apis.getMe()).data
         detail="アカウント情報を変更します。"
         :class="$style.header"
       />
-      <router-link to="/user/accounts/new" :class="$style.link">
+      <router-link :to="{ name: 'UserAccountsNew' }" :class="$style.link">
         <base-button type="primary" icon="mdi:account">New</base-button>
       </router-link>
     </div>
@@ -32,7 +32,7 @@ const me = (await apis.getMe()).data
       </li>
     </ul>
 
-    <router-link to="/user" :class="$style.link">
+    <router-link :to="{ name: 'Profile' }" :class="$style.link">
       <base-button
         :class="$style.backButton"
         type="secondary"

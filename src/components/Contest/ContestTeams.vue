@@ -32,7 +32,7 @@ const filteredContestTeams = computed(() =>
       </div>
       <div>
         <router-link
-          :to="`/contests/${contestId}/teams/new`"
+          :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
           :class="$style.link"
         >
           <base-button type="primary" icon="mdi:plus">New</base-button>

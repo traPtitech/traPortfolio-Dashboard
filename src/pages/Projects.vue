@@ -37,7 +37,7 @@ const filteredProjects = computed(() =>
         />
       </div>
       <div>
-        <router-link to="/projects/new" :class="$style.link">
+        <router-link :to="{ name: 'ProjectNew' }" :class="$style.link">
           <base-button type="primary" icon="mdi:clipboard-file">
             New</base-button
           >

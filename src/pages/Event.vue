@@ -115,7 +115,7 @@ const updateEvent = async () => {
     </div>
 
     <div :class="$style.buttonContainer">
-      <router-link to="/events" :class="$style.link">
+      <router-link :to="{ name: 'Events' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"
