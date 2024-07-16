@@ -131,7 +131,10 @@ const deleteContest = async () => {
     <delete-form target="コンテスト" @delete="open" />
 
     <div :class="$style.buttonContainer">
-      <router-link :to="`/contests/${contestId}`" :class="$style.link">
+      <router-link
+        :to="{ name: 'Contest', params: { contestId: contestId } }"
+        :class="$style.link"
+      >
         <base-button
           :class="$style.backButton"
           type="secondary"

@@ -2,31 +2,36 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
-import apis, { Account, AddAccountRequest } from '/@/lib/apis'
+import apis, { AddAccountRequest } from '/@/lib/apis'
 import { RouterLink, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
-import ToggleSwitch from '/@/components/UI/ToggleSwitch.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
-import { hasAtmarkService, hasIdService } from '/@/consts/services'
+import {
+  hasAtmarkService,
+  hasIdService,
+  serviceArray
+} from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/lib/validate'
 import { useToast } from 'vue-toastification'
 
 const router = useRouter()
 const toast = useToast()
 
-const userId = ref('c714a848-2886-4c10-a313-de9bc61cb2bb')
-// todo: get meが実装されたらそれを使う
-const accounts: Account[] = (await apis.getUserAccounts(userId.value)).data
-
-const registeredServices = computed(() => accounts.map(account => account.type))
+const me = (await apis.getMe()).data
+const registeredServices = computed(() =>
+  me.accounts.map(account => account.type)
+)
 
 const formValues = reactive<AddAccountRequest>({
-  type: 0,
+  type:
+    serviceArray
+      .filter(s => !registeredServices.value.includes(s.type))
+      .map(s => s.type)[0] ?? 0,
   displayName: '',
   url: '',
-  prPermitted: false
+  prPermitted: true
 })
 
 const isSending = ref(false)
@@ -42,7 +47,15 @@ const canSubmit = computed(
 const createNewAccount = async () => {
   isSending.value = true
   try {
-    await apis.addUserAccount(userId.value, formValues)
+    // FIXME: https://github.com/traPtitech/traPortfolio-Dashboard/issues/71
+    // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
+    const _formValues = {
+      ...formValues,
+      displayName: [0, 1].includes(formValues.type)
+        ? me.name
+        : formValues.displayName
+    }
+    await apis.addUserAccount(me.id, _formValues)
     toast.success('アカウント情報を登録しました')
     router.push('/user/accounts')
   } catch {
@@ -96,15 +109,9 @@ const createNewAccount = async () => {
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="traP広報での言及を許可" :class="$style.labeledForm">
-        <div :class="$style.prPermittedForm">
-          許可する
-          <toggle-switch v-model="formValues.prPermitted" />
-        </div>
-      </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link to="/user/accounts" :class="$style.link">
+      <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"
@@ -136,11 +143,6 @@ const createNewAccount = async () => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 .link {
   text-decoration: none;

@@ -6,7 +6,7 @@ import apis, {
   CreateProjectRequest,
   ProjectMember as ProjectMemberType
 } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -24,6 +24,7 @@ import {
 import { useProjectStore } from '/@/store/project'
 import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
+const router = useRouter()
 const toast = useToast()
 const { mutate } = useProjectStore()
 
@@ -52,14 +53,15 @@ const createProject = async () => {
       link: formValues.link || undefined
     }
     const res = await apis.createProject(req)
-    mutate()
-    await apis.addProjectMembers(res.data.id, {
+    await apis.editProjectMembers(res.data.id, {
       members: members.value.map(member => ({
         userId: member.id,
         duration: member.duration
       }))
     })
+    mutate()
     toast.success('プロジェクトを追加しました')
+    router.push(`/projects/${res.data.id}/edit`)
   } catch {
     toast.error('プロジェクトの追加に失敗しました')
   }
@@ -125,7 +127,7 @@ const handleDelete = (id: string) => {
         />
       </labeled-form>
       <labeled-form label="期間" :class="$style.labeledForm">
-        <form-project-duration v-model="formValues.duration" since-required />
+        <form-project-duration v-model="formValues.duration" />
         <field-error-message v-if="shouldShowDurationError">
           開始期間は終了期間よりも前に指定してください。
         </field-error-message>
@@ -163,7 +165,7 @@ const handleDelete = (id: string) => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link to="/projects" :class="$style.link">
+      <router-link :to="{ name: 'Projects' }" :class="$style.link">
         <base-button
           :class="$style.backButton"
           type="secondary"

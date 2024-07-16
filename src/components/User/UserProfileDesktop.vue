@@ -14,7 +14,7 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.profileContainer">
-    <user-icon :user-id="user.id" :size="128" />
+    <user-icon :user-name="user.name" :size="128" />
     <div>
       <div :class="$style.nameContainer">
         <p :class="$style.name">{{ user.name }}</p>
@@ -22,7 +22,7 @@ defineProps<Props>()
       </div>
       <div :class="$style.accounts">
         <user-accounts :accounts="user.accounts" />
-        <router-link to="/user/accounts" :class="$style.link">
+        <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
           <base-button icon="mdi:account">Edit</base-button>
         </router-link>
       </div>
@@ -45,6 +45,7 @@ defineProps<Props>()
 .name {
   color: $color-primary;
   font-size: 3rem;
+  word-break: break-all;
 }
 .realName {
   font-size: 1.5rem;

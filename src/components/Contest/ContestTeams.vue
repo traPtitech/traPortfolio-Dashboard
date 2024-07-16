@@ -24,17 +24,15 @@ const filteredContestTeams = computed(() =>
   <div>
     <div :class="$style.searchFormContainer">
       <div :class="$style.searchForm">
-        <p :class="$style.searchFormDescriptionText">検索</p>
         <form-input
           v-model="searchQuery"
-          placeholder="チーム名"
+          placeholder="チーム名で検索"
           icon="magnify"
         />
       </div>
-      <div :class="$style.newTeamLink">
-        <p :class="$style.searchFormDescriptionText">チーム作成</p>
+      <div>
         <router-link
-          :to="`/contests/${contestId}/teams/new`"
+          :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
           :class="$style.link"
         >
           <base-button type="primary" icon="mdi:plus">New</base-button>
@@ -56,17 +54,11 @@ const filteredContestTeams = computed(() =>
 .searchFormContainer {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
   margin-top: 0.5rem;
-}
-.searchFormDescriptionText {
-  color: $color-secondary;
-  font-size: 0.875rem;
 }
 .searchForm {
   flex-grow: 1;
-}
-.newTeamLink {
-  margin-left: 0.5rem;
 }
 .link {
   text-decoration: none;

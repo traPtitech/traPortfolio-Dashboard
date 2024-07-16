@@ -52,7 +52,7 @@ const createContestTeam = async () => {
       link: formValues.value.link || undefined
     }
     const res = (await apis.addContestTeam(contestId.value, requestData)).data
-    await apis.addContestTeamMembers(contestId.value, res.id, {
+    await apis.editContestTeamMembers(contestId.value, res.id, {
       members: members.value.map(member => member.id)
     })
     toast.success('コンテストチ－ムを追加しました')
@@ -109,7 +109,10 @@ const createContestTeam = async () => {
     </form>
 
     <div :class="$style.buttonContainer">
-      <router-link :to="`/contests/${contestId}`" :class="$style.link">
+      <router-link
+        :to="{ name: 'Contest', params: { contestId: contestId } }"
+        :class="$style.link"
+      >
         <base-button type="secondary" icon="mdi:arrow-left">Back</base-button>
       </router-link>
       <base-button

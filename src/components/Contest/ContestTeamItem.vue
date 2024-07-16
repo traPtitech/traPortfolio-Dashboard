@@ -10,14 +10,17 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const userIds = computed(() =>
-  props.contestTeam.members.map(member => member.id)
+const userNames = computed(() =>
+  props.contestTeam.members.map(member => member.name)
 )
 </script>
 
 <template>
   <router-link
-    :to="`/contests/${contestId}/teams/${contestTeam.id}/edit`"
+    :to="{
+      name: 'ContestTeamEdit',
+      params: { contestId: contestId, teamId: contestTeam.id }
+    }"
     :class="$style.link"
   >
     <div :class="$style.container">
@@ -25,7 +28,7 @@ const userIds = computed(() =>
         <p :class="$style.name">{{ contestTeam.name }}</p>
         <p :class="$style.result">{{ contestTeam.result }}</p>
       </div>
-      <user-icons :user-ids="userIds" />
+      <user-icons :user-names="userNames" />
     </div>
   </router-link>
 </template>
@@ -50,6 +53,7 @@ const userIds = computed(() =>
 .name {
   color: $color-primary;
   font-size: 1.125rem;
+  font-weight: 500;
 }
 .result {
   margin-top: 2rem;

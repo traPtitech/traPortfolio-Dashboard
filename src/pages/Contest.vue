@@ -31,7 +31,10 @@ const contestTeams: ContestTeam[] = (
         detail="コンテストの詳細です。"
         :class="$style.header"
       />
-      <router-link :to="`/contests/${contestId}/edit`" :class="$style.link">
+      <router-link
+        :to="{ name: 'ContestEdit', params: { contestId: contestId } }"
+        :class="$style.link"
+      >
         <base-button type="primary" icon="mdi:pencil">Edit</base-button>
       </router-link>
     </div>
@@ -70,7 +73,7 @@ const contestTeams: ContestTeam[] = (
       </section>
     </div>
 
-    <router-link to="/contests" :class="$style.link">
+    <router-link :to="{ name: 'Contests' }" :class="$style.link">
       <base-button
         :class="$style.backButton"
         type="secondary"

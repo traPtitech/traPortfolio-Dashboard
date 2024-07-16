@@ -14,10 +14,10 @@ export interface ServiceWithName<Type extends AccountType = AccountType>
 export const serviceTypeToNameMap = Object.freeze({
   [AccountType.homepage]: 'HomePage',
   [AccountType.blog]: 'Blog',
-  [AccountType.twitter]: 'Twitter',
+  [AccountType.twitter]: 'X',
   [AccountType.facebook]: 'Facebook',
   [AccountType.pixiv]: 'pixiv',
-  [AccountType.github]: 'Github',
+  [AccountType.github]: 'GitHub',
   [AccountType.qiita]: 'Qiita',
   [AccountType.zenn]: 'Zenn',
   [AccountType.atcoder]: 'AtCoder',
@@ -41,8 +41,8 @@ export const services = deepFreeze({
     icon: 'mdi:post-outline',
     type: AccountType.blog
   },
-  Twitter: {
-    icon: 'mdi:twitter',
+  X: {
+    icon: 'ph:x-logo',
     type: AccountType.twitter
   },
   Facebook: {
@@ -53,7 +53,7 @@ export const services = deepFreeze({
     icon: 'simple-icons:pixiv',
     type: AccountType.pixiv
   },
-  Github: {
+  GitHub: {
     icon: 'mdi:github',
     type: AccountType.github
   },
@@ -93,14 +93,18 @@ export const serviceArray: readonly ServiceWithName[] = Object.entries(
 export const serviceNameToType = (name: ServiceName): AccountType => {
   return services[name].type
 }
-export const hasIdService = (type: AccountType) =>
-  ![AccountType.homepage, AccountType.blog].includes(type)
+export const hasIdService = (type: AccountType) => {
+  const array: AccountType[] = [AccountType.homepage, AccountType.blog]
+  return !array.includes(type)
+}
 
-export const hasAtmarkService = (type: AccountType) =>
-  [
+export const hasAtmarkService = (type: AccountType) => {
+  const array: AccountType[] = [
     AccountType.twitter,
     AccountType.facebook,
     AccountType.pixiv,
     AccountType.qiita,
     AccountType.github
-  ].includes(type)
+  ]
+  return array.includes(type)
+}

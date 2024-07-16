@@ -11,7 +11,10 @@ defineProps<Props>()
 </script>
 
 <template>
-  <router-link :to="`/contests/${contest.id}`" :class="$style.link">
+  <router-link
+    :to="{ name: 'Contest', params: { contestId: contest.id } }"
+    :class="$style.link"
+  >
     <div :class="$style.container">
       <p :class="$style.name">{{ contest.name }}</p>
       <p :class="$style.duration">
@@ -41,6 +44,7 @@ defineProps<Props>()
 .name {
   color: $color-primary;
   font-size: 1.125rem;
+  font-weight: 500;
 }
 
 .duration {
