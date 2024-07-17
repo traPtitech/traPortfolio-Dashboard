@@ -39,7 +39,15 @@ const shownServices = computed((): Service[] =>
       :class="$style.anchor"
       :data-has-account="service.url !== null"
     >
-      <icon :name="service.icon" :class="$style.icon" />
+      <img
+        v-if="service.notIcon"
+        :alt="service.name"
+        :src="service.icon"
+        :class="$style.icon"
+        width="24"
+        height="24"
+      />
+      <icon v-else :name="service.icon" :class="$style.icon" />
     </a>
   </div>
 </template>

@@ -1,25 +1,15 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { Icon } from '@iconify/vue'
 
 interface Props {
   name: string
   size?: number
 }
-const props = withDefaults(defineProps<Props>(), { size: 24 })
-
-const styles = computed(() => ({
-  height: `${props.size}px`,
-  width: `${props.size}px`
-}))
+withDefaults(defineProps<Props>(), { size: 24 })
 </script>
 
 <template>
-  <span
-    class="iconify"
-    :data-icon="name"
-    :style="styles"
-    :class="$style.icon"
-  />
+  <icon :icon="name" :height="size" :width="size" :class="$style.icon" />
 </template>
 
 <style lang="scss" module>

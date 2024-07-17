@@ -1,9 +1,11 @@
 import { deepFreeze } from '/@/lib/deepFreeze'
 import { AccountType } from '/@/lib/apis'
+import AtCoder from '/@/assets/AtCoder.png'
 
 export interface Service<Type extends AccountType = AccountType> {
   icon: string
   type: Type
+  notIcon?: boolean
 }
 
 export interface ServiceWithName<Type extends AccountType = AccountType>
@@ -66,8 +68,9 @@ export const services = deepFreeze({
     type: AccountType.zenn
   },
   AtCoder: {
-    icon: 'atcoder', //アイコンは保留
-    type: AccountType.atcoder
+    icon: AtCoder,
+    type: AccountType.atcoder,
+    notIcon: true
   },
   SoundCloud: {
     icon: 'mdi:soundcloud',
