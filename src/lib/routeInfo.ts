@@ -48,7 +48,7 @@ const getMessage = (name: string): routeinfo => {
   // Default Value
   return {
     name: 'Loading',
-    path: '',
+    path: {},
     icon: 'eos-icons:bubble-loading',
     description: 'Loading'
   }
