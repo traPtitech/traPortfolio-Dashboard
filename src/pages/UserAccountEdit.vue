@@ -88,7 +88,7 @@ const deleteAccount = async () => {
           { title: 'Accounts', path: { name: 'UserAccounts' } },
           {
             title: 'Edit',
-            url: `/user/accounts/edit`
+            path: { name: 'UserAccountEdit', params: { accountId: accountId } }
           }
         ]"
         detail="アカウント情報を編集します。"
