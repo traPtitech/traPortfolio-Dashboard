@@ -19,14 +19,14 @@
     "axios": "^1.6.8",
     "pinia": "^2.2.0",
     "ress": "^5.0.2",
-    "vue": "^3.4.31",
-    "vue-router": "^4.4.0",
+    "vue": "^3.4.35",
+    "vue-router": "^4.4.2",
     "vue-select": "^4.0.0-beta.6",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
     "@iconify/vue": "^4.1.2",
-    "@stoplight/prism-cli": "^5.8.1",
+    "@stoplight/prism-cli": "^5.8.3",
     "@types/autosize": "^4.0.3",
     "@types/jest": "^29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
@@ -40,12 +40,12 @@
     "node-fetch": "^3.3.2",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.7",
-    "sass": "^1.77.6",
+    "sass": "^1.77.8",
     "ts-morph": "^23.0.0",
-    "typescript": "^5.5.3",
-    "vite": "^5.3.2",
+    "typescript": "^5.5.4",
+    "vite": "^5.3.5",
     "vitest": "^1.6.0",
-    "vue-tsc": "2.0.24"
+    "vue-tsc": "2.0.29"
   },
   "private": true,
   "type": "module"
