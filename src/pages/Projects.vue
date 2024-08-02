@@ -16,7 +16,7 @@ const projects = await projectStore.fetchProjects()
 
 const searchQuery = ref('')
 const filteredProjects = computed(() =>
-  searchListCaseInsensitive(projects, searchQuery.value, 'name')
+  searchListCaseInsensitive(projects, searchQuery.value, v => v.name)
 )
 </script>
 

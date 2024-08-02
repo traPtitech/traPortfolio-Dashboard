@@ -16,7 +16,7 @@ interface Props {
 const props = defineProps<Props>()
 const searchQuery = ref('')
 const filteredContestTeams = computed(() =>
-  searchListCaseInsensitive(props.contestTeams, searchQuery.value, 'name')
+  searchListCaseInsensitive(props.contestTeams, searchQuery.value, v => v.name)
 )
 </script>
 
