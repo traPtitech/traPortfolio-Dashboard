@@ -16,8 +16,8 @@ const me = (await apis.getMe()).data
       <content-header
         icon-name="mdi:account-circle-outline"
         :header-texts="[
-          { title: 'Profile', url: '/user' },
-          { title: 'Accounts', url: '/user/accounts' }
+          { title: 'Profile', path: { name: 'Profile' } },
+          { title: 'Accounts', path: { name: 'UserAccounts' } }
         ]"
         detail="アカウント情報を変更します。"
         :class="$style.header"

@@ -99,9 +99,15 @@ const deleteContest = async () => {
       <content-header
         icon-name="mdi:trophy-outline"
         :header-texts="[
-          { title: 'Contests', url: '/contests' },
-          { title: contestDetail.name, url: `/contests/${contestId}` },
-          { title: 'Edit', url: `/contests/${contestId}/edit` }
+          { title: 'Contests', path: { name: 'Contests' } },
+          {
+            title: contestDetail.name,
+            path: { name: 'Contest', params: { contestId: contestId } }
+          },
+          {
+            title: 'Edit',
+            path: { name: 'ContestEdit', params: { contestId: contestId } }
+          }
         ]"
         detail="コンテストの情報を変更します。"
         :class="$style.header"

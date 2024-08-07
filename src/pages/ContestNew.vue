@@ -76,8 +76,8 @@ const createContest = async () => {
       <content-header
         icon-name="mdi:trophy-outline"
         :header-texts="[
-          { title: 'Contests', url: '/contests' },
-          { title: 'New', url: '/contests/new' }
+          { title: 'Contests', path: { name: 'Contests' } },
+          { title: 'New', path: { name: 'ContestNew' } }
         ]"
         detail="コンテストを作成します。"
         :class="$style.header"

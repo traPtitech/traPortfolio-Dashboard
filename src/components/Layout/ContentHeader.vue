@@ -1,9 +1,10 @@
 <script lang="ts" setup>
+import { RouteLocationNamedRaw } from 'vue-router'
 import Icon from '/@/components/UI/Icon.vue'
 
 type HeaderText = {
   title: string
-  url: string
+  path: RouteLocationNamedRaw
 }
 
 interface Props {
@@ -27,7 +28,7 @@ const props = defineProps<Props>()
         />
         <router-link
           v-if="index !== props.headerTexts.length - 1"
-          :to="headerText.url"
+          :to="headerText.path"
           :class="$style.link"
         >
           {{ headerText.title }}

@@ -10,7 +10,7 @@ const toStringIfArray = (s: string | undefined | readonly string[]) =>
 const useParam = (paramName: string): ComputedRef<string> => {
   const route = useRoute()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return computed(() => toStringIfArray(route.params[paramName])!)
+  return computed(() => toStringIfArray(route.params[paramName]) ?? 'undefined')
 }
 
 export default useParam

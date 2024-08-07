@@ -70,13 +70,19 @@ const createContestTeam = async () => {
       <content-header
         icon-name="mdi:trophy-outline"
         :header-texts="[
-          { title: 'Contests', url: '/contests' },
-          { title: contest.name, url: `/contests/${contestId}` },
+          { title: 'Contests', path: { name: 'Contests' } },
+          {
+            title: contest.name,
+            path: { name: 'Contest', params: { contestId: contestId } }
+          },
           {
             title: 'Teams',
-            url: `/contests/${contestId}`
+            path: { name: 'Contest', params: { contestId: contestId } }
           },
-          { title: 'New', url: `/contests/${contestId}/teams/new` }
+          {
+            title: 'New',
+            path: { name: 'ContestTeamNew', params: { contestId: contestId } }
+          }
         ]"
         detail="コンテストチームを追加します。"
         :class="$style.header"

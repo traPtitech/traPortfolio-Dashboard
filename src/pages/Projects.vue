@@ -24,7 +24,7 @@ const filteredProjects = computed(() =>
   <page-container>
     <content-header
       icon-name="mdi:clipboard-file-outline"
-      :header-texts="[{ title: 'Projects', url: '/projects' }]"
+      :header-texts="[{ title: 'Projects', path: { name: 'Projects' } }]"
       detail="プロジェクトを変更します"
       :class="$style.header"
     />

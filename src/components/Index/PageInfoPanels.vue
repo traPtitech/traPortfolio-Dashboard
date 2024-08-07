@@ -11,7 +11,7 @@ const pages = routes.filter(route => route.name != 'Top')
       v-for="page in pages"
       :key="page.name"
       :name="page.name"
-      :path="page.path"
+      :path="{ name: page.name }"
     />
   </ul>
 </template>
