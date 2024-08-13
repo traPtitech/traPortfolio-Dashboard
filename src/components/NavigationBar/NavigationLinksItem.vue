@@ -3,6 +3,7 @@ import { computed, toRef } from 'vue'
 import { useRoute, RouteLocationNamedRaw } from 'vue-router'
 import Icon from '/@/components/UI/Icon.vue'
 import useRouteInfo from '/@/lib/routeInfo'
+import { routes } from '/@/router/index'
 
 interface Props {
   name: string
@@ -15,8 +16,21 @@ const props = defineProps<Props>()
 
 const routeInfo = useRouteInfo(toRef(props, 'name'))
 
+const findPath = (name: string): string => {
+  for (const route of routes) {
+    if (route.name === name) {
+      return route.path
+    }
+  }
+  return 'Undefined'
+}
+
 const isActive = computed(() => {
-  return currentRoute.name === props.name
+  const path = findPath(String(props.path.name))
+  return (
+    currentRoute.name === props.path.name ||
+    currentRoute.path.startsWith(`${path}/`)
+  )
 })
 </script>
 
