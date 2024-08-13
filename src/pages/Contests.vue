@@ -64,6 +64,7 @@ const filteredContests = computed(() =>
 
 .searchForm {
   flex-grow: 1;
+  min-width: 192px;
 }
 
 .link {
