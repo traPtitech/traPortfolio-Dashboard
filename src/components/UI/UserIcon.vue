@@ -16,7 +16,14 @@ const styles = computed(() => ({
 </script>
 
 <template>
-  <img :class="$style.icon" :src="src" :style="styles" />
+  <img
+    :class="$style.icon"
+    :src="src"
+    :style="styles"
+    :width="size"
+    :height="size"
+    :alt="userName"
+  />
 </template>
 
 <style lang="scss" module>
