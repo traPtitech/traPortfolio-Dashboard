@@ -16,17 +16,8 @@ const props = defineProps<Props>()
 
 const routeInfo = useRouteInfo(toRef(props, 'name'))
 
-const findPath = (name: string): string => {
-  for (const route of routes) {
-    if (route.name === name) {
-      return route.path
-    }
-  }
-  return 'Undefined'
-}
-
 const isActive = computed(() => {
-  const path = findPath(String(props.path.name))
+  const path = routes.find(route => route.name === props.path.name)?.path
   return (
     currentRoute.name === props.path.name ||
     currentRoute.path.startsWith(`${path}/`)
