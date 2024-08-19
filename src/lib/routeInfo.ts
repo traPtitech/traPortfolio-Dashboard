@@ -1,8 +1,9 @@
 import { computed, ComputedRef, Ref } from 'vue'
+import { RouteLocationNamedRaw } from 'vue-router'
 
 interface routeinfo {
   name: string
-  path: string
+  path: RouteLocationNamedRaw
   icon: string
   description: string
 }
@@ -10,13 +11,13 @@ interface routeinfo {
 export const routes: routeinfo[] = [
   {
     name: 'Top',
-    path: '/',
+    path: { name: 'Index' },
     icon: 'mdi:apps',
     description: 'ポートフォリオの設定を変更します'
   },
   {
     name: 'Profile',
-    path: '/user',
+    path: { name: 'Profile' },
     icon: 'mdi:account-circle-outline',
     description: '掲載するアカウントや自己紹介を編集します'
   },
@@ -28,13 +29,13 @@ export const routes: routeinfo[] = [
   // },
   {
     name: 'Contests',
-    path: '/contests',
+    path: { name: 'Contests' },
     icon: 'mdi:trophy-outline',
     description: '出場した大会を追加・編集します'
   },
   {
     name: 'Projects',
-    path: '/projects',
+    path: { name: 'Projects' },
     icon: 'mdi:clipboard-file-outline',
     description: 'プロジェクトの期間や説明文を編集します'
   }
@@ -47,7 +48,7 @@ const getMessage = (name: string): routeinfo => {
   // Default Value
   return {
     name: 'Loading',
-    path: '',
+    path: {},
     icon: 'eos-icons:bubble-loading',
     description: 'Loading'
   }

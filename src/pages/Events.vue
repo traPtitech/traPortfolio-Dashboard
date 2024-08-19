@@ -41,7 +41,7 @@ const filteredEventsBySearch = computed(() =>
   <page-container>
     <content-header
       icon-name="mdi:calendar"
-      :header-texts="[{ title: 'Events', url: '/events' }]"
+      :header-texts="[{ title: 'Events', path: { name: 'Events' } }]"
       detail="イベントの公開設定を変更します"
       :class="$style.header"
     />

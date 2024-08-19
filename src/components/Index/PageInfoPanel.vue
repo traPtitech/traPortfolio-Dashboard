@@ -16,10 +16,11 @@
 import { toRef } from 'vue'
 import Icon from '/@/components/UI/Icon.vue'
 import useRouteInfo from '/@/lib/routeInfo'
+import { RouteLocationNamedRaw } from 'vue-router'
 
 interface Props {
   name: string
-  path: string
+  path: RouteLocationNamedRaw
 }
 
 const props = defineProps<Props>()

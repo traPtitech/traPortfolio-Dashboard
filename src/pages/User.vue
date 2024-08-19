@@ -18,7 +18,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
     <div :class="$style.headerContainer">
       <content-header
         icon-name="mdi:account-circle-outline"
-        :header-texts="[{ title: 'Profile', url: '/user' }]"
+        :header-texts="[{ title: 'Profile', path: { name: 'Profile' } }]"
         detail="プロフィールを変更します。"
         :class="$style.header"
       />

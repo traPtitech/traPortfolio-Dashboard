@@ -25,8 +25,11 @@ const contestTeams: ContestTeam[] = (
       <content-header
         icon-name="mdi:trophy-outline"
         :header-texts="[
-          { title: 'Contests', url: '/contests' },
-          { title: contestDetail.name, url: `/contests/${contestId}` }
+          { title: 'Contests', path: { name: 'Contests' } },
+          {
+            title: contestDetail.name,
+            path: { name: 'Contest', params: { contestId: contestId } }
+          }
         ]"
         detail="コンテストの詳細です。"
         :class="$style.header"

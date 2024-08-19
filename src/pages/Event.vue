@@ -51,8 +51,11 @@ const updateEvent = async () => {
       <content-header
         icon-name="mdi:calendar"
         :header-texts="[
-          { title: 'Events', url: '/events' },
-          { title: event.name, url: `/events/${eventId}` }
+          { title: 'Events', path: { name: 'Events' } },
+          {
+            title: event.name,
+            path: { name: 'Event', params: { id: eventId } }
+          }
         ]"
         detail="イベントの詳細を確認します。"
         :class="$style.header"

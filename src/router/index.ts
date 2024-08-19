@@ -18,7 +18,7 @@ const ContestTeamNew = () => import('/@/pages/ContestTeamNew.vue')
 const ContestTeamEdit = () => import('/@/pages/ContestTeamEdit.vue')
 const NotFound = () => import('/@/pages/NotFound.vue')
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'Index',

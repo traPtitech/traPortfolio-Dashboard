@@ -113,9 +113,15 @@ const handleDelete = (id: string) => {
       <content-header
         icon-name="mdi:clipboard-file-outline"
         :header-texts="[
-          { title: 'Projects', url: '/projects' },
-          { title: projectDetail.name, url: `/projects/${projectId}/edit` },
-          { title: 'Edit', url: `/projects/${projectId}/edit` }
+          { title: 'Projects', path: { name: 'Projects' } },
+          {
+            title: projectDetail.name,
+            path: { name: 'Project', params: { projectId: projectId } }
+          },
+          {
+            title: 'Edit',
+            path: { name: 'Project', params: { projectId: projectId } }
+          }
         ]"
         detail="プロジェクトの情報を変更します。"
         :class="$style.header"

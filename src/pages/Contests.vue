@@ -24,7 +24,7 @@ const filteredContests = computed(() =>
   <page-container>
     <content-header
       icon-name="mdi:trophy-outline"
-      :header-texts="[{ title: 'Contests', url: '/contests' }]"
+      :header-texts="[{ title: 'Contests', path: { name: 'Contests' } }]"
       detail="コンテスト情報を変更します。"
       :class="$style.header"
     />
