@@ -18,6 +18,9 @@ const routeInfo = useRouteInfo(toRef(props, 'name'))
 
 const isActive = computed(() => {
   const path = routes.find(route => route.name === props.path.name)?.path
+  if (path === undefined) {
+    return false
+  }
   return (
     currentRoute.name === props.path.name ||
     currentRoute.path.startsWith(`${path}/`)
