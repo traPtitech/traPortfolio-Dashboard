@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM node:20.11.1-alpine as build
+FROM --platform=$BUILDPLATFORM node:20.11.1-alpine AS build
 WORKDIR /app
 
 RUN apk update
