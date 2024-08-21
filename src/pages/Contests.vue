@@ -34,7 +34,6 @@ const filteredContests = computed(() =>
           v-model="searchQuery"
           placeholder="コンテスト名で検索"
           icon="magnify"
-          :class="$style.placeholder"
         />
       </div>
       <div>
@@ -65,12 +64,8 @@ const filteredContests = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-  overflow: hidden;
 }
 
-.placeholder {
-  overflow: hidden;
-}
 
 .link {
   text-decoration: none;
