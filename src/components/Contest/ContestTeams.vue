@@ -3,7 +3,6 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 
 import FormInput from '/@/components/UI/FormInput.vue'
 import ContestTeamItem from '/@/components/Contest/ContestTeamItem.vue'
-import { RouterLink } from 'vue-router'
 import { ContestTeam } from '/@/lib/apis'
 import { computed, ref } from 'vue'
 import { searchListCaseInsensitive } from '/@/lib/search'
@@ -30,14 +29,12 @@ const filteredContestTeams = computed(() =>
           icon="magnify"
         />
       </div>
-      <div>
-        <router-link
-          :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
-          :class="$style.link"
-        >
-          <base-button type="primary" icon="mdi:plus">New</base-button>
-        </router-link>
-      </div>
+      <base-button
+        :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
+        type="primary"
+        icon="mdi:plus"
+        >New</base-button
+      >
     </div>
     <ul :class="$style.teamList">
       <li v-for="contestTeam in filteredContestTeams" :key="contestTeam.id">
@@ -59,10 +56,6 @@ const filteredContestTeams = computed(() =>
 }
 .searchForm {
   flex-grow: 1;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .teamList {
   list-style: none;

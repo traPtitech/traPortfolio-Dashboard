@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 
 import { useContestStore } from '/@/store/contest'
 
@@ -37,9 +36,12 @@ const filteredContests = computed(() =>
         />
       </div>
       <div>
-        <router-link :to="{ name: 'ContestNew' }" :class="$style.link">
-          <base-button type="primary" icon="mdi:trophy">New</base-button>
-        </router-link>
+        <base-button
+          :to="{ name: 'ContestNew' }"
+          type="primary"
+          icon="mdi:trophy"
+          >New</base-button
+        >
       </div>
     </div>
     <ul :class="$style.contestList">
@@ -64,11 +66,6 @@ const filteredContests = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-}
-
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 
 .contestList {

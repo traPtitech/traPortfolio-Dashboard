@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import UserIcon from '/@/components/UI/UserIcon.vue'
 import UserAccounts from '/@/components/User/UserAccounts.vue'
@@ -23,9 +22,9 @@ defineProps<Props>()
     </div>
     <div :class="$style.accounts">
       <user-accounts :accounts="user.accounts" />
-      <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
-        <base-button icon="mdi:account">Edit</base-button>
-      </router-link>
+      <base-button :to="{ name: 'UserAccounts' }" icon="mdi:account"
+        >Edit</base-button
+      >
     </div>
   </div>
 </template>
@@ -56,9 +55,5 @@ defineProps<Props>()
   flex-wrap: wrap;
   gap: 2rem;
   margin-top: 1rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 </style>

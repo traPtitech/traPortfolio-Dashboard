@@ -5,7 +5,7 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import EventHostItem from '/@/components/Event/EventHostItem.vue'
 
 import apis, { EditEventRequest, EventDetail } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import useParam from '/@/lib/param'
 import { ref } from 'vue'
@@ -115,15 +115,13 @@ const updateEvent = async () => {
     </div>
 
     <div :class="$style.buttonContainer">
-      <router-link :to="{ name: 'Events' }" :class="$style.link">
-        <base-button
-          :class="$style.backButton"
-          type="secondary"
-          icon="mdi:arrow-left"
-        >
-          Back
-        </base-button>
-      </router-link>
+      <base-button
+        :to="{ name: 'Events' }"
+        :class="$style.backButton"
+        type="secondary"
+        icon="mdi:arrow-left"
+        >Back</base-button
+      >
       <base-button
         :is-disabled="isSending"
         type="primary"
@@ -144,10 +142,6 @@ const updateEvent = async () => {
 }
 .header {
   margin-bottom: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .section {
   margin-bottom: 2rem;

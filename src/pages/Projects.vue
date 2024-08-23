@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 
 import { useProjectStore } from '/@/store/project'
 
@@ -36,13 +35,12 @@ const filteredProjects = computed(() =>
           icon="magnify"
         />
       </div>
-      <div>
-        <router-link :to="{ name: 'ProjectNew' }" :class="$style.link">
-          <base-button type="primary" icon="mdi:clipboard-file">
-            New</base-button
-          >
-        </router-link>
-      </div>
+      <base-button
+        :to="{ name: 'ProjectNew' }"
+        type="primary"
+        icon="mdi:clipboard-file"
+        >New</base-button
+      >
     </div>
     <ul :class="$style.projectList">
       <li v-for="project in filteredProjects" :key="project.id">
@@ -66,11 +64,6 @@ const filteredProjects = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-}
-
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 
 .projectList {

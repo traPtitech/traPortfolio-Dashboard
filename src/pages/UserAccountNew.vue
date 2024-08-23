@@ -3,7 +3,7 @@ import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { AddAccountRequest } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -111,15 +111,13 @@ const createNewAccount = async () => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link :to="{ name: 'UserAccounts' }" :class="$style.link">
-        <base-button
-          :class="$style.backButton"
-          type="secondary"
-          icon="mdi:arrow-left"
-        >
-          Back
-        </base-button>
-      </router-link>
+      <base-button
+        :to="{ name: 'UserAccounts' }"
+        :class="$style.backButton"
+        type="secondary"
+        icon="mdi:arrow-left"
+        >Back</base-button
+      >
       <base-button
         :is-disabled="!canSubmit"
         type="primary"
@@ -143,10 +141,6 @@ const createNewAccount = async () => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .buttonContainer {
   display: flex;

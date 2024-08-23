@@ -4,7 +4,7 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { ProjectMember as ProjectMemberType } from '/@/lib/apis'
 import type { EditProjectRequest, ProjectDetail } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import useParam from '/@/lib/param'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -160,15 +160,13 @@ const handleDelete = (id: string) => {
     </form>
 
     <div :class="$style.buttonContainer">
-      <router-link :to="{ name: 'Projects' }" :class="$style.link">
-        <base-button
-          :class="$style.backButton"
-          type="secondary"
-          icon="mdi:arrow-left"
-        >
-          Back
-        </base-button>
-      </router-link>
+      <base-button
+        :to="{ name: 'Projects' }"
+        :class="$style.backButton"
+        type="secondary"
+        icon="mdi:arrow-left"
+        >Back</base-button
+      >
       <base-button
         :is-disabled="!canSubmit"
         type="primary"
@@ -192,10 +190,6 @@ const handleDelete = (id: string) => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .buttonContainer {
   display: flex;

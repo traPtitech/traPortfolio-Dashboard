@@ -3,7 +3,7 @@ import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
 import apis, { CreateContestRequest } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -114,15 +114,13 @@ const createContest = async () => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link :to="{ name: 'Contests' }" :class="$style.link">
-        <base-button
-          :class="$style.backButton"
-          type="secondary"
-          icon="mdi:arrow-left"
-        >
-          Back
-        </base-button>
-      </router-link>
+      <base-button
+        :to="{ name: 'Contests' }"
+        :class="$style.backButton"
+        type="secondary"
+        icon="mdi:arrow-left"
+        >Back</base-button
+      >
       <base-button
         :is-disabled="!canSubmit"
         type="primary"
@@ -146,10 +144,6 @@ const createContest = async () => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .buttonContainer {
   display: flex;
