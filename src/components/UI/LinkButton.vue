@@ -1,42 +1,45 @@
 <script lang="ts" setup>
 import Icon from '/@/components/UI/Icon.vue'
 
+import { RouteLocationRaw } from 'vue-router'
+
 type ButtonType = 'primary' | 'secondary' | 'warning'
 
 interface Props {
+  to: RouteLocationRaw
   type?: ButtonType
   icon?: string
-  isDisabled?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'primary',
-  icon: undefined,
-  isDisabled: false
+  icon: undefined
 })
 </script>
 
 <template>
-  <button
-    :class="$style.button"
+  <router-link
+    :to="props.to"
+    :class="$style.linkButton"
     :data-button-type="props.type"
-    :disabled="props.isDisabled"
   >
     <icon v-if="props.icon" :name="props.icon" />
     <slot />
-  </button>
+  </router-link>
 </template>
 
 <style lang="scss" module>
-.button {
+.linkButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
   padding: 8px 24px;
-  border-radius: 6px; // todo:%で指定に変えるかも
+  border-radius: 6px;
   box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.1);
   transition: 0.2s ease-in-out;
+  text-decoration: none;
+  color: inherit;
 
   &[data-button-type='primary'] {
     color: $color-primary-text;
@@ -54,10 +57,6 @@ const props = withDefaults(defineProps<Props>(), {
 
   &:hover {
     opacity: 0.8;
-  }
-  &[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
 }
 </style>
