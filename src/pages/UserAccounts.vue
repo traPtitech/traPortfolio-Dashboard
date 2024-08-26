@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 
 import AccountItem from '/@/components/UserAccounts/AccountItem.vue'
 import apis from '/@/lib/apis'
@@ -21,11 +21,11 @@ const me = (await apis.getMe()).data
         detail="アカウント情報を変更します。"
         :class="$style.header"
       />
-      <base-button
+      <link-button
         :to="{ name: 'UserAccountsNew' }"
         type="primary"
         icon="mdi:account"
-        >New</base-button
+        >New</link-button
       >
     </div>
     <ul :class="$style.accountList">
@@ -34,12 +34,12 @@ const me = (await apis.getMe()).data
       </li>
     </ul>
 
-    <base-button
+    <link-button
       :to="{ name: 'Profile' }"
       :class="$style.backButton"
       type="secondary"
       icon="mdi:arrow-left"
-      >Back</base-button
+      >Back</link-button
     >
   </page-container>
 </template>

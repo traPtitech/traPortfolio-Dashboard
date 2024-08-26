@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import UserIcon from '/@/components/UI/UserIcon.vue'
 import UserAccounts from '/@/components/User/UserAccounts.vue'
 import type { UserDetail } from '/@/lib/apis'
@@ -21,8 +21,8 @@ defineProps<Props>()
       </div>
       <div :class="$style.accounts">
         <user-accounts :accounts="user.accounts" />
-        <base-button :to="{ name: 'UserAccounts' }" icon="mdi:account"
-          >Edit</base-button
+        <link-button :to="{ name: 'UserAccounts' }" icon="mdi:account"
+          >Edit</link-button
         >
       </div>
     </div>

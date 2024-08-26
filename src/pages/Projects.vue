@@ -6,7 +6,7 @@ import { useProjectStore } from '/@/store/project'
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import ProjectItem from '/@/components/Projects/ProjectItem.vue'
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { searchListCaseInsensitive } from '/@/lib/search'
 
@@ -35,11 +35,11 @@ const filteredProjects = computed(() =>
           icon="magnify"
         />
       </div>
-      <base-button
+      <link-button
         :to="{ name: 'ProjectNew' }"
         type="primary"
         icon="mdi:clipboard-file"
-        >New</base-button
+        >New</link-button
       >
     </div>
     <ul :class="$style.projectList">

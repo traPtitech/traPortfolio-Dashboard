@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 
 import apis, { ContestDetail, ContestTeam } from '/@/lib/apis'
 import { getDisplayDuration } from '/@/lib/date'
@@ -30,11 +30,11 @@ const contestTeams: ContestTeam[] = (
         detail="コンテストの詳細です。"
         :class="$style.header"
       />
-      <base-button
+      <link-button
         :to="{ name: 'ContestEdit', params: { contestId: contestId } }"
         type="primary"
         icon="mdi:pencil"
-        >Edit</base-button
+        >Edit</link-button
       >
     </div>
     <div>
@@ -72,14 +72,14 @@ const contestTeams: ContestTeam[] = (
       </section>
     </div>
 
-    <base-button
+    <link-button
       :to="{ name: 'Contests' }"
       :class="$style.backButton"
       type="secondary"
       icon="mdi:arrow-left"
     >
       Back
-    </base-button>
+    </link-button>
   </page-container>
 </template>
 

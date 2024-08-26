@@ -2,6 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import apis, { EditContestRequest } from '/@/lib/apis'
 import type { ContestDetail } from '/@/lib/apis'
 import { useRouter } from 'vue-router'
@@ -131,12 +132,12 @@ const deleteContest = async () => {
     <delete-form target="コンテスト" @delete="open" />
 
     <div :class="$style.buttonContainer">
-      <base-button
+      <link-button
         :to="{ name: 'Contest', params: { contestId: contestId } }"
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</base-button
+        >Back</link-button
       >
       <base-button
         :is-disabled="!canSubmit"

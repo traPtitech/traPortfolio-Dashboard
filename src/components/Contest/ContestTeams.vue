@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 
 import FormInput from '/@/components/UI/FormInput.vue'
 import ContestTeamItem from '/@/components/Contest/ContestTeamItem.vue'
@@ -29,11 +29,11 @@ const filteredContestTeams = computed(() =>
           icon="magnify"
         />
       </div>
-      <base-button
+      <link-button
         :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
         type="primary"
         icon="mdi:plus"
-        >New</base-button
+        >New</link-button
       >
     </div>
     <ul :class="$style.teamList">

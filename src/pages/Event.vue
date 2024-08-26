@@ -2,6 +2,7 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import EventHostItem from '/@/components/Event/EventHostItem.vue'
 
 import apis, { EditEventRequest, EventDetail } from '/@/lib/apis'
@@ -115,12 +116,12 @@ const updateEvent = async () => {
     </div>
 
     <div :class="$style.buttonContainer">
-      <base-button
+      <link-button
         :to="{ name: 'Events' }"
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</base-button
+        >Back</link-button
       >
       <base-button
         :is-disabled="isSending"
