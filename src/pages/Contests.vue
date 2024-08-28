@@ -67,7 +67,6 @@ const filteredContests = computed(() =>
   flex-grow: 1;
 }
 
-
 .link {
   text-decoration: none;
   color: inherit;
