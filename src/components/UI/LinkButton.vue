@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style lang="scss" module>
 .linkButton {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
