@@ -75,7 +75,6 @@ const handleInput = (event: Event) => {
 }
 .input {
   flex-grow: 1;
-  width: 100%;
   &::placeholder {
     color: $color-secondary;
   }
