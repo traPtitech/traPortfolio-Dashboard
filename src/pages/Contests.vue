@@ -57,6 +57,7 @@ const filteredContests = computed(() =>
 
 .searchFormContainer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   margin-bottom: 1rem;
   gap: 0.5rem;
