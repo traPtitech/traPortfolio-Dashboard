@@ -138,7 +138,11 @@ const handleDelete = (id: string) => {
         </field-error-message>
       </labeled-form>
       <labeled-form label="リンク" :class="$style.labeledForm">
-        <form-input v-model="formValues.link" has-anchor />
+        <form-input
+          v-model="formValues.link"
+          has-anchor
+          placeholder="https://"
+        />
       </labeled-form>
       <labeled-form required label="説明" :class="$style.labeledForm">
         <form-text-area
