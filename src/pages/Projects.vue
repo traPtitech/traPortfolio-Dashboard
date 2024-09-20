@@ -1,13 +1,12 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
 
 import { useProjectStore } from '/@/store/project'
 
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import ProjectItem from '/@/components/Projects/ProjectItem.vue'
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { searchListCaseInsensitive } from '/@/lib/search'
 
@@ -36,13 +35,12 @@ const filteredProjects = computed(() =>
           icon="magnify"
         />
       </div>
-      <div>
-        <router-link :to="{ name: 'ProjectNew' }" :class="$style.link">
-          <base-button type="primary" icon="mdi:clipboard-file">
-            New</base-button
-          >
-        </router-link>
-      </div>
+      <link-button
+        :to="{ name: 'ProjectNew' }"
+        type="primary"
+        icon="mdi:clipboard-file"
+        >New</link-button
+      >
     </div>
     <ul :class="$style.projectList">
       <li v-for="project in filteredProjects" :key="project.id">
@@ -67,11 +65,6 @@ const filteredProjects = computed(() =>
 
 .searchForm {
   flex-grow: 1;
-}
-
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 
 .projectList {

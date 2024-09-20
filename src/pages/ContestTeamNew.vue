@@ -2,9 +2,10 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import apis from '/@/lib/apis'
 import type { AddContestTeamRequest, ContestDetail, User } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import useParam from '/@/lib/param'
 import MemberInput from '/@/components/UI/MemberInput.vue'
 import FormTextArea from '/@/components/UI/FormTextArea.vue'
@@ -115,12 +116,12 @@ const createContestTeam = async () => {
     </form>
 
     <div :class="$style.buttonContainer">
-      <router-link
+      <link-button
         :to="{ name: 'Contest', params: { contestId: contestId } }"
-        :class="$style.link"
+        type="secondary"
+        icon="mdi:arrow-left"
+        >Back</link-button
       >
-        <base-button type="secondary" icon="mdi:arrow-left">Back</base-button>
-      </router-link>
       <base-button
         :is-disabled="!canSubmit"
         type="primary"
@@ -144,10 +145,6 @@ const createContestTeam = async () => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .buttonContainer {
   display: flex;

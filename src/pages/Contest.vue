@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
-import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 
 import apis, { ContestDetail, ContestTeam } from '/@/lib/apis'
-import { RouterLink } from 'vue-router'
 import { getDisplayDuration } from '/@/lib/date'
 import Icon from '/@/components/UI/Icon.vue'
 import useParam from '/@/lib/param'
@@ -34,12 +33,12 @@ const contestTeams: ContestTeam[] = (
         detail="コンテストの詳細です。"
         :class="$style.header"
       />
-      <router-link
+      <link-button
         :to="{ name: 'ContestEdit', params: { contestId: contestId } }"
-        :class="$style.link"
+        type="primary"
+        icon="mdi:pencil"
+        >Edit</link-button
       >
-        <base-button type="primary" icon="mdi:pencil">Edit</base-button>
-      </router-link>
     </div>
     <div>
       <section :class="$style.section">
@@ -76,15 +75,14 @@ const contestTeams: ContestTeam[] = (
       </section>
     </div>
 
-    <router-link :to="{ name: 'Contests' }" :class="$style.link">
-      <base-button
-        :class="$style.backButton"
-        type="secondary"
-        icon="mdi:arrow-left"
-      >
-        Back
-      </base-button>
-    </router-link>
+    <link-button
+      :to="{ name: 'Contests' }"
+      :class="$style.backButton"
+      type="secondary"
+      icon="mdi:arrow-left"
+    >
+      Back
+    </link-button>
   </page-container>
 </template>
 
@@ -96,10 +94,6 @@ const contestTeams: ContestTeam[] = (
 }
 .header {
   margin-bottom: 2rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .section {
   margin-bottom: 2rem;

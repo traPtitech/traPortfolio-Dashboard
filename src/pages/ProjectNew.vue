@@ -2,11 +2,12 @@
 import ContentHeader from '/@/components/Layout/ContentHeader.vue'
 import PageContainer from '/@/components/Layout/PageContainer.vue'
 import BaseButton from '/@/components/UI/BaseButton.vue'
+import LinkButton from '/@/components/UI/LinkButton.vue'
 import apis, {
   CreateProjectRequest,
   ProjectMember as ProjectMemberType
 } from '/@/lib/apis'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { computed, reactive, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
@@ -165,15 +166,13 @@ const handleDelete = (id: string) => {
       </labeled-form>
     </form>
     <div :class="$style.buttonContainer">
-      <router-link :to="{ name: 'Projects' }" :class="$style.link">
-        <base-button
-          :class="$style.backButton"
-          type="secondary"
-          icon="mdi:arrow-left"
-        >
-          Back
-        </base-button>
-      </router-link>
+      <link-button
+        :to="{ name: 'Projects' }"
+        :class="$style.backButton"
+        type="secondary"
+        icon="mdi:arrow-left"
+        >Back</link-button
+      >
       <base-button
         :is-disabled="!canSubmit"
         :class="$style.createButton"
@@ -203,10 +202,6 @@ const handleDelete = (id: string) => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-}
-.link {
-  text-decoration: none;
-  color: inherit;
 }
 .buttonContainer {
   display: flex;
