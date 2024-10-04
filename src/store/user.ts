@@ -11,7 +11,8 @@ export const useUserStore = defineStore('user', () => {
       return users.value
     }
 
-    const res = await apis.getUsers()
+    const includeSuspended = true
+    const res = await apis.getUsers(includeSuspended)
     users.value = res.data
     return res.data
   }
