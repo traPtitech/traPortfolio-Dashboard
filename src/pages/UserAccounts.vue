@@ -25,8 +25,9 @@ const me = (await apis.getMe()).data
         :to="{ name: 'UserAccountsNew' }"
         type="primary"
         icon="mdi:account"
-        >New</link-button
       >
+        New
+      </link-button>
     </div>
     <ul :class="$style.accountList">
       <li v-for="account in me.accounts" :key="account.id">
@@ -39,8 +40,9 @@ const me = (await apis.getMe()).data
       :class="$style.backButton"
       type="secondary"
       icon="mdi:arrow-left"
-      >Back</link-button
     >
+      Back
+    </link-button>
   </page-container>
 </template>
 

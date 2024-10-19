@@ -40,8 +40,9 @@ const filteredContests = computed(() =>
           :to="{ name: 'ContestNew' }"
           type="primary"
           icon="mdi:trophy"
-          >New</link-button
         >
+          New
+        </link-button>
       </div>
     </div>
     <ul :class="$style.contestList">

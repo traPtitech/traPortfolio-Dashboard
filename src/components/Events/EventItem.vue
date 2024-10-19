@@ -57,7 +57,9 @@ onUnmounted(() => {
       :to="{ name: 'Event', params: { id: event.id } }"
       :class="$style.link"
     >
-      <p :class="$style.name">{{ event.name }}</p>
+      <p :class="$style.name">
+        {{ event.name }}
+      </p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(event.duration.since)) }}

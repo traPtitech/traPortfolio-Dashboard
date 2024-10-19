@@ -44,7 +44,9 @@ const emit = defineEmits<{
 <template>
   <dialog ref="modalRef" :class="$style.modal">
     <div :class="$style.container">
-      <h1 :class="$style.header">{{ title }}</h1>
+      <h1 :class="$style.header">
+        {{ title }}
+      </h1>
       <p :class="$style.body">
         {{ body }}
       </p>
@@ -54,15 +56,17 @@ const emit = defineEmits<{
           icon="mdi:cancel"
           :is-disabled="isDisabled"
           @click="emit('cancel')"
-          >Cancel</base-button
         >
+          Cancel
+        </base-button>
         <base-button
           type="warning"
           icon="mdi:delete"
           :is-disabled="isDisabled"
           @click="emit('delete')"
-          >Delete</base-button
         >
+          Delete
+        </base-button>
       </div>
     </div>
   </dialog>

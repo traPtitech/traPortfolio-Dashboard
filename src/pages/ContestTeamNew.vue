@@ -120,8 +120,9 @@ const createContestTeam = async () => {
         :to="{ name: 'Contest', params: { contestId: contestId } }"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</link-button
       >
+        Back
+      </link-button>
       <base-button
         :is-disabled="!canSubmit"
         type="primary"

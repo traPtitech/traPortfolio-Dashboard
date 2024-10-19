@@ -59,7 +59,9 @@ const compare = (a: T, b: T) => {
           name="mdi:tick-circle-outline"
           :class="$style.icon"
         />
-        <p :class="$style.label">{{ label }}</p>
+        <p :class="$style.label">
+          {{ label }}
+        </p>
       </div>
     </template>
   </v-select>

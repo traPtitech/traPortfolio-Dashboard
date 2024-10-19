@@ -65,7 +65,9 @@ const updateEvent = async () => {
     <div>
       <section :class="$style.section">
         <h2 :class="$style.h2">イベント名</h2>
-        <p :class="$style.content">{{ event.name }}</p>
+        <p :class="$style.content">
+          {{ event.name }}
+        </p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">日時</h2>
@@ -81,7 +83,9 @@ const updateEvent = async () => {
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">説明</h2>
-        <p :class="$style.content">{{ event.description }}</p>
+        <p :class="$style.content">
+          {{ event.description }}
+        </p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">主催者</h2>
@@ -124,8 +128,9 @@ const updateEvent = async () => {
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</link-button
       >
+        Back
+      </link-button>
       <base-button
         :is-disabled="isSending"
         type="primary"

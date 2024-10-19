@@ -36,7 +36,9 @@ const isActive = computed(() => {
       :data-is-selected="isActive"
     >
       <icon :class="$style.icon" :name="routeInfo.icon" :size="30" />
-      <p :class="$style.name">{{ name }}</p>
+      <p :class="$style.name">
+        {{ name }}
+      </p>
     </router-link>
   </li>
 </template>
