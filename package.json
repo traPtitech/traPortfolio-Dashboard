@@ -30,6 +30,7 @@
     "@types/autosize": "^4.0.3",
     "@types/eslint__js": "^8.42.3",
     "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.7",
     "@vitejs/plugin-vue": "^5.1.4",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.0.1",
