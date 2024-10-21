@@ -1,7 +1,12 @@
 <template>
   <footer :class="$style.container">
-    <img src="/@/assets/traP_logo.svg" :class="$style.logo" />
-    <div :class="$style.copyright">© 2015-2020 traP TokyoTech</div>
+    <img
+      src="/@/assets/traP_logo.svg"
+      :class="$style.logo"
+    >
+    <div :class="$style.copyright">
+      © 2015-2020 traP TokyoTech
+    </div>
   </footer>
 </template>
 

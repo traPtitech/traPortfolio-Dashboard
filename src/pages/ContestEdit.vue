@@ -115,23 +115,43 @@ const deleteContest = async () => {
       />
     </div>
     <form>
-      <labeled-form required label="コンテスト名" :class="$style.labeledForm">
-        <form-input v-model="formValues.name" :limit="32" />
+      <labeled-form
+        required
+        label="コンテスト名"
+        :class="$style.labeledForm"
+      >
+        <form-input
+          v-model="formValues.name"
+          :limit="32"
+        />
       </labeled-form>
-      <labeled-form label="開催日時" :class="$style.labeledForm">
-        <form-duration v-model="formValues.duration" since-required />
+      <labeled-form
+        label="開催日時"
+        :class="$style.labeledForm"
+      >
+        <form-duration
+          v-model="formValues.duration"
+          since-required
+        />
         <field-error-message v-if="shouldShowDurationError">
           開始日時は終了日時よりも前に指定してください。
         </field-error-message>
       </labeled-form>
-      <labeled-form label="リンク" :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.link"
           has-anchor
           placeholder="https://"
         />
       </labeled-form>
-      <labeled-form required label="説明" :class="$style.labeledForm">
+      <labeled-form
+        required
+        label="説明"
+        :class="$style.labeledForm"
+      >
         <form-text-area
           v-model="formValues.description"
           :limit="256"
@@ -139,7 +159,10 @@ const deleteContest = async () => {
         />
       </labeled-form>
     </form>
-    <delete-form target="コンテスト" @delete="open" />
+    <delete-form
+      target="コンテスト"
+      @delete="open"
+    />
 
     <div :class="$style.buttonContainer">
       <link-button

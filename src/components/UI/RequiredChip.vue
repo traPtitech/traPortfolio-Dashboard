@@ -1,5 +1,7 @@
 <template>
-  <div :class="$style.requiredChip">必須</div>
+  <div :class="$style.requiredChip">
+    必須
+  </div>
 </template>
 
 <style lang="scss" module>

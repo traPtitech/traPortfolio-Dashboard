@@ -121,26 +121,40 @@ const handleDelete = (id: string) => {
       />
     </div>
     <form>
-      <labeled-form label="プロジェクト名" required :class="$style.labeledForm">
+      <labeled-form
+        label="プロジェクト名"
+        required
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.name"
           placeholder="プロジェクト名を入力"
         />
       </labeled-form>
-      <labeled-form label="期間" :class="$style.labeledForm">
+      <labeled-form
+        label="期間"
+        :class="$style.labeledForm"
+      >
         <form-project-duration v-model="formValues.duration" />
         <field-error-message v-if="shouldShowDurationError">
           開始期間は終了期間よりも前に指定してください。
         </field-error-message>
       </labeled-form>
-      <labeled-form label="リンク" :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.link"
           placeholder="https://"
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="説明" :class="$style.labeledForm" required>
+      <labeled-form
+        label="説明"
+        :class="$style.labeledForm"
+        required
+      >
         <form-text-area
           v-model="formValues.description"
           placeholder="説明を入力"
@@ -148,14 +162,20 @@ const handleDelete = (id: string) => {
           :limit="256"
         />
       </labeled-form>
-      <labeled-form label="メンバー" :class="$style.labeledForm">
+      <labeled-form
+        label="メンバー"
+        :class="$style.labeledForm"
+      >
         <member-input
           v-model="members"
           :class="$style.memberInput"
           :users="userWithDurations"
           :is-disabled="false"
         />
-        <div v-for="member in members" :key="member.id">
+        <div
+          v-for="member in members"
+          :key="member.id"
+        >
           <project-member
             v-model="member.duration"
             :user="member"

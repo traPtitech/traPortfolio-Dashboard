@@ -85,27 +85,42 @@ const createContest = async () => {
       />
     </div>
     <form>
-      <labeled-form label="コンテスト名" required :class="$style.labeledForm">
+      <labeled-form
+        label="コンテスト名"
+        required
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.name"
           placeholder="コンテスト名を入力"
           :limit="32"
         />
       </labeled-form>
-      <labeled-form label="開催日時" required :class="$style.labeledForm">
+      <labeled-form
+        label="開催日時"
+        required
+        :class="$style.labeledForm"
+      >
         <form-duration v-model="formValues.duration" />
         <field-error-message v-if="shouldShowDurationError">
           開始日時は終了日時よりも前に指定してください。
         </field-error-message>
       </labeled-form>
-      <labeled-form label="リンク" :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.link"
           placeholder="https://"
           has-anchor
         />
       </labeled-form>
-      <labeled-form label="説明" required :class="$style.labeledForm">
+      <labeled-form
+        label="説明"
+        required
+        :class="$style.labeledForm"
+      >
         <form-text-area
           v-model="formValues.description"
           placeholder="説明を入力"

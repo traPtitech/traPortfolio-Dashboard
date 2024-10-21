@@ -54,12 +54,17 @@ const filteredEventsBySearch = computed(() =>
         />
       </div>
       <div>
-        <p :class="$style.body2">公開設定で絞り込み</p>
+        <p :class="$style.body2">
+          公開設定で絞り込み
+        </p>
         <event-type-accordion v-model="eventType" />
       </div>
     </div>
     <ul :class="$style.eventList">
-      <li v-for="event in filteredEventsBySearch" :key="event.id">
+      <li
+        v-for="event in filteredEventsBySearch"
+        :key="event.id"
+      >
         <event-item :event="event" />
       </li>
     </ul>
