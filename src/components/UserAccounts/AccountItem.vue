@@ -17,7 +17,9 @@ defineProps<Props>()
   >
     <div :class="$style.container">
       <div :class="$style.displayNameContainer">
-        <p :class="$style.displayName">{{ account.displayName }}</p>
+        <p :class="$style.displayName">
+          {{ account.displayName }}
+        </p>
         <service-logo :service="account.type" />
       </div>
       <p :class="$style.url"><icon name="mdi:link" />{{ account.url }}</p>

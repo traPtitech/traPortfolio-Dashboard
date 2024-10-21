@@ -33,8 +33,9 @@ const filteredContestTeams = computed(() =>
         :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
         type="primary"
         icon="mdi:plus"
-        >New</link-button
       >
+        New
+      </link-button>
     </div>
     <ul :class="$style.teamList">
       <li v-for="contestTeam in filteredContestTeams" :key="contestTeam.id">

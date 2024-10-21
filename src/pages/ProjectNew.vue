@@ -171,8 +171,9 @@ const handleDelete = (id: string) => {
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</link-button
       >
+        Back
+      </link-button>
       <base-button
         :is-disabled="!canSubmit"
         :class="$style.createButton"

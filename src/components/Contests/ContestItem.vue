@@ -16,7 +16,9 @@ defineProps<Props>()
     :class="$style.link"
   >
     <div :class="$style.container">
-      <p :class="$style.name">{{ contest.name }}</p>
+      <p :class="$style.name">
+        {{ contest.name }}
+      </p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(contest.duration.since)) }}

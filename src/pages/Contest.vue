@@ -37,13 +37,16 @@ const contestTeams: ContestTeam[] = (
         :to="{ name: 'ContestEdit', params: { contestId: contestId } }"
         type="primary"
         icon="mdi:pencil"
-        >Edit</link-button
       >
+        Edit
+      </link-button>
     </div>
     <div>
       <section :class="$style.section">
         <h2 :class="$style.h2">コンテスト名</h2>
-        <p :class="$style.content">{{ contestDetail.name }}</p>
+        <p :class="$style.content">
+          {{ contestDetail.name }}
+        </p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">日時</h2>
@@ -63,7 +66,9 @@ const contestTeams: ContestTeam[] = (
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">説明</h2>
-        <p :class="$style.content">{{ contestDetail.description }}</p>
+        <p :class="$style.content">
+          {{ contestDetail.description }}
+        </p>
       </section>
       <section :class="$style.section">
         <h2 :class="$style.h2">チーム</h2>

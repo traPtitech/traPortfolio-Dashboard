@@ -36,7 +36,9 @@ const props = defineProps<Props>()
         <span v-else>{{ headerText.title }}</span>
       </template>
     </h1>
-    <p :class="$style.detail">{{ props.detail }}</p>
+    <p :class="$style.detail">
+      {{ props.detail }}
+    </p>
   </div>
 </template>
 

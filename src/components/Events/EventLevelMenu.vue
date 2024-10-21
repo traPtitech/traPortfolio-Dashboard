@@ -20,7 +20,9 @@ const emit = defineEmits<{
         :disabled="eventLevel === level"
         @click="emit('update-event-level', level as EventLevelValue)"
       >
-        <p :class="$style.statusName">{{ detail.label }}</p>
+        <p :class="$style.statusName">
+          {{ detail.label }}
+        </p>
         <p :class="$style.description">
           {{ detail.description }}
         </p>

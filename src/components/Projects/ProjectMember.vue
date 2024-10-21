@@ -29,7 +29,9 @@ const shouldShowDurationError = computed(
     <div :class="$style.content">
       <div :class="$style.user">
         <user-icon :user-name="user.name" :size="48" />
-        <p :class="$style.name">{{ user.name }}</p>
+        <p :class="$style.name">
+          {{ user.name }}
+        </p>
         <button
           :class="[$style.deleteButton, $style.sp]"
           @click="emit('delete', user.id)"

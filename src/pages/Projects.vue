@@ -39,8 +39,9 @@ const filteredProjects = computed(() =>
         :to="{ name: 'ProjectNew' }"
         type="primary"
         icon="mdi:clipboard-file"
-        >New</link-button
       >
+        New
+      </link-button>
     </div>
     <ul :class="$style.projectList">
       <li v-for="project in filteredProjects" :key="project.id">

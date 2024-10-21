@@ -4,8 +4,12 @@
       <div :class="$style.container">
         <icon :name="routeInfo.icon" :class="$style.icon" :size="72" />
         <div>
-          <h2 :class="$style.name">{{ name }}</h2>
-          <p :class="$style.detail">{{ routeInfo.description }}</p>
+          <h2 :class="$style.name">
+            {{ name }}
+          </h2>
+          <p :class="$style.detail">
+            {{ routeInfo.description }}
+          </p>
         </div>
       </div>
     </router-link>
