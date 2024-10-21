@@ -45,9 +45,7 @@ const updateUserProfile = async () => {
       </label>
     </section> -->
     <section>
-      <h2 :class="$style.bio">
-        自己紹介
-      </h2>
+      <h2 :class="$style.bio">自己紹介</h2>
       <div :class="$style.textareaContainer">
         <form-text-area
           v-model="bio"

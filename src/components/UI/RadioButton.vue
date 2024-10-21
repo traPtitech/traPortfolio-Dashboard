@@ -12,17 +12,9 @@ const model = defineModel<string>({ required: true })
 
 <template>
   <label :class="$style.container">
-    <input
-      v-model="model"
-      :value="value"
-      type="radio"
-      :class="$style.input"
-    >
+    <input v-model="model" :value="value" type="radio" :class="$style.input" />
     <span :class="$style.label">{{ label }}</span>
-    <span
-      v-if="description"
-      :class="$style.description"
-    >
+    <span v-if="description" :class="$style.description">
       {{ description }}
     </span>
   </label>

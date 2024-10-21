@@ -18,7 +18,7 @@ const model = defineModel<boolean>({ required: true })
       type="checkbox"
       :disabled="disabled"
       :class="$style.input"
-    >
+    />
     <div :class="$style.switch" />
   </label>
 </template>

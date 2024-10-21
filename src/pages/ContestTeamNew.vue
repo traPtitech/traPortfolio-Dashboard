@@ -90,51 +90,23 @@ const createContestTeam = async () => {
       />
     </div>
     <form>
-      <labeled-form
-        required
-        label="チーム名"
-        :class="$style.labeledForm"
-      >
-        <form-input
-          v-model="formValues.name"
-          :limit="32"
-        />
+      <labeled-form required label="チーム名" :class="$style.labeledForm">
+        <form-input v-model="formValues.name" :limit="32" />
       </labeled-form>
-      <labeled-form
-        label="結果"
-        :class="$style.labeledForm"
-      >
-        <form-input
-          v-model="formValues.result"
-          :limit="32"
-        />
+      <labeled-form label="結果" :class="$style.labeledForm">
+        <form-input v-model="formValues.result" :limit="32" />
       </labeled-form>
-      <labeled-form
-        label="リンク"
-        :class="$style.labeledForm"
-      >
+      <labeled-form label="リンク" :class="$style.labeledForm">
         <form-input
           v-model="formValues.link"
           has-anchor
           placeholder="https://"
         />
       </labeled-form>
-      <labeled-form
-        required
-        label="メンバー"
-        :class="$style.labeledForm"
-      >
-        <member-input
-          v-model="members"
-          :users="users"
-          :is-disabled="false"
-        />
+      <labeled-form required label="メンバー" :class="$style.labeledForm">
+        <member-input v-model="members" :users="users" :is-disabled="false" />
       </labeled-form>
-      <labeled-form
-        required
-        label="説明"
-        :class="$style.labeledForm"
-      >
+      <labeled-form required label="説明" :class="$style.labeledForm">
         <form-text-area
           v-model="formValues.description"
           :limit="256"

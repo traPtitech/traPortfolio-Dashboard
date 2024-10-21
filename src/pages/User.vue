@@ -24,18 +24,9 @@ const { isMobile } = storeToRefs(useResponsiveStore())
       />
       <!-- todo:プレビューボタンの追加 -->
     </div>
-    <user-profile-mobile
-      v-if="isMobile"
-      :user="me"
-    />
-    <user-profile-desktop
-      v-else
-      :user="me"
-    />
-    <user-profile-edit
-      :user="me"
-      :class="$style.userProfileEdit"
-    />
+    <user-profile-mobile v-if="isMobile" :user="me" />
+    <user-profile-desktop v-else :user="me" />
+    <user-profile-edit :user="me" :class="$style.userProfileEdit" />
   </page-container>
 </template>
 

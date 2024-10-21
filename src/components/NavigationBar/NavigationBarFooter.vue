@@ -10,10 +10,7 @@ import Icon from '/@/components/UI/Icon.vue'
       target="_blank"
       rel="noopener noreferrer"
     >
-      <icon
-        name="mdi:help"
-        :class="$style.icon"
-      />
+      <icon name="mdi:help" :class="$style.icon" />
     </a>
   </div>
 </template>

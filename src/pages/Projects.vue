@@ -44,10 +44,7 @@ const filteredProjects = computed(() =>
       </link-button>
     </div>
     <ul :class="$style.projectList">
-      <li
-        v-for="project in filteredProjects"
-        :key="project.id"
-      >
+      <li v-for="project in filteredProjects" :key="project.id">
         <project-item :project="project" />
       </li>
     </ul>

@@ -25,9 +25,5 @@ const options = [
 </script>
 
 <template>
-  <base-select
-    v-model="model"
-    :options="options"
-    searchable
-  />
+  <base-select v-model="model" :options="options" searchable />
 </template>

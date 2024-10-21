@@ -43,53 +43,35 @@ const contestTeams: ContestTeam[] = (
     </div>
     <div>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          コンテスト名
-        </h2>
+        <h2 :class="$style.h2">コンテスト名</h2>
         <p :class="$style.content">
           {{ contestDetail.name }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          日時
-        </h2>
+        <h2 :class="$style.h2">日時</h2>
         <p :class="$style.content">
           {{ getDisplayDuration(contestDetail.duration) }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          リンク
-        </h2>
-        <p v-if="contestDetail.link === ''">
-          未設定
-        </p>
-        <p
-          v-else
-          :class="[$style.content, $style.contestLinkContainer]"
-        >
+        <h2 :class="$style.h2">リンク</h2>
+        <p v-if="contestDetail.link === ''">未設定</p>
+        <p v-else :class="[$style.content, $style.contestLinkContainer]">
           <icon name="mdi:open-in-new" />
-          <a
-            :class="$style.contestLink"
-            :href="contestDetail.link"
-          >
+          <a :class="$style.contestLink" :href="contestDetail.link">
             {{ contestDetail.link }}
           </a>
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          説明
-        </h2>
+        <h2 :class="$style.h2">説明</h2>
         <p :class="$style.content">
           {{ contestDetail.description }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          チーム
-        </h2>
+        <h2 :class="$style.h2">チーム</h2>
         <contest-teams-component
           :class="$style.content"
           :contest-id="contestId"

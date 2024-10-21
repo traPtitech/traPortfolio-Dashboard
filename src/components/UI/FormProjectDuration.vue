@@ -64,9 +64,7 @@ const stringToYearWithSemester = (value: string): YearWithSemester => {
   <div :class="$style.container">
     <div>
       <div :class="$style.sinceHead">
-        <p :class="$style.head">
-          開始
-        </p>
+        <p :class="$style.head">開始</p>
         <required-chip />
       </div>
       <div :class="$style.form">
@@ -86,14 +84,10 @@ const stringToYearWithSemester = (value: string): YearWithSemester => {
         />
       </div>
     </div>
-    <p :class="$style.wave">
-      ～
-    </p>
+    <p :class="$style.wave">～</p>
     <div>
       <div :class="$style.untilHead">
-        <p :class="$style.head">
-          終了
-        </p>
+        <p :class="$style.head">終了</p>
       </div>
       <div :class="$style.form">
         <!--modelValueはオブジェクトを文字列に変換している-->

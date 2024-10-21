@@ -22,9 +22,7 @@ defineProps<Props>()
         </p>
         <service-logo :service="account.type" />
       </div>
-      <p :class="$style.url">
-        <icon name="mdi:link" />{{ account.url }}
-      </p>
+      <p :class="$style.url"><icon name="mdi:link" />{{ account.url }}</p>
     </div>
   </router-link>
 </template>

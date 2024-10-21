@@ -14,7 +14,7 @@ const handleInput = (event: Event) => {
       type="datetime-local"
       :value="model"
       @input="handleInput"
-    >
+    />
   </div>
 </template>
 

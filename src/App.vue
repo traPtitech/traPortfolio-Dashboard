@@ -34,10 +34,7 @@ watch([() => route.fullPath, isMobile], () => {
       :class="$style.navigationBarCover"
       @click="isOpenNavigationBar = false"
     />
-    <navigation-bar
-      v-if="isOpenNavigationBar"
-      :class="$style.navigationBar"
-    />
+    <navigation-bar v-if="isOpenNavigationBar" :class="$style.navigationBar" />
     <div :class="$style.content">
       <router-view v-slot="{ Component }">
         <template v-if="Component">

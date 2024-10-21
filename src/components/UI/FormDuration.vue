@@ -25,9 +25,7 @@ const handleInput = (value: string, dateType: DateType) => {
   <div :class="$style.container">
     <div :class="$style.formDate">
       <div :class="$style.sinceHead">
-        <p :class="$style.head">
-          開始
-        </p>
+        <p :class="$style.head">開始</p>
         <required-chip v-if="sinceRequired" />
       </div>
       <form-date
@@ -35,14 +33,10 @@ const handleInput = (value: string, dateType: DateType) => {
         @update:model-value="handleInput($event, 'since')"
       />
     </div>
-    <p :class="$style.wave">
-      ～
-    </p>
+    <p :class="$style.wave">～</p>
     <div :class="$style.formDate">
       <div :class="$style.untilHead">
-        <p :class="$style.head">
-          終了
-        </p>
+        <p :class="$style.head">終了</p>
       </div>
       <form-date
         :model-value="model.until ?? ''"

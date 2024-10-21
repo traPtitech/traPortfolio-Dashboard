@@ -11,10 +11,7 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.container">
-    <user-icon
-      :user-name="host.name"
-      :size="48"
-    />
+    <user-icon :user-name="host.name" :size="48" />
     <p :class="$style.name">
       {{ host.name }}
     </p>

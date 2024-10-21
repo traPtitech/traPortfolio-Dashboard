@@ -33,9 +33,5 @@ const options = computed(() =>
 </script>
 
 <template>
-  <base-select
-    v-model="value"
-    :options="options"
-    searchable
-  />
+  <base-select v-model="value" :options="options" searchable />
 </template>

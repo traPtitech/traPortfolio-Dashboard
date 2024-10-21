@@ -64,41 +64,31 @@ const updateEvent = async () => {
     </div>
     <div>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          イベント名
-        </h2>
+        <h2 :class="$style.h2">イベント名</h2>
         <p :class="$style.content">
           {{ event.name }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          日時
-        </h2>
+        <h2 :class="$style.h2">日時</h2>
         <p :class="$style.content">
           {{ getDisplayDuration(event.duration) }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          場所
-        </h2>
+        <h2 :class="$style.h2">場所</h2>
         <p :class="$style.content">
           {{ event.place }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          説明
-        </h2>
+        <h2 :class="$style.h2">説明</h2>
         <p :class="$style.content">
           {{ event.description }}
         </p>
       </section>
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          主催者
-        </h2>
+        <h2 :class="$style.h2">主催者</h2>
         <event-host-item
           v-for="host in event.hostname"
           :key="host.id"
@@ -108,9 +98,7 @@ const updateEvent = async () => {
       </section>
 
       <section :class="$style.section">
-        <h2 :class="$style.h2">
-          公開設定
-        </h2>
+        <h2 :class="$style.h2">公開設定</h2>
         <div :class="[$style.content, $style.radioButtons]">
           <radio-button
             v-model="eventLevel"

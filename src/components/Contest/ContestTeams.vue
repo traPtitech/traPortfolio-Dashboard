@@ -38,10 +38,7 @@ const filteredContestTeams = computed(() =>
       </link-button>
     </div>
     <ul :class="$style.teamList">
-      <li
-        v-for="contestTeam in filteredContestTeams"
-        :key="contestTeam.id"
-      >
+      <li v-for="contestTeam in filteredContestTeams" :key="contestTeam.id">
         <contest-team-item
           :contest-id="contestId"
           :contest-team="contestTeam"

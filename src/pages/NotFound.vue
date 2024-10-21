@@ -4,9 +4,7 @@ import PageContainer from '/@/components/Layout/PageContainer.vue'
 
 <template>
   <page-container>
-    <h1 :class="$style.h1">
-      404 Not Found
-    </h1>
+    <h1 :class="$style.h1">404 Not Found</h1>
   </page-container>
 </template>
 
