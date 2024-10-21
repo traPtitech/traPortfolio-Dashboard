@@ -1,6 +1,5 @@
 import globals from 'globals'
 import eslint from '@eslint/js'
-import vueParser from 'vue-eslint-parser'
 import tsESLint from 'typescript-eslint'
 import eslintPluginVue from 'eslint-plugin-vue'
 
@@ -15,9 +14,8 @@ const commonLint = {
 const vueLint = {
   files: ['*.vue', '**/*.vue'],
   languageOptions: {
-    parser: vueParser,
     parserOptions: {
-      parser: tsESLint.parser
+      parser: '@typescript-eslint/parser'
     }
   },
   rules: {
@@ -39,10 +37,10 @@ const vueLint = {
   }
 }
 
-export default [
+export default tsESLint.config(
   eslint.configs.recommended,
   ...tsESLint.configs.recommended,
   ...eslintPluginVue.configs['flat/recommended'],
   commonLint,
   vueLint
-]
+)
