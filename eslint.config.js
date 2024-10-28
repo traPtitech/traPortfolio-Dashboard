@@ -33,7 +33,22 @@ const vueLint = {
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],
     'vue/custom-event-name-casing': ['error', 'camelCase'],
     'vue/multi-word-component-names': 'off',
-    'vue/no-reserved-component-names': 'off'
+    'vue/no-reserved-component-names': 'off',
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          void: 'always',
+          normal: 'always',
+          component: 'always'
+        },
+        svg: 'always',
+        math: 'always'
+      }
+    ],
+
+    'vue/singleline-html-element-content-newline': ['off'],
+    'vue/html-indent': ['off']
   }
 }
 
