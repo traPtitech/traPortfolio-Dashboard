@@ -40,7 +40,11 @@ const wordCount = computed(() => [...model.value].length)
       :max-height="maxHeight"
       :name="name"
     />
-    <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
+    <div
+      v-if="limit"
+      :class="$style.count"
+      :data-exceeded="isExceeded"
+    >
       {{ wordCount }}/{{ limit }}
     </div>
   </div>

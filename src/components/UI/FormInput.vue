@@ -32,8 +32,14 @@ const handleInput = (event: Event) => {
 </script>
 
 <template>
-  <div :class="$style.container" :data-has-anchor="props.hasAnchor">
-    <div v-if="props.icon !== undefined" :class="$style.iconContainer">
+  <div
+    :class="$style.container"
+    :data-has-anchor="props.hasAnchor"
+  >
+    <div
+      v-if="props.icon !== undefined"
+      :class="$style.iconContainer"
+    >
       <icon :name="`mdi:${props.icon}`" />
     </div>
     <input
@@ -42,10 +48,17 @@ const handleInput = (event: Event) => {
       :value="model"
       @input="handleInput"
     />
-    <div v-if="limit" :class="$style.count" :data-exceeded="isExceeded">
+    <div
+      v-if="limit"
+      :class="$style.count"
+      :data-exceeded="isExceeded"
+    >
       {{ textLength }}/{{ props.limit }}
     </div>
-    <div v-if="props.hasAnchor" :class="$style.externalLink">
+    <div
+      v-if="props.hasAnchor"
+      :class="$style.externalLink"
+    >
       <a
         :href="model"
         :data-is-invalid-link="!isValidLink"

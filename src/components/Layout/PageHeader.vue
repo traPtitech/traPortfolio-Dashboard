@@ -17,7 +17,10 @@ const { isMobile } = storeToRefs(useResponsiveStore())
 
 <template>
   <div :class="$style.container">
-    <button v-if="isMobile" @click="emit('toggleNavigationBar')">
+    <button
+      v-if="isMobile"
+      @click="emit('toggleNavigationBar')"
+    >
       <icon name="mdi:menu" />
     </button>
     <router-link :to="{ name: 'Index' }">

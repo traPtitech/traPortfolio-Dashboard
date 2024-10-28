@@ -1,6 +1,9 @@
 <template>
   <a :class="$style.container">
-    <icon name="mdi:open-in-new" :class="$style.icon" />
+    <icon
+      name="mdi:open-in-new"
+      :class="$style.icon"
+    />
     <slot />
   </a>
 </template>

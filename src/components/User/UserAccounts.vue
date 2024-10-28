@@ -47,7 +47,11 @@ const shownServices = computed((): Service[] =>
         width="24"
         height="24"
       />
-      <icon v-else :name="service.icon" :class="$style.icon" />
+      <icon
+        v-else
+        :name="service.icon"
+        :class="$style.icon"
+      />
     </a>
   </div>
 </template>

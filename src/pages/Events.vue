@@ -59,7 +59,10 @@ const filteredEventsBySearch = computed(() =>
       </div>
     </div>
     <ul :class="$style.eventList">
-      <li v-for="event in filteredEventsBySearch" :key="event.id">
+      <li
+        v-for="event in filteredEventsBySearch"
+        :key="event.id"
+      >
         <event-item :event="event" />
       </li>
     </ul>

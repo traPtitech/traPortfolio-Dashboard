@@ -14,7 +14,10 @@ const emit = defineEmits<{
 
 <template>
   <div :class="$style.eventLevelMenu">
-    <div v-for="[level, detail] in Object.entries(eventLevels)" :key="level">
+    <div
+      v-for="[level, detail] in Object.entries(eventLevels)"
+      :key="level"
+    >
       <button
         :class="$style.eventLevelMenuButton"
         :disabled="eventLevel === level"

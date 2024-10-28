@@ -14,7 +14,10 @@ defineProps<Props>()
 <template>
   <div>
     <div :class="$style.iconAndNameContainer">
-      <user-icon :user-name="user.name" :size="64" />
+      <user-icon
+        :user-name="user.name"
+        :size="64"
+      />
       <div :class="$style.nameContainer">
         <p :class="$style.name">
           {{ user.name }}
@@ -24,7 +27,10 @@ defineProps<Props>()
     </div>
     <div :class="$style.accounts">
       <user-accounts :accounts="user.accounts" />
-      <link-button :to="{ name: 'UserAccounts' }" icon="mdi:account">
+      <link-button
+        :to="{ name: 'UserAccounts' }"
+        icon="mdi:account"
+      >
         Edit
       </link-button>
     </div>

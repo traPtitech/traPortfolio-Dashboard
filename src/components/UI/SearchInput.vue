@@ -36,7 +36,11 @@ const iconSize = computed(() => {
 
 <template>
   <div :class="[$style.inputWrapper, size === 'large' ? $style.large : '']">
-    <icon name="mdi:magnify" :size="iconSize" :class="$style.icon" />
+    <icon
+      name="mdi:magnify"
+      :size="iconSize"
+      :class="$style.icon"
+    />
     <input
       v-model="input"
       type="text"

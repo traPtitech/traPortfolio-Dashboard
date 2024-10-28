@@ -22,7 +22,10 @@ const props = withDefaults(defineProps<Props>(), {
     :data-button-type="props.type"
     :disabled="props.isDisabled"
   >
-    <icon v-if="props.icon" :name="props.icon" />
+    <icon
+      v-if="props.icon"
+      :name="props.icon"
+    />
     <slot />
   </button>
 </template>

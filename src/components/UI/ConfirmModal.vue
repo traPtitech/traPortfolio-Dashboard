@@ -42,7 +42,10 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <dialog ref="modalRef" :class="$style.modal">
+  <dialog
+    ref="modalRef"
+    :class="$style.modal"
+  >
     <div :class="$style.container">
       <h1 :class="$style.header">
         {{ title }}

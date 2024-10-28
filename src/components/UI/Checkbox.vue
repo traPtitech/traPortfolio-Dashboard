@@ -3,7 +3,11 @@ const model = defineModel<boolean>({ required: true })
 </script>
 
 <template>
-  <input v-model="model" type="checkbox" :class="$style.input" />
+  <input
+    v-model="model"
+    type="checkbox"
+    :class="$style.input"
+  />
 </template>
 
 <style lang="scss" module>
