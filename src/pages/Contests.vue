@@ -46,7 +46,10 @@ const filteredContests = computed(() =>
       </div>
     </div>
     <ul :class="$style.contestList">
-      <li v-for="contest in filteredContests" :key="contest.id">
+      <li
+        v-for="contest in filteredContests"
+        :key="contest.id"
+      >
         <contest-item :contest="contest" />
       </li>
     </ul>

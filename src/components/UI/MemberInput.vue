@@ -90,7 +90,12 @@ const onClose = () => {
       </div>
     </template>
     <template #list-footer>
-      <li v-if="hasNextPage" ref="footerRef">Loading...</li>
+      <li
+        v-if="hasNextPage"
+        ref="footerRef"
+      >
+        Loading...
+      </li>
     </template>
     <template #no-options>
       <p>ユーザーが見つかりませんでした</p>

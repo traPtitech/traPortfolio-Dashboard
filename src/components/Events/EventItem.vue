@@ -74,7 +74,11 @@ onUnmounted(() => {
         <span>
           {{ eventLevels[eventLevelValue].label }}
         </span>
-        <span ref="element" :class="$style.icon" :is-menu-open="displayMenu">
+        <span
+          ref="element"
+          :class="$style.icon"
+          :is-menu-open="displayMenu"
+        >
           <icon name="mdi:chevron-down" />
         </span>
       </button>

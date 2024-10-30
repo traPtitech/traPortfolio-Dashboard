@@ -30,7 +30,10 @@ const me = (await apis.getMe()).data
       </link-button>
     </div>
     <ul :class="$style.accountList">
-      <li v-for="account in me.accounts" :key="account.id">
+      <li
+        v-for="account in me.accounts"
+        :key="account.id"
+      >
         <account-item :account="account" />
       </li>
     </ul>

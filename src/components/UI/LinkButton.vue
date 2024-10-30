@@ -23,7 +23,10 @@ const props = withDefaults(defineProps<Props>(), {
     :class="$style.linkButton"
     :data-button-type="props.type"
   >
-    <icon v-if="props.icon" :name="props.icon" />
+    <icon
+      v-if="props.icon"
+      :name="props.icon"
+    />
     <slot />
   </router-link>
 </template>
