@@ -4,6 +4,7 @@
       src="/@/assets/traP_logo_full_white.svg"
       :class="$style.logo"
     />
+    <div :class="$style.copyright">© 2015 traP</div>
   </footer>
 </template>
 
