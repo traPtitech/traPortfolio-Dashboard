@@ -11,7 +11,7 @@ interface Props {
 defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'toggleNavigationBar'): void
+  (e: 'toggle-navigation-bar'): void
 }>()
 
 const { isMobile } = storeToRefs(useResponsiveStore())
@@ -21,7 +21,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
   <div :class="$style.container">
     <button
       v-if="isMobile"
-      @click="emit('toggleNavigationBar')"
+      @click="emit('toggle-navigation-bar')"
     >
       <icon name="mdi:menu" />
     </button>
