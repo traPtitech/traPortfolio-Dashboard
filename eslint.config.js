@@ -31,7 +31,7 @@ const vueLint = {
     ],
 
     'vue/component-name-in-template-casing': ['error', 'kebab-case'],
-    'vue/custom-event-name-casing': ['error', 'camelCase'],
+    'vue/custom-event-name-casing': ['error', 'kebab-case'],
     'vue/multi-word-component-names': 'off',
     'vue/no-reserved-component-names': 'off',
     'vue/html-self-closing': [
