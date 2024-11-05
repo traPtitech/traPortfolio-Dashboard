@@ -11,11 +11,14 @@ import FormTextArea from '/@/components/UI/FormTextArea.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import { computed, ref } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
+import DeleteForm from '/@/components/Form/DeleteForm.vue'
 import {
   isValidLength,
   isValidOptionalUrl,
   isValidYearWithSemesterDuration
 } from '/@/lib/validate'
+import useModal from '/@/components/UI/composables/useModal'
+import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
 import { useToast } from 'vue-toastification'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
 import { useProjectStore } from '/@/store/project'
@@ -26,6 +29,7 @@ import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 
 const router = useRouter()
 const toast = useToast()
+const { modalRef, open, close } = useModal()
 const { mutate } = useProjectStore()
 
 const projectId = useParam('projectId')
@@ -43,6 +47,7 @@ const formValues = ref<Required<EditProjectRequest>>({
 })
 
 const isSending = ref(false)
+const isDeleting = ref(false)
 const canSubmit = computed(
   () =>
     !isSending.value &&
@@ -105,6 +110,19 @@ const members = ref<ProjectMemberType[]>(projectMembers)
 
 const handleDelete = (id: string) => {
   members.value = members.value.filter(member => member.id !== id)
+}
+
+const deleteProject = async () => {
+  isDeleting.value = true
+  try {
+    await apis.deleteProject(projectId.value)
+    mutate()
+    toast.success('プロジェクト情報を削除しました')
+    router.push({ name: 'Projects' })
+  } catch {
+    toast.error('プロジェクト情報の削除に失敗しました')
+  }
+  isDeleting.value = false
 }
 </script>
 
@@ -169,6 +187,7 @@ const handleDelete = (id: string) => {
         </div>
       </labeled-form>
     </form>
+    <delete-form target="プロジェクト" @delete="open" />
 
     <div :class="$style.buttonContainer">
       <link-button
@@ -187,6 +206,15 @@ const handleDelete = (id: string) => {
         Update
       </base-button>
     </div>
+
+    <confirm-modal
+      ref="modalRef"
+      title="プロジェクトの削除"
+      body="プロジェクトを削除します。この操作は取り消せません。"
+      :is-disabled="isDeleting"
+      @cancel="close"
+      @delete="deleteProject"
+    />
   </page-container>
 </template>
 
