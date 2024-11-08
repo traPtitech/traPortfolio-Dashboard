@@ -15,7 +15,7 @@ interface Props {
 const props = defineProps<Props>()
 const searchQuery = ref('')
 const filteredContestTeams = computed(() =>
-  searchListCaseInsensitive(props.contestTeams, searchQuery.value, 'name')
+  searchListCaseInsensitive(props.contestTeams, searchQuery.value, v => v.name)
 )
 </script>
 
@@ -33,11 +33,15 @@ const filteredContestTeams = computed(() =>
         :to="{ name: 'ContestTeamNew', params: { contestId: contestId } }"
         type="primary"
         icon="mdi:plus"
-        >New</link-button
       >
+        New
+      </link-button>
     </div>
     <ul :class="$style.teamList">
-      <li v-for="contestTeam in filteredContestTeams" :key="contestTeam.id">
+      <li
+        v-for="contestTeam in filteredContestTeams"
+        :key="contestTeam.id"
+      >
         <contest-team-item
           :contest-id="contestId"
           :contest-team="contestTeam"

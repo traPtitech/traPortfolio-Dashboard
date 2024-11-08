@@ -97,7 +97,11 @@ const deleteAccount = async () => {
       />
     </div>
     <form>
-      <labeled-form label="サービス名" required :class="$style.labeledForm">
+      <labeled-form
+        label="サービス名"
+        required
+        :class="$style.labeledForm"
+      >
         <service-accordion
           v-model="formValues.type"
           :registered="registeredServices"
@@ -116,7 +120,11 @@ const deleteAccount = async () => {
           :limit="256"
         />
       </labeled-form>
-      <labeled-form label="リンク" required :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        required
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.url"
           placeholder="https://"
@@ -124,7 +132,10 @@ const deleteAccount = async () => {
         />
       </labeled-form>
     </form>
-    <delete-form target="アカウント" @delete="open" />
+    <delete-form
+      target="アカウント"
+      @delete="open"
+    />
 
     <div :class="$style.buttonContainer">
       <link-button
@@ -132,8 +143,9 @@ const deleteAccount = async () => {
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</link-button
       >
+        Back
+      </link-button>
       <base-button
         :is-disabled="!canSubmit"
         type="primary"

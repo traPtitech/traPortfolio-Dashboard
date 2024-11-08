@@ -13,17 +13,25 @@ defineProps<Props>()
 
 <template>
   <div :class="$style.profileContainer">
-    <user-icon :user-name="user.name" :size="128" />
+    <user-icon
+      :user-name="user.name"
+      :size="128"
+    />
     <div>
       <div :class="$style.nameContainer">
-        <p :class="$style.name">{{ user.name }}</p>
+        <p :class="$style.name">
+          {{ user.name }}
+        </p>
         <!-- <p :class="$style.realName">{{ user.realName }}</p> -->
       </div>
       <div :class="$style.accounts">
         <user-accounts :accounts="user.accounts" />
-        <link-button :to="{ name: 'UserAccounts' }" icon="mdi:account"
-          >Edit</link-button
+        <link-button
+          :to="{ name: 'UserAccounts' }"
+          icon="mdi:account"
         >
+          Edit
+        </link-button>
       </div>
     </div>
   </div>

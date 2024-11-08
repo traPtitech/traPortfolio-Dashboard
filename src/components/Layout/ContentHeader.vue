@@ -18,8 +18,15 @@ const props = defineProps<Props>()
 <template>
   <div>
     <h1 :class="$style.titleContainer">
-      <icon :class="$style.icon" :name="props.iconName" :size="48" />
-      <template v-for="(headerText, index) in props.headerTexts" :key="index">
+      <icon
+        :class="$style.icon"
+        :name="props.iconName"
+        :size="48"
+      />
+      <template
+        v-for="(headerText, index) in props.headerTexts"
+        :key="index"
+      >
         <icon
           v-if="index !== 0"
           :class="$style.chevron"
@@ -36,7 +43,9 @@ const props = defineProps<Props>()
         <span v-else>{{ headerText.title }}</span>
       </template>
     </h1>
-    <p :class="$style.detail">{{ props.detail }}</p>
+    <p :class="$style.detail">
+      {{ props.detail }}
+    </p>
   </div>
 </template>
 

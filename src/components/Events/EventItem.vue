@@ -57,7 +57,9 @@ onUnmounted(() => {
       :to="{ name: 'Event', params: { id: event.id } }"
       :class="$style.link"
     >
-      <p :class="$style.name">{{ event.name }}</p>
+      <p :class="$style.name">
+        {{ event.name }}
+      </p>
       <p :class="$style.duration">
         <icon name="mdi:calendar" />
         {{ getFullDayString(new Date(event.duration.since)) }}
@@ -72,7 +74,11 @@ onUnmounted(() => {
         <span>
           {{ eventLevels[eventLevelValue].label }}
         </span>
-        <span ref="element" :class="$style.icon" :is-menu-open="displayMenu">
+        <span
+          ref="element"
+          :class="$style.icon"
+          :is-menu-open="displayMenu"
+        >
           <icon name="mdi:chevron-down" />
         </span>
       </button>

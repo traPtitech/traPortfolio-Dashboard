@@ -15,7 +15,7 @@ const contests = await contestStore.fetchContests()
 
 const searchQuery = ref('')
 const filteredContests = computed(() =>
-  searchListCaseInsensitive(contests, searchQuery.value, 'name')
+  searchListCaseInsensitive(contests, searchQuery.value, v => v.name)
 )
 </script>
 
@@ -40,12 +40,16 @@ const filteredContests = computed(() =>
           :to="{ name: 'ContestNew' }"
           type="primary"
           icon="mdi:trophy"
-          >New</link-button
         >
+          New
+        </link-button>
       </div>
     </div>
     <ul :class="$style.contestList">
-      <li v-for="contest in filteredContests" :key="contest.id">
+      <li
+        v-for="contest in filteredContests"
+        :key="contest.id"
+      >
         <contest-item :contest="contest" />
       </li>
     </ul>

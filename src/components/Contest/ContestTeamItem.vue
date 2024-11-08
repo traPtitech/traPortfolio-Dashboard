@@ -25,8 +25,12 @@ const userNames = computed(() =>
   >
     <div :class="$style.container">
       <div>
-        <p :class="$style.name">{{ contestTeam.name }}</p>
-        <p :class="$style.result">{{ contestTeam.result }}</p>
+        <p :class="$style.name">
+          {{ contestTeam.name }}
+        </p>
+        <p :class="$style.result">
+          {{ contestTeam.result }}
+        </p>
       </div>
       <user-icons :user-names="userNames" />
     </div>

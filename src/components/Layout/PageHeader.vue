@@ -2,6 +2,8 @@
 import Icon from '/@/components/UI/Icon.vue'
 import { storeToRefs } from 'pinia'
 import { useResponsiveStore } from '/@/store/responsive'
+import pcLogo from '/@/assets/traPortfolio_dashboard_logo_full.svg'
+import spLogo from '/@/assets/traPortfolio_dashboard_logo_icon.svg'
 
 interface Props {
   isOpenNavigationBar: boolean
@@ -9,7 +11,7 @@ interface Props {
 defineProps<Props>()
 
 const emit = defineEmits<{
-  (e: 'toggleNavigationBar'): void
+  (e: 'toggle-navigation-bar'): void
 }>()
 
 const { isMobile } = storeToRefs(useResponsiveStore())
@@ -17,14 +19,17 @@ const { isMobile } = storeToRefs(useResponsiveStore())
 
 <template>
   <div :class="$style.container">
-    <button v-if="isMobile" @click="emit('toggleNavigationBar')">
+    <button
+      v-if="isMobile"
+      @click="emit('toggle-navigation-bar')"
+    >
       <icon name="mdi:menu" />
     </button>
     <router-link :to="{ name: 'Index' }">
       <img
-        src="/@/assets/traP_logo_blue.svg"
-        alt="traP"
-        :width="!isMobile ? '343' : '240'"
+        :src="isMobile ? spLogo : pcLogo"
+        alt="traPortfolio"
+        :width="isMobile ? '48' : '248'"
         height="48"
       />
     </router-link>

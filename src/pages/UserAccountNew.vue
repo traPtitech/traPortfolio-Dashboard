@@ -84,7 +84,11 @@ const createNewAccount = async () => {
       />
     </div>
     <form>
-      <labeled-form label="サービス名" required :class="$style.labeledForm">
+      <labeled-form
+        label="サービス名"
+        required
+        :class="$style.labeledForm"
+      >
         <service-accordion
           v-model="formValues.type"
           :registered="registeredServices"
@@ -103,7 +107,11 @@ const createNewAccount = async () => {
           :limit="256"
         />
       </labeled-form>
-      <labeled-form label="リンク" required :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        required
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.url"
           placeholder="https://"
@@ -117,8 +125,9 @@ const createNewAccount = async () => {
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</link-button
       >
+        Back
+      </link-button>
       <base-button
         :is-disabled="!canSubmit"
         type="primary"

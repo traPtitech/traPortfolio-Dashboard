@@ -147,37 +147,60 @@ const deleteProject = async () => {
       />
     </div>
     <form>
-      <labeled-form required label="プロジェクト名" :class="$style.labeledForm">
-        <form-input v-model="formValues.name" :limit="32" />
+      <labeled-form
+        required
+        label="プロジェクト名"
+        :class="$style.labeledForm"
+      >
+        <form-input
+          v-model="formValues.name"
+          :limit="32"
+        />
       </labeled-form>
-      <labeled-form label="期間" :class="$style.labeledForm">
+      <labeled-form
+        label="期間"
+        :class="$style.labeledForm"
+      >
         <form-project-duration v-model="formValues.duration" />
         <field-error-message v-if="shouldShowDurationError">
           開始期間は終了期間よりも前に指定してください。
         </field-error-message>
       </labeled-form>
-      <labeled-form label="リンク" :class="$style.labeledForm">
+      <labeled-form
+        label="リンク"
+        :class="$style.labeledForm"
+      >
         <form-input
           v-model="formValues.link"
           has-anchor
           placeholder="https://"
         />
       </labeled-form>
-      <labeled-form required label="説明" :class="$style.labeledForm">
+      <labeled-form
+        required
+        label="説明"
+        :class="$style.labeledForm"
+      >
         <form-text-area
           v-model="formValues.description"
           :limit="256"
           :rows="3"
         />
       </labeled-form>
-      <labeled-form label="メンバー" :class="$style.labeledForm">
+      <labeled-form
+        label="メンバー"
+        :class="$style.labeledForm"
+      >
         <member-input
           v-model="members"
           :class="$style.memberInput"
           :users="userWithDurations"
           :is-disabled="false"
         />
-        <div v-for="member in members" :key="member.id">
+        <div
+          v-for="member in members"
+          :key="member.id"
+        >
           <project-member
             v-model="member.duration"
             :user="member"
@@ -195,8 +218,9 @@ const deleteProject = async () => {
         :class="$style.backButton"
         type="secondary"
         icon="mdi:arrow-left"
-        >Back</link-button
       >
+        Back
+      </link-button>
       <base-button
         :is-disabled="!canSubmit"
         type="primary"

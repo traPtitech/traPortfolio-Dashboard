@@ -28,13 +28,21 @@ const shouldShowDurationError = computed(
   <div :class="$style.container">
     <div :class="$style.content">
       <div :class="$style.user">
-        <user-icon :user-name="user.name" :size="48" />
-        <p :class="$style.name">{{ user.name }}</p>
+        <user-icon
+          :user-name="user.name"
+          :size="48"
+        />
+        <p :class="$style.name">
+          {{ user.name }}
+        </p>
         <button
           :class="[$style.deleteButton, $style.sp]"
           @click="emit('delete', user.id)"
         >
-          <icon :size="32" name="mdi:delete" />
+          <icon
+            :size="32"
+            name="mdi:delete"
+          />
         </button>
       </div>
       <div>
@@ -51,7 +59,10 @@ const shouldShowDurationError = computed(
       :class="[$style.deleteButton, $style.pc]"
       @click="emit('delete', user.id)"
     >
-      <icon :size="32" name="mdi:delete" />
+      <icon
+        :size="32"
+        name="mdi:delete"
+      />
     </button>
   </div>
 </template>

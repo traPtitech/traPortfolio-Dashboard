@@ -15,7 +15,7 @@ const projects = await projectStore.fetchProjects()
 
 const searchQuery = ref('')
 const filteredProjects = computed(() =>
-  searchListCaseInsensitive(projects, searchQuery.value, 'name')
+  searchListCaseInsensitive(projects, searchQuery.value, v => v.name)
 )
 </script>
 
@@ -39,11 +39,15 @@ const filteredProjects = computed(() =>
         :to="{ name: 'ProjectNew' }"
         type="primary"
         icon="mdi:clipboard-file"
-        >New</link-button
       >
+        New
+      </link-button>
     </div>
     <ul :class="$style.projectList">
-      <li v-for="project in filteredProjects" :key="project.id">
+      <li
+        v-for="project in filteredProjects"
+        :key="project.id"
+      >
         <project-item :project="project" />
       </li>
     </ul>
