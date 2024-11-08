@@ -210,7 +210,10 @@ const deleteProject = async () => {
         </div>
       </labeled-form>
     </form>
-    <delete-form target="プロジェクト" @delete="open" />
+    <delete-form
+      target="プロジェクト"
+      @delete="open"
+    />
 
     <div :class="$style.buttonContainer">
       <link-button
