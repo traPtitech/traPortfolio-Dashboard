@@ -36,6 +36,7 @@ watch([() => route.fullPath, isMobile], () => {
     />
     <navigation-bar
       v-if="isOpenNavigationBar"
+      v-model="isOpenNavigationBar"
       :class="$style.navigationBar"
     />
     <div :class="$style.content">
@@ -72,7 +73,6 @@ watch([() => route.fullPath, isMobile], () => {
   .navigationBarCover {
     position: absolute;
     z-index: $z-index-navigationBarCover;
-    top: 5rem;
     left: 0;
     height: 100%;
     width: 100%;
@@ -82,7 +82,6 @@ watch([() => route.fullPath, isMobile], () => {
   .navigationBar {
     position: absolute;
     z-index: $z-index-navigationBar;
-    top: 5rem;
     left: 0;
     height: 100%;
     width: 260px;

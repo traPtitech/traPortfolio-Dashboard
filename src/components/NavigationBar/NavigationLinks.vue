@@ -17,6 +17,7 @@ import { routes } from '/@/lib/routeInfo'
 <style lang="scss" module>
 .list {
   list-style: none;
+  flex-grow: 1;
 
   li {
     margin: 0.5rem 0;
