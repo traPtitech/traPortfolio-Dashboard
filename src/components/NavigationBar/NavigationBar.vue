@@ -4,14 +4,14 @@ import NavigationLinks from './NavigationLinks.vue'
 import NavigationBarFooter from './NavigationBarFooter.vue'
 import Icon from '../UI/Icon.vue'
 
-const a = defineModel<boolean>({ required: true })
+const isSidebarOpen = defineModel<boolean>({ required: true })
 </script>
 
 <template>
   <nav :class="$style.container">
     <button
       style="width: fit-content"
-      @click="a = false"
+      @click="isSidebarOpen = false"
     >
       <div :class="$style.closeContainer">
         <icon name="mdi:chevron-left" />
