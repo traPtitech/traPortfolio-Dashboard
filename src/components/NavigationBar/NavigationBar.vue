@@ -1,15 +1,19 @@
 <script lang="ts" setup>
 import { defineModel } from 'vue'
 import NavigationLinks from './NavigationLinks.vue'
+import { useResponsiveStore } from '/@/store/responsive'
 import NavigationBarFooter from './NavigationBarFooter.vue'
 import Icon from '../UI/Icon.vue'
+import { storeToRefs } from 'pinia'
 
 const isSidebarOpen = defineModel<boolean>({ required: true })
+const { isMobile } = storeToRefs(useResponsiveStore())
 </script>
 
 <template>
   <nav :class="$style.container">
     <button
+      v-if="isMobile"
       style="width: fit-content"
       @click="isSidebarOpen = false"
     >
