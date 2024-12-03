@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-import {defineModel} from 'vue'
+import { defineModel } from 'vue'
 import NavigationLinks from './NavigationLinks.vue'
 import NavigationBarFooter from './NavigationBarFooter.vue'
-import Icon from '../UI/Icon.vue';
+import Icon from '../UI/Icon.vue'
 
-const a = defineModel<boolean>({required: true})
+const a = defineModel<boolean>({ required: true })
 </script>
 
 <template>
   <nav :class="$style.container">
     <button
-      style="width: fit-content;"
-      @click="a=false"
+      style="width: fit-content"
+      @click="a = false"
     >
       <div :class="$style.closeContainer">
         <icon name="mdi:chevron-left" />
@@ -32,7 +32,7 @@ const a = defineModel<boolean>({required: true})
   padding: 1rem 0;
   gap: 1rem;
 }
-.closeContainer{
+.closeContainer {
   display: flex;
   align-items: center;
   justify-content: center;
