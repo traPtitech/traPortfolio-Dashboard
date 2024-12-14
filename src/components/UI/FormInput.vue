@@ -88,6 +88,7 @@ const handleInput = (event: Event) => {
 }
 .input {
   flex-grow: 1;
+  min-width: 0;
   &::placeholder {
     color: $color-secondary;
   }
