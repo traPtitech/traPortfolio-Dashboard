@@ -1,3 +1,5 @@
+@use "./color" as *;
+
 .Vue-Toastification__toast--success {
   background-color: $color-primary;
 }
