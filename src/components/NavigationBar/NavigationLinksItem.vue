@@ -34,6 +34,7 @@ const isActive = computed(() => {
       :to="path"
       :class="$style.container"
       :data-is-selected="isActive"
+      :aria-current="isActive ? 'page' : null"
     >
       <icon
         :class="$style.icon"
