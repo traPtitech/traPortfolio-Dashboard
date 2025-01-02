@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { isValidUrl } from '/@/lib/validate'
 
 interface Props {
@@ -40,7 +40,7 @@ const handleInput = (event: Event) => {
       v-if="props.icon !== undefined"
       :class="$style.iconContainer"
     >
-      <icon :name="`mdi:${props.icon}`" />
+      <a-icon :name="`mdi:${props.icon}`" />
     </div>
     <input
       :class="$style.input"
@@ -66,7 +66,7 @@ const handleInput = (event: Event) => {
         rel="noopener noreferrer"
         :tabindex="isValidLink ? 0 : -1"
       >
-        <icon name="mdi:open-in-new" />
+        <a-icon name="mdi:open-in-new" />
       </a>
     </div>
   </div>

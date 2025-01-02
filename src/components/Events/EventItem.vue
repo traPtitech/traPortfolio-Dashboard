@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
 import apis, { Event, EditEventRequest, EventLevel } from '/@/lib/apis'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { getFullDayString } from '/@/lib/date'
 import EventLevelMenu from '/@/components/Events/EventLevelMenu.vue'
 import {
@@ -61,7 +61,7 @@ onUnmounted(() => {
         {{ event.name }}
       </p>
       <p :class="$style.duration">
-        <icon name="mdi:calendar" />
+        <a-icon name="mdi:calendar" />
         {{ getFullDayString(new Date(event.duration.since)) }}
       </p>
     </router-link>
@@ -79,7 +79,7 @@ onUnmounted(() => {
           :class="$style.icon"
           :is-menu-open="displayMenu"
         >
-          <icon name="mdi:chevron-down" />
+          <a-icon name="mdi:chevron-down" />
         </span>
       </button>
       <event-level-menu

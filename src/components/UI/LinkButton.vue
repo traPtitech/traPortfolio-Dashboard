@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 
 import { RouteLocationRaw } from 'vue-router'
 
@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
     :class="$style.linkButton"
     :data-button-type="props.type"
   >
-    <icon
+    <a-icon
       v-if="props.icon"
       :name="props.icon"
     />

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 
 type ButtonType = 'primary' | 'secondary' | 'warning'
 
@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
     :data-button-type="props.type"
     :disabled="props.isDisabled"
   >
-    <icon
+    <a-icon
       v-if="props.icon"
       :name="props.icon"
     />

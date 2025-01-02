@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import Icon from '/@/components/UI/Icon.vue'
       target="_blank"
       rel="noopener noreferrer"
     >
-      <icon
+      <a-icon
         name="mdi:help"
         :class="$style.icon"
       />

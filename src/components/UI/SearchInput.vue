@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { useRouter } from 'vue-router'
 
 interface Props {
@@ -36,7 +36,7 @@ const iconSize = computed(() => {
 
 <template>
   <div :class="[$style.inputWrapper, size === 'large' ? $style.large : '']">
-    <icon
+    <a-icon
       name="mdi:magnify"
       :size="iconSize"
       :class="$style.icon"

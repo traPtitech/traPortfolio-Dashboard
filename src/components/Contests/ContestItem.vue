@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Contest } from '/@/lib/apis'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { getFullDayString } from '/@/lib/date'
 
 interface Props {
@@ -20,7 +20,7 @@ defineProps<Props>()
         {{ contest.name }}
       </p>
       <p :class="$style.duration">
-        <icon name="mdi:calendar" />
+        <a-icon name="mdi:calendar" />
         {{ getFullDayString(new Date(contest.duration.since)) }}
       </p>
     </div>

@@ -5,7 +5,7 @@ import LinkButton from '/@/components/UI/LinkButton.vue'
 
 import apis, { ContestDetail, ContestTeam } from '/@/lib/apis'
 import { getDisplayDuration } from '/@/lib/date'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import useParam from '/@/lib/param'
 import ContestTeamsComponent from '/@/components/Contest/ContestTeams.vue'
 
@@ -61,7 +61,7 @@ const contestTeams: ContestTeam[] = (
           v-else
           :class="[$style.content, $style.contestLinkContainer]"
         >
-          <icon name="mdi:open-in-new" />
+          <a-icon name="mdi:open-in-new" />
           <a
             :class="$style.contestLink"
             :href="contestDetail.link"

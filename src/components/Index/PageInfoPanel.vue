@@ -5,7 +5,7 @@
       :class="$style.link"
     >
       <div :class="$style.container">
-        <icon
+        <a-icon
           :name="routeInfo.icon"
           :class="$style.icon"
           :size="72"
@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import { toRef } from 'vue'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import useRouteInfo from '/@/lib/routeInfo'
 import { RouteLocationNamedRaw } from 'vue-router'
 
