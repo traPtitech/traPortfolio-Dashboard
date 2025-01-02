@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, toRef } from 'vue'
 import { useRoute, RouteLocationNamedRaw } from 'vue-router'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import useRouteInfo from '/@/lib/routeInfo'
 import { routes } from '/@/router/index'
 
@@ -36,7 +36,7 @@ const isActive = computed(() => {
       :data-is-selected="isActive"
       :aria-current="isActive ? 'page' : null"
     >
-      <icon
+      <a-icon
         :class="$style.icon"
         :name="routeInfo.icon"
         :size="30"

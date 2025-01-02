@@ -2,7 +2,7 @@
 import { User, YearWithSemesterDuration } from '/@/lib/apis'
 import UserIcon from '/@/components/UI/UserIcon.vue'
 import FormProjectDuration from '/@/components/UI/FormProjectDuration.vue'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { computed } from 'vue'
 import FieldErrorMessage from '/@/components/UI/FieldErrorMessage.vue'
 import { isValidYearWithSemesterDuration } from '/@/lib/validate'
@@ -39,7 +39,7 @@ const shouldShowDurationError = computed(
           :class="[$style.deleteButton, $style.sp]"
           @click="emit('delete', user.id)"
         >
-          <icon
+          <a-icon
             :size="32"
             name="mdi:delete"
           />
@@ -59,7 +59,7 @@ const shouldShowDurationError = computed(
       :class="[$style.deleteButton, $style.pc]"
       @click="emit('delete', user.id)"
     >
-      <icon
+      <a-icon
         :size="32"
         name="mdi:delete"
       />

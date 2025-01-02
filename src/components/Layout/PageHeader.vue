@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { storeToRefs } from 'pinia'
 import { useResponsiveStore } from '/@/store/responsive'
 import pcLogo from '/@/assets/traPortfolio_dashboard_logo_full.svg'
@@ -23,7 +23,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
       v-if="isMobile"
       @click="emit('toggle-navigation-bar')"
     >
-      <icon name="mdi:menu" />
+      <a-icon name="mdi:menu" />
     </button>
     <router-link :to="{ name: 'Index' }">
       <img

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { serviceArray, type ServiceWithName } from '/@/consts/services'
 import type { Account } from '/@/lib/apis'
 
@@ -47,7 +47,7 @@ const shownServices = computed((): Service[] =>
         width="24"
         height="24"
       />
-      <icon
+      <a-icon
         v-else
         :name="service.icon"
         :class="$style.icon"

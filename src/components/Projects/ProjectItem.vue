@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Project } from '/@/lib/apis'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { getGroupOrProjectDuration } from '/@/lib/date'
 
 interface Props {
@@ -20,7 +20,7 @@ defineProps<Props>()
         {{ project.name }}
       </p>
       <p :class="$style.duration">
-        <icon name="mdi:calendar" />
+        <a-icon name="mdi:calendar" />
         {{ getGroupOrProjectDuration(project.duration) }}
       </p>
     </div>

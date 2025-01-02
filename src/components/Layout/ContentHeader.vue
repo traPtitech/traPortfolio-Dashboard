@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { RouteLocationNamedRaw } from 'vue-router'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 
 type HeaderText = {
   title: string
@@ -18,7 +18,7 @@ const props = defineProps<Props>()
 <template>
   <div>
     <h1 :class="$style.titleContainer">
-      <icon
+      <a-icon
         :class="$style.icon"
         :name="props.iconName"
         :size="48"
@@ -27,7 +27,7 @@ const props = defineProps<Props>()
         v-for="(headerText, index) in props.headerTexts"
         :key="index"
       >
-        <icon
+        <a-icon
           v-if="index !== 0"
           :class="$style.chevron"
           name="akar-icons:chevron-right"

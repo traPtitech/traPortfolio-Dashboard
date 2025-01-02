@@ -3,7 +3,7 @@ import { defineModel } from 'vue'
 import NavigationLinks from './NavigationLinks.vue'
 import { useResponsiveStore } from '/@/store/responsive'
 import NavigationBarFooter from './NavigationBarFooter.vue'
-import Icon from '../UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import { storeToRefs } from 'pinia'
 
 const isSidebarOpen = defineModel<boolean>({ required: true })
@@ -18,7 +18,7 @@ const { isMobile } = storeToRefs(useResponsiveStore())
       @click="isSidebarOpen = false"
     >
       <div :class="$style.closeContainer">
-        <icon name="mdi:chevron-left" />
+        <a-icon name="mdi:chevron-left" />
         <p>閉じる</p>
       </div>
     </button>

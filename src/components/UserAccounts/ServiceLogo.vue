@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 import type { AccountType } from '/@/lib/apis'
 import { services, serviceTypeToNameMap } from '/@/consts/services'
 import { computed } from 'vue'
@@ -15,7 +15,7 @@ const serviceName = computed(() => serviceTypeToNameMap[props.service])
 
 <template>
   <div :class="$style.logo">
-    <icon :name="services[serviceName].icon" />
+    <a-icon :name="services[serviceName].icon" />
     {{ serviceName }}
   </div>
 </template>

@@ -1,7 +1,7 @@
 <script lang="ts" setup generic="T">
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 
 export interface Option<T> {
   label: string
@@ -54,7 +54,7 @@ const compare = (a: T, b: T) => {
   >
     <template #option="{ label }">
       <div :class="$style.item">
-        <icon
+        <a-icon
           v-if="label === options.find(o => compare(o.value, model))?.label"
           name="mdi:tick-circle-outline"
           :class="$style.icon"

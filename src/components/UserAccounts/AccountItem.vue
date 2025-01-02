@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Account } from '/@/lib/apis'
 import ServiceLogo from '/@/components/UserAccounts/ServiceLogo.vue'
-import Icon from '/@/components/UI/Icon.vue'
+import AIcon from '/@/components/UI/AIcon.vue'
 
 interface Props {
   account: Account
@@ -22,7 +22,7 @@ defineProps<Props>()
         </p>
         <service-logo :service="account.type" />
       </div>
-      <p :class="$style.url"><icon name="mdi:link" />{{ account.url }}</p>
+      <p :class="$style.url"><a-icon name="mdi:link" />{{ account.url }}</p>
     </div>
   </router-link>
 </template>
