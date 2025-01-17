@@ -31,8 +31,7 @@ const formValues = reactive<AddAccountRequest>({
       .filter(s => !registeredServices.value.includes(s.type))
       .map(s => s.type)[0] ?? 0,
   displayName: '',
-  url: '',
-  prPermitted: true
+  url: ''
 })
 
 const isSending = ref(false)
