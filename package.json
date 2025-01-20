@@ -37,6 +37,7 @@
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.32.0",
+    "msw": "^2.7.0",
     "node-fetch": "^3.3.2",
     "prettier": "^3.4.1",
     "sass": "^1.83.0",
@@ -48,5 +49,10 @@
     "vue-tsc": "2.2.0"
   },
   "private": true,
-  "type": "module"
+  "type": "module",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }
