@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { Contest, ContestDetail } from '../lib/apis'
+import { Contest, ContestDetail } from '/@/lib/apis'
 
 export const handlers = [
   // apis.getContests
