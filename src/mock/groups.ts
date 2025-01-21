@@ -7,7 +7,7 @@ export const handlers = [
     return HttpResponse.json([
       {
         id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-        name: 'sampleUser'
+        name: 'sampleGroup'
       }
     ])
   }),
@@ -18,8 +18,8 @@ export const handlers = [
     () => {
       return HttpResponse.json({
         id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-        name: 'sampleUser',
-        description: 'sampleUser',
+        name: 'sampleGroup',
+        description: 'sampleGroup',
         link: '',
         admin: [],
         members: []
