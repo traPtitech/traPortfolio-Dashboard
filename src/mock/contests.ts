@@ -9,7 +9,7 @@ export const handlers = [
       return HttpResponse.json([
         {
           id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-          name: 'sampleUser',
+          name: 'sampleContest',
           duration: {
             since: '2021-01-01T00:00:00Z',
             until: '2021-01-01T00:00:00Z'
@@ -28,8 +28,8 @@ export const handlers = [
   >('/api/v1/contests/:contestId', () => {
     return HttpResponse.json({
       id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
-      name: 'sampleUser',
-      description: 'sampleUser',
+      name: 'sampleContest',
+      description: 'sampleContest',
       duration: {
         since: '2021-01-01T00:00:00Z',
         until: '2021-01-01T00:00:00Z'
