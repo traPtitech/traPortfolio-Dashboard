@@ -8,6 +8,10 @@ on:
     branches-ignore:
       - '**'
 
+permissions:
+  contents: write
+  packages: write
+
 env:
   IMAGE_NAME: traportfolio-dashboard
 
