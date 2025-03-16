@@ -1,3 +1,4 @@
+import { test, describe, expect } from 'vitest'
 import { Duration, YearWithSemesterDuration } from '/@/lib/apis'
 import {
   isValidDuration,
