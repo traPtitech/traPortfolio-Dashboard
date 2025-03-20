@@ -29,7 +29,6 @@
     "@iconify/vue": "^4.3.0",
     "@types/autosize": "^4.0.3",
     "@types/eslint__js": "^8.42.3",
-    "@types/jest": "^29.5.14",
     "@types/node": "^22.13.10",
     "@vitejs/plugin-vue": "^5.2.1",
     "autoprefixer": "^10.4.21",
