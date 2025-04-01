@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "autosize": "^6.0.1",
-    "axios": "^1.8.2",
+    "axios": "^1.8.4",
     "pinia": "^3.0.1",
     "ress": "^5.0.2",
     "vue": "^3.5.13",
@@ -29,7 +29,7 @@
     "@iconify/vue": "^4.3.0",
     "@types/autosize": "^4.0.3",
     "@types/node": "^22.13.16",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue": "^5.2.3",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
     "eslint": "^9.23.0",
@@ -41,7 +41,7 @@
     "ts-morph": "^25.0.1",
     "typescript": "^5.8.2",
     "typescript-eslint": "^8.28.0",
-    "vite": "^6.2.1",
+    "vite": "^6.2.4",
     "vitest": "^3.0.8",
     "vue-tsc": "2.2.8"
   },
