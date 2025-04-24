@@ -12,8 +12,8 @@ import { setupWorker } from 'msw/browser'
 
 if (import.meta.env.DEV) {
   const { handlers } = await import('./mocks/handler')
-  const server = await setupWorker(...handlers)
-  server.start()
+  const server = setupWorker(...handlers)
+  await server.start({ onUnhandledRequest: 'bypass' })
 }
 
 const pinia = createPinia()
