@@ -17,10 +17,10 @@
   "dependencies": {
     "autosize": "^6.0.1",
     "axios": "^1.8.4",
-    "pinia": "^3.0.1",
+    "pinia": "^3.0.2",
     "ress": "^5.0.2",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
+    "vue-router": "^4.5.1",
     "vue-select": "^4.0.0-beta.6",
     "vue-toastification": "^2.0.0-rc.5"
   },
@@ -39,11 +39,11 @@
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
     "ts-morph": "^25.0.1",
-    "typescript": "^5.8.2",
+    "typescript": "^5.8.3",
     "typescript-eslint": "^8.29.0",
     "vite": "^6.2.4",
-    "vitest": "^3.1.1",
-    "vue-tsc": "2.2.8"
+    "vitest": "^3.1.2",
+    "vue-tsc": "2.2.10"
   },
   "private": true,
   "type": "module"
