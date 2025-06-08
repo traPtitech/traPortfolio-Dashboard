@@ -38,7 +38,7 @@
     "node-fetch": "^3.3.2",
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
-    "ts-morph": "^25.0.1",
+    "ts-morph": "^26.0.0",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.3.5",
