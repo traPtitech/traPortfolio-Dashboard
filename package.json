@@ -29,7 +29,7 @@
     "@iconify/vue": "^5.0.0",
     "@types/autosize": "^4.0.3",
     "@types/node": "^22.15.3",
-    "@vitejs/plugin-vue": "^5.2.3",
+    "@vitejs/plugin-vue": "^5.2.4",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
     "eslint": "^9.25.1",
