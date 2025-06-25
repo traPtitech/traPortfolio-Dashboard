@@ -12,15 +12,6 @@ export default defineConfig(() => ({
       '/@': srcPath
     }
   },
-  // server: {
-  //   proxy: {
-  //     '/api': {
-  //       target: 'http://localhost:5173',
-  //       rewrite: path => path.replace('/api/v1', '/'),
-  //       changeOrigin: true
-  //     }
-  //   }
-  // },
   css: {
     preprocessorOptions: {
       scss: {
