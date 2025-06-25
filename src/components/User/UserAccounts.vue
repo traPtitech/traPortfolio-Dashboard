@@ -35,7 +35,11 @@ const shownServices = computed((): Service[] =>
       v-for="service in shownServices"
       :key="service.name"
       :href="service.url ?? undefined"
-      :title="service.displayName ?? undefined"
+      :title="
+        service.name && service.displayName
+          ? `${service.name} : ${service.displayName}`
+          : undefined
+      "
       :class="$style.anchor"
       :data-has-account="service.url !== null"
     >
