@@ -2,19 +2,14 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import router from './router'
 import App from './App.vue'
+import { initMock } from './mocks/handler'
 import type { PluginOptions } from 'vue-toastification'
 import Toast, { POSITION } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
 import './index.scss'
 
-import { setupWorker } from 'msw/browser'
-
-if (import.meta.env.DEV) {
-  const { handlers } = await import('./mocks/handler')
-  const server = setupWorker(...handlers)
-  await server.start({ onUnhandledRequest: 'bypass' })
-}
+await initMock()
 
 const pinia = createPinia()
 const app = createApp(App)
