@@ -11,8 +11,7 @@
     "format:nofix": "prettier --cache --check \"src/**/*.{vue,ts}\"",
     "type-check": "vue-tsc --noEmit",
     "test": "vitest --passWithNoTests",
-    "gen-api": "node scripts/generateApi.js",
-    "start-mock": "prism mock -p 4010 -d https://raw.githubusercontent.com/traPtitech/traPortfolio/main/docs/swagger/traPortfolio.v1.yaml"
+    "gen-api": "node scripts/generateApi.js"
   },
   "dependencies": {
     "autosize": "^6.0.1",
@@ -33,7 +32,6 @@
     "@types/node": "^22.10.3",
     "@vitejs/plugin-vue": "^5.2.1",
     "autoprefixer": "^10.4.20",
-    "concurrently": "^9.1.2",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-vue": "^9.32.0",
