@@ -37,5 +37,36 @@ export const handlers = [
       link: '',
       teams: []
     })
+  }),
+
+  // apis.getUserContests
+  http.get<
+    { userId: string },
+    never,
+    Contest[],
+    '/api/v1/users/:userId/contests'
+  >('/api/v1/users/:userId/contests', ({ params }) => {
+    if (params.userId === 'true') {
+      return HttpResponse.json([
+        {
+          id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+          name: 'sampleUser',
+          duration: {
+            since: '2021-01-01T00:00:00Z',
+            until: '2021-01-01T00:00:00Z'
+          }
+        }
+      ])
+    }
+    return HttpResponse.json([
+      {
+        id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+        name: 'sampleUser',
+        duration: {
+          since: '2021-01-01T00:00:00Z',
+          until: '2021-01-01T00:00:00Z'
+        }
+      }
+    ])
   })
 ]

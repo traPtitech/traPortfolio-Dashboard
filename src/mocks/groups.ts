@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { Group, GroupDetail } from '/@/lib/apis'
+import { Group, GroupDetail, User } from '/@/lib/apis'
 
 export const handlers = [
   // apis.getProjects
@@ -24,6 +24,23 @@ export const handlers = [
         admin: [],
         members: []
       })
+    }
+  ),
+
+  // apis.getUserGroups
+  http.get<{ userId: string }, never, User[], '/api/v1/users/:userId/groups'>(
+    '/api/v1/users/:userId/groups',
+    ({ params }) => {
+      if (params.userId === 'true') {
+        return HttpResponse.json([
+          {
+            id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+            name: 'sampleUser',
+            realName: 'Sam Ple'
+          }
+        ])
+      }
+      return HttpResponse.json([{ id: '', name: 'Alice', realName: '' }])
     }
   )
 ]
