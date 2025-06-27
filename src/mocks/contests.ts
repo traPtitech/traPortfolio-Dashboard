@@ -79,7 +79,7 @@ export const handlers = [
 
   // apis.getContestTeam
   http.get<
-    { contestId: string, teamId: string },
+    { contestId: string; teamId: string },
     never,
     ContestTeamDetail,
     '/api/v1/contests/:contestId/teams/:teamId'

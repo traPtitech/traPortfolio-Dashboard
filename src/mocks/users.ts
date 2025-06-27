@@ -140,7 +140,7 @@ export const handlers = [
     never,
     User[],
     '/api/v1/users'
-    >('/api/v1/users', () => {
+  >('/api/v1/users', () => {
     return HttpResponse.json(sampleUsers)
   }),
 
