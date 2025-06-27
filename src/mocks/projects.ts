@@ -42,7 +42,7 @@ export const handlers = [
 
   // apis.getProject
   http.get<
-    { contestId: string },
+    { projectsId: string },
     never,
     ProjectDetail,
     '/api/v1/projects/:projectsId'
