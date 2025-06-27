@@ -121,11 +121,17 @@ const sampleSuspendedUser: UserDetail = {
   state: UserAccountState.suspended
 }
 
-export const sampleUsers: UserDetail[] = [
+const sampleUserDetails: UserDetail[] = [
   sampleActiveUser,
   sampleDeactivatedUser,
   sampleSuspendedUser
 ]
+
+export const sampleUsers: User[] = sampleUserDetails.map(user => ({
+  id: user.id,
+  name: user.name,
+  realName: user.realName
+}))
 
 export const handlers = [
   // apis.getUsers
@@ -134,48 +140,8 @@ export const handlers = [
     never,
     User[],
     '/api/v1/users'
-  >('/api/v1/users', ({ params }) => {
-    if (params.includeSuspended === 'true') {
-      return HttpResponse.json(
-        sampleUsers
-          .filter(user => user.state === UserAccountState.active)
-          .map(user => ({
-            id: user.id,
-            name: user.name,
-            realName: user.realName
-          }))
-      )
-    }
-
-    if (params.name) {
-      return HttpResponse.json(
-        sampleUsers
-          .filter(user => user.name === params.name)
-          .map(user => ({
-            id: user.id,
-            name: user.name,
-            realName: user.realName
-          }))
-      )
-    }
-
-    if (params.limit) {
-      return HttpResponse.json(
-        sampleUsers.slice(0, parseInt(params.limit)).map(user => ({
-          id: user.id,
-          name: user.name,
-          realName: user.realName
-        }))
-      )
-    }
-
-    return HttpResponse.json(
-      sampleUsers.map(user => ({
-        id: user.id,
-        name: user.name,
-        realName: user.realName
-      }))
-    )
+    >('/api/v1/users', () => {
+    return HttpResponse.json(sampleUsers)
   }),
 
   // apis.getUser
