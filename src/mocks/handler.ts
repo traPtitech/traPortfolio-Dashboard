@@ -11,9 +11,4 @@ const handlers = [
   ...projectHandlers
 ]
 
-export const initMock = async () => {
-  if (import.meta.env.DEV) {
-    const server = setupWorker(...handlers)
-    await server.start({ onUnhandledRequest: 'bypass' })
-  }
-}
+export const worker = setupWorker(...handlers)
