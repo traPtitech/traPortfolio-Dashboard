@@ -25,7 +25,8 @@ export const serviceTypeToNameMap = Object.freeze({
   [AccountType.atcoder]: 'AtCoder',
   [AccountType.soundcloud]: 'SoundCloud',
   [AccountType.hackthebox]: 'HackTheBox',
-  [AccountType.ctftime]: 'CTFtime'
+  [AccountType.ctftime]: 'CTFtime',
+  [AccountType.mixi2]: 'mixi2'
 }) satisfies Record<AccountType, string>
 
 type ServiceTypeToName = typeof serviceTypeToNameMap
@@ -83,6 +84,10 @@ export const services = deepFreeze({
   CTFtime: {
     icon: 'ctftime', //アイコンは保留
     type: AccountType.ctftime
+  },
+  mixi2: {
+    icon: '',//保留
+    type: AccountType.mixi2
   }
 }) satisfies ServiceRecord
 
@@ -107,7 +112,8 @@ export const hasAtmarkService = (type: AccountType) => {
     AccountType.facebook,
     AccountType.pixiv,
     AccountType.qiita,
-    AccountType.github
+    AccountType.github,
+    AccountType.mixi2
   ]
   return array.includes(type)
 }
