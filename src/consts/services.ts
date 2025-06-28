@@ -1,6 +1,7 @@
 import { deepFreeze } from '/@/lib/deepFreeze'
 import { AccountType } from '/@/lib/apis'
 import AtCoder from '/@/assets/AtCoder.png'
+import mixi2 from '/@/assets/mixi2.png'
 
 export interface Service<Type extends AccountType = AccountType> {
   icon: string
@@ -86,8 +87,9 @@ export const services = deepFreeze({
     type: AccountType.ctftime
   },
   mixi2: {
-    icon: '',//保留
-    type: AccountType.mixi2
+    icon: mixi2,
+    type: AccountType.mixi2,
+    notIcon: true
   }
 }) satisfies ServiceRecord
 
