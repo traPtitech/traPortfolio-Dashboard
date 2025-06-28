@@ -20,8 +20,8 @@ const me = (await apis.getMe()).data
         ]"
         :class="$style.header"
       />
-      <div :class = "$style.subHeaderContainer">
-        <p :class = "$style.detailText">アカウント情報を変更します。</p>
+      <div :class="$style.subHeaderContainer">
+        <p :class="$style.detailText">アカウント情報を変更します。</p>
         <link-button
           :to="{ name: 'UserAccountsNew' }"
           type="primary"
