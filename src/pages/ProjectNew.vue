@@ -92,10 +92,7 @@ const userWithDurations = computed<ProjectMemberType[]>(() =>
   users.map(user => ({
     ...user,
     duration: {
-      since: {
-        year: new Date().getFullYear(),
-        semester: 0
-      },
+      since: formValues.duration.since,
       until: undefined
     }
   }))
