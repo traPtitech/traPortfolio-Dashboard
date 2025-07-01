@@ -92,7 +92,7 @@ const userWithDurations = computed<ProjectMemberType[]>(() =>
   users.map(user => ({
     ...user,
     duration: {
-      since: formValues.duration.since,
+      since: { ...formValues.duration.since },
       until: undefined
     }
   }))
