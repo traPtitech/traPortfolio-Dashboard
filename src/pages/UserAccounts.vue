@@ -21,15 +21,15 @@ const me = (await apis.getMe()).data
       />
     </div>
     <div :class="$style.subHeaderContainer">
-        <p :class="$style.detailText">アカウント情報を変更します。</p>
-        <link-button
-          :to="{ name: 'UserAccountsNew' }"
-          type="primary"
-          icon="mdi:account"
-        >
-          New
-        </link-button>
-      </div>
+      <p :class="$style.detailText">アカウント情報を変更します。</p>
+      <link-button
+        :to="{ name: 'UserAccountsNew' }"
+        type="primary"
+        icon="mdi:account"
+      >
+        New
+      </link-button>
+    </div>
     <ul :class="$style.accountList">
       <li
         v-for="account in me.accounts"
@@ -38,7 +38,6 @@ const me = (await apis.getMe()).data
         <account-item :account="account" />
       </li>
     </ul>
-
     <link-button
       :to="{ name: 'Profile' }"
       :class="$style.backButton"
@@ -60,12 +59,10 @@ const me = (await apis.getMe()).data
   justify-content: space-between;
   align-items: center;
 }
-
 .detailText {
   font-size: 0.875rem;
   color: $color-secondary;
 }
-
 .accountList {
   list-style: none;
   padding: 0.5rem 0;
