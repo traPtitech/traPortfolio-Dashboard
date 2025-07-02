@@ -50,7 +50,6 @@ const props = defineProps<Props>()
   display: flex;
   align-items: center;
   color: $color-primary;
-  margin-bottom: 0.5rem;
   font-size: 1.5rem;
   flex-wrap: wrap;
 }

@@ -18,9 +18,9 @@ const me = (await apis.getMe()).data
           { title: 'Profile', path: { name: 'Profile' } },
           { title: 'Accounts', path: { name: 'UserAccounts' } }
         ]"
-        :class="$style.header"
       />
-      <div :class="$style.subHeaderContainer">
+    </div>
+    <div :class="$style.subHeaderContainer">
         <p :class="$style.detailText">アカウント情報を変更します。</p>
         <link-button
           :to="{ name: 'UserAccountsNew' }"
@@ -30,7 +30,6 @@ const me = (await apis.getMe()).data
           New
         </link-button>
       </div>
-    </div>
     <ul :class="$style.accountList">
       <li
         v-for="account in me.accounts"
@@ -67,9 +66,6 @@ const me = (await apis.getMe()).data
   color: $color-secondary;
 }
 
-.header {
-  margin-bottom: 2rem;
-}
 .accountList {
   list-style: none;
   padding: 0.5rem 0;
