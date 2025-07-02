@@ -42,11 +42,11 @@ export const handlers = [
 
   // apis.getProject
   http.get<
-    { projectsId: string },
+    { projectId: string },
     never,
     ProjectDetail,
-    '/api/v1/projects/:projectsId'
-  >('/api/v1/projects/:projectsId', () => {
+    '/api/v1/projects/:projectId'
+  >('/api/v1/projects/:projectId', () => {
     return HttpResponse.json(sampleProject)
   }),
 
