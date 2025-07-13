@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import { Project, ProjectDetail } from '../lib/apis'
 import { sampleUsers } from './users'
+import { User } from '/@/lib/apis'
 
 export const sampleProject: ProjectDetail = {
   id: 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
@@ -48,6 +49,16 @@ export const handlers = [
     '/api/v1/projects/:projectId'
   >('/api/v1/projects/:projectId', () => {
     return HttpResponse.json(sampleProject)
+  }),
+
+  // apis.getProjectMembers
+  http.get<
+    { projectId: string },
+    never,
+    User[],
+    '/api/v1/projects/:projectId/members'
+  >('/api/v1/projects/:projectId/members', () => {
+    return HttpResponse.json(sampleProject.members)
   }),
 
   // apis.getUserProjects

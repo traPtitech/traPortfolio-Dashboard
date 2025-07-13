@@ -77,6 +77,16 @@ export const handlers = [
     return HttpResponse.json(sampleContestDetail)
   }),
 
+  // apis.getContestTeams
+  http.get<
+    { contestId: string },
+    never,
+    ContestTeamDetail[],
+    '/api/v1/contests/:contestId/teams'
+  >('/api/v1/contests/:contestId/teams', () => {
+    return HttpResponse.json(sampleContestTeamDetails)
+  }),
+
   // apis.getContestTeam
   http.get<
     { contestId: string; teamId: string },
