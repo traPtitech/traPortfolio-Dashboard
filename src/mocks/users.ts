@@ -12,84 +12,72 @@ const sampleAccounts: Account[] = [
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.atcoder,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleUrl',
     type: AccountType.blog,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.ctftime,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.facebook,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.github,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.hackthebox,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleUrl',
     type: AccountType.homepage,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.pixiv,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.qiita,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.soundcloud,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.twitter,
-    prPermitted: true,
     url: 'https://sample.com'
   },
   {
     id: 'SampleId',
     displayName: 'SampleDisplayName',
     type: AccountType.zenn,
-    prPermitted: true,
     url: 'https://sample.com'
   }
 ]
