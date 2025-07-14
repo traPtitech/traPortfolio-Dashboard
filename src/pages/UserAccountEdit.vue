@@ -57,14 +57,18 @@ const canSubmit = computed(
     isValidUrl(formValues.value.url)
 )
 
-watch(formValues, () => {
-  if (hasUrlGenerator(formValues.value.type)) {
-    formValues.value.url = generateUrlFromId(
-      formValues.value.type,
-      displayName.value
-    )
-  }
-})
+watch(
+  formValues,
+  () => {
+    if (hasUrlGenerator(formValues.value.type)) {
+      formValues.value.url = generateUrlFromId(
+        formValues.value.type,
+        displayName.value
+      )
+    }
+  },
+  { deep: true, immediate: true }
+)
 
 const updateAccount = async () => {
   isSending.value = true
