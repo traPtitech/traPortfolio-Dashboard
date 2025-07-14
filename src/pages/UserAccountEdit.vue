@@ -5,13 +5,18 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import LinkButton from '/@/components/UI/LinkButton.vue'
 import apis, { EditUserAccountRequest } from '/@/lib/apis'
 import { useRouter } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import useParam from '/@/lib/param'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import DeleteForm from '/@/components/Form/DeleteForm.vue'
-import { hasIdService, hasAtmarkService } from '/@/consts/services'
+import {
+  hasIdService,
+  hasAtmarkService,
+  generateUrlFromId,
+  hasUrlGenerator
+} from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/lib/validate'
 import useModal from '/@/components/UI/composables/useModal'
 import ConfirmModal from '/@/components/UI/ConfirmModal.vue'
@@ -34,6 +39,12 @@ const registeredServices = computed(() =>
     .filter(accountType => accountType !== account.type)
 )
 
+const displayName = computed(() =>
+  [0, 1].includes(formValues.value.type)
+    ? me.name
+    : formValues.value.displayName
+)
+
 const formValues = ref<Required<EditUserAccountRequest>>(account)
 const isSending = ref(false)
 const isDeleting = ref(false)
@@ -46,6 +57,15 @@ const canSubmit = computed(
     isValidUrl(formValues.value.url)
 )
 
+watch(formValues, () => {
+  if (hasUrlGenerator(formValues.value.type)) {
+    formValues.value.url = generateUrlFromId(
+      formValues.value.type,
+      displayName.value
+    )
+  }
+})
+
 const updateAccount = async () => {
   isSending.value = true
   try {
@@ -53,9 +73,7 @@ const updateAccount = async () => {
     // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
     const _formValues = {
       ...formValues.value,
-      displayName: [0, 1].includes(formValues.value.type)
-        ? me.name
-        : formValues.value.displayName
+      displayName: displayName.value
     }
     await apis.editUserAccount(me.id, accountId.value, _formValues)
     toast.success('アカウント情報を更新しました')
@@ -128,6 +146,7 @@ const deleteAccount = async () => {
         <form-input
           v-model="formValues.url"
           placeholder="https://"
+          :disabled="hasUrlGenerator(formValues.type)"
           has-anchor
         />
       </labeled-form>
