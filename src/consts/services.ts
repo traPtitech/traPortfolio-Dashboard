@@ -5,6 +5,7 @@ import AtCoder from '/@/assets/AtCoder.png'
 export interface Service<Type extends AccountType = AccountType> {
   icon: string
   type: Type
+  toUrl?: (id: string) => string
   notIcon?: boolean
 }
 
@@ -45,44 +46,54 @@ export const services = deepFreeze({
   },
   X: {
     icon: 'ph:x-logo',
-    type: AccountType.twitter
+    type: AccountType.twitter,
+    toUrl: (id: string) => `https://x.com/${id}`
   },
   Facebook: {
     icon: 'mdi:facebook',
-    type: AccountType.facebook
+    type: AccountType.facebook,
+    toUrl: (id: string) => `https://www.facebook.com/${id}`
   },
   pixiv: {
     icon: 'simple-icons:pixiv',
-    type: AccountType.pixiv
+    type: AccountType.pixiv,
+    toUrl: (id: string) => `https://www.pixiv.net/users/${id}`
   },
   GitHub: {
     icon: 'mdi:github',
-    type: AccountType.github
+    type: AccountType.github,
+    toUrl: (id: string) => `https://github.com/${id}`
   },
   Qiita: {
     icon: 'simple-icons:qiita',
-    type: AccountType.qiita
+    type: AccountType.qiita,
+    toUrl: (id: string) => `https://qiita.com/${id}`
   },
   Zenn: {
     icon: 'simple-icons:zenn',
-    type: AccountType.zenn
+    type: AccountType.zenn,
+    toUrl: (id: string) => `https://zenn.dev/${id}`
   },
   AtCoder: {
     icon: AtCoder,
     type: AccountType.atcoder,
-    notIcon: true
+    notIcon: true,
+    toUrl: (id: string) => `https://atcoder.jp/users/${id}`
   },
   SoundCloud: {
     icon: 'mdi:soundcloud',
-    type: AccountType.soundcloud
+    type: AccountType.soundcloud,
+    toUrl: (id: string) => `https://soundcloud.com/${id}`
   },
   HackTheBox: {
     icon: 'simple-icons:hackthebox',
-    type: AccountType.hackthebox
+    type: AccountType.hackthebox,
+    toUrl: (id: string) => `https://www.hackthebox.com/profile/${id}`
   },
   CTFtime: {
     icon: 'ctftime', //アイコンは保留
-    type: AccountType.ctftime
+    type: AccountType.ctftime,
+    toUrl: (id: string) => `https://ctftime.org/user/${id}`
   }
 }) satisfies ServiceRecord
 
@@ -99,6 +110,18 @@ export const serviceNameToType = (name: ServiceName): AccountType => {
 export const hasIdService = (type: AccountType) => {
   const array: AccountType[] = [AccountType.homepage, AccountType.blog]
   return !array.includes(type)
+}
+
+export const hasUrlGenerator = (type: AccountType): boolean => {
+  return !!serviceArray.find(s => s.type === type)?.toUrl
+}
+
+export const generateUrlFromId = (type: AccountType, id: string): string => {
+  const service = serviceArray.find(s => s.type === type)
+  if (service?.toUrl) {
+    return service.toUrl(id)
+  }
+  return ''
 }
 
 export const hasAtmarkService = (type: AccountType) => {
