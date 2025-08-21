@@ -216,11 +216,6 @@ const handleDelete = (id: string) => {
 .labeledForm {
   margin-bottom: 2rem;
 }
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 .buttonContainer {
   display: flex;
   justify-content: space-between;

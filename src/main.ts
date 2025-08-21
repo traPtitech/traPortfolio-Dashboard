@@ -8,8 +8,17 @@ import 'vue-toastification/dist/index.css'
 
 import './index.scss'
 
-const pinia = createPinia()
-const app = createApp(App)
+const enableMocking = async () => {
+  if (!import.meta.env.DEV) {
+    return
+  }
+
+  const { worker } = await import('./mocks/handler')
+
+  // `worker.start()` returns a Promise that resolves
+  // once the Service Worker is up and ready to intercept requests.
+  return worker.start({ onUnhandledRequest: 'bypass' })
+}
 
 const options: PluginOptions = {
   position: POSITION.BOTTOM_LEFT,
@@ -24,7 +33,12 @@ const options: PluginOptions = {
   transition: 'Vue-Toastification__fade'
 }
 
-app.use(router)
-app.use(pinia)
-app.use(Toast, options)
-app.mount('#app')
+enableMocking().then(() => {
+  const pinia = createPinia()
+  const app = createApp(App)
+
+  app.use(router)
+  app.use(pinia)
+  app.use(Toast, options)
+  app.mount('#app')
+})
