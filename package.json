@@ -25,7 +25,7 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
+    "@eslint/js": "^9.36.0",
     "@iconify/vue": "^5.0.0",
     "@types/autosize": "^4.0.3",
     "@types/node": "^24.3.0",
