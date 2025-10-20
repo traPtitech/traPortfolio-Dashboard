@@ -8,7 +8,7 @@ import UserIcon from '/@/components/UI/UserIcon.vue'
 import { searchListCaseInsensitive } from '/@/lib/search'
 
 interface Props {
-  isDisabled: boolean
+  isDisabled?: boolean
   users: U[]
 }
 

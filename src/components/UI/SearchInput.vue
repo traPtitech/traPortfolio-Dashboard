@@ -4,8 +4,8 @@ import AIcon from '/@/components/UI/AIcon.vue'
 import { useRouter } from 'vue-router'
 
 interface Props {
-  size: 'large' | 'normal'
-  placeholder: string
+  size?: 'large' | 'normal'
+  placeholder?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
