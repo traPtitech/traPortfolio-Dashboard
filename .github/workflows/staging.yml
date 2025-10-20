@@ -14,8 +14,8 @@ jobs:
     name: Generate APIs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .node-version
           cache: npm
@@ -39,8 +39,8 @@ jobs:
           registry: ghcr.io
           username: traptitech
           password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
         with:
           name: apis
           path: ./src/lib/apis/generated
