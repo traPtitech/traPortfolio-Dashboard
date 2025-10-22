@@ -28,7 +28,7 @@ export const sampleProject: ProjectDetail = {
 
 export const handlers = [
   // apis.getProjects
-  http.get<never, never, Project[], '/api/v1/projects'>(
+  http.get<never, never, Project[]>(
     '/api/v1/projects',
     () => {
       return HttpResponse.json(
@@ -45,8 +45,7 @@ export const handlers = [
   http.get<
     { projectId: string },
     never,
-    ProjectDetail,
-    '/api/v1/projects/:projectId'
+    ProjectDetail
   >('/api/v1/projects/:projectId', () => {
     return HttpResponse.json(sampleProject)
   }),
@@ -55,8 +54,7 @@ export const handlers = [
   http.get<
     { projectId: string },
     never,
-    User[],
-    '/api/v1/projects/:projectId/members'
+    User[]
   >('/api/v1/projects/:projectId/members', () => {
     return HttpResponse.json(sampleProject.members)
   }),
@@ -65,8 +63,7 @@ export const handlers = [
   http.get<
     { userId: string },
     never,
-    Project[],
-    '/api/v1/users/:userId/projects'
+    Project[]
   >('/api/v1/users/:userId/projects', () => {
     return HttpResponse.json(Array(10).fill(sampleProject))
   })

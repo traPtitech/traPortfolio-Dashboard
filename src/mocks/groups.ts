@@ -29,12 +29,13 @@ const sampleGroup: Group = {
 
 export const handlers = [
   // apis.getProjects
-  http.get<never, never, Group[], '/api/v1/groups'>('/api/v1/groups', () => {
+  http.get<never, never, Group[]
+  >('/api/v1/groups', () => {
     return HttpResponse.json(Array(10).fill(sampleGroup))
   }),
 
   // apis.getProject
-  http.get<{ groupId: string }, never, GroupDetail, '/api/v1/groups/:groupId'>(
+  http.get<{ groupId: string }, never, GroupDetail>(
     '/api/v1/groups/:groupId',
     () => {
       return HttpResponse.json(sampleGroupDetail)
@@ -42,7 +43,8 @@ export const handlers = [
   ),
 
   // apis.getUserGroups
-  http.get<{ userId: string }, never, Group[], '/api/v1/users/:userId/groups'>(
+  http.get<{ userId: string }, never, Group[]
+  >(
     '/api/v1/users/:userId/groups',
     () => {
       return HttpResponse.json(Array(10).fill(sampleGroup))

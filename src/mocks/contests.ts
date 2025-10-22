@@ -51,7 +51,7 @@ const sampleContestDetail: ContestDetail = {
 
 export const handlers = [
   // apis.getContests
-  http.get<never, never, Contest[], '/api/v1/contests'>(
+  http.get<never, never, Contest[]>(
     '/api/v1/contests',
     () => {
       return HttpResponse.json(
@@ -71,8 +71,7 @@ export const handlers = [
   http.get<
     { contestId: string },
     never,
-    ContestDetail,
-    '/api/v1/contests/:contestId'
+    ContestDetail
   >('/api/v1/contests/:contestId', () => {
     return HttpResponse.json(sampleContestDetail)
   }),
@@ -81,8 +80,7 @@ export const handlers = [
   http.get<
     { contestId: string },
     never,
-    ContestTeamDetail[],
-    '/api/v1/contests/:contestId/teams'
+    ContestTeamDetail[]
   >('/api/v1/contests/:contestId/teams', () => {
     return HttpResponse.json(sampleContestTeamDetails)
   }),
@@ -91,8 +89,7 @@ export const handlers = [
   http.get<
     { contestId: string; teamId: string },
     never,
-    ContestTeamDetail,
-    '/api/v1/contests/:contestId/teams/:teamId'
+    ContestTeamDetail
   >('/api/v1/contests/:contestId/teams/:teamId', () => {
     return HttpResponse.json(sampleContestTeamDetails[0])
   }),
@@ -101,8 +98,7 @@ export const handlers = [
   http.get<
     { userId: string },
     never,
-    Contest[],
-    '/api/v1/users/:userId/contests'
+    Contest[]
   >('/api/v1/users/:userId/contests', () => {
     return HttpResponse.json(
       Array(20).fill({
