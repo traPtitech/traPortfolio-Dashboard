@@ -132,10 +132,7 @@ export const handlers = [
   }),
 
   // apis.getUser
-  http.get<never, never, UserDetail>(
-    '/api/v1/users/:userId',
-    () => {
-      return HttpResponse.json(sampleActiveUser)
-    }
-  )
+  http.get<never, never, UserDetail>('/api/v1/users/:userId', () => {
+    return HttpResponse.json(sampleActiveUser)
+  })
 ]

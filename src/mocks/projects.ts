@@ -28,43 +28,37 @@ export const sampleProject: ProjectDetail = {
 
 export const handlers = [
   // apis.getProjects
-  http.get<never, never, Project[]>(
-    '/api/v1/projects',
+  http.get<never, never, Project[]>('/api/v1/projects', () => {
+    return HttpResponse.json(
+      Array(10).fill({
+        id: sampleProject.id,
+        name: sampleProject.name,
+        duration: sampleProject.duration
+      })
+    )
+  }),
+
+  // apis.getProject
+  http.get<{ projectId: string }, never, ProjectDetail>(
+    '/api/v1/projects/:projectId',
     () => {
-      return HttpResponse.json(
-        Array(10).fill({
-          id: sampleProject.id,
-          name: sampleProject.name,
-          duration: sampleProject.duration
-        })
-      )
+      return HttpResponse.json(sampleProject)
     }
   ),
 
-  // apis.getProject
-  http.get<
-    { projectId: string },
-    never,
-    ProjectDetail
-  >('/api/v1/projects/:projectId', () => {
-    return HttpResponse.json(sampleProject)
-  }),
-
   // apis.getProjectMembers
-  http.get<
-    { projectId: string },
-    never,
-    User[]
-  >('/api/v1/projects/:projectId/members', () => {
-    return HttpResponse.json(sampleProject.members)
-  }),
+  http.get<{ projectId: string }, never, User[]>(
+    '/api/v1/projects/:projectId/members',
+    () => {
+      return HttpResponse.json(sampleProject.members)
+    }
+  ),
 
   // apis.getUserProjects
-  http.get<
-    { userId: string },
-    never,
-    Project[]
-  >('/api/v1/users/:userId/projects', () => {
-    return HttpResponse.json(Array(10).fill(sampleProject))
-  })
+  http.get<{ userId: string }, never, Project[]>(
+    '/api/v1/users/:userId/projects',
+    () => {
+      return HttpResponse.json(Array(10).fill(sampleProject))
+    }
+  )
 ]

@@ -51,8 +51,46 @@ const sampleContestDetail: ContestDetail = {
 
 export const handlers = [
   // apis.getContests
-  http.get<never, never, Contest[]>(
-    '/api/v1/contests',
+  http.get<never, never, Contest[]>('/api/v1/contests', () => {
+    return HttpResponse.json(
+      Array(20).fill({
+        id: sampleContestDetail.id,
+        name: sampleContestDetail.name,
+        duration: {
+          since: sampleContestDetail.duration.since,
+          until: sampleContestDetail.duration.until
+        }
+      })
+    )
+  }),
+
+  // apis.getContest
+  http.get<{ contestId: string }, never, ContestDetail>(
+    '/api/v1/contests/:contestId',
+    () => {
+      return HttpResponse.json(sampleContestDetail)
+    }
+  ),
+
+  // apis.getContestTeams
+  http.get<{ contestId: string }, never, ContestTeamDetail[]>(
+    '/api/v1/contests/:contestId/teams',
+    () => {
+      return HttpResponse.json(sampleContestTeamDetails)
+    }
+  ),
+
+  // apis.getContestTeam
+  http.get<{ contestId: string; teamId: string }, never, ContestTeamDetail>(
+    '/api/v1/contests/:contestId/teams/:teamId',
+    () => {
+      return HttpResponse.json(sampleContestTeamDetails[0])
+    }
+  ),
+
+  // apis.getUserContests
+  http.get<{ userId: string }, never, Contest[]>(
+    '/api/v1/users/:userId/contests',
     () => {
       return HttpResponse.json(
         Array(20).fill({
@@ -65,50 +103,5 @@ export const handlers = [
         })
       )
     }
-  ),
-
-  // apis.getContest
-  http.get<
-    { contestId: string },
-    never,
-    ContestDetail
-  >('/api/v1/contests/:contestId', () => {
-    return HttpResponse.json(sampleContestDetail)
-  }),
-
-  // apis.getContestTeams
-  http.get<
-    { contestId: string },
-    never,
-    ContestTeamDetail[]
-  >('/api/v1/contests/:contestId/teams', () => {
-    return HttpResponse.json(sampleContestTeamDetails)
-  }),
-
-  // apis.getContestTeam
-  http.get<
-    { contestId: string; teamId: string },
-    never,
-    ContestTeamDetail
-  >('/api/v1/contests/:contestId/teams/:teamId', () => {
-    return HttpResponse.json(sampleContestTeamDetails[0])
-  }),
-
-  // apis.getUserContests
-  http.get<
-    { userId: string },
-    never,
-    Contest[]
-  >('/api/v1/users/:userId/contests', () => {
-    return HttpResponse.json(
-      Array(20).fill({
-        id: sampleContestDetail.id,
-        name: sampleContestDetail.name,
-        duration: {
-          since: sampleContestDetail.duration.since,
-          until: sampleContestDetail.duration.until
-        }
-      })
-    )
-  })
+  )
 ]
