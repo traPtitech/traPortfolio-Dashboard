@@ -9,8 +9,9 @@ export interface Service<Type extends AccountType = AccountType> {
   notIcon?: boolean
 }
 
-export interface ServiceWithName<Type extends AccountType = AccountType>
-  extends Service<Type> {
+export interface ServiceWithName<
+  Type extends AccountType = AccountType
+> extends Service<Type> {
   name: ServiceName
 }
 
