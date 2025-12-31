@@ -15,7 +15,6 @@ export default defineConfig(() => ({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'modern-compiler' as 'modern-compiler',
         additionalData: `
         @use "${srcPath}/styles/color" as *;
         @use "${srcPath}/styles/z-index" as *;
