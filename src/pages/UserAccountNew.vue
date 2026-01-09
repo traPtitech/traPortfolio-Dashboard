@@ -5,13 +5,15 @@ import BaseButton from '/@/components/UI/BaseButton.vue'
 import LinkButton from '/@/components/UI/LinkButton.vue'
 import apis, { AddAccountRequest } from '/@/lib/apis'
 import { useRouter } from 'vue-router'
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import LabeledForm from '/@/components/Form/LabeledForm.vue'
 import FormInput from '/@/components/UI/FormInput.vue'
 import ServiceAccordion from '/@/components/UI/ServiceAccordion.vue'
 import {
+  generateUrlFromId,
   hasAtmarkService,
   hasIdService,
+  hasUrlGenerator,
   serviceArray
 } from '/@/consts/services'
 import { isValidLength, isValidUrl } from '/@/lib/validate'
@@ -25,6 +27,10 @@ const registeredServices = computed(() =>
   me.accounts.map(account => account.type)
 )
 
+const displayName = computed(() =>
+  [0, 1].includes(formValues.type) ? me.name : formValues.displayName
+)
+
 const formValues = reactive<AddAccountRequest>({
   type:
     serviceArray
@@ -32,6 +38,12 @@ const formValues = reactive<AddAccountRequest>({
       .map(s => s.type)[0] ?? 0,
   displayName: '',
   url: ''
+})
+
+watch(formValues, () => {
+  if (hasUrlGenerator(formValues.type)) {
+    formValues.url = generateUrlFromId(formValues.type, displayName.value)
+  }
 })
 
 const isSending = ref(false)
@@ -51,9 +63,7 @@ const createNewAccount = async () => {
     // 暫定的にHomePageとBlogのときはdisplayNameにユーザー名を入れておく
     const _formValues = {
       ...formValues,
-      displayName: [0, 1].includes(formValues.type)
-        ? me.name
-        : formValues.displayName
+      displayName: displayName.value
     }
     await apis.addUserAccount(me.id, _formValues)
     toast.success('アカウント情報を登録しました')
@@ -114,6 +124,7 @@ const createNewAccount = async () => {
         <form-input
           v-model="formValues.url"
           placeholder="https://"
+          :disabled="hasUrlGenerator(formValues.type)"
           has-anchor
         />
       </labeled-form>
