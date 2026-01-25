@@ -92,10 +92,7 @@ const userWithDurations = computed<ProjectMemberType[]>(() =>
   users.map(user => ({
     ...user,
     duration: {
-      since: {
-        year: new Date().getFullYear(),
-        semester: 0
-      },
+      since: { ...formValues.duration.since },
       until: undefined
     }
   }))
@@ -218,11 +215,6 @@ const handleDelete = (id: string) => {
 }
 .labeledForm {
   margin-bottom: 2rem;
-}
-.prPermittedForm {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 .buttonContainer {
   display: flex;

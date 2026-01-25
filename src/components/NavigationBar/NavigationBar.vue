@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { defineModel } from 'vue'
 import NavigationLinks from './NavigationLinks.vue'
 import { useResponsiveStore } from '/@/store/responsive'
 import NavigationBarFooter from './NavigationBarFooter.vue'

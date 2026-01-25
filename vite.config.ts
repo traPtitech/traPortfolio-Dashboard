@@ -12,19 +12,9 @@ export default defineConfig(() => ({
       '/@': srcPath
     }
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:4010',
-        rewrite: path => path.replace('/api/v1', '/'),
-        changeOrigin: true
-      }
-    }
-  },
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'modern-compiler',
         additionalData: `
         @use "${srcPath}/styles/color" as *;
         @use "${srcPath}/styles/z-index" as *;
