@@ -39,7 +39,7 @@
     "eslint-plugin-vue": "^10.6.2",
     "msw": "^2.11.6",
     "node-fetch": "^3.3.2",
-    "prettier": "^3.7.3",
+    "prettier": "^3.8.1",
     "sass": "^1.97.3",
     "ts-morph": "^27.0.2",
     "typescript": "^5.9.3",
