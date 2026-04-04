@@ -18,9 +18,10 @@ const me = (await apis.getMe()).data
           { title: 'Profile', path: { name: 'Profile' } },
           { title: 'Accounts', path: { name: 'UserAccounts' } }
         ]"
-        detail="アカウント情報を変更します。"
-        :class="$style.header"
       />
+    </div>
+    <div :class="$style.subHeaderContainer">
+      <p :class="$style.detailText">アカウント情報を変更します。</p>
       <link-button
         :to="{ name: 'UserAccountsNew' }"
         type="primary"
@@ -37,7 +38,6 @@ const me = (await apis.getMe()).data
         <account-item :account="account" />
       </li>
     </ul>
-
     <link-button
       :to="{ name: 'Profile' }"
       :class="$style.backButton"
@@ -52,11 +52,16 @@ const me = (await apis.getMe()).data
 <style lang="scss" module>
 .headerContainer {
   display: flex;
+  align-items: center;
+}
+.subHeaderContainer {
+  display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.header {
-  margin-bottom: 2rem;
+.detailText {
+  font-size: 0.875rem;
+  color: $color-secondary;
 }
 .accountList {
   list-style: none;
