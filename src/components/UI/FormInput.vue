@@ -8,13 +8,15 @@ interface Props {
   limit?: number
   icon?: 'magnify' | 'at'
   hasAnchor?: boolean
+  disabled?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   placeholder: '',
   limit: undefined,
   icon: undefined,
-  hasAnchor: false
+  hasAnchor: false,
+  disabled: false
 })
 
 const model = defineModel<string>({ required: true })
@@ -46,6 +48,7 @@ const handleInput = (event: Event) => {
       :class="$style.input"
       :placeholder="props.placeholder"
       :value="model"
+      :disabled="props.disabled"
       @input="handleInput"
     />
     <div
