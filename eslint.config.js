@@ -53,6 +53,9 @@ const vueLint = {
 }
 
 export default tsESLint.config(
+  {
+    ignores: ['**/mockServiceWorker.js']
+  },
   eslint.configs.recommended,
   ...tsESLint.configs.recommended,
   ...eslintPluginVue.configs['flat/recommended'],
