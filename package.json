@@ -27,7 +27,7 @@
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
+    "@eslint/js": "^10.0.1",
     "@iconify/vue": "^5.0.0",
     "@types/autosize": "^4.0.3",
     "@types/node": "^24.10.1",
@@ -37,6 +37,7 @@
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^10.8.0",
+    "globals": "^17.5.0",
     "msw": "^2.12.14",
     "node-fetch": "^3.3.2",
     "prettier": "^3.8.1",
