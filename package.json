@@ -32,7 +32,7 @@
     "@types/autosize": "^4.0.3",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.6",
-    "autoprefixer": "^10.4.27",
+    "autoprefixer": "^10.5.0",
     "concurrently": "^9.2.1",
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
