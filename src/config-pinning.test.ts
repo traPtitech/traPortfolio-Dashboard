@@ -13,7 +13,9 @@ function readFile(rel: string): string {
 /** Extract all `uses:` action references from a workflow YAML string. */
 function extractActionUses(yaml: string): string[] {
   const matches = yaml.matchAll(/uses:\s+(\S+)/g)
-  return [...matches].map(m => m[1])
+  return Array.from(matches, m => m[1]).filter(
+    (ref): ref is string => Boolean(ref)
+  )
 }
 
 /** Return true when an action reference is pinned to a full 40-char SHA. */
@@ -57,10 +59,11 @@ describe('package.json', () => {
   })
 
   test('node engine minimum version does not use a caret range', () => {
-    const nodeEngine = pkg.engines?.node ?? ''
+    const nodeEngine = pkg.engines?.node
     expect(nodeEngine).toBeTruthy()
     // The minimum version part (before "||") must not start with ^
-    const minPart = nodeEngine.split('||')[0].trim()
+    const [minPartRaw = ''] = (nodeEngine ?? '').split('||')
+    const minPart = minPartRaw.trim()
     expect(
       isExactVersion(minPart),
       `node engine "${nodeEngine}" has caret range on minimum version`
@@ -94,7 +97,9 @@ describe('Dockerfile', () => {
   /** Extract all base image references from FROM instructions. */
   function extractFromImages(content: string): string[] {
     const matches = content.matchAll(/^FROM\s+(?:--\S+\s+)?(\S+)/gim)
-    return [...matches].map(m => m[1])
+    return Array.from(matches, m => m[1]).filter(
+      (image): image is string => Boolean(image)
+    )
   }
 
   function hasShaSuffix(image: string): boolean {
@@ -105,6 +110,9 @@ describe('Dockerfile', () => {
     const images = extractFromImages(dockerfile)
     expect(images.length).toBeGreaterThanOrEqual(1)
     const buildImage = images[0]
+    if (!buildImage) {
+      throw new Error('Build stage image is missing')
+    }
     expect(
       hasShaSuffix(buildImage),
       `Build stage image "${buildImage}" is not SHA-pinned`
@@ -115,6 +123,9 @@ describe('Dockerfile', () => {
     const images = extractFromImages(dockerfile)
     expect(images.length).toBeGreaterThanOrEqual(2)
     const prodImage = images[1]
+    if (!prodImage) {
+      throw new Error('Production stage image is missing')
+    }
     expect(
       hasShaSuffix(prodImage),
       `Production stage image "${prodImage}" is not SHA-pinned`
