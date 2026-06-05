@@ -13,8 +13,8 @@ function readFile(rel: string): string {
 /** Extract all `uses:` action references from a workflow YAML string. */
 function extractActionUses(yaml: string): string[] {
   const matches = yaml.matchAll(/uses:\s+(\S+)/g)
-  return Array.from(matches, m => m[1]).filter(
-    (ref): ref is string => Boolean(ref)
+  return Array.from(matches, m => m[1]).filter((ref): ref is string =>
+    Boolean(ref)
   )
 }
 
@@ -75,17 +75,28 @@ describe('package.json', () => {
   })
 
   // Regression: ensure none of the known previously-caret packages sneaked back
-  test('key runtime dependencies are pinned to their expected exact versions', () => {
-    expect(pkg.dependencies?.vue).toBe('3.5.33')
-    expect(pkg.dependencies?.axios).toBe('1.13.6')
-    expect(pkg.dependencies?.pinia).toBe('3.0.4')
-    expect(pkg.dependencies?.['vue-router']).toBe('5.0.6')
+  test('key runtime dependencies are present and pinned', () => {
+    const keys = ['vue', 'axios', 'pinia', 'vue-router']
+    for (const name of keys) {
+      const version = pkg.dependencies?.[name]
+      expect(version, `dependency "${name}" is missing`).toBeTruthy()
+      expect(
+        isExactVersion(version ?? ''),
+        `dependency "${name}" has range specifier: "${version}"`
+      ).toBe(true)
+    }
   })
 
-  test('key devDependencies are pinned to their expected exact versions', () => {
-    expect(pkg.devDependencies?.typescript).toBe('6.0.3')
-    expect(pkg.devDependencies?.vitest).toBe('4.1.5')
-    expect(pkg.devDependencies?.vite).toBe('8.0.10')
+  test('key devDependencies are present and pinned', () => {
+    const keys = ['typescript', 'vitest', 'vite']
+    for (const name of keys) {
+      const version = pkg.devDependencies?.[name]
+      expect(version, `devDependency "${name}" is missing`).toBeTruthy()
+      expect(
+        isExactVersion(version ?? ''),
+        `devDependency "${name}" has range specifier: "${version}"`
+      ).toBe(true)
+    }
   })
 })
 
@@ -97,8 +108,8 @@ describe('Dockerfile', () => {
   /** Extract all base image references from FROM instructions. */
   function extractFromImages(content: string): string[] {
     const matches = content.matchAll(/^FROM\s+(?:--\S+\s+)?(\S+)/gim)
-    return Array.from(matches, m => m[1]).filter(
-      (image): image is string => Boolean(image)
+    return Array.from(matches, m => m[1]).filter((image): image is string =>
+      Boolean(image)
     )
   }
 
