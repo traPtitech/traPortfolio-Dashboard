@@ -21,7 +21,7 @@
     "axios": "^1.13.6",
     "pinia": "^3.0.4",
     "ress": "^5.0.2",
-    "vue": "^3.5.35",
+    "vue": "^3.5.39",
     "vue-router": "^5.0.6",
     "vue-select": "^4.0.0-beta.6",
     "vue-toastification": "^2.0.0-rc.5"
@@ -32,7 +32,7 @@
     "@types/autosize": "^4.0.3",
     "@types/node": "^24.10.1",
     "@vitejs/plugin-vue": "^6.0.7",
-    "autoprefixer": "^10.5.0",
+    "autoprefixer": "^10.5.2",
     "concurrently": "^9.2.1",
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
@@ -46,7 +46,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.1",
     "vite": "^8.0.16",
-    "vitest": "^4.1.8",
+    "vitest": "^4.1.9",
     "vue-tsc": "3.2.7"
   },
   "private": true,
