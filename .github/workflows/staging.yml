@@ -55,6 +55,7 @@ jobs:
           tags: ghcr.io/traptitech/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
   deploy-staging:
     name: Deploy staging
+    permissions: {}
     runs-on: ubuntu-latest
     needs:
       - image
