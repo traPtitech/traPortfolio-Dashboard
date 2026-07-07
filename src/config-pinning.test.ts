@@ -237,7 +237,7 @@ describe('GitHub Actions workflows use SHA-pinned actions', () => {
     const yaml = readFile('.github/workflows/main.yml')
     test('actions/checkout is pinned to the expected SHA', () => {
       expect(yaml).toContain(
-        'actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd'
+        'actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0'
       )
     })
     test('actions/setup-node is pinned to the expected SHA', () => {
