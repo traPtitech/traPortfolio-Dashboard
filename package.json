@@ -38,7 +38,7 @@
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-vue": "10.9.2",
     "globals": "17.7.0",
-    "msw": "2.12.14",
+    "msw": "2.15.0",
     "node-fetch": "3.3.2",
     "prettier": "3.8.3",
     "sass": "1.101.0",
