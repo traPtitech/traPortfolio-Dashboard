@@ -36,7 +36,7 @@
     "concurrently": "9.2.3",
     "eslint": "10.2.1",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-vue": "10.8.0",
+    "eslint-plugin-vue": "10.9.2",
     "globals": "17.5.0",
     "msw": "2.12.14",
     "node-fetch": "3.3.2",
