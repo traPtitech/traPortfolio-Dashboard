@@ -10,7 +10,6 @@ type HeaderText = {
 interface Props {
   iconName: string
   headerTexts: Array<HeaderText>
-  detail: string
 }
 const props = defineProps<Props>()
 </script>
@@ -43,9 +42,6 @@ const props = defineProps<Props>()
         <span v-else>{{ headerText.title }}</span>
       </template>
     </h1>
-    <p :class="$style.detail">
-      {{ props.detail }}
-    </p>
   </div>
 </template>
 
@@ -54,7 +50,6 @@ const props = defineProps<Props>()
   display: flex;
   align-items: center;
   color: $color-primary;
-  margin-bottom: 0.5rem;
   font-size: 1.5rem;
   flex-wrap: wrap;
 }
@@ -75,10 +70,5 @@ const props = defineProps<Props>()
 
 .chevron {
   display: flex;
-}
-
-.detail {
-  color: $color-secondary;
-  font-size: 0.875rem;
 }
 </style>
