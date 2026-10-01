@@ -44,7 +44,7 @@
     "sass": "1.104.1",
     "ts-morph": "28.0.0",
     "typescript": "6.0.3",
-    "typescript-eslint": "8.68.0",
+    "typescript-eslint": "8.70.1",
     "vite": "8.1.5",
     "vitest": "4.1.11",
     "vue-tsc": "3.3.11"
